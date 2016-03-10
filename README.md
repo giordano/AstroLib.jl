@@ -15,7 +15,7 @@ standard data types are often used (e.g., `DateTime` type instead of generic
 string for dates) and the syntax may slightly differ.  Refer to the
 documentation of the functions for details.
 
-**Note:** this project needs help, volounteers are welcome!
+**Note:** this project needs help, volunteers are welcome!
 
 Usage
 -----
@@ -27,12 +27,16 @@ them, like optional arguments and keywords, read their documentation.
 
 <table>
 	<tr>
-		<td>`daycnv(julian_days)`</td>
-		<td>Returns the `DateTime` corresponding to the provided `julian_days` number.</td>
+		<td>daycnv(julian_days)</td>
+		<td>Returns the DateTime corresponding to the provided julian_days number.</td>
 	</tr>
 	<tr>
-		<td>`get_date(date)`</td>
-		<td>Returns the UTC date in `"CCYY-MM-DD"` format for FITS headers.</td>
+		<td>get_date(date)</td>
+		<td>Returns the UTC date in "CCYY-MM-DD" format for FITS headers.</td>
+	</tr>
+	<tr>
+		<td>juldate(date)</td>
+		<td>Returns the Reduced Julian Date of provided date.</td>
 	</tr>
 </table>
 

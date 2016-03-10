@@ -9,7 +9,7 @@ corresponding `DateTime`.
 const daycnv=Dates.julian2datetime
 
 """
-    get_date(date::DateTime) -> ASCIIString
+    get_date([date::DateTime]) -> ASCIIString
 
 Returns the UTC date in `"CCYY-MM-DD"` format for FITS headers.
 
@@ -22,14 +22,14 @@ represents a 4-digit calendar year, <MM> the 2-digit ordinal number of a
 calendar month within the calendar year, and <DD> the 2-digit ordinal number of
 a day within the calendar month.
 
-    get_date(date::DateTime; old=true) -> ASCIIString
+    get_date([date::DateTime;] old=true) -> ASCIIString
 
 If the boolean keyword `old` is true (default: false), the year-month-day part
 of date has `"DD/MM/YY"` format.  This is the formerly (pre-1997) recommended
 for FITS.  Note that this format is now deprecated because it uses only a
 2-digit representation of the year.
 
-    get_date(date::DateTime; timetag=true) -> ASCIIString
+    get_date([date::DateTime;] timetag=true) -> ASCIIString
 
 If the boolean keyword `timetag` is true (default: false), `"Thh:mm:ss"` is
 appended to the year-month-day part of the date, where <hh> represents the hour
@@ -61,3 +61,13 @@ function get_date(dt::DateTime=Dates.unix2datetime(Libc.time());
         return ymds
     end
 end
+
+"""
+    juldate(date::DateTime) -> Float64
+
+Takes the given `DateTime` and returns the Reduced Julian date (= days since the
+julian epoch `-4713-11-24T12:00:00` - 2400000) as a `Float64`.
+
+This functions simply calls `Dates.datetime2julian(date) - 2400000`.
+"""
+juldate(dt::DateTime) = Dates.datetime2julian(dt) - 2.4e6
