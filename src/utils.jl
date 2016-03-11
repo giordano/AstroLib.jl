@@ -1,6 +1,6 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
-using Dates
+using Base.Dates
 
 """
     daycnv(julian_days) -> DateTime
