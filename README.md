@@ -6,11 +6,14 @@ Goal
 ----
 
 The aim of this project is to provide users with a set of small generic routines
-useful above all in astronomical and astrophysical context.
+useful above all in astronomical and astrophysical context, written in
+[Julia](http://julialang.org/).
 
-Included are also translations into Julia language of some
+Included are also translations of some
 [IDL Astronomy User's Library](http://idlastro.gsfc.nasa.gov/homepage.html)
-procedures.  These are not drop-in replacement of those procedures, Julia
+procedures, which are released under terms of
+[BSD-2-Clause License](http://idlastro.gsfc.nasa.gov/idlfaq.html#A14).
+AstroLib.jl's functions are not drop-in replacement of those procedures, Julia
 standard data types are often used (e.g., `DateTime` type instead of generic
 string for dates) and the syntax may slightly differ.  Refer to the
 documentation of the functions for details.
@@ -53,4 +56,5 @@ In addition, there is a similar project for Python:
 License
 -------
 
-The AstroLib.jl package is licensed under the MIT "Expat" License.
+The AstroLib.jl package is licensed under the MIT "Expat" License.  The original
+author is Mosè Giordano.

@@ -14,10 +14,10 @@ Done
 * `get_date`
 * `juldate`
 
-Deprecated or Obsolote
+Deprecated or Obsolete
 ----------------------
 
-* `get_juldate`.  Declared obsolete in AstroLib. Equivalent to
+* `get_juldate`.  Declared obsolete in IDL AstroLib. Equivalent to
 `Dates.datetime2julian(Dates.now())` in Julia.
 
 Already Present in Julia
