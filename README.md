@@ -1,6 +1,9 @@
 # AstroLib
 
-[![Build Status](https://travis-ci.org/giordano/AstroLib.jl.svg?branch=master)](https://travis-ci.org/giordano/AstroLib.jl)
+[![Travis Build Status](https://travis-ci.org/giordano/AstroLib.jl.svg?branch=master)](https://travis-ci.org/giordano/AstroLib.jl)
+
+[![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/jfa9e54lv92rqd3m?svg=true)](https://ci.appveyor.com/project/giordano/astrolib-jl)
+
 
 Goal
 ----
@@ -29,6 +32,10 @@ Here is a summary of exported functions.  For more information about each of
 them, like optional arguments and keywords, read their documentation.
 
 <table>
+	<tr>
+		<td>airtovac(wave_air)</td>
+		<td>Convert air wavelengths to vacuum wavelengths.</td>
+	</tr>
 	<tr>
 		<td>daycnv(julian_days)</td>
 		<td>Returns the DateTime corresponding to the provided julian_days number.</td>

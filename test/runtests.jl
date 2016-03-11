@@ -3,6 +3,10 @@
 using AstroLib
 using Base.Test
 
+# Test airtovac
+@test AstroLib.airtovac([1234 2100 6056.125]) ==
+    [1234.0 2100.666421596007 6057.801930991426]
+
 # Test daycnv with Gregorian Calendar in force.
 @test AstroLib.daycnv(2440000.0) == DateTime(1968, 05, 23, 12)
 
@@ -12,7 +16,8 @@ using Base.Test
 @test AstroLib.daycnv(0.0) == DateTime(-4713, 11, 24, 12)
 
 # Test get_date with mixed keywords.
-@test AstroLib.get_date(DateTime(2001,09,25,14,56,14), old=true,timetag=true) == "25/09/2001:T14:56:14"
+@test AstroLib.get_date(DateTime(2001,09,25,14,56,14), old=true,timetag=true) ==
+    "25/09/2001:T14:56:14"
 
 # Test juldate with Gregorian Calendar in force.  This also makes sure precision
 # of the result is high enough.  Note that "juldate(dt::DateTime) =

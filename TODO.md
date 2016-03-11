@@ -10,6 +10,7 @@ Done
 
 ### `utils.jl` ###
 
+* `airtovac`
 * `daycnv`
 * `get_date`
 * `juldate`
@@ -32,7 +33,6 @@ Missing
 * `add_distort`
 * `adstring`
 * `adxy`
-* `airtovac`
 * `aitoff_grid`
 * `aitoff`
 * `al_legend`
