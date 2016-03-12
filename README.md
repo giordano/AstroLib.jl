@@ -56,6 +56,10 @@ them, like optional arguments and keywords, read their documentation.
 		<td>juldate(date)</td>
 		<td>Returns the Reduced Julian Date of provided date.</td>
 	</tr>
+	<tr>
+		<td>ten(hours, minutes, seconds)</td>
+		<td>Convert sexigesimal number to decimal.</td>
+	</tr>
 </table>
 
 Related Projects

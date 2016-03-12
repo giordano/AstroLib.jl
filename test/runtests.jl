@@ -49,3 +49,9 @@ using Base.Test
 # Calendar.
 @test (dt=DateTime(2016, 1, 1, 20);
        AstroLib.daycnv(AstroLib.juldate(dt) + 2.4e6) == dt)
+
+# Test "ten".  Always make sure string and numerical inputs are consistent (IDL
+# implementation of "ten" is not).
+@test AstroLib.ten(0, -23, 34) == AstroLib.ten("0   -23 :: 34") == -0.37388888888888894
+@test AstroLib.ten(-0.0, 60) == AstroLib.ten("-0.0 60") == -1.0
+@test AstroLib.ten(-5, -60, -3600) == AstroLib.ten("-5:-60: -3600") == -3.0

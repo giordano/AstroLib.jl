@@ -234,3 +234,57 @@ function juldate(dt::DateTime)
     end
     return jd
 end
+
+"""
+    ten(degrees, minutes, seconds [; sign = -1]) -> Float64
+    ten("deg:min:sec") -> Float64
+
+Converts a sexagesimal number or string to decimal.
+
+**NOTE:** This function cannot deal with `-0` (negative integer zero) degrees.
+If you want an angle between -1.0 and 0.0, you can either make sure to pass a
+floating point negative zero `-0.0` (this is the best option), or use negative
+minutes and seconds, or non-integer negative degrees, or, as a last resort, set
+the optional keyword `sign` to `-1`.
+"""
+# TODO: give sense to "-0" as degree ("-0" is bitwise equal to "0.0"), without
+# using "sign" keyword.
+function ten(degrees::Number, minutes::Number=0.0, seconds::Number=0.0;
+             sign::Int=0)
+    # If sign isn't already set to either 1 or -1, determine it.  Note: these
+    # nested ifs can be reduced to a couple of ternary operators, but this is
+    # easier to read and manage.
+    if sign != -1 && sign != 1
+        if degrees == 0.0
+            # The only difference between floating point positive and negative
+            # zero is their binary representation.  Use the first bit to deduce
+            # the sign.
+            if bits(degrees)[1] == '1'
+                sign = -1
+            else
+                sign = 1
+            end
+        elseif degrees > 0.0
+            # If degrees is not zero, determine the sign based on its
+            # positivity.
+            sign =  1
+        else
+            sign = -1
+        end
+    end
+    return sign*(abs(degrees) + minutes/60.0 + seconds/3600.0)
+end
+# TODO: improve performance, if possible.  There are a couple of slow tests to
+# make parsing of the string work.
+function ten(string::AbstractString)
+    # Replace in the string multiple spaces or colons with a single space and
+    # split the string using the space as separator.
+    tmp1 = split(replace(string, r"(\:| )+", s" "), " ")
+    # Check if there is a minus sign in front of degrees.
+    ismatch(r" *-", tmp1[1]) ? (sign = -1) : (sign = 0)
+    # Convert strings into numbers, empty strings into 0s.
+    tmp2 = map(x-> x=="" ? 0 : parse(Float64, x), tmp1)
+    # Concatenate "tmp2" with 3 zeros, so that "angle" has at least 3 elements.
+    angle = vcat(tmp2, zeros(3))
+    ten(angle[1], angle[2], angle[3], sign=sign)
+end
