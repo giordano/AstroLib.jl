@@ -30,13 +30,15 @@ end
 airtovac{T<:Number}(wave_air::AbstractArray{T}) = map(airtovac, wave_air)
 
 """
-    aitoff(l, b) -> (Float64, Float64)
+    aitoff(l, b) -> (AbstractArray{Float64, N}, AbstractArray{Float64, N})
 
 Takes longitude `l` and latitude `b`, both in degrees, and returns the
 corresponding Aitoff coordinates `(x, y)`.  `x` is normalized to be in [-180,
 180], `y` is normalized to be in [-90, 90].
 
-Both coordinates may be either a scalar or an array, of the same dimension.
+Both coordinates may be either a scalar or an array, of the same dimension N,
+the output coordinates are always arrays of the same dimension as the input
+coordinates (N = 1 when `l` and `b` are scalars).
 
 This function can be used to create an all-sky map in Galactic coordinates with
 an equal-area Aitoff projection.  Output map coordinates are zero longitude
@@ -47,17 +49,27 @@ See AIPS memo No. 46
 details of the algorithm.  This version of `aitoff` assumes the projection is
 centered at b=0 degrees.
 """
-function aitoff(l::Number, b::Number)
-    l > 180.0 && (l -= 360.0)
+# TODO: improve performance, if possible.  Explanation: this function was at
+# first defined with scalar only arguments, and then another method added the
+# possibility to take vector arguments.  The problem of that approach was that
+# the returned argument was an array of tuples, rather than a tuple of arrays.
+# However, the current definition (which returns a tuple of arrays, closer to
+# original IDL definition), is less efficient then the previous one.
+function aitoff{T<:Number}(l::Union{T,AbstractArray{T}},
+                           b::Union{T,AbstractArray{T}})
+    typeof(l) <: Number && (l = ones(1)*l) # Convert l to a 1D array.
+    g = find(x -> x>180.0, l)
+    length(g) > 0 && (l[g] = l[g] - 360.0)
     alpha2 = deg2rad(l/2.0)
     delta = deg2rad(b)
     r2 = sqrt(2.0)
     f = 2.0*r2/pi
     cdec = cos(delta)
-    denom = sqrt(1.0 + cdec*cos(alpha2))
-    return rad2deg(cdec*sin(alpha2)*2.0*r2/denom/f), rad2deg(sin(delta)*r2/denom/f)
+    denom = sqrt(1.0 .+ cdec.*cos(alpha2))
+    x = rad2deg(cdec.*sin(alpha2)*2.*r2./denom/f)
+    y = rad2deg(sin(delta)*r2./denom/f)
+    return x, y
 end
-aitoff{T<:Number}(l::AbstractArray{T}, b::AbstractArray{T}) = map(aitoff, l, b)
 
 """
     daycnv(julian_days) -> DateTime
