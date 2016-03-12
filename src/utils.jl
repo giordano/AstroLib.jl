@@ -5,7 +5,7 @@ using Base.Dates
 """
     airtovac(wave_air) -> Float64
 
-Convert air wavelengths to vacuum wavelengths.
+Converts air wavelengths to vacuum wavelengths.
 
 `wave_air` can be either a scalar or an array of numbers.  Wavelengths are
 corrected for the index of refraction of air under standard conditions.
@@ -28,6 +28,36 @@ function airtovac(wave_air::Number)
     return wave_vac
 end
 airtovac{T<:Number}(wave_air::AbstractArray{T}) = map(airtovac, wave_air)
+
+"""
+    aitoff(l, b) -> (Float64, Float64)
+
+Takes longitude `l` and latitude `b`, both in degrees, and returns the
+corresponding Aitoff coordinates `(x, y)`.  `x` is normalized to be in [-180,
+180], `y` is normalized to be in [-90, 90].
+
+Both coordinates may be either a scalar or an array, of the same dimension.
+
+This function can be used to create an all-sky map in Galactic coordinates with
+an equal-area Aitoff projection.  Output map coordinates are zero longitude
+centered.
+
+See AIPS memo No. 46
+(ftp://ftp.aoc.nrao.edu/pub/software/aips/TEXT/PUBL/AIPSMEMO46.PS), page 4, for
+details of the algorithm.  This version of `aitoff` assumes the projection is
+centered at b=0 degrees.
+"""
+function aitoff(l::Number, b::Number)
+    l > 180.0 && (l -= 360.0)
+    alpha2 = deg2rad(l/2.0)
+    delta = deg2rad(b)
+    r2 = sqrt(2.0)
+    f = 2.0*r2/pi
+    cdec = cos(delta)
+    denom = sqrt(1.0 + cdec*cos(alpha2))
+    return rad2deg(cdec*sin(alpha2)*2.0*r2/denom/f), rad2deg(sin(delta)*r2/denom/f)
+end
+aitoff{T<:Number}(l::AbstractArray{T}, b::AbstractArray{T}) = map(aitoff, l, b)
 
 """
     daycnv(julian_days) -> DateTime

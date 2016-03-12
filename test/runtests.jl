@@ -7,6 +7,10 @@ using Base.Test
 @test AstroLib.airtovac([1234 2100 6056.125]) ==
     [1234.0 2100.666421596007 6057.801930991426]
 
+# Test aitoff
+@test AstroLib.aitoff([227.23 130], [-8.890 -35]) ==
+    [(-137.92196683723276,-11.772527357473054)  (115.17541338020645,-44.491889962090085)]
+
 # Test daycnv with Gregorian Calendar in force.
 @test AstroLib.daycnv(2440000.0) == DateTime(1968, 05, 23, 12)
 

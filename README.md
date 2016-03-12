@@ -37,6 +37,10 @@ them, like optional arguments and keywords, read their documentation.
 		<td>Convert air wavelengths to vacuum wavelengths.</td>
 	</tr>
 	<tr>
+		<td>aitoff(l, b)</td>
+		<td>Convert longitude,latitude to X,Y using Aitoff equal-area projection.</td>
+	</tr>
+	<tr>
 		<td>daycnv(julian_days)</td>
 		<td>Returns the DateTime corresponding to the provided julian_days number.</td>
 	</tr>
@@ -57,8 +61,10 @@ This is not the only effort to bundle astronomical functions written in Julia
 language.  Other packages useful for more specific purposes are available at
 https://juliaastro.github.io/.
 
-In addition, there is a similar project for Python:
-[Python AstroLib](http://www.hs.uni-hamburg.de/DE/Ins/Per/Czesla/PyA/PyA/pyaslDoc/pyasl.html).
+In addition, there are similar projects for Python
+([Python AstroLib](http://www.hs.uni-hamburg.de/DE/Ins/Per/Czesla/PyA/PyA/pyaslDoc/pyasl.html))
+and R
+([Astronomy Users Library](http://rpackages.ianhowson.com/cran/astrolibR/)).
 
 License
 -------

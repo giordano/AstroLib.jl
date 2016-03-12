@@ -11,6 +11,7 @@ Done
 ### `utils.jl` ###
 
 * `airtovac`
+* `aitoff`
 * `daycnv`
 * `get_date`
 * `juldate`
@@ -34,7 +35,6 @@ Missing
 * `adstring`
 * `adxy`
 * `aitoff_grid`
-* `aitoff`
 * `al_legend`
 * `al_legendtest`
 * `altaz2hadec`
