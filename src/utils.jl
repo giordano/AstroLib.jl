@@ -49,12 +49,13 @@ See AIPS memo No. 46
 details of the algorithm.  This version of `aitoff` assumes the projection is
 centered at b=0 degrees.
 """
-# TODO: improve performance, if possible.  Explanation: this function was at
-# first defined with scalar only arguments, and then another method added the
-# possibility to take vector arguments.  The problem of that approach was that
-# the returned argument was an array of tuples, rather than a tuple of arrays.
-# However, the current definition (which returns a tuple of arrays, closer to
-# original IDL definition), is less efficient then the previous one.
+# TODO: improve performance, if possible, and check arguments have the same
+# dimensions.  Explanation: this function was at first defined with scalar only
+# arguments, and then another method added the possibility to take vector
+# arguments.  The problem of that approach was that the returned argument was an
+# array of tuples, rather than a tuple of arrays.  However, the current
+# definition (which returns a tuple of arrays, closer to original IDL
+# definition), is less efficient then the previous one.
 function aitoff{T<:Number}(l::Union{T,AbstractArray{T}},
                            b::Union{T,AbstractArray{T}})
     typeof(l) <: Number && (l = ones(1)*l) # Convert l to a 1D array.
@@ -69,6 +70,60 @@ function aitoff{T<:Number}(l::Union{T,AbstractArray{T}},
     x = rad2deg(cdec.*sin(alpha2)*2.*r2./denom/f)
     y = rad2deg(sin(delta)*r2./denom/f)
     return x, y
+end
+
+"""
+    altaz2hadec(alt, az, lat) -> (AbstractArray{Float64, N}, AbstractArray{Float64, N})
+
+Convert Horizon (Alt-Az) coordinates to Hour Angle and Declination.
+
+Input coordinates may be either a scalar or an array, of the same dimension N,
+the output coordinates are always arrays of the same dimension as the input
+coordinates (N = 1 when scalars).
+
+INPUTS
+  alt - the local apparent altitude, in DEGREES, scalar or vector
+  az  - the local apparent azimuth, in DEGREES, scalar or vector,
+        measured EAST of NORTH!!!  If you have measured azimuth west-of-south
+        (like the book MEEUS does), convert it to east of north via:
+                      az = (az + 180) % 360
+
+  lat -  the local geodetic latitude, in DEGREES, scalar or vector.
+
+OUTPUTS
+  ha  -  the local apparent hour angle, in DEGREES.  The hour angle is the
+         time that right ascension of 0 hours crosses the local meridian.
+         It is unambiguously defined.
+  dec -  the local apparent declination, in DEGREES.
+"""
+# TODO: improve performance and check arguments have the same dimensions, see
+# comments for aitoff.
+function altaz2hadec{T<:Number}(alt::Union{T,AbstractArray{T}},
+                                az::Union{T,AbstractArray{T}},
+                                lat::Union{T,AbstractArray{T}})
+    # Convert scalar coordinates to 1D arrays.  We check only one argument, all
+    # the others should have the same dimension (but this isn't enforced).
+    if typeof(alt) <: Number
+        alt = ones(1)*alt
+        az = ones(1)*az
+        lat = ones(1)*lat
+    end
+    # Convert to radians.
+    alt_r = deg2rad(alt)
+    az_r = deg2rad(az)
+    lat_r = deg2rad(lat)
+    # Find local hour angle (in degrees, from 0. to 360.).
+    ha = rad2deg(atan2(-sin(az_r).*cos(alt_r),
+                       -cos(az_r).*sin(lat_r).*cos(alt_r) .+
+                       sin(alt_r).*cos(lat_r)))
+    g = find(x -> x<0.0, ha)
+    length(g) > 0 && (ha[g] = ha[g] + 360.0)
+    ha = ha.%360.0
+    # Find declination (positive if north of Celestial Equator, negative if
+    # south)
+    sindec = sin(lat_r).*sin(alt_r) .+ cos(lat_r).*cos(alt_r).*cos(az_r)
+    dec = rad2deg(asin(sindec))  # convert dec to degrees
+    return ha, dec
 end
 
 """

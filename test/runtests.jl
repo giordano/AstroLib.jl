@@ -11,6 +11,10 @@ using Base.Test
 @test AstroLib.aitoff([227.23, 130], [-8.890, -35]) ==
     ([-137.92196683723276, 115.17541338020645], [-11.772527357473054, -44.491889962090085])
 
+# Test altaz2hadec
+@test AstroLib.altaz2hadec(59.086111, 133.30806, 43.07833) ==
+    ([336.68286017949157], [19.182449588316555])
+
 # Test daycnv with Gregorian Calendar in force.
 @test AstroLib.daycnv(2440000.0) == DateTime(1968, 05, 23, 12)
 

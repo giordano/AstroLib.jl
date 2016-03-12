@@ -12,6 +12,7 @@ Done
 
 * `airtovac`
 * `aitoff`
+* `altaz2hadec`
 * `daycnv`
 * `get_date`
 * `juldate`
@@ -37,7 +38,6 @@ Missing
 * `aitoff_grid`
 * `al_legend`
 * `al_legendtest`
-* `altaz2hadec`
 * `aper`
 * `arcbar`
 * `arrows`

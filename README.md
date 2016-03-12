@@ -41,6 +41,10 @@ them, like optional arguments and keywords, read their documentation.
 		<td>Convert longitude,latitude to X,Y using Aitoff equal-area projection.</td>
 	</tr>
 	<tr>
+		<td>altaz2hadec(alt, az, lat)</td>
+		<td>Convert Horizon (Alt-Az) coordinates to Hour Angle and Declination.</td>
+	</tr>
+	<tr>
 		<td>daycnv(julian_days)</td>
 		<td>Returns the DateTime corresponding to the provided julian_days number.</td>
 	</tr>
