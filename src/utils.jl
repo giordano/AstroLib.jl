@@ -187,6 +187,14 @@ function get_date(dt::DateTime=Dates.unix2datetime(Libc.time());
 end
 
 """
+    get_juldate() --> Float64
+
+Return for current time the number of Julian calendar days since epoch
+`-4713-11-24T12:00:00` as a `Float64`.
+"""
+get_juldate() = jdcnv(Dates.now())
+
+"""
     jdcnv(date::DateTime) -> Float64
 
 Takes the given Gregorian `DateTime` and returns the number of Julian calendar

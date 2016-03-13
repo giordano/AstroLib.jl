@@ -71,6 +71,10 @@ each of them, like optional arguments and keywords, read their documentation.
 		<td>Returns the UTC date in "CCYY-MM-DD" format for FITS headers.</td>
 	</tr>
 	<tr>
+		<td>get_juldate(date)</td>
+		<td>Get the current Julian date as a double precision scalar.</td>
+	</tr>
+	<tr>
 		<td>jdcnv(date)</td>
 		<td>Convert from Gregorian calendar date to Julian date.</td>
 	</tr>

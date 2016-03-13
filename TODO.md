@@ -15,17 +15,15 @@ Done
 * `altaz2hadec`
 * `daycnv`
 * `get_date`
+* `get_juldate`
 * `jdcnv`
 * `juldate`
 * `sixty`
 * `ten`
 * `tenv`
 
-Deprecated or Obsolete
-----------------------
-
-* `get_juldate`.  Declared obsolete in IDL AstroLib. Equivalent to
-`Dates.datetime2julian(Dates.now())` in Julia.
+<!-- Deprecated or Obsolete -->
+<!-- ---------------------- -->
 
 Already Present in Julia
 ------------------------
