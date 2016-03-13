@@ -231,6 +231,28 @@ function juldate(dt::DateTime)
     return jd
 end
 
+# TODO: give sense to "-0" ("-0" is bitwise equal to "0").
+ten(degrees::Number, minutes::Number=0.0, seconds::Number=0.0) =
+    copysign(1, degrees)*(abs(degrees) + minutes/60.0 + seconds/3600.0)
+# TODO: improve performance, if possible.  There are a couple of slow tests to
+# make parsing of the string work.
+function ten(strng::AbstractString)
+    # Convert strings into numbers, empty strings into 0s.
+    tmp = map(x-> x=="" ? 0 : parse(Float64, x),
+              # Replace in the string multiple spaces or colons with a single
+              # space and split the string using the space as separator.
+              split(replace(strng, r"(\:| )+", s" "), " "))
+    # Concatenate "tmp" with 3 zeros, so that "angle" has at least 3 elements.
+    angle = vcat(tmp, zeros(3))
+    ten(angle[1], angle[2], angle[3])
+end
+ten{D<:Number,M<:Number,S<:Number}(deg::AbstractArray{D},
+                                   min::AbstractArray{M}=zeros(deg),
+                                   sec::AbstractArray{S}=zeros(deg)) =
+                                       map(ten, deg, min, sec)
+ten{T<:AbstractString}(strings::AbstractArray{T}) = map(ten, strings)
+const tenv = ten
+
 """
     ten(deg, min, sec) -> Float64
     ten("deg:min:sec") -> Float64
@@ -253,24 +275,4 @@ input.  If it is important to give sense to negative zero, you can either make
 sure to pass a floating point negative zero `-0.0` (this is the best option), or
 use negative minutes and seconds, or non-integer negative degrees and minutes.
 """
-# TODO: give sense to "-0" ("-0" is bitwise equal to "0").
-ten(degrees::Number, minutes::Number=0.0, seconds::Number=0.0) =
-    copysign(1, degrees)*(abs(degrees) + minutes/60.0 + seconds/3600.0)
-# TODO: improve performance, if possible.  There are a couple of slow tests to
-# make parsing of the string work.
-function ten(strng::AbstractString)
-    # Convert strings into numbers, empty strings into 0s.
-    tmp = map(x-> x=="" ? 0 : parse(Float64, x),
-              # Replace in the string multiple spaces or colons with a single
-              # space and split the string using the space as separator.
-              split(replace(strng, r"(\:| )+", s" "), " "))
-    # Concatenate "tmp" with 3 zeros, so that "angle" has at least 3 elements.
-    angle = vcat(tmp, zeros(3))
-    ten(angle[1], angle[2], angle[3])
-end
-ten{D<:Number,M<:Number,S<:Number}(deg::AbstractArray{D},
-                                   min::AbstractArray{M}=zeros(deg),
-                                   sec::AbstractArray{S}=zeros(deg)) =
-                                       map(ten, deg, min, sec)
-ten{T<:AbstractString}(strings::AbstractArray{T}) = map(ten, strings)
-const tenv = ten
+ten, tenv
