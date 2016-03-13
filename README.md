@@ -75,8 +75,16 @@ each of them, like optional arguments and keywords, read their documentation.
 		<td>Returns the Reduced Julian Date of provided date.</td>
 	</tr>
 	<tr>
+		<td>sixty(number)</td>
+		<td>Converts a decimal number to sexagesimal.</td>
+	</tr>
+	<tr>
 		<td>ten(hours, minutes, seconds)</td>
-		<td>Convert sexigesimal number to decimal.  tenv is an alias.</td>
+		<td>Convert sexigesimal number to decimal.</td>
+	</tr>
+	<tr>
+		<td>tenv([hours], [minutes], [seconds])</td>
+		<td>Convert arrays of sexigesimal numbers to decimal.</td>
 	</tr>
 </table>
 

@@ -16,6 +16,7 @@ Done
 * `daycnv`
 * `get_date`
 * `juldate`
+* `sixty`
 * `ten`
 * `tenv`
 
@@ -410,7 +411,6 @@ Missing
 * `sigrange`
 * `sip_eval`
 * `sixlin`
-* `sixty`
 * `skyadj_cube`
 * `sky`
 * `solve_astro`

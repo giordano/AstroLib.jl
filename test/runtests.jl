@@ -38,18 +38,18 @@ using Base.Test
 # of the result is high enough.  Note that "juldate(dt::DateTime) =
 # Dates.datetime2julian(dt)-2.4e6" would not be precise.
 @test (rjd=57388.5 + 1.0/3.0;
-       abs(AstroLib.juldate(DateTime(2016, 1, 1, 8)) - rjd) < eps(rjd))
+       abs(AstroLib.juldate(DateTime(2016, 1, 1, 8)) - rjd) <= eps(rjd))
 
 # Test juldate with Julian Calendar in force, for different centuries.  This
 # also makes sure precision of the result is high enough.
 @test (rjd=-100843.0 + 1.0/3.0;
-       abs(AstroLib.juldate(DateTime(1582, 10, 1, 20)) - rjd) < eps(rjd))
+       abs(AstroLib.juldate(DateTime(1582, 10, 1, 20)) - rjd) <= eps(rjd))
 @test (rjd=-313692.0 + 1.0/3.0;
-       abs(AstroLib.juldate(DateTime(1000, 1, 1, 20)) - rjd) < eps(rjd))
+       abs(AstroLib.juldate(DateTime(1000, 1, 1, 20)) - rjd) <= eps(rjd))
 @test (rjd=-642119.0 + 1.0/3.0;
-       abs(AstroLib.juldate(DateTime(100, 10, 25, 20)) - rjd) < eps(rjd))
+       abs(AstroLib.juldate(DateTime(100, 10, 25, 20)) - rjd) <= eps(rjd))
 @test (rjd=-2.4e6;
-       abs(AstroLib.juldate(DateTime(-4713, 1, 1, 12)) - rjd) < eps(rjd))
+       abs(AstroLib.juldate(DateTime(-4713, 1, 1, 12)) - rjd) <= eps(rjd))
 
 # Test daycnv and juldate together, with Gregorian Calendar in force.  Note that
 # they are not expected to be one the inverse of the other during Julian
@@ -57,11 +57,17 @@ using Base.Test
 @test (dt=DateTime(2016, 1, 1, 20);
        AstroLib.daycnv(AstroLib.juldate(dt) + 2.4e6) == dt)
 
-# Test "ten".  Always make sure string and numerical inputs are consistent (IDL
-# implementation of "ten" is not).
+# Test "sixty".  Test also it's the reverse of ten.
+@test AstroLib.sixty(-51.36) == [-51.0, 21.0, 36.0]
+@test (result=-0.10934835545824395;
+       abs(AstroLib.ten(AstroLib.sixty(result)) - result) <= eps(result))
+
+# Test "ten" and "tenv".  Always make sure string and numerical inputs are
+# consistent (IDL implementation of "ten" is not).
 @test AstroLib.ten(0, -23, 34) == AstroLib.ten("0   -23 :: 34") == -0.37388888888888894
 @test AstroLib.ten(-0.0, 60) == AstroLib.ten("-0.0 60") == -1.0
-@test AstroLib.ten(-5, -60, -3600) == AstroLib.ten("-5:-60: -3600") == -3.0
-@test AstroLib.ten([0, -0.0, -5], [-23, 60, -60], [34, 0, -3600]) ==
-    AstroLib.ten(["0   -23 :: 34", "-0.0 60", "-5:-60: -3600"]) ==
+@test AstroLib.ten([-5, -60, -3600]) == AstroLib.ten("-5:-60: -3600") == -3.0
+@test AstroLib.ten("") == 0.0
+@test AstroLib.tenv([0, -0.0, -5], [-23, 60, -60], [34, 0, -3600]) ==
+    AstroLib.tenv(["0   -23 :: 34", "-0.0 60", "-5:-60: -3600"]) ==
     [-0.37388888888888894, -1.0, -3.0]
