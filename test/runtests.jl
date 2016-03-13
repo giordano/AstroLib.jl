@@ -62,3 +62,6 @@ using Base.Test
 @test AstroLib.ten(0, -23, 34) == AstroLib.ten("0   -23 :: 34") == -0.37388888888888894
 @test AstroLib.ten(-0.0, 60) == AstroLib.ten("-0.0 60") == -1.0
 @test AstroLib.ten(-5, -60, -3600) == AstroLib.ten("-5:-60: -3600") == -3.0
+@test AstroLib.ten([0, -0.0, -5], [-23, 60, -60], [34, 0, -3600]) ==
+    AstroLib.ten(["0   -23 :: 34", "-0.0 60", "-5:-60: -3600"]) ==
+    [-0.37388888888888894, -1.0, -3.0]

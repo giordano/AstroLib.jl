@@ -4,6 +4,6 @@ module AstroLib
 
 include("utils.jl")
 
-export airtovac, aitoff, daycnv, get_date, juldate, ten
+export airtovac, aitoff, altaz2hadec, daycnv, get_date, juldate, ten, tenv
 
 end # module

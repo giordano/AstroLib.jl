@@ -17,6 +17,7 @@ Done
 * `get_date`
 * `juldate`
 * `ten`
+* `tenv`
 
 Deprecated or Obsolete
 ----------------------
@@ -452,7 +453,6 @@ Missing
 * `tbprint`
 * `tbsize`
 * `tdb2tdt`
-* `tenv`
 * `textclose`
 * `textopen`
 * `t_find`

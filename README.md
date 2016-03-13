@@ -1,7 +1,6 @@
 # AstroLib
 
 [![Travis Build Status](https://travis-ci.org/giordano/AstroLib.jl.svg?branch=master)](https://travis-ci.org/giordano/AstroLib.jl)
-
 [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/jfa9e54lv92rqd3m?svg=true)](https://ci.appveyor.com/project/giordano/astrolib-jl)
 
 
@@ -21,15 +20,34 @@ standard data types are often used (e.g., `DateTime` type instead of generic
 string for dates) and the syntax may slightly differ.  Refer to the
 documentation of the functions for details.
 
-**Note:** this project needs help, volunteers are welcome!
+**Note:** this project is a work-in-progress, only few procedures have been
+translated so far.  In addition, function syntax may change from time to time.
+Check [TODO.md](https://github.com/giordano/AstroLib.jl/blob/master/TODO.md) out
+to see how you can help.  Volunteers are welcome!
+
+Install
+------------
+
+`AstroLib.jl` is available for Julia 0.4 and later versions, and can be
+installed with
+[Julia built-in package manager](http://docs.julialang.org/en/stable/manual/packages/).
+In a Julia session run the command
+
+```julia
+julia> Pkg.add("AstroLib")
+```
 
 Usage
 -----
 
-After installing the package, you can start using it with `using AstroLib`.
+After installing the package, you can start using it with
 
-Here is a summary of exported functions.  For more information about each of
-them, like optional arguments and keywords, read their documentation.
+```julia
+using AstroLib
+```
+
+Here is a summary of functions exposed to the users.  For more information about
+each of them, like optional arguments and keywords, read their documentation.
 
 <table>
 	<tr>
@@ -58,7 +76,7 @@ them, like optional arguments and keywords, read their documentation.
 	</tr>
 	<tr>
 		<td>ten(hours, minutes, seconds)</td>
-		<td>Convert sexigesimal number to decimal.</td>
+		<td>Convert sexigesimal number to decimal.  tenv is an alias.</td>
 	</tr>
 </table>
 
