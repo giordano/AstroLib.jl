@@ -27,18 +27,18 @@ function airtovac(wave_air::Number)
     end
     return wave_vac
 end
-airtovac{T<:Number}(wave_air::AbstractArray{T}) = map(airtovac, wave_air)
+@vectorize_1arg Number airtovac
 
 """
-    aitoff(l, b) -> (AbstractArray{Float64, N}, AbstractArray{Float64, N})
+    aitoff(l, b) -> (Float64, Float64)
 
 Takes longitude `l` and latitude `b`, both in degrees, and returns the
 corresponding Aitoff coordinates `(x, y)`.  `x` is normalized to be in [-180,
 180], `y` is normalized to be in [-90, 90].
 
 Both coordinates may be either a scalar or an array, of the same dimension N,
-the output coordinates are always arrays of the same dimension as the input
-coordinates (N = 1 when `l` and `b` are scalars).
+the output coordinates are always Float64 and have the same type (scalar or
+array) as the input coordinates.
 
 This function can be used to create an all-sky map in Galactic coordinates with
 an equal-area Aitoff projection.  Output map coordinates are zero longitude
@@ -49,37 +49,34 @@ See AIPS memo No. 46
 details of the algorithm.  This version of `aitoff` assumes the projection is
 centered at b=0 degrees.
 """
-# TODO: improve performance, if possible, and check arguments have the same
-# dimensions.  Explanation: this function was at first defined with scalar only
-# arguments, and then another method added the possibility to take vector
-# arguments.  The problem of that approach was that the returned argument was an
-# array of tuples, rather than a tuple of arrays.  However, the current
-# definition (which returns a tuple of arrays, closer to original IDL
-# definition), is less efficient then the previous one.
-function aitoff{T<:Number}(l::Union{T,AbstractArray{T}},
-                           b::Union{T,AbstractArray{T}})
-    typeof(l) <: Number && (l = ones(1)*l) # Convert l to a 1D array.
-    g = find(x -> x>180.0, l)
-    length(g) > 0 && (l[g] = l[g] - 360.0)
+function aitoff(l::Number, b::Number)
+    l > 180.0 && (l -= 360.0)
     alpha2 = deg2rad(l/2.0)
     delta = deg2rad(b)
     r2 = sqrt(2.0)
     f = 2.0*r2/pi
     cdec = cos(delta)
-    denom = sqrt(1.0 .+ cdec.*cos(alpha2))
-    x = rad2deg(cdec.*sin(alpha2)*2.*r2./denom/f)
-    y = rad2deg(sin(delta)*r2./denom/f)
+    denom = sqrt(1.0 + cdec*cos(alpha2))
+    return rad2deg(cdec*sin(alpha2)*2.0*r2/denom/f), rad2deg(sin(delta)*r2/denom/f)
+end
+function aitoff{L<:Number,B<:Number}(l::AbstractArray{L}, b::AbstractArray{B})
+    @assert length(l) == length(b)
+    x = similar(l, Float64)
+    y = similar(b, Float64)
+    for i in eachindex(l)
+        x[i], y[i] = aitoff(l[i], b[i])
+    end
     return x, y
 end
 
 """
-    altaz2hadec(alt, az, lat) -> (AbstractArray{Float64, N}, AbstractArray{Float64, N})
+    altaz2hadec(alt, az, lat) -> (Float64, Float64)
 
 Convert Horizon (Alt-Az) coordinates to Hour Angle and Declination.
 
 Input coordinates may be either a scalar or an array, of the same dimension N,
-the output coordinates are always arrays of the same dimension as the input
-coordinates (N = 1 when scalars).
+the output coordinates are always Float64 and have the same type (scalar or
+array) as the input coordinates.
 
 INPUTS
   alt - the local apparent altitude, in DEGREES, scalar or vector
@@ -96,33 +93,32 @@ OUTPUTS
          It is unambiguously defined.
   dec -  the local apparent declination, in DEGREES.
 """
-# TODO: improve performance and check arguments have the same dimensions, see
-# comments for aitoff.
-function altaz2hadec{T<:Number}(alt::Union{T,AbstractArray{T}},
-                                az::Union{T,AbstractArray{T}},
-                                lat::Union{T,AbstractArray{T}})
-    # Convert scalar coordinates to 1D arrays.  We check only one argument, all
-    # the others should have the same dimension (but this isn't enforced).
-    if typeof(alt) <: Number
-        alt = ones(1)*alt
-        az = ones(1)*az
-        lat = ones(1)*lat
-    end
+function altaz2hadec(alt::Number, az::Number, lat::Number)
     # Convert to radians.
     alt_r = deg2rad(alt)
     az_r = deg2rad(az)
     lat_r = deg2rad(lat)
     # Find local hour angle (in degrees, from 0. to 360.).
-    ha = rad2deg(atan2(-sin(az_r).*cos(alt_r),
-                       -cos(az_r).*sin(lat_r).*cos(alt_r) .+
-                       sin(alt_r).*cos(lat_r)))
-    g = find(x -> x<0.0, ha)
-    length(g) > 0 && (ha[g] = ha[g] + 360.0)
+    ha = rad2deg(atan2(-sin(az_r)*cos(alt_r),
+                       -cos(az_r)*sin(lat_r)*cos(alt_r) +
+                       sin(alt_r)*cos(lat_r)))
+    ha < 0.0 && (ha += 360.0)
     ha = ha.%360.0
     # Find declination (positive if north of Celestial Equator, negative if
     # south)
-    sindec = sin(lat_r).*sin(alt_r) .+ cos(lat_r).*cos(alt_r).*cos(az_r)
+    sindec = sin(lat_r)*sin(alt_r) + cos(lat_r)*cos(alt_r)*cos(az_r)
     dec = rad2deg(asin(sindec))  # convert dec to degrees
+    return ha, dec
+end
+function altaz2hadec{N1<:Number, N2<:Number, N3<:Number}(alt::AbstractArray{N1},
+                                                         az::AbstractArray{N2},
+                                                         lat::AbstractArray{N3})
+    @assert length(alt) == length(az) == length(lat)
+    ha  = similar(alt, Float64)
+    dec = similar(alt, Float64)
+    for i in eachindex(alt)
+        ha[i], dec[i] = altaz2hadec(alt[i], az[i], lat[i])
+    end
     return ha, dec
 end
 
