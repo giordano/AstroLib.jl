@@ -15,6 +15,7 @@ Done
 * `altaz2hadec`
 * `daycnv`
 * `get_date`
+* `jdcnv`
 * `juldate`
 * `sixty`
 * `ten`
@@ -279,7 +280,6 @@ Missing
 * `isarray`
 * `is_ieee_big`
 * `ismeuv`
-* `jdcnv`
 * `jplephinterp`
 * `jplephread`
 * `jplephtest`

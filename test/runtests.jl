@@ -34,6 +34,11 @@ using Base.Test
 @test AstroLib.get_date(DateTime(2001,09,25,14,56,14), old=true,timetag=true) ==
     "25/09/2001:T14:56:14"
 
+# Test jdcnv.
+@test AstroLib.jdcnv(DateTime(-4713, 11, 24, 12)) == 0.0
+@test AstroLib.jdcnv(DateTime(763, 09, 18, 12)) == 2000000.0
+@test (jd=1234567.89; AstroLib.jdcnv(AstroLib.daycnv(jd)) == jd)
+
 # Test juldate with Gregorian Calendar in force.  This also makes sure precision
 # of the result is high enough.  Note that "juldate(dt::DateTime) =
 # Dates.datetime2julian(dt)-2.4e6" would not be precise.

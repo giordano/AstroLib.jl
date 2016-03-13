@@ -64,11 +64,15 @@ each of them, like optional arguments and keywords, read their documentation.
 	</tr>
 	<tr>
 		<td>daycnv(julian_days)</td>
-		<td>Returns the DateTime corresponding to the provided julian_days number.</td>
+		<td>Returns the Gregorian DateTime corresponding to the provided julian_days number.</td>
 	</tr>
 	<tr>
 		<td>get_date(date)</td>
 		<td>Returns the UTC date in "CCYY-MM-DD" format for FITS headers.</td>
+	</tr>
+	<tr>
+		<td>jdcnv(date)</td>
+		<td>Convert from Gregorian calendar date to Julian date.</td>
 	</tr>
 	<tr>
 		<td>juldate(date)</td>

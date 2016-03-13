@@ -128,9 +128,7 @@ end
 Takes the number of Julian calendar days since epoch `-4713-11-24T12:00:00` and
 returns the corresponding `DateTime` using proleptic Gregorian Calendar.
 
-**NOTE:** Before JD = -2299160.5 (that is `1582-10-15T00:00:00`) `daycnv` is
-*not* the inverse of `juldate` because the latter adopts Julian Calendar.
-
+`jdcnv` is the inverse of this function.
 """
 const daycnv=Dates.julian2datetime
 
@@ -189,14 +187,31 @@ function get_date(dt::DateTime=Dates.unix2datetime(Libc.time());
 end
 
 """
+    jdcnv(date::DateTime) -> Float64
+
+Takes the given Gregorian `DateTime` and returns the number of Julian calendar
+days since epoch `-4713-11-24T12:00:00` as a `Float64`.
+
+If `date` is before `1582-10-15T00:00:00` the proleptic Gregorian Calendar is
+assumed.
+
+This is the inverse of `daycnv`.
+
+For the conversion of Julian date to number of Julian days, use `juldate`.
+"""
+const jdcnv = Dates.datetime2julian
+
+"""
     juldate(date::DateTime) -> Float64
 
 Takes the given `DateTime` and returns the number of Julian calendar days since
 epoch `1858-11-16T12:00:00` (Reduced Julian Date = Julian Date - 2400000) as a
 `Float64`.
 
-**NOTE:** Before `1582-10-15T00:00:00` the date is assumed to be in Julian Calendar,
-thus before this date `juldate` is *not* the inverse of `daycnv`.
+**NOTE:** Before `1582-10-15T00:00:00` the date is assumed to be in Julian
+Calendar, thus before this date `juldate` is *not* the inverse of `daycnv`.  For
+the conversion of Gregorian date to number of Julian days, use `jdcnv`, which is
+the inverse of `daycnv`.
 """
 # Before 1582-10-15 Dates.datetime2julian uses proleptic Gregorian Calendar,
 # instead AstroLib's juldate uses Julian Calendar.  In addition, after that day
