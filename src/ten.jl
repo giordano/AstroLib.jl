@@ -1,8 +1,6 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-# This function is based on IDL Astronomy User's Library.
-
 # TODO: give sense to "-0" ("-0" is bitwise equal to "0").
 ten(degrees::Number, minutes::Number=0.0, seconds::Number=0.0) =
     copysign(1, degrees)*(abs(degrees) + minutes/60.0 + seconds/3600.0)
@@ -35,29 +33,44 @@ tenv{T<:AbstractString}(strings::AbstractArray{T}) = map(ten, strings)
     tenv([deg], [min], [sec]) -> Float64
     tenv(["deg:min:sec"]) -> Float64
 
+### Purpose ###
+
 Converts a sexagesimal number or string to decimal.
 
-The formula used for the conversion is
+### Explanation ###
 
-    sign(deg)·(|deg| + min/60 + sec/3600))
+`ten` is the inverse of the `sixty` function.  `tenv` is the vectorial version
+of `ten`.
 
-`ten` requires `deg`, `min`, and `sec` to be all scalars.  Also a one
-dimensional array `[deg, min, sec]` is accepted.
+### Arguments ###
 
-The string should have the form `"deg:min:sec"` or `"deg min sec"`.
+`ten` takes as argument either three scalars (`deg`, `min`, `sec`) or a string.
+The string should have the form `"deg:min:sec"` or `"deg min sec"`.  Also a one
+dimensional array `[deg, min, sec]` is accepted as argument.
 
 If minutes and seconds are not specified they default to zero.
 
-`tenv` is the vectorial version of `ten`, it takes as input three numerical
-arrays of numbers (minutes and seconds arrays default to null arrays if omitted)
-or one array of strings.
+`tenv` takes as input three numerical arrays of numbers (minutes and seconds
+arrays default to null arrays if omitted) or one array of strings.
 
-`sixty` is the reverse of `ten`.
+### Output ###
 
-**NOTE:** These functions cannot deal with `-0` (negative integer zero) in
-numeric input.  If it is important to give sense to negative zero, you can
-either make sure to pass a floating point negative zero `-0.0` (this is the best
-option), or use negative minutes and seconds, or non-integer negative degrees
-and minutes.
+The decimal conversion of the sexagesimal numbers provided is returned.  The
+output has the same dimension as the input.
+
+### Method ###
+
+The formula used for the conversion is
+
+    sign(deg)·(|deg| + min/60 + sec/3600)
+
+### Notes ###
+
+These functions cannot deal with `-0` (negative integer zero) in numeric input.
+If it is important to give sense to negative zero, you can either make sure to
+pass a floating point negative zero `-0.0` (this is the best option), or use
+negative minutes and seconds, or non-integer negative degrees and minutes.
+
+Code of this function is based on IDL Astronomy User's Library.
 """
 ten, tenv

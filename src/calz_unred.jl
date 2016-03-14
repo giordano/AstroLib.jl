@@ -1,8 +1,6 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-# This function is based on IDL Astronomy User's Library.
-
 """
     calz_unred(wave, flux, ebv[, r_v]) -> Float64
 
@@ -42,11 +40,16 @@ Estimate how a flat galaxy spectrum (in wavelength) between 1200 Å and 3200 Å 
 altered by a reddening of E(B-V) = 0.1.
 
 ```
-julia> wave = reshape(1200:50:3150,40)
-julia> flux = ones(wave)
-julia> AstroLib.calz_unred(wave, flux, -0.1)
+julia> wave = reshape(1200:50:3150,40);
+
+julia> flux = ones(wave);
+
+julia> AstroLib.calz_unred(wave, flux, -0.1);
 ```
 
+### Notes ###
+
+Code of this function is based on IDL Astronomy User's Library.
 """
 function calz_unred(wave::Number, flux::Number, ebv::Number, r_v::Number=4.05)
     x  = 10000.0/wave # Wavelength in inverse microns

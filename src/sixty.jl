@@ -1,14 +1,29 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-# This function is based on IDL Astronomy User's Library.
-
 """
     sixty(number::Number) -> [deg::Float64, min::Float64, sec::Float64]
 
+### Purpose ###
+
 Converts a decimal number to sexagesimal.
 
-This is the reverse of `ten`.
+### Explanation ###
+
+The reverse of `ten` function.
+
+### Argument ###
+
+* `number`: decimal number to be converted to sexagesimal.
+
+### Output ###
+
+An array of three `Float64`, that are the sexagesimal counterpart (degrees,
+minutes, seconds) of `number`.
+
+### Notes ###
+
+Code of this function is based on IDL Astronomy User's Library.
 """
 # XXX: trailsign keyword not implemented, not sure it's worth the effort.
 # Possible strategy: hold the sign of number in a variable (you can use

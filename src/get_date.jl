@@ -1,38 +1,63 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-# This function is based on IDL Astronomy User's Library.
-
 """
     get_date([date::DateTime]) -> ASCIIString
+    get_date([date::DateTime;] old=true) -> ASCIIString
+    get_date([date::DateTime;] timetag=true) -> ASCIIString
+
+### Purpose ###
 
 Returns the UTC date in `"CCYY-MM-DD"` format for FITS headers.
 
-The `date` should be a `DateTime` in UTC standard, if omitted it defaults to the
-current UTC time.
+### Explanation ###
 
-When no optional keywords (`timetag` and `old`) are supplied, the format of the
-output string is `"CCYY-MM-DD"` (year-month-day part of the date), where <CCYY>
-represents a 4-digit calendar year, <MM> the 2-digit ordinal number of a
-calendar month within the calendar year, and <DD> the 2-digit ordinal number of
-a day within the calendar month.
+This is the format required by the `DATE` and `DATE-OBS` keywords in a FITS
+header.
 
-    get_date([date::DateTime;] old=true) -> ASCIIString
+### Argument ###
 
-If the boolean keyword `old` is true (default: false), the year-month-day part
-of date has `"DD/MM/YY"` format.  This is the formerly (pre-1997) recommended
-for FITS.  Note that this format is now deprecated because it uses only a
-2-digit representation of the year.
+* `date` (optional): the date in UTC standard, of `DateTime` type.  If omitted,
+  defaults to the current UTC time.
+* `old` (optional boolean keyword): see below.
+* `timetag` (optional boolean keyword): see below.
 
-    get_date([date::DateTime;] timetag=true) -> ASCIIString
+### Output ###
 
-If the boolean keyword `timetag` is true (default: false), `"Thh:mm:ss"` is
-appended to the year-month-day part of the date, where <hh> represents the hour
-in the day, <mm> the minutes, <ss> the seconds, and the literal 'T' the ISO 8601
-time designator.
+A string with the date formatted according to the given optional keywords.
+
+* When no optional keywords (`timetag` and `old`) are supplied, the format of
+ the output string is `"CCYY-MM-DD"` (year-month-day part of the date), where
+ <CCYY> represents a 4-digit calendar year, <MM> the 2-digit ordinal number of a
+ calendar month within the calendar year, and <DD> the 2-digit ordinal number of
+ a day within the calendar month.
+* If the boolean keyword `old` is true (default: false), the year-month-day part
+ of date has `"DD/MM/YY"` format.  This is the formerly (pre-1997) recommended
+ for FITS.  Note that this format is now deprecated because it uses only a
+ 2-digit representation of the year.
+* If the boolean keyword `timetag` is true (default: false), `"Thh:mm:ss"` is
+ appended to the year-month-day part of the date, where <hh> represents the hour
+ in the day, <mm> the minutes, <ss> the seconds, and the literal 'T' the ISO
+ 8601 time designator.
 
 Note that `old` and `timetag` keywords can be used together, so that the output
 string will have `"DD/MM/YYThh:mm:ss"` format.
+
+### Example ###
+
+```
+julia> get_date(timetag=true)
+"2016-03-14:T11:26:23"
+```
+
+### Notes ###
+
+1. A discussion of the DATExxx syntax in FITS headers can be found in
+ http://www.cv.nrao.edu/fits/documents/standards/year2000.txt
+
+2. Those who wish to use need further flexibility in their date formats (e.g. to
+ use TAI time) should look at Bill Thompson's time routines in
+ http://sohowww.nascom.nasa.gov/solarsoft/gen/idl/time
 """
 function get_date(dt::DateTime=Dates.unix2datetime(Libc.time());
                   old::Bool=false, timetag::Bool=false)

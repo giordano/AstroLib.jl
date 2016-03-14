@@ -1,19 +1,34 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-# This function is based on IDL Astronomy User's Library.
-
 """
     juldate(date::DateTime) -> Float64
 
-Takes the given `DateTime` and returns the number of Julian calendar days since
-epoch `1858-11-16T12:00:00` (Reduced Julian Date = Julian Date - 2400000) as a
-`Float64`.
+### Purpose ###
 
-**NOTE:** Before `1582-10-15T00:00:00` the date is assumed to be in Julian
-Calendar, thus before this date `juldate` is *not* the inverse of `daycnv`.  For
-the conversion of Gregorian date to number of Julian days, use `jdcnv`, which is
-the inverse of `daycnv`.
+Convert from calendar to Reduced Julian Date.
+
+### Explanation ###
+
+Julian Day Number is a count of days elapsed since Greenwich mean noon on 1
+January 4713 B.C.  The Julian Date is the Julian day number followed by the
+fraction of the day elapsed since the preceding noon.
+
+This function takes the given `date` and returns the number of Julian calendar
+days since epoch `1858-11-16T12:00:00` (Reduced Julian Date = Julian Date -
+2400000).
+
+### Argument ###
+
+* `date`: date of `DateTime` type, in Julian Calendar.
+
+### Notes ###
+
+Julian Calendar is assumed, thus before `1582-10-15T00:00:00` this function is
+*not* the inverse of `daycnv`.  For the conversion proleptic Gregorian date to
+number of Julian days, use `jdcnv`, which is the inverse of `daycnv`.
+
+Code of this function is based on IDL Astronomy User's Library.
 """
 # Before 1582-10-15 Dates.datetime2julian uses proleptic Gregorian Calendar,
 # instead AstroLib's juldate uses Julian Calendar.  In addition, after that day
