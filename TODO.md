@@ -23,13 +23,20 @@ Done
 * `ten`
 * `tenv`
 
-<!-- Deprecated or Obsolete -->
-<!-- ---------------------- -->
+### `misc.jl` ###
+
+* `cirrange`
+
+Deprecated or Not Needed
+------------------------
+
+* `findpro`
 
 Already Present in Julia
 ------------------------
 
 * `asinh`
+* `minmax`.  It is called `extrema` in Julia.
 
 Missing
 -------
@@ -62,7 +69,6 @@ Missing
 * `check_fits`
 * `checksum32`
 * `cic`
-* `cirrange`
 * `cleanplot`
 * `cntrd`
 * `co_aberration`
@@ -148,7 +154,6 @@ Missing
 * `filter_image`
 * `find_all_dir`
 * `find`
-* `findpro`
 * `find_with_def`
 * `fitexy`
 * `fits_add_checksum`
@@ -307,7 +312,6 @@ Missing
 * `minf_conj_grad`
 * `minf_parabol_d`
 * `minf_parabolic`
-* `minmax`
 * `mkhdr`
 * `mlinmix_err`
 * `mmm`

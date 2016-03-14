@@ -70,7 +70,5 @@ These functions cannot deal with `-0` (negative integer zero) in numeric input.
 If it is important to give sense to negative zero, you can either make sure to
 pass a floating point negative zero `-0.0` (this is the best option), or use
 negative minutes and seconds, or non-integer negative degrees and minutes.
-
-Code of this function is based on IDL Astronomy User's Library.
 """
 ten, tenv

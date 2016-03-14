@@ -49,56 +49,28 @@ using AstroLib
 Here is a summary of functions exposed to the users.  For more information about
 each of them, like optional arguments and keywords, read their documentation.
 
-<table>
-	<tr>
-		<td>airtovac(wave_air)</td>
-		<td>Convert air wavelengths to vacuum wavelengths.</td>
-	</tr>
-	<tr>
-		<td>aitoff(l, b)</td>
-		<td>Convert longitude,latitude to X,Y using Aitoff equal-area projection.</td>
-	</tr>
-	<tr>
-		<td>altaz2hadec(alt, az, lat)</td>
-		<td>Convert Horizon (Alt-Az) coordinates to Hour Angle and Declination.</td>
-	</tr>
-	<tr>
-		<td>daycnv(julian_days)</td>
-		<td>Returns the Gregorian DateTime corresponding to the provided julian_days number.</td>
-	</tr>
-	<tr>
-		<td>calz_unred(wave, flux, ebv, r_v)</td>
-		<td>Deredden a galaxy spectrum using the Calzetti et al. (2000) parameterization. .</td>
-	</tr>
-	<tr>
-		<td>get_date(date)</td>
-		<td>Returns the UTC date in "CCYY-MM-DD" format for FITS headers.</td>
-	</tr>
-	<tr>
-		<td>get_juldate(date)</td>
-		<td>Get the current Julian date as a double precision scalar.</td>
-	</tr>
-	<tr>
-		<td>jdcnv(date)</td>
-		<td>Convert from Gregorian calendar date to Julian date.</td>
-	</tr>
-	<tr>
-		<td>juldate(date)</td>
-		<td>Returns the Reduced Julian Date of provided date.</td>
-	</tr>
-	<tr>
-		<td>sixty(number)</td>
-		<td>Converts a decimal number to sexagesimal.</td>
-	</tr>
-	<tr>
-		<td>ten(hours, minutes, seconds)</td>
-		<td>Convert sexigesimal number to decimal.</td>
-	</tr>
-	<tr>
-		<td>tenv([hours], [minutes], [seconds])</td>
-		<td>Convert arrays of sexigesimal numbers to decimal.</td>
-	</tr>
-</table>
+### `utils.jl` ###
+
+Function | Purpose
+-------- | -------
+`airtovac(wave_air)` | Convert air wavelengths to vacuum wavelengths
+`aitoff(l, b)` | Convert longitude,latitude to X,Y using Aitoff equal-area projection.
+`altaz2hadec(alt, az, lat)` | Convert Horizon (Alt-Az) coordinates to Hour Angle and Declination.
+`daycnv(julian_days)` | Returns the Gregorian DateTime corresponding to the provided `julian_days` number.
+`calz_unred(wave, flux, ebv, r_v)` | Deredden a galaxy spectrum using the Calzetti et al. (2000) parameterization.
+`get_date(date)` | Returns the UTC date in "CCYY-MM-DD" format for FITS headers.
+`get_juldate(date)` | Get the current Julian date as a double precision scalar.
+`jdcnv(date)` | Convert from Gregorian calendar date to Julian date.
+`juldate(date)` | Returns the Reduced Julian Date of provided date.
+`sixty(number)` | Converts a decimal number to sexagesimal.
+`ten(hours, minutes, seconds)` | Convert sexigesimal number to decimal.
+`tenv([hours], [minutes], [seconds])` | Convert arrays of sexigesimal numbers to decimal.
+
+### `misc.jl` ###
+
+Function | Purpose
+-------- | -------
+`cirrange(angle)` | Force an angle to be in the range [0, 360), or [0, 2\pi).
 
 Related Projects
 ----------------

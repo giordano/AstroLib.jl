@@ -5,3 +5,4 @@ using AstroLib
 using Base.Test
 
 include("utils-tests.jl")
+include("misc-tests.jl")
