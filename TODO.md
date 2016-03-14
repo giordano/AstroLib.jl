@@ -19,6 +19,7 @@ Done
 * `get_juldate`
 * `jdcnv`
 * `juldate`
+* `radec`
 * `sixty`
 * `ten`
 * `tenv`
@@ -377,7 +378,6 @@ Missing
 * `query_irsa_cat`
 * `querysimbad`
 * `queryvizier`
-* `radec`
 * `randomchi`
 * `randomdir`
 * `randomgam`

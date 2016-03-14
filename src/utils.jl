@@ -34,6 +34,9 @@ export jdcnv
 include("juldate.jl")
 export juldate
 
+include("radec.jl")
+export radec
+
 include("sixty.jl")
 export sixty
 

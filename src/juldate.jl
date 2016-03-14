@@ -57,7 +57,7 @@ function juldate(dt::DateTime)
 
     # Adjust for Gregorian Calendar, started on 1582-10-15 (= RJD -100830.5).
     if jd > -100830.5
-        a = trunc(year/100.0)
+        a = div(year, 100)
         jd += 2.0 - a + fld(a, 4.0)
     end
     return jd

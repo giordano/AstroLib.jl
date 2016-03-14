@@ -67,6 +67,10 @@
 @test (dt=DateTime(2016, 1, 1, 20);
        AstroLib.daycnv(AstroLib.juldate(dt) + 2.4e6) == dt)
 
+# Test radec
+@test AstroLib.radec(15.90, -0.85) == (1.0, 3.0, 36.0, -0.0, 51.0, 0.0)
+
+
 # Test "sixty".  Test also it's the reverse of ten.
 @test AstroLib.sixty(-51.36) == [-51.0, 21.0, 36.0]
 @test (result=-0.10934835545824395;

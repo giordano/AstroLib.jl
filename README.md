@@ -62,6 +62,7 @@ Function | Purpose
 `get_juldate(date)` | Get the current Julian date as a double precision scalar.
 `jdcnv(date)` | Convert from Gregorian calendar date to Julian date.
 `juldate(date)` | Returns the Reduced Julian Date of provided date.
+`radec(ra, dec)` | Format right ascension and declination as hours, min, sec, deg, min, sec
 `sixty(number)` | Converts a decimal number to sexagesimal.
 `ten(hours, minutes, seconds)` | Convert sexigesimal number to decimal.
 `tenv([hours], [minutes], [seconds])` | Convert arrays of sexigesimal numbers to decimal.
