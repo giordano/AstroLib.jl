@@ -67,6 +67,10 @@ each of them, like optional arguments and keywords, read their documentation.
 		<td>Returns the Gregorian DateTime corresponding to the provided julian_days number.</td>
 	</tr>
 	<tr>
+		<td>calz_unred(wave, flux, ebv, r_v)</td>
+		<td>Deredden a galaxy spectrum using the Calzetti et al. (2000) parameterization. .</td>
+	</tr>
+	<tr>
 		<td>get_date(date)</td>
 		<td>Returns the UTC date in "CCYY-MM-DD" format for FITS headers.</td>
 	</tr>

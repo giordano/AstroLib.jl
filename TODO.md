@@ -13,6 +13,7 @@ Done
 * `airtovac`
 * `aitoff`
 * `altaz2hadec`
+* `calz_unred`
 * `daycnv`
 * `get_date`
 * `get_juldate`
@@ -57,7 +58,6 @@ Missing
 * `bprecess`
 * `break_path`
 * `bsort`
-* `calz_unred`
 * `ccm_unred`
 * `check_fits`
 * `checksum32`

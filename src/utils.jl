@@ -12,6 +12,9 @@ export aitoff
 include("altaz2hadec.jl")
 export altaz2hadec
 
+include("calz_unred.jl")
+export calz_unred
+
 include("daycnv.jl")
 export daycnv
 
