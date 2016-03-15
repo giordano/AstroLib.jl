@@ -53,6 +53,7 @@ each of them, like optional arguments and keywords, read their documentation.
 
 Function | Purpose
 -------- | -------
+`adstring(ra, dec)` | Format right ascension and declination as a string
 `airtovac(wave_air)` | Convert air wavelengths to vacuum wavelengths
 `aitoff(l, b)` | Convert longitude,latitude to X,Y using Aitoff equal-area projection.
 `altaz2hadec(alt, az, lat)` | Convert Horizon (Alt-Az) coordinates to Hour Angle and Declination.

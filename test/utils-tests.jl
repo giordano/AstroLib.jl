@@ -1,6 +1,13 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+# Test adstring
+@test AstroLib.adstring(30.4, -1.23, truncate=true) ==
+    AstroLib.adstring([30.4, -1.23], truncate=true) == " 02 01 35.9  -01 13 48"
+@test AstroLib.adstring(19.19321, truncate=true) == "+19 11 35.5"
+@test AstroLib.adstring([30.4, -15.63], [-1.23, 48.41], precision=2) ==
+    [" 02 01 36.000  -01 13 48.00", "-22 57 28.800  +48 24 36.00"]
+
 # Test airtovac
 @test AstroLib.airtovac([1234 2100 6056.125]) ==
     [1234.0 2100.666421596007 6057.801930991426]

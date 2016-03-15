@@ -3,6 +3,9 @@
 
 using Base.Dates
 
+include("adstring.jl")
+export adstring
+
 include("airtovac.jl")
 export airtovac
 

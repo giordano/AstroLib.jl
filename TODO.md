@@ -10,6 +10,7 @@ Done
 
 ### `utils.jl` ###
 
+* `adstring`
 * `airtovac`
 * `aitoff`
 * `altaz2hadec`
@@ -44,7 +45,6 @@ Missing
 
 * `ad2xy`
 * `add_distort`
-* `adstring`
 * `adxy`
 * `aitoff_grid`
 * `al_legend`
