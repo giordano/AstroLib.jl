@@ -69,18 +69,18 @@ julia> adstring([30.4, -15.63], [-1.23, 48.41], precision=1)
 function adstring(ra::Number, dec::Number;
                   precision::Int=0, truncate::Bool=false)
     # Helper function to format seconds part.
-    function formatsec(sec::Number, prec::Int64)
+    function formatsec(sec::Number, prec::Integer)
         sec = truncate ? trunc(sec, prec) : round(sec, prec)
         # Seconds of right ascension should be always positive (the hours part
         # holds the sign), so we don't need to take the absolute values.
         sec_frac, sec_int = modf(sec)
         # Format the integer part left padding with zeros.
-        sec_int_str = lpad(string(trunc(Int64, sec_int)), 2, "0")
+        sec_int_str = lpad(string(trunc(Integer, sec_int)), 2, "0")
         # Unless precision is 0, format the fractional part with the decimal
         # separator "." followed by seconds rounded to the precision required
         # and right padded with zeros.
         sec_frac_str = prec == 0 ? "" :
-            rpad(string(".", round(Int64, sec_frac*exp10(prec))), prec + 1, "0")
+            rpad(string(".", round(Integer, sec_frac*exp10(prec))), prec + 1, "0")
         return sec_string = string(sec_int_str, sec_frac_str)
     end
 
