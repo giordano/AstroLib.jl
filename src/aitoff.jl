@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    aitoff(l, b) -> (Float64, Float64)
+    aitoff(l, b) -> Float64, Float64
 
 ### Purpose ###
 
@@ -21,7 +21,7 @@ centered.
 
 ### Output ###
 
-Tuple `(x, y)`.
+2-tuple `(x, y)`.
 
 * `x`: x coordinate, same number of elements as `l`.  `x` is normalized to be in
   [-180, 180].
@@ -30,7 +30,7 @@ Tuple `(x, y)`.
 
 ### Example ###
 
-```
+``` julia
 julia> x, y = aitoff(375, 2.437)
 (16.63760711611838,2.712427279646118)
 ```

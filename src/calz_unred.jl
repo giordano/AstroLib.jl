@@ -39,7 +39,7 @@ values will be left unchanged outside valid domain (0.0912 - 2.2 microns).
 Estimate how a flat galaxy spectrum (in wavelength) between 1200 Å and 3200 Å is
 altered by a reddening of E(B-V) = 0.1.
 
-```
+``` julia
 julia> wave = reshape(1200:50:3150,40);
 
 julia> flux = ones(wave);

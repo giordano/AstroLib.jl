@@ -1,8 +1,8 @@
 # AstroLib
 
-[![Travis Build Status](https://travis-ci.org/giordano/AstroLib.jl.svg?branch=master)](https://travis-ci.org/giordano/AstroLib.jl)
-[![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/jfa9e54lv92rqd3m?svg=true)](https://ci.appveyor.com/project/giordano/astrolib-jl)
-
+Build status:
+* on GNU/Linux and OS X: [![Travis Build Status](https://travis-ci.org/giordano/AstroLib.jl.svg?branch=master)](https://travis-ci.org/giordano/AstroLib.jl)
+* on Windows: [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/jfa9e54lv92rqd3m?svg=true)](https://ci.appveyor.com/project/giordano/astrolib-jl)
 
 Goal
 ----
@@ -45,6 +45,11 @@ After installing the package, you can start using it with
 ```julia
 using AstroLib
 ```
+
+Documentation
+-------------
+
+Full documentation of all functions can be accessed at https://astrolibjl.readthedocs.org/.
 
 Here is a summary of functions exposed to the users.  For more information about
 each of them, like optional arguments and keywords, read their documentation.

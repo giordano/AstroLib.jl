@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    get_juldate() --> Float64
+    get_juldate() -> Float64
 
 ### Purpose ###
 
@@ -15,7 +15,7 @@ Return for current time the number of Julian calendar days since epoch
 
 ### Example ###
 
-```
+``` julia
 julia> get_juldate()
 2.4574620222685183e6
 

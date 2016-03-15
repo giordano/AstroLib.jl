@@ -45,7 +45,7 @@ string will have `"DD/MM/YYThh:mm:ss"` format.
 
 ### Example ###
 
-```
+``` julia
 julia> get_date(timetag=true)
 "2016-03-14:T11:26:23"
 ```

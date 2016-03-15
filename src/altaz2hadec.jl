@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    altaz2hadec(alt, az, lat) -> (Float64, Float64)
+    altaz2hadec(alt, az, lat) -> Float64, Float64
 
 ### Purpose ###
 
@@ -27,7 +27,7 @@ array) as the input coordinates.
 
 ### Output ###
 
-Tuple `(ha, dec)`
+2-tuple `(ha, dec)`
 
 * `ha`: the local apparent hour angle, in degrees.  The hour angle is the time
   that right ascension of 0 hours crosses the local meridian.  It is
@@ -39,7 +39,8 @@ Tuple `(ha, dec)`
 Arcturus is observed at an apparent altitude of 59d,05m,10s and an azimuth
 (measured east of north) of 133d,18m,29s while at the latitude of +43.07833
 degrees.  What are the local hour angle and declination of this object?
-```
+
+``` julia
 julia>  ha, dec = altaz2hadec(ten(59,05,10), ten(133,18,29), 43.07833)
 (336.6828582472844,19.182450965120402)
 ```

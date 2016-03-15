@@ -22,7 +22,8 @@ The converted number or array of numbers, as `Float64`.
 
 Restrict an array of numbers in the range `[0, 2pi)` as if they are angles
 expressed in radians:
-```
+
+``` julia
 julia> cirrange([4pi, 10, -5.23], max=2.0*pi)
 3-element Array{Float64,1}:
  0.0

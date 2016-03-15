@@ -19,6 +19,9 @@
 
 ;;; Code:
 
+(defvar get-md-docs-files '("utils" "misc")
+  "List of Markdown files to be created, without extension.")
+
 (defvar get-md-docs--docs-regexp "\"\"\"\\(\\(?:.\\|\n\\)*\\)\"\"\""
   "Regexp matching Markdown docstrings in Julia source files.")
 
@@ -30,8 +33,9 @@
   (with-current-buffer
       (find-file-noselect file-name t)
     (goto-char (point-min))
+    ;; Fetch the docstring using `get-md-docs--docs-regexp'.
     (when (re-search-forward get-md-docs--docs-regexp nil t)
-      ;; Demote sections for the online docs.
+      ;; Demote sections for the online docs, from "###" to "####".
       (replace-regexp-in-string
        "^### \\([^#\n]*\\) ###$"
        "##### \\1 ####"
@@ -43,30 +47,67 @@
 The real extraction is then done by `get-md-docs-on-file'."
   (let ((backup-inhibited backup-inhibited)
 	file docs)
+    ;; Visit the Julia file that includes the source of each function.
     (with-current-buffer
 	(find-file-noselect (concat "../src/" file-name ".jl") t)
       (goto-char (point-min))
       (save-excursion
 	(save-match-data
+	  ;; Find the names of Julia files that load each function and then
+	  ;; operate on them.
 	  (while (re-search-forward get-md-docs--file-name-regexp nil t)
 	    (setq
 	     file (match-string-no-properties 1)
 	     docs
+	     ;; Append the new docstring to the previous ones in order to
+	     ;; collect them all.
 	     (concat
 	      docs
+	      ;; Add a header with the name of the function.
 	      "\n### " (file-name-base file) " ###\n"
-	      (get-md-docs-on-file file)))))))
+	      ;; Extract the docstring from `file'.
+	      (get-md-docs-on-file file)
+	      ;; Add a horizontal rule to clearly separate sections.
+	      "\n----\n"))))))
+    ;; After collecting the docstrings, write the result to the Markdown file.
     (with-current-buffer
 	(find-file-noselect (concat file-name ".md") t)
       (setq backup-inhibited t)
       (erase-buffer)
       (insert docs)
+      ;; Remove the last horizontal rule.
+      (if (re-search-backward "----" nil t)
+	  (replace-match ""))
       (delete-trailing-whitespace)
       (save-buffer))))
 
 (defun get-md-docs ()
   "Extract all Mardown docstring and save to file."
-  (dolist (file '("utils" "misc"))
+  (dolist (file get-md-docs-files)
     (get-md-docs-search-file file)))
+
+(defvar fix-rst-docs--function-regexp "^~+\n\\(\n+::[ \t\nr]+\\)"
+  "Regexp matching the function definition.")
+
+(defun fix-rst-doc-file (file-name)
+  "Fix formatting of rst FILE-NAME."
+  (let ((backup-inhibited t)
+	file docs)
+    (with-current-buffer
+	(find-file-noselect (concat file-name ".rst") t)
+      (goto-char (point-min))
+      (save-excursion
+	(save-match-data
+	  ;; Turn the beginning of docstring of each function info a `function'
+	  ;; block.
+	  (while (re-search-forward fix-rst-docs--function-regexp nil t)
+	    (replace-match "\n.. function:: " nil nil nil 1))))
+      (delete-trailing-whitespace)
+      (save-buffer))))
+
+(defun fix-rst-docs ()
+  "Run formatting improvements to every rst files."
+  (dolist (file get-md-docs-files)
+    (fix-rst-doc-file file)))
 
 ;;; get-md-docs.el ends here

@@ -19,22 +19,8 @@ procedures, Julia standard data types are often used (e.g., ``DateTime``
 type instead of generic string for dates) and the syntax may slightly
 differ.
 
-Every function provided has detailed documentation that can be
-`accessed <http://docs.julialang.org/en/stable/manual/documentation/#accessing-documentation>`__
-at Julia REPL with
-
-.. code:: julia
-
-    julia> ?FunctionName
-
-or with
-
-.. code:: julia
-
-    julia> @doc FunctionName
-
-In addition, an extensive error testing suite ensures old fixed bugs
-will not be brought back by future changes.
+An extensive error testing suite ensures old fixed bugs will not be brought back
+by future changes.
 
 Install
 -------
@@ -82,8 +68,8 @@ Library <http://rpackages.ianhowson.com/cran/astrolibR/>`__).
 License
 -------
 
-The ``AstroLib.jl`` package is licensed under the MIT "Expat" License.
-The original author is Mosè Giordano.
+The ``AstroLib.jl`` package is licensed under the `MIT "Expat" License
+<https://opensource.org/licenses/MIT>`__.  The original author is Mosè Giordano.
 
 Notes
 -----
@@ -94,12 +80,41 @@ time. Check
 `TODO.md <https://github.com/giordano/AstroLib.jl/blob/master/TODO.md>`__
 out to see how you can help. Volunteers are welcome!
 
-Contents:
+Documentation
+-------------
+
+Every function provided has detailed documentation that can be
+`accessed <http://docs.julialang.org/en/stable/manual/documentation/#accessing-documentation>`__
+at Julia REPL with
+
+.. code:: julia
+
+    julia> ?FunctionName
+
+or with
+
+.. code:: julia
+
+    julia> @doc FunctionName
+
+The following is the list of all functions provided to the users.  Click on them
+to read their documentation.
+
+Astronomical Utilities
+''''''''''''''''''''''
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
+   utils.rst
 
+Miscellaneous (Non-Astronomy) Utilities
+'''''''''''''''''''''''''''''''''''''''
+   
+.. toctree::
+   :maxdepth: 1
+
+   misc.rst
 
 ..
    Indices and tables

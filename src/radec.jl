@@ -2,8 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    radec(ra::Number, dec::Number[, hours=true]) ->
-                          (Float64, Float64, Float64, Float64, Float64, Float64)
+    radec(ra::Number, dec::Number[, hours=true]) -> Float64, Float64, Float64, Float64, Float64, Float64
 
 ### Purpose ###
 
@@ -36,7 +35,8 @@ of the same dimension.
 
 Position of Sirius in the sky is (ra, dec) = (6.7525, -16.7161), with right
 ascension expressed in hours.  Its sexagesimal representation is given by
-```
+
+``` julia
 julia> radec(6.7525, -16.7161, hours=true)
 (6.0,45.0,9.0,-16.0,42.0,57.9600000000064)
 ```

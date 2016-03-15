@@ -2,8 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    adstring(ra::Number, dec::Number[, precision::Int=2, truncate::Bool=true])
-                                                                  -> ASCIIString
+    adstring(ra::Number, dec::Number[, precision::Int=2, truncate::Bool=true]) -> ASCIIString
     adstring([ra, dec]) -> ASCIIString
     adstring(dec) -> ASCIIString
     adstring([ra], [dec]) -> AbstractArray{ASCIIString}
@@ -39,8 +38,7 @@ Optional keywords affecting the output format are always available:
 * `precision` (optional integer keyword): specifies the number of digits of
   declination seconds.  The number of digits for righ ascension seconds is
   always assumed to be one more `precision`.  If the function is called with
-  only `dec` as input, `precision` default to 1, in any other case defaults to
-  0.
+  only `dec` as input, `precision` default to 1, in any other case defaults to 0.
 * `truncate` (optional boolean keyword): if true, then the last displayed digit
   in the output is truncated in precision rather than rounded.  This option is
   useful if `adstring` is used to form an official IAU name (see
@@ -56,7 +54,7 @@ above.
 
 ### Example ###
 
-```
+``` julia
 julia> adstring(30.4, -1.23, truncate=true)
 " 02 01 35.9  -01 13 48"
 

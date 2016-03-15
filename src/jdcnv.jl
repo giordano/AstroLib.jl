@@ -27,7 +27,7 @@ Number of Julian days, as a `Float64`.
 
 Find the Julian days number at 2009 August 23, 03:39:06.
 
-```
+``` julia
 julia> jdcnv(DateTime(2009, 08, 23, 03, 39, 06))
 2.4550666521527776e6
 ```
@@ -37,7 +37,7 @@ julia> jdcnv(DateTime(2009, 08, 23, 03, 39, 06))
 This is the inverse of `daycnv`.
 
 `get_juldate` returns the number of Julian days for current time.  It is
-equivalent to `jdcnv(Dates.now())'.
+equivalent to `jdcnv(Dates.now())`.
 
 For the conversion of Julian date to number of Julian days, use `juldate`.
 """
