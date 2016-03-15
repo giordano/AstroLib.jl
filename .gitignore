@@ -3,3 +3,6 @@
 *.jl.mem
 .juliahistory
 _build
+*.elc
+*~
+docs/*.md

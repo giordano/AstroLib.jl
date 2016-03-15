@@ -6,6 +6,10 @@ SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = _build
+EMACS         = emacs
+RSTAUTOFILES  = misc.rst utils.rst
+MDAUTOFILES   = $(patsubst %.rst, %.md, $(RSTAUTOFILES))
+CLEANFILES    = $(MDAUTOFILES)
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
@@ -49,10 +53,17 @@ help:
 
 .PHONY: clean
 clean:
-	rm -rf $(BUILDDIR)/*
+	rm -rf $(BUILDDIR)/* $(CLEANFILES)
+
+.PHONY: emacs
+emacs:
+	$(EMACS) -batch -q -no-site-file -no-init-file -l get-md-docs.el -f get-md-docs
+
+%.rst: %.md
+	pandoc --from=markdown --to=rst --output=$@ $<
 
 .PHONY: html
-html:
+html: emacs $(RSTAUTOFILES)
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
