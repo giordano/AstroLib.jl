@@ -69,6 +69,7 @@
 
 # Test radec
 @test AstroLib.radec(15.90, -0.85) == (1.0, 3.0, 36.0, -0.0, 51.0, 0.0)
+@test AstroLib.radec(-0.85,15.9) == (23.0,56.0,36.0,15.0,54.0,0.0)
 
 
 # Test "sixty".  Test also it's the reverse of ten.

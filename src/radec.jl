@@ -46,7 +46,7 @@ function radec(ra::Number, dec::Number; hours::Bool=false)
     if hours
         ra_hr, ra_min, ra_sec = sixty(cirrange(ra, max=24.0))
     else
-        ra_hr, ra_min, ra_sec = sixty(cirrange(ra/15.0))
+        ra_hr, ra_min, ra_sec = sixty(cirrange(ra)/15.0)
     end
     # Compute declination.
     dec_deg, dec_min, dec_sec = sixty(dec)
