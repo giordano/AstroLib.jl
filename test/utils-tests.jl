@@ -9,8 +9,7 @@
     [" 02 01 36.000  -01 13 48.00", "-22 57 28.800  +48 24 36.00"]
 
 # Test airtovac
-@test AstroLib.airtovac([1234 2100 6056.125]) ==
-    [1234.0 2100.666421596007 6057.801930991426]
+@test_approx_eq AstroLib.airtovac([1234 2100 6056.125]) [1234.0 2100.666421596007 6057.801930991426]
 
 # Test aitoff
 @test AstroLib.aitoff([227.23, 130], [-8.890, -35]) ==
@@ -47,26 +46,21 @@
     "25/09/2001:T14:56:14"
 
 # Test jdcnv.
-@test AstroLib.jdcnv(DateTime(-4713, 11, 24, 12)) == 0.0
-@test AstroLib.jdcnv(DateTime(763, 09, 18, 12)) == 2000000.0
+@test_approx_eq AstroLib.jdcnv(DateTime(-4713, 11, 24, 12)) 0.0
+@test_approx_eq AstroLib.jdcnv(DateTime(763, 09, 18, 12)) 2000000.0
 @test (jd=1234567.89; AstroLib.jdcnv(AstroLib.daycnv(jd)) == jd)
 
 # Test juldate with Gregorian Calendar in force.  This also makes sure precision
 # of the result is high enough.  Note that "juldate(dt::DateTime) =
 # Dates.datetime2julian(dt)-2.4e6" would not be precise.
-@test (rjd=57388.5 + 1.0/3.0;
-       abs(AstroLib.juldate(DateTime(2016, 1, 1, 8)) - rjd) <= eps(rjd))
+@test_approx_eq AstroLib.juldate(DateTime(2016, 1, 1, 8)) (57388.5 + 1.0/3.0)
 
 # Test juldate with Julian Calendar in force, for different centuries.  This
 # also makes sure precision of the result is high enough.
-@test (rjd=-100843.0 + 1.0/3.0;
-       abs(AstroLib.juldate(DateTime(1582, 10, 1, 20)) - rjd) <= eps(rjd))
-@test (rjd=-313692.0 + 1.0/3.0;
-       abs(AstroLib.juldate(DateTime(1000, 1, 1, 20)) - rjd) <= eps(rjd))
-@test (rjd=-642119.0 + 1.0/3.0;
-       abs(AstroLib.juldate(DateTime(100, 10, 25, 20)) - rjd) <= eps(rjd))
-@test (rjd=-2.4e6;
-       abs(AstroLib.juldate(DateTime(-4713, 1, 1, 12)) - rjd) <= eps(rjd))
+@test_approx_eq AstroLib.juldate(DateTime(1582, 10, 1, 20)) (-100843.0 + 1.0/3.0)
+@test_approx_eq AstroLib.juldate(DateTime(1000, 1, 1, 20)) (-313692.0 + 1.0/3.0)
+@test_approx_eq AstroLib.juldate(DateTime(100, 10, 25, 20)) (-642119.0 + 1.0/3.0)
+@test_approx_eq AstroLib.juldate(DateTime(-4713, 1, 1, 12)) -2.4e6
 
 # Test daycnv and juldate together, with Gregorian Calendar in force.  Note that
 # they are not expected to be one the inverse of the other during Julian
@@ -78,11 +72,9 @@
 @test AstroLib.radec(15.90, -0.85) == (1.0, 3.0, 36.0, -0.0, 51.0, 0.0)
 @test AstroLib.radec(-0.85,15.9) == (23.0,56.0,36.0,15.0,54.0,0.0)
 
-
 # Test "sixty".  Test also it's the reverse of ten.
-@test AstroLib.sixty(-51.36) == [-51.0, 21.0, 36.0]
-@test (result=-0.10934835545824395;
-       abs(AstroLib.ten(AstroLib.sixty(result)) - result) <= eps(result))
+@test_approx_eq AstroLib.sixty(-51.36) [-51.0, 21.0, 36.0]
+@test_approx_eq AstroLib.ten(AstroLib.sixty(-0.10934835545824395)) -0.10934835545824395
 
 # Test "ten" and "tenv".  Always make sure string and numerical inputs are
 # consistent (IDL implementation of "ten" is not).
