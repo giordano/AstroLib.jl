@@ -53,18 +53,6 @@ Development
 https://github.com/giordano/AstroLib.jl. You can contribute by providing
 new functions, reporting bugs, and improving documentation.
 
-Related Projects
-----------------
-
-This is not the only effort to bundle astronomical functions written in
-Julia language. Other packages useful for more specific purposes are
-available at https://juliaastro.github.io/.
-
-In addition, there are similar projects for Python (`Python
-AstroLib <http://www.hs.uni-hamburg.de/DE/Ins/Per/Czesla/PyA/PyA/pyaslDoc/pyasl.html>`__)
-and R (`Astronomy Users
-Library <http://rpackages.ianhowson.com/cran/astrolibR/>`__).
-
 License
 -------
 
@@ -115,6 +103,31 @@ Miscellaneous (Non-Astronomy) Utilities
    :maxdepth: 1
 
    misc.rst
+
+Related Projects
+----------------
+
+This is not the only effort to bundle astronomical functions written in Julia
+language. Other packages useful for more specific purposes are available at
+https://juliaastro.github.io/.  A list of other packages is available at
+https://github.com/svaksha/Julia.jl/blob/master/Astronomy.md.
+
+Because of this, some of IDL AstroLib's utilities are not provided in
+``AstroLib.jl`` because already present in other Julia packages.  Here is a list
+of such utilities:
+
+-  ``aper``, see https://github.com/kbarbary/AperturePhotometry.jl
+-  ``cosmo_param``, see ``Cosmology`` package
+   (https://github.com/JuliaAstro/Cosmology.jl)
+-  ``glactc_pm``, see ``SkyCoords`` package
+   (https://github.com/kbarbary/SkyCoords.jl)
+-  ``glactc``, see ``SkyCoords`` package
+   (https://github.com/kbarbary/SkyCoords.jl)
+
+In addition, there are similar projects for Python (`Python AstroLib
+<http://www.hs.uni-hamburg.de/DE/Ins/Per/Czesla/PyA/PyA/pyaslDoc/pyasl.html>`__)
+and R (`Astronomy Users Library
+<http://rpackages.ianhowson.com/cran/astrolibR/>`__).
 
 ..
    Indices and tables

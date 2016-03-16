@@ -40,6 +40,16 @@ Already Present in Julia
 * `asinh`
 * `minmax`.  It is called `extrema` in Julia.
 
+
+Present in Other Libraries
+--------------------------
+
+* `aper`, see https://github.com/kbarbary/AperturePhotometry.jl
+* `cosmo_param`, see `Cosmology` package
+  (https://github.com/JuliaAstro/Cosmology.jl)
+* `glactc_pm`, see `SkyCoords` package (https://github.com/kbarbary/SkyCoords.jl)
+* `glactc`, see `SkyCoords` package (https://github.com/kbarbary/SkyCoords.jl)
+
 Missing
 -------
 
@@ -49,7 +59,6 @@ Missing
 * `aitoff_grid`
 * `al_legend`
 * `al_legendtest`
-* `aper`
 * `arcbar`
 * `arrows`
 * `astdisp`
@@ -85,7 +94,6 @@ Missing
 * `correl_images`
 * `correl_optimize`
 * `corrmat_analyze`
-* `cosmo_param`
 * `create_struct`
 * `cr_reject`
 * `cspline`
@@ -245,8 +253,6 @@ Missing
 * `getrot`
 * `gettok`
 * `getwrd`
-* `glactc_pm`
-* `glactc`
 * `group`
 * `gsssadxy`
 * `gsssextast`
