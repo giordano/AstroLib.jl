@@ -49,35 +49,23 @@ using AstroLib
 Documentation
 -------------
 
-Full documentation of all functions can be accessed at https://astrolibjl.readthedocs.org/.
+Every function provided has detailed documentation that can be
+[accessed](http://docs.julialang.org/en/stable/manual/documentation/#accessing-documentation)
+at Julia REPL with
 
-Here is a summary of functions exposed to the users.  For more information about
-each of them, like optional arguments and keywords, read their documentation.
+``` julia
+julia> ?FunctionName
+```
 
-### `utils.jl` ###
+or with
 
-Function | Purpose
--------- | -------
-`adstring(ra, dec)` | Format right ascension and declination as a string
-`airtovac(wave_air)` | Convert air wavelengths to vacuum wavelengths
-`aitoff(l, b)` | Convert longitude,latitude to X,Y using Aitoff equal-area projection.
-`altaz2hadec(alt, az, lat)` | Convert Horizon (Alt-Az) coordinates to Hour Angle and Declination.
-`daycnv(julian_days)` | Returns the Gregorian DateTime corresponding to the provided `julian_days` number.
-`calz_unred(wave, flux, ebv, r_v)` | Deredden a galaxy spectrum using the Calzetti et al. (2000) parameterization.
-`get_date(date)` | Returns the UTC date in "CCYY-MM-DD" format for FITS headers.
-`get_juldate(date)` | Get the current Julian date as a double precision scalar.
-`jdcnv(date)` | Convert from Gregorian calendar date to Julian date.
-`juldate(date)` | Returns the Reduced Julian Date of provided date.
-`radec(ra, dec)` | Format right ascension and declination as hours, min, sec, deg, min, sec
-`sixty(number)` | Converts a decimal number to sexagesimal.
-`ten(hours, minutes, seconds)` | Convert sexigesimal number to decimal.
-`tenv([hours], [minutes], [seconds])` | Convert arrays of sexigesimal numbers to decimal.
+``` julia
+julia> @doc FunctionName
+```
 
-### `misc.jl` ###
-
-Function | Purpose
--------- | -------
-`cirrange(angle)` | Force an angle to be in the range [0, 360), or [0, 2\pi).
+Full documentation of all functions can be accessed at
+https://astrolibjl.readthedocs.org/.  There you can find the complete list of
+all functions provided by this library.
 
 Related Projects
 ----------------

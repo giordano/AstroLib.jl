@@ -16,10 +16,12 @@ Done
 * `altaz2hadec`
 * `calz_unred`
 * `daycnv`
+* `flux2mag`
 * `get_date`
 * `get_juldate`
 * `jdcnv`
 * `juldate`
+* `mag2flux`
 * `radec`
 * `sixty`
 * `ten`
@@ -178,7 +180,6 @@ Missing
 * `fits_test_checksum`
 * `fits_write`
 * `flegendre`
-* `flux2mag`
 * `fm_unred`
 * `forprint`
 * `frebin`
@@ -304,7 +305,6 @@ Missing
 * `list_with_path`
 * `lsf_rotate`
 * `lumdist`
-* `mag2flux`
 * `mag2geo`
 * `make_2d`
 * `make_astr`

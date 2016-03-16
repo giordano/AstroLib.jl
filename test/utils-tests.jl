@@ -45,6 +45,11 @@
 @test AstroLib.get_date(DateTime(2001,09,25,14,56,14), old=true,timetag=true) ==
     "25/09/2001:T14:56:14"
 
+# Test flux2mag
+@test_approx_eq AstroLib.flux2mag([1.5e-12, 8.7e-15, 4.4e-10]) [8.459771852360795,
+                                                                14.051201868453454,
+                                                                2.291368308784527]
+
 # Test jdcnv.
 @test_approx_eq AstroLib.jdcnv(DateTime(-4713, 11, 24, 12)) 0.0
 @test_approx_eq AstroLib.jdcnv(DateTime(763, 09, 18, 12)) 2000000.0
@@ -67,6 +72,10 @@
 # Calendar.
 @test (dt=DateTime(2016, 1, 1, 20);
        AstroLib.daycnv(AstroLib.juldate(dt) + 2.4e6) == dt)
+
+# Test mag2flux
+@test_approx_eq AstroLib.mag2flux(4.83, 21.12) 4.1686938347033296e-11
+@test_approx_eq AstroLib.flux2mag(AstroLib.mag2flux(15)) 15.0
 
 # Test radec
 @test AstroLib.radec(15.90, -0.85) == (1.0, 3.0, 36.0, -0.0, 51.0, 0.0)

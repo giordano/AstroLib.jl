@@ -21,6 +21,9 @@ export calz_unred
 include("daycnv.jl")
 export daycnv
 
+include("flux2mag.jl")
+export flux2mag
+
 include("get_date.jl")
 export get_date
 
@@ -36,6 +39,9 @@ export jdcnv
 
 include("juldate.jl")
 export juldate
+
+include("mag2flux.jl")
+export mag2flux
 
 include("radec.jl")
 export radec
