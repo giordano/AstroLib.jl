@@ -721,6 +721,36 @@ Code of this function is based on IDL Astronomy User's Library.
 
 --------------
 
+polrec
+~~~~~~
+
+.. function:: polrec(radius, angle[, degrees=true]) -> Float64, Float64
+
+Purpose
+'''''''
+
+Convert 2D polar coordinates to rectangular coordinates.
+
+Arguments
+'''''''''
+
+-  ``radius``: radial coordinate of the point. It may be a scalar or an
+   array.
+-  ``angle``: the angular coordinate of the point. It may be a scalar or
+   an array of the same lenth as ``radius``.
+-  ``degrees`` (optional boolean keyword): if ``true``, the ``angle`` is
+   assumed to be in degrees, otherwise in radians. It defaults to
+   ``false``.
+
+Output
+''''''
+
+A 2-tuple ``(x, y)`` with the rectangular coordinate of the input. If
+``radius`` and ``angle`` are arrays, ``x`` and ``y`` are arrays of the
+same length as ``radius`` and ``angle``.
+
+--------------
+
 radec
 ~~~~~
 

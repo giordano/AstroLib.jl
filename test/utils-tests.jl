@@ -82,6 +82,14 @@
 @test_approx_eq AstroLib.mag2flux(4.83, 21.12) 4.1686938347033296e-11
 @test_approx_eq AstroLib.flux2mag(AstroLib.mag2flux(15)) 15.0
 
+# Test polrec
+let
+    local x=zeros(Float64, 3), y=zeros(Float64, 3)
+    x, y = AstroLib.polrec([1, 2, 3], [pi, pi/2.0, pi/4.0])
+    @test_approx_eq x [-1.0, 0.0, 1.5*sqrt(2.0)]
+    @test_approx_eq y [ 0.0, 2.0, 1.5*sqrt(2.0)]
+end
+
 # Test radec
 @test AstroLib.radec(15.90, -0.85) == (1.0, 3.0, 36.0, -0.0, 51.0, 0.0)
 @test AstroLib.radec(-0.85,15.9) == (23.0,56.0,36.0,15.0,54.0,0.0)

@@ -46,6 +46,9 @@ export juldate
 include("mag2flux.jl")
 export mag2flux
 
+include("polrec.jl")
+export polrec
+
 include("radec.jl")
 export radec
 

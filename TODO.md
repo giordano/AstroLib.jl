@@ -23,6 +23,7 @@ Done
 * `jdcnv`
 * `juldate`
 * `mag2flux`
+* `polrec`
 * `radec`
 * `sixty`
 * `ten`
@@ -359,7 +360,6 @@ Missing
 * `plotsym`
 * `poidev`
 * `polint`
-* `polrec`
 * `polyleg`
 * `poly_smooth`
 * `posang`
