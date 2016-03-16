@@ -358,7 +358,7 @@ flux2mag
 Purpose
 '''''''
 
-Convert from flux expressed in erg/s/cm²/Å to magnitudes.
+Convert from flux expressed in erg/(s cm² Å) to magnitudes.
 
 Explanation
 '''''''''''
@@ -368,9 +368,8 @@ This is the reverse of ``mag2flux``.
 Arguments
 '''''''''
 
--  ``flux``: the flux to be converted in magnitude, expressed in
-   erg·cm\ :sup:`{-2}·s`\ {-1}·Å^{-1}. It can be either a scalar or an
-   array.
+-  ``flux``: the flux to be converted in magnitude, expressed in erg/(s
+   cm² Å). It can be either a scalar or an array.
 -  ``zero_point``: scalar giving the zero point level of the magnitude.
    If not supplied then defaults to 21.1 (Code et al 1976). Ignored if
    the ``ABwave`` keyword is supplied
@@ -513,6 +512,74 @@ Use ``jdcnv`` to get the number of Julian days for a different date.
 
 --------------
 
+gcirc
+~~~~~
+
+.. function:: gcirc(units, ra1, dec1, ra2, dec2) -> Float64
+
+Purpose
+'''''''
+
+Computes rigorous great circle arc distances.
+
+Explanation
+'''''''''''
+
+Input position can be either radians, sexagesimal right ascension and
+declination, or degrees.
+
+Arguments
+'''''''''
+
+-  ``units``: integer, can be either 0, or 1, or 2. Describes units of
+   inputs and output:
+
+   -  0: everything (input right ascensions and declinations, and output
+      distance) is radians
+   -  1: right ascensions are in decimal hours, declinations in decimal
+      degrees, output distance in arc seconds
+   -  2: right ascensions and declinations are in degrees, output
+      distance in arc seconds
+
+-  ``ra1``: right ascension or longitude of point 1
+-  ``dec1``: declination or latitude of point 1
+-  ``ra2``: right ascension or longitude of point 2
+-  ``dec2``: declination or latitude of point 2
+
+Output
+''''''
+
+Angular distance on the sky between points 1 and 2, as a ``Float64``.
+See ``units`` argument above for the units.
+
+Method
+''''''
+
+"Haversine formula" see
+http://en.wikipedia.org/wiki/Great-circle\_distance.
+
+Notes
+'''''
+
+-  If ``ra1``, ``dec1`` are scalars, and ``ra2``, ``dec2`` are vectors,
+   then the output is a vector giving the distance of each element of
+   ``ra2``, ``dec2`` to ``ra1``, ``dec1``. Similarly, if
+   ``ra1``,\ ``de1`` are vectors, and ``ra2``,\ ``dec2`` are scalars,
+   then the output is a vector giving the distance of each element of
+   ``ra1``, ``dec1`` to ``ra2``, ``dec2``. If both ``ra1``, ``dec1`` and
+   ``ra2``, ``dec2`` are vectors then the output is a vector giving the
+   distance of each element of ``ra1``, ``dec1`` to the corresponding
+   element of ``ra2``, ``dec2``.
+
+-  The function ``sphdist`` provides an alternate method of computing a
+   spherical distance.
+
+-  The Haversine formula can give rounding errors for antipodal points.
+
+Code of this function is based on IDL Astronomy User's Library.
+
+--------------
+
 jdcnv
 ~~~~~
 
@@ -609,7 +676,7 @@ mag2flux
 Purpose
 '''''''
 
-Convert from magnitudes to flux expressed in erg/s/cm²/Å.
+Convert from magnitudes to flux expressed in erg/(s cm² Å).
 
 Explanation
 '''''''''''

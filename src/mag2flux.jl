@@ -6,7 +6,7 @@
 
 ### Purpose ###
 
-Convert from magnitudes to flux expressed in erg/s/cm²/Å.
+Convert from magnitudes to flux expressed in erg/(s cm² Å).
 
 ### Explanation ###
 

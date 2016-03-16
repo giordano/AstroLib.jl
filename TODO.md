@@ -17,6 +17,7 @@ Done
 * `calz_unred`
 * `daycnv`
 * `flux2mag`
+* `gcirc`
 * `get_date`
 * `get_juldate`
 * `jdcnv`
@@ -239,7 +240,6 @@ Missing
 * `gal_flat`
 * `gal_uvw`
 * `gaussian`
-* `gcirc`
 * `gcntrd`
 * `geo2eci`
 * `geo2geodetic`

@@ -6,7 +6,7 @@
 
 ### Purpose ###
 
-Convert from flux expressed in erg/s/cm²/Å to magnitudes.
+Convert from flux expressed in erg/(s cm² Å) to magnitudes.
 
 ### Explanation ###
 
@@ -15,7 +15,7 @@ This is the reverse of `mag2flux`.
 ### Arguments ###
 
 * `flux`: the flux to be converted in magnitude, expressed in
-  erg·cm^{-2}·s^{-1}·Å^{-1}.  It can be either a scalar or an array.
+  erg/(s cm² Å).  It can be either a scalar or an array.
 * `zero_point`: scalar giving the zero point level of the magnitude.  If not
  supplied then defaults to 21.1 (Code et al 1976).  Ignored if the `ABwave`
  keyword is supplied

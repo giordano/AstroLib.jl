@@ -41,14 +41,19 @@
 @test AstroLib.daycnv(2000000.0) == DateTime(763, 09, 18, 12)
 @test AstroLib.daycnv(0.0) == DateTime(-4713, 11, 24, 12)
 
-# Test get_date with mixed keywords.
-@test AstroLib.get_date(DateTime(2001,09,25,14,56,14), old=true,timetag=true) ==
-    "25/09/2001:T14:56:14"
-
 # Test flux2mag
 @test_approx_eq AstroLib.flux2mag([1.5e-12, 8.7e-15, 4.4e-10]) [8.459771852360795,
                                                                 14.051201868453454,
                                                                 2.291368308784527]
+
+# Test get_date with mixed keywords.
+@test AstroLib.get_date(DateTime(2001,09,25,14,56,14), old=true,timetag=true) ==
+    "25/09/2001:T14:56:14"
+
+# Test gcirc.
+@test_approx_eq gcirc(0, [0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.222450611061632,
+                                                              2.500353926443337,
+                                                              1.5892569925227757]
 
 # Test jdcnv.
 @test_approx_eq AstroLib.jdcnv(DateTime(-4713, 11, 24, 12)) 0.0
