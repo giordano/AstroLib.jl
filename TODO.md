@@ -41,7 +41,7 @@ Already Present in Julia
 
 * `asinh`
 * `minmax`.  It is called `extrema` in Julia.
-
+* `to_hex`.  It is called `hex` in Julia.
 
 Present in Other Libraries
 --------------------------
@@ -472,7 +472,6 @@ Missing
 * `tics`
 * `t_nstar`
 * `tnx_eval`
-* `to_hex`
 * `tpv_eval`
 * `transform_coeff`
 * `trapzd`
