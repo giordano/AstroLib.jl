@@ -86,7 +86,7 @@ The real extraction is then done by `get-md-docs-on-file'."
   (dolist (file get-md-docs-files)
     (get-md-docs-search-file file)))
 
-(defvar fix-rst-docs--function-regexp "^~+\n\\(\n+::[ \t\nr]+\\)"
+(defvar fix-rst-docs--function-regexp "^~+\n\\(\n+::[ \t\n\r]+\\)"
   "Regexp matching the function definition.")
 
 (defun fix-rst-doc-file (file-name)

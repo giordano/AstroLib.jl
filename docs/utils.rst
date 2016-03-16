@@ -550,7 +550,7 @@ Code of this function is based on IDL Astronomy User's Library.
 radec
 ~~~~~
 
-.. function:: adec(ra::Number, dec::Number[, hours=true]) -> Float64, Float64, Float64, Float64, Float64, Float64
+.. function:: radec(ra::Number, dec::Number[, hours=true]) -> Float64, Float64, Float64, Float64, Float64, Float64
 
 Purpose
 '''''''
