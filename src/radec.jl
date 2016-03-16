@@ -57,11 +57,11 @@ function radec{R<:Number, D<:Number}(ra::AbstractArray{R}, dec::AbstractArray{D}
                                      hours::Bool=false)
     @assert length(ra) == length(dec)
     ra_hr = similar(ra, Float64)
-    ra_min = ra_hr
-    ra_sec = ra_hr
-    dec_deg = ra_hr
-    dec_min = ra_hr
-    dec_sec = ra_hr
+    ra_min = similar(ra, Float64)
+    ra_sec = similar(ra, Float64)
+    dec_deg = similar(ra, Float64)
+    dec_min = similar(ra, Float64)
+    dec_sec = similar(ra, Float64)
     for i in eachindex(ra)
         ra_hr[i], ra_min[i], ra_sec[i], dec_deg[i], dec_min[i], dec_sec[i] =
             radec(ra[i], dec[i], hours=hours)
