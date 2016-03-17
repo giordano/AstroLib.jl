@@ -90,6 +90,17 @@ let
     @test_approx_eq y [ 0.0, 2.0, 1.5*sqrt(2.0)]
 end
 
+# Test precess
+let
+    local ra1, dec1, ra2, dec2
+    ra1, dec1 = precess(ten(2,31,46.3)*15, ten(89,15,50.6), 2000, 1985)
+    @test_approx_eq ra1  34.09470328718033
+    @test_approx_eq dec1 89.19647174928589
+    ra2, dec2 = precess(ten(21, 59, 33.053)*15, ten(-56, 59, 33.053), 1950, 1975, FK4=true)
+    @test_approx_eq ra2  330.3144305418865
+    @test_approx_eq dec2 -56.87186126487889
+end
+
 # Test premat
 @test_approx_eq premat(1967, 1982, FK4=true) [0.9999933170034135    -0.0033529069683496567 -0.0014573823699636742
                                               0.00335290696825777    0.9999943789886484    -2.443304965138481e-6
