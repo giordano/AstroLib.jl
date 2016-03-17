@@ -105,9 +105,8 @@ let
     @test_approx_eq r [0.0,  2.0,  4.0]
     @test_approx_eq a [0.0, 45.0, 30.0]
     # Test polrec is the inverse of recpol
-    local xi = 6.3, yi = -2.7, x = y = r2 = a2 = 0.0
-    r2, a2 = AstroLib.recpol(xi, yi, degrees=true)
-    x, y = AstroLib.polrec(r2, a2, degrees=true)
+    local xi = 6.3, yi = -2.7, x = y = 0.0
+    x, y = AstroLib.polrec(AstroLib.recpol(xi, yi, degrees=true), degrees=true)
     @test_approx_eq x xi
     @test_approx_eq y yi
 end

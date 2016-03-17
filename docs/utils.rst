@@ -731,6 +731,11 @@ Purpose
 
 Convert 2D polar coordinates to rectangular coordinates.
 
+Explanation
+'''''''''''
+
+This is the partial inverse function of ``recpol``.
+
 Arguments
 '''''''''
 
@@ -741,6 +746,10 @@ Arguments
 -  ``degrees`` (optional boolean keyword): if ``true``, the ``angle`` is
    assumed to be in degrees, otherwise in radians. It defaults to
    ``false``.
+
+Mandatory arguments may also be passed as the 2-tuple
+``(radius, angle)``, so that it is possible to execute
+``recpol(polrec(radius, angle))``.
 
 Output
 ''''''
@@ -815,6 +824,11 @@ Purpose
 
 Convert 2D rectangular coordinates to polar coordinates.
 
+Explanation
+'''''''''''
+
+This is the partial inverse function of ``polrec``.
+
 Arguments
 '''''''''
 
@@ -825,6 +839,9 @@ Arguments
 -  ``degrees`` (optional boolean keyword): if ``true``, the output
    ``angle`` is given in degrees, otherwise in radians. It defaults to
    ``false``.
+
+Mandatory arguments may also be passed as the 2-tuple ``(x, y)``, so
+that it is possible to execute ``polrec(recpol(x, y))``.
 
 Output
 ''''''

@@ -8,6 +8,10 @@
 
 Convert 2D polar coordinates to rectangular coordinates.
 
+### Explanation ###
+
+This is the partial inverse function of `recpol`.
+
 ### Arguments ###
 
 * `radius`: radial coordinate of the point.  It may be a scalar or an array.
@@ -15,6 +19,9 @@ Convert 2D polar coordinates to rectangular coordinates.
   of the same lenth as `radius`.
 * `degrees` (optional boolean keyword): if `true`, the `angle` is assumed to be
   in degrees, otherwise in radians.  It defaults to `false`.
+
+Mandatory arguments may also be passed as the 2-tuple `(radius, angle)`, so that
+it is possible to execute `recpol(polrec(radius, angle))`.
 
 ### Output ###
 
@@ -29,6 +36,9 @@ function polrec(radius::Number, angle::Number; degrees::Bool=false)
         return radius*cos(angle), radius*sin(angle)
     end
 end
+
+polrec(r_a::Tuple{Number, Number}; degrees::Bool=false) = polrec(r_a[1], r_a[2],
+                                                                 degrees=degrees)
 
 function polrec{R<:Number, A<:Number}(r::AbstractArray{R}, a::AbstractArray{A};
                                       degrees::Bool=false)
