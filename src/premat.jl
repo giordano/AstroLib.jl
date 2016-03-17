@@ -40,8 +40,8 @@ julia> premat(1950,1975,FK4=true)
 ### Method ###
 
 FK4 constants from "Computational Spherical Astronomy" by Taff (1983),
-p. 24. (FK4). FK5 constants from "Astronomical Almanac Explanatory Supplement"
-1992, page 104 Table 3.211.1
+p. 24. (FK4). FK5 constants from "Explanatory Supplement To The Astronomical
+Almanac" 1992, page 104 Table 3.211.1
 (https://archive.org/details/131123ExplanatorySupplementAstronomicalAlmanac).
 
 ### Notes ###
@@ -53,14 +53,6 @@ function premat(equinox1::Number, equinox2::Number; FK4::Bool=false)
     sec2rad(sec::Number) = deg2rad(sec/3600.0)
     t = 0.001*(equinox2 - equinox1)
     if FK4
-        st = 0.001*(equinox1 - 2000.0)
-        # Compute 3 rotation angles
-        a = sec2rad(t *(23062.181 + st*(139.656 + 0.0139*st)
-                        + t*(30.188 - 0.344*st + 17.998*t)))
-        b = sec2rad(t*t*(79.280 + 0.410*st + 0.205*t)) + a
-        c = sec2rad(t*(20043.109 - st*(85.33 + 0.217*st)
-                       + t*(-42.665 - 0.217*st - 41.833*t)))
-    else
         st = 0.001*(equinox1 - 1900.0)
         #  Compute 3 rotation angles
         a = sec2rad(t*(23042.53 + st*(139.75 + 0.06*st)
@@ -68,12 +60,20 @@ function premat(equinox1::Number, equinox2::Number; FK4::Bool=false)
         b = sec2rad(t*t*(79.27 + 0.66*st + 0.32*t)) + a
         c = sec2rad(t*(20046.85 - st*(85.33 + 0.37*st)
                        + t*(-42.67 - 0.37*st -41.8*t)))
+    else
+        st = 0.001*(equinox1 - 2000.0)
+        # Compute 3 rotation angles
+        a = sec2rad(t *(23062.181 + st*(139.656 + 0.0139*st)
+                        + t*(30.188 - 0.344*st + 17.998*t)))
+        b = sec2rad(t*t*(79.280 + 0.410*st + 0.205*t)) + a
+        c = sec2rad(t*(20043.109 - st*(85.33 + 0.217*st)
+                       + t*(-42.665 - 0.217*st - 41.833*t)))
     end
     sina = sin(a); sinb = sin(b); sinc = sin(c)
     cosa = cos(a); cosb = cos(b); cosc = cos(c)
     r = Array(Float64, 3, 3)
-    r[1,:] = [ cosa*cosb*cosc - sina*sinb,  sina*cosb + cosa*sinb*cosc,  cosa*sinc]
-    r[2,:] = [-cosa*sinb - sina*cosb*cosc,  cosa*cosb - sina*sinb*cosc, -sina*sinc]
-    r[3,:] = [                 -cosb*sinc,                  -sinb*sinc,       cosc]
+    r[:,1] = [ cosa*cosb*cosc - sina*sinb,  sina*cosb + cosa*sinb*cosc,  cosa*sinc]
+    r[:,2] = [-cosa*sinb - sina*cosb*cosc,  cosa*cosb - sina*sinb*cosc, -sina*sinc]
+    r[:,3] = [                 -cosb*sinc,                  -sinb*sinc,       cosc]
     return r
 end
