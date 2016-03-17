@@ -31,11 +31,13 @@ Arguments of this function are:
 The function can be called in different ways:
 
 -  Two numeric arguments: first is ``ra``, the second is ``dec``.
+-  A 2-tuple ``(ra, dec)``.
 -  One 2-element numeric array: ``[ra, dec]``. A single string is
    returned.
 -  One numeric argument: it is assumed only ``dec`` is provided.
 -  Two numeric arrays of the same length: ``ra`` and ``dec`` arrays. An
    array of strings is returned.
+-  An array of 2-tuples ``(ra, dec)``.
 
 Optional keywords affecting the output format are always available:
 
@@ -808,8 +810,8 @@ Method
 ''''''
 
 FK4 constants from "Computational Spherical Astronomy" by Taff (1983),
-p. 24. (FK4). FK5 constants from "Astronomical Almanac Explanatory
-Supplement" 1992, page 104 Table 3.211.1
+p. 24. (FK4). FK5 constants from "Explanatory Supplement To The
+Astronomical Almanac" 1992, page 104 Table 3.211.1
 (https://archive.org/details/131123ExplanatorySupplementAstronomicalAlmanac).
 
 Notes

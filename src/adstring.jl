@@ -28,10 +28,12 @@ Arguments of this function are:
 The function can be called in different ways:
 
 * Two numeric arguments: first is `ra`, the second is `dec`.
+* A 2-tuple `(ra, dec)`.
 * One 2-element numeric array: `[ra, dec]`.  A single string is returned.
 * One numeric argument: it is assumed only `dec` is provided.
 * Two numeric arrays of the same length: `ra` and `dec` arrays.  An array of
   strings is returned.
+* An array of 2-tuples `(ra, dec)`.
 
 Optional keywords affecting the output format are always available:
 
@@ -106,6 +108,10 @@ function adstring(ra::Number, dec::Number;
     return string(ra_string, dec_string)
 end
 
+adstring(radec::Tuple{Number, Number};
+         precision::Int=0, truncate::Bool=false) =
+             adstring(radec[1], radec[2], precision=precision, truncate=truncate)
+
 # When printing only declination, IDL implementation defaults "precision" to 1
 # instead of 0.
 adstring(dec::Number; precision::Int=1, truncate::Bool=false) =
@@ -120,11 +126,20 @@ end
 function adstring{R<:Number, D<:Number}(ra::AbstractArray{R},
                                         dec::AbstractArray{D};
                                         precision::Int=0, truncate::Bool=false)
-
     @assert length(ra) == length(dec) "ra and dec arrays should be of the same length"
     result = similar(ra, AbstractString)
     for i in eachindex(ra)
         result[i] = adstring(ra[i], dec[i],
+                             precision=precision, truncate=truncate)
+    end
+    return result
+end
+
+function adstring{N<:Number}(radec::AbstractArray{Tuple{N, N}};
+                             precision::Int=0, truncate::Bool=false)
+    result = similar(radec, AbstractString)
+    for i in eachindex(radec)
+        result[i] = adstring(radec[i][1], radec[i][2],
                              precision=precision, truncate=truncate)
     end
     return result
