@@ -58,5 +58,8 @@ export recpol
 include("sixty.jl")
 export sixty
 
+include("sphdist.jl")
+export sphdist
+
 include("ten.jl")
 export ten, tenv

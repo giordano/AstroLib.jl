@@ -570,10 +570,8 @@ Notes
    ``ra2``, ``dec2`` are vectors then the output is a vector giving the
    distance of each element of ``ra1``, ``dec1`` to the corresponding
    element of ``ra2``, ``dec2``.
-
 -  The function ``sphdist`` provides an alternate method of computing a
    spherical distance.
-
 -  The Haversine formula can give rounding errors for antipodal points.
 
 Code of this function is based on IDL Astronomy User's Library.
@@ -883,6 +881,53 @@ An array of three ``Float64``, that are the sexagesimal counterpart
 
 Notes
 '''''
+
+Code of this function is based on IDL Astronomy User's Library.
+
+--------------
+
+sphdist
+~~~~~~~
+
+.. function:: sphdist(long1, lat1, long2, lat2[, degrees=true]) -> Float64
+
+Purpose
+'''''''
+
+Angular distance between points on a sphere.
+
+Arguments
+'''''''''
+
+-  ``long1``: longitude of point 1
+-  ``lat1``: latitude of point 1
+-  ``long2``: longitude of point 2
+-  ``lat2``: latitude of point 2
+-  ``degrees`` (optional boolean keyword): if ``true``, all angles,
+   including the output distance, are assumed to be in degrees,
+   otherwise they are all in radians. It defaults to ``false``.
+
+Output
+''''''
+
+Angular distance on a sphere between points 1 and 2, as a ``Float64``.
+It is expressed in radians unless ``degrees`` keyword is set to
+``true``.
+
+Notes
+'''''
+
+-  ``gcirc`` function is similar to ``sphdist``, but may be more
+   suitable for astronomical applications.
+-  If ``long1``, ``lat1`` are scalars, and ``long2``, ``lat2`` are
+   vectors, then the output is a vector giving the distance of each
+   element of ``long2``, ``lat2`` to ``long1``, ``lat1``. Similarly, if
+   ``long1``,\ ``de1`` are vectors, and ``long2``,\ ``lat2`` are
+   scalars, then the output is a vector giving the distance of each
+   element of ``long1``, ``lat1`` to ``long2``, ``lat2``. If both
+   ``long1``, ``lat1`` and ``long2``, ``lat2`` are vectors then the
+   output is a vector giving the distance of each element of ``long1``,
+   ``lat1`` to the corresponding element of ``long2``, ``lat2``.
 
 Code of this function is based on IDL Astronomy User's Library.
 

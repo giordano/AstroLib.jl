@@ -115,6 +115,11 @@ end
 @test_approx_eq AstroLib.sixty(-51.36) [-51.0, 21.0, 36.0]
 @test_approx_eq AstroLib.ten(AstroLib.sixty(-0.10934835545824395)) -0.10934835545824395
 
+# Test sphdist.
+@test_approx_eq sphdist([0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.222450611061632,
+                                                             2.500353926443337,
+                                                             1.5892569925227762]
+
 # Test "ten" and "tenv".  Always make sure string and numerical inputs are
 # consistent (IDL implementation of "ten" is not).
 @test AstroLib.ten(0, -23, 34) == AstroLib.ten(" : 0 -23 :: 34") == -0.37388888888888894

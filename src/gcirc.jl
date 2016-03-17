@@ -46,10 +46,8 @@ argument above for the units.
  `dec1` to `ra2`, `dec2`.  If both `ra1`, `dec1` and `ra2`, `dec2` are vectors
  then the output is a vector giving the distance of each element of `ra1`,
  `dec1` to the corresponding element of `ra2`, `dec2`.
-
 * The function `sphdist` provides an alternate method of computing a spherical
  distance.
-
 * The Haversine formula can give rounding errors for antipodal points.
 
 Code of this function is based on IDL Astronomy User's Library.

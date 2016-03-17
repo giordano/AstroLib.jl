@@ -27,6 +27,7 @@ Done
 * `radec`
 * `recpol`
 * `sixty`
+* `sphdist`
 * `ten`
 * `tenv`
 
@@ -423,7 +424,6 @@ Missing
 * `sky`
 * `solve_astro`
 * `spec_dir`
-* `sphdist`
 * `srcor`
 * `starast`
 * `st_diskread`
