@@ -36,7 +36,7 @@ function polrec{R<:Number, A<:Number}(r::AbstractArray{R}, a::AbstractArray{A};
     x = similar(r, Float64)
     y = similar(a, Float64)
     for i in eachindex(r)
-        x[i], y[i] = polrec(r[i], a[i])
+        x[i], y[i] = polrec(r[i], a[i], degrees=degrees)
     end
     return x, y
 end

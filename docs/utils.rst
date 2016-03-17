@@ -805,6 +805,39 @@ given by
 
 --------------
 
+recpol
+~~~~~~
+
+.. function:: recpol(x, y[, degrees=true]) -> Float64, Float64
+
+Purpose
+'''''''
+
+Convert 2D rectangular coordinates to polar coordinates.
+
+Arguments
+'''''''''
+
+-  ``x``: the abscissa coordinate of the point. It may be a scalar or an
+   array.
+-  ``y``: the ordinate coordinate of the point. It may be a scalar or an
+   array of the same lenth as ``x``.
+-  ``degrees`` (optional boolean keyword): if ``true``, the output
+   ``angle`` is given in degrees, otherwise in radians. It defaults to
+   ``false``.
+
+Output
+''''''
+
+A 2-tuple ``(radius, angle)`` with the polar coordinates of the input.
+The coordinate ``angle`` coordinate lies in the range ``[-pi, pi]`` if
+``degrees=false``, or ``[-180, 180]`` when ``degrees=true``.
+
+If ``x`` and ``y`` are arrays, ``radius`` and ``angle`` are arrays of
+the same length as ``radius`` and ``angle``.
+
+--------------
+
 sixty
 ~~~~~
 

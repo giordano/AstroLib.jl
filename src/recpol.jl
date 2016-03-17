@@ -1,0 +1,45 @@
+# This file is a part of AstroLib.jl. License is MIT "Expat".
+# Copyright (C) 2016 Mosè Giordano.
+
+"""
+    recpol(x, y[, degrees=true]) -> Float64, Float64
+
+### Purpose ###
+
+Convert 2D rectangular coordinates to polar coordinates.
+
+### Arguments ###
+
+* `x`: the abscissa coordinate of the point.  It may be a scalar or an array.
+* `y`: the ordinate coordinate of the point.  It may be a scalar or an array
+  of the same lenth as `x`.
+* `degrees` (optional boolean keyword): if `true`, the output `angle` is given
+ in degrees, otherwise in radians.  It defaults to `false`.
+
+### Output ###
+
+A 2-tuple `(radius, angle)` with the polar coordinates of the input.  The
+coordinate `angle` coordinate lies in the range `[-pi, pi]` if `degrees=false`,
+or `[-180, 180]` when `degrees=true`.
+
+If `x` and `y` are arrays, `radius` and `angle` are arrays of the same length as
+`radius` and `angle`.
+"""
+function recpol(x::Number, y::Number; degrees::Bool=false)
+    if degrees
+        return hypot(x, y), rad2deg(atan2(y, x))
+    else
+        return return hypot(x, y), atan2(y, x)
+    end
+end
+
+function recpol{X<:Number, Y<:Number}(x::AbstractArray{X}, y::AbstractArray{Y};
+                                      degrees::Bool=false)
+    @assert length(x) == length(y)
+    r = similar(x, Float64)
+    a = similar(y, Float64)
+    for i in eachindex(x)
+        r[i], a[i] = recpol(x[i], y[i], degrees=degrees)
+    end
+    return r, a
+end

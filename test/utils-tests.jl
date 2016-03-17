@@ -97,6 +97,21 @@ end
     ([1.0, 23.0], [3.0, 56.0], [36.0, 36.0],
      [-0.0, 15.0], [51.0, 54.0], [0.0, 0.0])
 
+# Test recpol
+let
+    local r = a = zeros(Float64, 3)
+    r, a = AstroLib.recpol([0, sqrt(2.0), 2.0*sqrt(3.0)],
+                           [0, sqrt(2.0), 2.0], degrees=true)
+    @test_approx_eq r [0.0,  2.0,  4.0]
+    @test_approx_eq a [0.0, 45.0, 30.0]
+    # Test polrec is the inverse of recpol
+    local xi = 6.3, yi = -2.7, x = y = r2 = a2 = 0.0
+    r2, a2 = AstroLib.recpol(xi, yi, degrees=true)
+    x, y = AstroLib.polrec(r2, a2, degrees=true)
+    @test_approx_eq x xi
+    @test_approx_eq y yi
+end
+
 # Test "sixty".  Test also it's the reverse of ten.
 @test_approx_eq AstroLib.sixty(-51.36) [-51.0, 21.0, 36.0]
 @test_approx_eq AstroLib.ten(AstroLib.sixty(-0.10934835545824395)) -0.10934835545824395

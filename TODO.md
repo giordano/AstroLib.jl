@@ -25,6 +25,7 @@ Done
 * `mag2flux`
 * `polrec`
 * `radec`
+* `recpol`
 * `sixty`
 * `ten`
 * `tenv`
@@ -400,7 +401,6 @@ Missing
 * `read_ipac_table`
 * `read_ipac_var`
 * `read_key`
-* `recpol`
 * `remchar`
 * `rem_dup`
 * `remove`

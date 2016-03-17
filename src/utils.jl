@@ -52,6 +52,9 @@ export polrec
 include("radec.jl")
 export radec
 
+include("recpol.jl")
+export recpol
+
 include("sixty.jl")
 export sixty
 
