@@ -24,6 +24,7 @@ Done
 * `juldate`
 * `mag2flux`
 * `polrec`
+* `premat`
 * `radec`
 * `recpol`
 * `sixty`
@@ -369,7 +370,6 @@ Missing
 * `precess_cd`
 * `precess`
 * `precess_xyz`
-* `premat`
 * `prime`
 * `print_struct`
 * `prob_ks`

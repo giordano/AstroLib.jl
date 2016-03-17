@@ -49,6 +49,9 @@ export mag2flux
 include("polrec.jl")
 export polrec
 
+include("premat.jl")
+export premat
+
 include("radec.jl")
 export radec
 
