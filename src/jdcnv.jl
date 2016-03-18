@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    jdcnv(date::DateTime) -> Float64
+    jdcnv(date::DateTime) -> julian_days
 
 ### Purpose ###
 
@@ -20,7 +20,7 @@ of Julian calendar days since epoch `-4713-11-24T12:00:00`.
 
 ### Output ###
 
-Number of Julian days, as a `Float64`.
+Number of Julian days, as a floating point.
 
 
 ### Example ###

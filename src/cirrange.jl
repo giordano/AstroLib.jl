@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    cirrange(number::Number[, max=2.0*pi]) -> Float64
+    cirrange(number[, max=2.0*pi]) -> restricted_number
 
 ### Purpose ###
 
@@ -16,7 +16,7 @@ Force a number into a given range `[0, max)`.
 
 ### Output ###
 
-The converted number or array of numbers, as `Float64`.
+The converted number or array of numbers, as `AbstractFloat`.
 
 ### Example ###
 
@@ -38,15 +38,18 @@ Use `max=2.0*pi` to restrict a number to the same interval.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function cirrange(number::Number; max::Number=360.0)
+function cirrange(number::AbstractFloat; max::AbstractFloat=360.0)
     # Deal with the lower limit.
     result = mod(number, max)
     # Deal with negative values, if any
     return result < 0.0 ? (result + max) : result
 end
 
-function cirrange{N<:Number}(numbers::AbstractArray{N}; max::Number=360.0)
-    result = similar(numbers, Float64)
+cirrange(number::Real; max::Real=360.0) =
+    cirrange(float(number), max=float(max))
+
+function cirrange{N<:Real}(numbers::AbstractArray{N}; max::Real=360.0)
+    result = similar(numbers, AbstractFloat)
     for i in eachindex(numbers)
         result[i] = cirrange(numbers[i], max=max)
     end

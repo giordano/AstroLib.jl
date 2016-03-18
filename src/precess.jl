@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    precess(ra, dec, equinox1, equinox2[, FK4=true, radian=true]) -> (Float64, Float64)
+    precess(ra, dec, equinox1, equinox2[, FK4=true, radian=true]) -> prec_ra, prec_dec
 
 ### Purpose ###
 
@@ -71,12 +71,12 @@ Accuracy of precession decreases for declination values near 90 degrees.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function precess(ra::Real, dec::Real, equinox1::Real, equinox2::Real;
+function precessione(ra::AbstractFloat, dec::AbstractFloat,
+                 equinox1::AbstractFloat, equinox2::AbstractFloat;
                  FK4::Bool=false, radians::Bool=false)
     if radians
-        # Already radians, just make sure they're Float64.
-        ra_rad  = convert(Float64, ra)
-        dec_rad = convert(Float64, dec)
+        ra_rad  = ra
+        dec_rad = dec
     else
         # Convert to radians.
         ra_rad  = deg2rad(ra)
@@ -97,19 +97,25 @@ function precess(ra::Real, dec::Real, equinox1::Real, equinox2::Real;
     end
 end
 
+precess(ra::Real, dec::Real, equinox1::Real, equinox2::Real;
+        FK4::Bool=false, radians::Bool=false) =
+            precessione(promote(float(ra), float(dec),
+                            float(equinox1), float(equinox2))...,
+                    FK4=FK4, radians=radians)
+
 precess(radec::Tuple{Real, Real}, equinox1::Real, equinox2::Real;
         FK4::Bool=false,
         radians::Bool=false) =
             precess(radec[1], radec[2], equinox1, equinox2,
                     FK4=FK4, radians=radians)
 
-function precess{R<:Number, D<:Number}(ra::AbstractArray{R},
-                                       dec::AbstractArray{D}, equinox1::Real,
-                                       equinox2::Real; FK4::Bool=false,
-                                       radians::Bool=false)
+function precess{R<:Real, D<:Real}(ra::AbstractArray{R},
+                                   dec::AbstractArray{D}, equinox1::Real,
+                                   equinox2::Real; FK4::Bool=false,
+                                   radians::Bool=false)
     @assert length(ra) == length(dec) "ra and dec arrays should be of the same length"
-    ra_out  = similar(ra, Float64)
-    dec_out = similar(dec, Float64)
+    ra_out  = similar(ra, AbstractFloat)
+    dec_out = similar(dec, AbstractFloat)
     for i in eachindex(ra)
         ra_out[i], dec_out[i] = precess(radec[i], radec[i], equinox1, equinox2,
                                         FK4=FK4, radians=radians)

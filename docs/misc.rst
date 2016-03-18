@@ -1,7 +1,7 @@
 cirrange
 ~~~~~~~~
 
-.. function:: cirrange(number::Number[, max=2.0*pi]) -> Float64
+.. function:: cirrange(number[, max=2.0*pi]) -> restricted_number
 
 Purpose
 '''''''
@@ -19,7 +19,7 @@ Argument
 Output
 ''''''
 
-The converted number or array of numbers, as ``Float64``.
+The converted number or array of numbers, as ``AbstractFloat``.
 
 Example
 '''''''

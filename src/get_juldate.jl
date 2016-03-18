@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    get_juldate() -> Float64
+    get_juldate() -> julian_days
 
 ### Purpose ###
 
@@ -11,7 +11,7 @@ Return the number of Julian days for current time.
 ### Explanation ###
 
 Return for current time the number of Julian calendar days since epoch
-`-4713-11-24T12:00:00` as a `Float64`.
+`-4713-11-24T12:00:00` as a floating point.
 
 ### Example ###
 

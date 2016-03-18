@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    radec(ra::Number, dec::Number[, hours=true]) -> Float64, Float64, Float64, Float64, Float64, Float64
+    radec(ra::Number, dec::Number[, hours=true]) -> ra_hours, ra_minutes, ra_seconds, dec_degrees, dec_minutes, dec_seconds
 
 ### Purpose ###
 
@@ -24,7 +24,7 @@ degrees for declination.
 
 ### Output ###
 
-A 6-tuple of `Float64`:
+A 6-tuple of `AbstractFloat`:
 
     (ra_hours, ra_minutes, ra_seconds, dec_degrees, dec_minutes, dec_seconds)
 
@@ -41,7 +41,7 @@ julia> radec(6.7525, -16.7161, hours=true)
 (6.0,45.0,9.0,-16.0,42.0,57.9600000000064)
 ```
 """
-function radec(ra::Number, dec::Number; hours::Bool=false)
+function radec(ra::AbstractFloat, dec::AbstractFloat; hours::Bool=false)
     # Compute right ascension.
     if hours
         ra_hr, ra_min, ra_sec = sixty(cirrange(ra, max=24.0))
@@ -53,15 +53,18 @@ function radec(ra::Number, dec::Number; hours::Bool=false)
     return ra_hr, ra_min, ra_sec, dec_deg, dec_min, dec_sec
 end
 
-function radec{R<:Number, D<:Number}(ra::AbstractArray{R}, dec::AbstractArray{D};
-                                     hours::Bool=false)
+radec(ra::Real, dec::Real; hours::Bool=false) =
+    radec(promote(float(ra), float(dec))..., hours=hours)
+
+function radec{R<:Real, D<:Real}(ra::AbstractArray{R}, dec::AbstractArray{D};
+                                 hours::Bool=false)
     @assert length(ra) == length(dec)
-    ra_hr = similar(ra, Float64)
-    ra_min = similar(ra, Float64)
-    ra_sec = similar(ra, Float64)
-    dec_deg = similar(ra, Float64)
-    dec_min = similar(ra, Float64)
-    dec_sec = similar(ra, Float64)
+    ra_hr   = similar(ra, AbstractFloat)
+    ra_min  = similar(ra, AbstractFloat)
+    ra_sec  = similar(ra, AbstractFloat)
+    dec_deg = similar(ra, AbstractFloat)
+    dec_min = similar(ra, AbstractFloat)
+    dec_sec = similar(ra, AbstractFloat)
     for i in eachindex(ra)
         ra_hr[i], ra_min[i], ra_sec[i], dec_deg[i], dec_min[i], dec_sec[i] =
             radec(ra[i], dec[i], hours=hours)

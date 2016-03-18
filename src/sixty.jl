@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    sixty(number::Number) -> [deg::Float64, min::Float64, sec::Float64]
+    sixty(number) -> [deg, min, sec]
 
 ### Purpose ###
 
@@ -18,8 +18,8 @@ The reverse of `ten` function.
 
 ### Output ###
 
-An array of three `Float64`, that are the sexagesimal counterpart (degrees,
-minutes, seconds) of `number`.
+An array of three `AbstractFloat`, that are the sexagesimal counterpart
+(degrees, minutes, seconds) of `number`.
 
 ### Notes ###
 
@@ -29,13 +29,15 @@ Code of this function is based on IDL Astronomy User's Library.
 # Possible strategy: hold the sign of number in a variable (you can use
 # copysign(1, number)), set result[1] equal to dd and multiply the first
 # non-zero element (use findfirst for that) by the sign of number.
-function sixty(number::Number)
+function sixty(number::AbstractFloat)
     dd = trunc(abs(number))
     mm = abs(60.0*number)
     ss = abs(3600.0*number)
-    result = zeros(Float64, 3)
+    result = zeros(AbstractFloat, 3)
     result[1] = trunc(number)
     result[2] = trunc(mm - 60.0*dd)
     result[3] = ss - 3600.0*dd - 60.0*result[2]
     return result
 end
+
+sixty(n::Real) = sixty(float(n))

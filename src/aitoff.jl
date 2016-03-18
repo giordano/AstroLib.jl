@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    aitoff(l, b) -> Float64, Float64
+    aitoff(l, b) -> x, y
 
 ### Purpose ###
 
@@ -44,7 +44,7 @@ centered at b=0 degrees.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function aitoff(l::Number, b::Number)
+function aitoff(l::AbstractFloat, b::AbstractFloat)
     l > 180.0 && (l -= 360.0)
     alpha2 = deg2rad(l/2.0)
     delta = deg2rad(b)
@@ -54,10 +54,13 @@ function aitoff(l::Number, b::Number)
     denom = sqrt(1.0 + cdec*cos(alpha2))
     return rad2deg(cdec*sin(alpha2)*2.0*r2/denom/f), rad2deg(sin(delta)*r2/denom/f)
 end
-function aitoff{L<:Number,B<:Number}(l::AbstractArray{L}, b::AbstractArray{B})
+
+aitoff(l::Real, b::Real) = aitoff(promote(float(l), float(b))...)
+
+function aitoff{L<:Real,B<:Real}(l::AbstractArray{L}, b::AbstractArray{B})
     @assert length(l) == length(b)
-    x = similar(l, Float64)
-    y = similar(b, Float64)
+    x = similar(l, AbstractFloat)
+    y = similar(b, AbstractFloat)
     for i in eachindex(l)
         x[i], y[i] = aitoff(l[i], b[i])
     end

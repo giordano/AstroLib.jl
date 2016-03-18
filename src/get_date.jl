@@ -2,9 +2,9 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    get_date([date::DateTime]) -> ASCIIString
-    get_date([date::DateTime;] old=true) -> ASCIIString
-    get_date([date::DateTime;] timetag=true) -> ASCIIString
+    get_date([date::DateTime]) -> string
+    get_date([date::DateTime;] old=true) -> string
+    get_date([date::DateTime;] timetag=true) -> string
 
 ### Purpose ###
 

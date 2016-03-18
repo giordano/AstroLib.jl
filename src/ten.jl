@@ -2,14 +2,17 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 # TODO: give sense to "-0" ("-0" is bitwise equal to "0").
-ten(degrees::Number, minutes::Number=0.0, seconds::Number=0.0) =
+ten(degrees::AbstractFloat, minutes::AbstractFloat, seconds::AbstractFloat) =
     copysign(1, degrees)*(abs(degrees) + minutes/60.0 + seconds/3600.0)
+
+ten(d::Real, m::Real=0.0, s::Real=0.0) =
+    ten(promote(float(d), float(m), float(s))...)
 
 # TODO: improve performance, if possible.  There are a couple of slow tests to
 # make parsing of the string work.
 function ten(strng::AbstractString)
     # Convert strings into numbers, empty strings into 0s.
-    tmp = map(x-> x=="" ? 0 : parse(Float64, x),
+    tmp = map(x-> x=="" ? 0 : float(x),
               # Replace in the string multiple spaces or colons with a single
               # space, strip leading whitespaces, and split the resulting string
               # using the space as separator.
@@ -20,22 +23,22 @@ function ten(strng::AbstractString)
     ten(angle[1], angle[2], angle[3])
 end
 
-function ten{T<:Number}(vector::AbstractArray{T,1})
+function ten{T<:Real}(vector::AbstractArray{T,1})
     vect = vcat(vector, zeros(Float64, 2))
     return ten(vect[1], vect[2], vect[3])
 end
 
-tenv{D<:Number,M<:Number,S<:Number}(deg::AbstractArray{D},
-                                   min::AbstractArray{M}=zeros(Float64, deg),
-                                   sec::AbstractArray{S}=zeros(Float64, deg)) =
-                                       map(ten, deg, min, sec)
+tenv{D<:Real,M<:Real,S<:Real}(deg::AbstractArray{D},
+                              min::AbstractArray{M}=zeros(AbstractFloat, deg),
+                              sec::AbstractArray{S}=zeros(AbstractFloat, deg)) =
+                                  map(ten, deg, min, sec)
 tenv{T<:AbstractString}(strings::AbstractArray{T}) = map(ten, strings)
 
 """
-    ten(deg[, min, sec]) -> Float64
-    ten("deg:min:sec") -> Float64
-    tenv([deg], [min], [sec]) -> Float64
-    tenv(["deg:min:sec"]) -> Float64
+    ten(deg[, min, sec]) -> decimal
+    ten("deg:min:sec") -> decimal
+    tenv([deg], [min], [sec]) -> decimal
+    tenv(["deg:min:sec"]) -> decimal
 
 ### Purpose ###
 

@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    gcirc(units, ra1, dec1, ra2, dec2) -> Float64
+    gcirc(units, ra1, dec1, ra2, dec2) -> angular_distance
 
 ### Purpose ###
 
@@ -28,10 +28,13 @@ declination, or degrees.
 * `ra2`: right ascension or longitude of point 2
 * `dec2`: declination or latitude of point 2
 
+Both `ra1` and `dec1`, and `ra2` and `dec2` can be given as 2-tuples `(ra1,
+dec1)` and `(ra2, dec2)`.
+
 ### Output ###
 
-Angular distance on the sky between points 1 and 2, as a `Float64`.  See `units`
-argument above for the units.
+Angular distance on the sky between points 1 and 2, as a `AbstractFloat`.  See
+`units` argument above for the units.
 
 ### Method ###
 
@@ -52,15 +55,15 @@ argument above for the units.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function gcirc(units::Integer, ra1::Number, dec1::Number,
-               ra2::Number, dec2::Number)
+function gcirc(units::Integer, ra1::AbstractFloat, dec1::AbstractFloat,
+               ra2::AbstractFloat, dec2::AbstractFloat)
     # Convert all quantities to radians.
     if units == 0
-        # All radians, just make sure all quantities are Float64.
-        ra1_rad  = convert(Float64, ra1)
-        ra2_rad  = convert(Float64, ra2)
-        dec1_rad = convert(Float64, dec1)
-        dec2_rad = convert(Float64, dec2)
+        # All radians
+        ra1_rad  = ra1
+        ra2_rad  = ra2
+        dec1_rad = dec1
+        dec2_rad = dec2
     elseif units == 1
         # Right ascensions are in hours, declinations in degrees.
         ra1_rad  = ra1*pi/12.0
@@ -88,41 +91,54 @@ function gcirc(units::Integer, ra1::Number, dec1::Number,
     end
 end
 
-function gcirc{R1<:Number, D1<:Number}(units::Integer,
+gcirc(units::Integer, ra1::Real, dec1::Real, ra2::Real, dec2::Real) =
+    gcirc(units, promote(float(ra1), float(dec1), float(ra2), float(dec2))...)
+
+function gcirc{R1<:Real, D1<:Real}(units::Integer,
                                        ra1::AbstractArray{R1},
                                        dec1::AbstractArray{D1},
-                                       ra2::Number,
-                                       dec2::Number)
+                                       ra2::Real,
+                                       dec2::Real)
     @assert length(ra1) == length(dec1)
-    dist = similar(ra1, Float64)
+    dist = similar(ra1, AbstractFloat)
     for i in eachindex(ra1)
         dist[i] = gcirc(units, ra1[i], dec1[i], ra2, dec2)
     end
     return dist
 end
 
-function gcirc{R2<:Number, D2<:Number}(units::Integer,
-                                       ra1::Number,
-                                       dec1::Number,
+function gcirc{R2<:Real, D2<:Real}(units::Integer,
+                                       ra1::Real,
+                                       dec1::Real,
                                        ra2::AbstractArray{R2},
                                        dec2::AbstractArray{D2})
     @assert length(ra2) == length(dec2)
-    dist = similar(ra2, Float64)
+    dist = similar(ra2, AbstractFloat)
     for i in eachindex(ra1)
         dist[i] = gcirc(units, ra1, dec1, ra2[i], dec2[i])
     end
     return dist
 end
 
-function gcirc{R1<:Number, D1<:Number, R2<:Number, D2<:Number}(units::Integer,
-                                                               ra1::AbstractArray{R1},
-                                                               dec1::AbstractArray{D1},
-                                                               ra2::AbstractArray{R2},
-                                                               dec2::AbstractArray{D2})
+function gcirc{R1<:Real, D1<:Real, R2<:Real, D2<:Real}(units::Integer,
+                                                       ra1::AbstractArray{R1},
+                                                       dec1::AbstractArray{D1},
+                                                       ra2::AbstractArray{R2},
+                                                       dec2::AbstractArray{D2})
     @assert length(ra1) == length(dec1) == length(ra2) == length(dec2)
-    dist = similar(ra1, Float64)
+    dist = similar(ra1, AbstractFloat)
     for i in eachindex(ra1)
         dist[i] = gcirc(units, ra1[i], dec1[i], ra2[i], dec2[i])
     end
     return dist
 end
+
+### Tuples input
+gcirc(units::Integer, radec1::Tuple{Real, Real}, ra2::Real, dec2::Real) =
+    gcirc(units, radec1..., ra2, dec2)
+
+gcirc(units::Integer, ra1::Real, dec1::Real, radec2::Tuple{Real, Real}) =
+    gcirc(units, ra1, dec1, radec2...)
+
+gcirc(units::Integer, radec1::Tuple{Real, Real}, radec2::Tuple{Real, Real}) =
+    gcirc(units, radec1..., radec2...)

@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    sphdist(long1, lat1, long2, lat2[, degrees=true]) -> Float64
+    sphdist(long1, lat1, long2, lat2[, degrees=true]) -> angular_distance
 
 ### Purpose ###
 
@@ -20,8 +20,8 @@ Angular distance between points on a sphere.
 
 ### Output ###
 
-Angular distance on a sphere between points 1 and 2, as a `Float64`.  It is
-expressed in radians unless `degrees` keyword is set to `true`.
+Angular distance on a sphere between points 1 and 2, as an `AbstractFloat`.  It
+is expressed in radians unless `degrees` keyword is set to `true`.
 
 ### Notes ###
 
@@ -37,8 +37,8 @@ expressed in radians unless `degrees` keyword is set to `true`.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function sphdist(long1::Number, lat1::Number,
-               long2::Number, lat2::Number; degrees::Bool=false)
+function sphdist(long1::AbstractFloat, lat1::AbstractFloat,
+                 long2::AbstractFloat, lat2::AbstractFloat; degrees::Bool=false)
     # Convert both points to rectangular coordinates.
     rxy, z1 = polrec(1.0, lat1,  degrees=degrees)
     x1, y1  = polrec(rxy, long1, degrees=degrees)
@@ -58,39 +58,44 @@ function sphdist(long1::Number, lat1::Number,
     degrees ? (return rad2deg(angle)) : (return angle)
 end
 
-function sphdist{LO1<:Number, LA1<:Number}(long1::AbstractArray{LO1},
-                                           lat1::AbstractArray{LA1},
-                                           long2::Number,
-                                           lat2::Number;
-                                           degrees::Bool=false)
+sphdist(long1::Real, lat1::Real,
+        long2::Real, lat2::Real; degrees::Bool=false) =
+            sphdist(promote(float(long1), float(lat1),
+                            float(long2), float(lat2))... , degrees=degrees)
+
+function sphdist{LO1<:Real, LA1<:Real}(long1::AbstractArray{LO1},
+                                       lat1::AbstractArray{LA1},
+                                       long2::Real,
+                                       lat2::Real;
+                                       degrees::Bool=false)
     @assert length(long1) == length(lat1)
-    dist = similar(long1, Float64)
+    dist = similar(long1, AbstractFloat)
     for i in eachindex(long1)
         dist[i] = sphdist(long1[i], lat1[i], long2, lat2, degrees=degrees)
     end
     return dist
 end
 
-function sphdist{LO2<:Number, LA2<:Number}(long1::Number,
-                                           lat1::Number,
-                                           long2::AbstractArray{LO2},
-                                           lat2::AbstractArray{LA2};
-                                           degrees::Bool=false)
+function sphdist{LO2<:Real, LA2<:Real}(long1::Real,
+                                       lat1::Real,
+                                       long2::AbstractArray{LO2},
+                                       lat2::AbstractArray{LA2};
+                                       degrees::Bool=false)
     @assert length(long2) == length(lat2)
-    dist = similar(long2, Float64)
+    dist = similar(long2, AbstractFloat)
     for i in eachindex(long1)
         dist[i] = sphdist(long1, lat1, long2[i], lat2[i], degrees=degrees)
     end
     return dist
 end
 
-function sphdist{LO1<:Number, LA1<:Number, LO2<:Number, LA2<:Number}(long1::AbstractArray{LO1},
-                                                                     lat1::AbstractArray{LA1},
-                                                                     long2::AbstractArray{LO2},
-                                                                     lat2::AbstractArray{LA2};
-                                                                     degrees::Bool=false)
+function sphdist{LO1<:Real, LA1<:Real, LO2<:Real, LA2<:Real}(long1::AbstractArray{LO1},
+                                                             lat1::AbstractArray{LA1},
+                                                             long2::AbstractArray{LO2},
+                                                             lat2::AbstractArray{LA2};
+                                                             degrees::Bool=false)
     @assert length(long1) == length(lat1) == length(long2) == length(lat2)
-    dist = similar(long1, Float64)
+    dist = similar(long1, AbstractFloat)
     for i in eachindex(long1)
         dist[i] = sphdist(long1[i], lat1[i], long2[i], lat2[i], degrees=degrees)
     end

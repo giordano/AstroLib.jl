@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    flux2mag(flux[, zero_point, ABwave=number]) -> Float64
+    flux2mag(flux[, zero_point, ABwave=number]) -> magnitude
 
 ### Purpose ###
 
@@ -39,7 +39,8 @@ Otherwise, magnitude is given by the expression
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function flux2mag(flux::Number, zero_point::Number=21.1; ABwave::Number=NaN)
+function flux2mag(flux::AbstractFloat, zero_point::AbstractFloat;
+                  ABwave::AbstractFloat=NaN)
     if isnan(ABwave)
         return -2.5*log10(flux) - zero_point
     else
@@ -47,9 +48,12 @@ function flux2mag(flux::Number, zero_point::Number=21.1; ABwave::Number=NaN)
     end
 end
 
-function flux2mag{N<:Number}(flux::AbstractArray{N}, zero_point::Number=21.1;
-                             ABwave::Number=NaN)
-    mag = similar(flux, Float64)
+flux2mag(flux::Real, zero_point::Real=21.1; ABwave::Real=NaN) =
+    flux2mag(promote(float(flux), float(zero_point))..., ABWave=float(ABwave))
+
+function flux2mag{N<:Real}(flux::AbstractArray{N}, zero_point::Real=21.1;
+                           ABwave::Real=NaN)
+    mag = similar(flux, AbstractFloat)
     for i in eachindex(flux)
         mag[i] = flux2mag(flux[i], zero_point, ABwave=ABwave)
     end

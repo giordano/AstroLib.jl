@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    mag2flux(mag[, zero_point, ABwave=number]) -> Float64
+    mag2flux(mag[, zero_point, ABwave=number]) -> flux
 
 ### Purpose ###
 
@@ -40,7 +40,8 @@ Otherwise the flux is given by
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function mag2flux(mag::Number, zero_point::Number=21.1; ABwave::Number=NaN)
+function mag2flux(mag::AbstractFloat, zero_point::AbstractFloat;
+                  ABwave::AbstractFloat=NaN)
     if isnan(ABwave)
         return exp10(-0.4*(mag + zero_point))
     else
@@ -48,9 +49,12 @@ function mag2flux(mag::Number, zero_point::Number=21.1; ABwave::Number=NaN)
     end
 end
 
-function mag2flux{N<:Number}(mag::AbstractArray{N}, zero_point::Number=21.1;
-                             ABwave::Number=NaN)
-    flux = similar(mag, Float64)
+mag2flux(mag::Real, zero_point::Real=21.1; ABwave::Real=NaN) =
+    mag2flux(promote(float(mag), float(zero_point))..., ABwave=float(ABwave))
+
+function mag2flux{N<:Real}(mag::AbstractArray{N}, zero_point::Real=21.1;
+                           ABwave::Real=NaN)
+    flux = similar(mag, AbstractFloat)
     for i in eachindex(mag)
         flux[i] = mag2flux(mag[i], zero_point, ABwave=ABwave)
     end

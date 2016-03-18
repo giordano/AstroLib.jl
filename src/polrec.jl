@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    polrec(radius, angle[, degrees=true]) -> Float64, Float64
+    polrec(radius, angle[, degrees=true]) -> x, y
 
 ### Purpose ###
 
@@ -20,7 +20,7 @@ This is the partial inverse function of `recpol`.
 * `degrees` (optional boolean keyword): if `true`, the `angle` is assumed to be
   in degrees, otherwise in radians.  It defaults to `false`.
 
-Mandatory arguments may also be passed as the 2-tuple `(radius, angle)`, so that
+Mandatory arguments can also be passed as the 2-tuple `(radius, angle)`, so that
 it is possible to execute `recpol(polrec(radius, angle))`.
 
 ### Output ###
@@ -29,7 +29,7 @@ A 2-tuple `(x, y)` with the rectangular coordinate of the input.  If `radius`
 and `angle` are arrays, `x` and `y` are arrays of the same length as `radius`
 and `angle`.
 """
-function polrec(radius::Number, angle::Number; degrees::Bool=false)
+function polrec(radius::AbstractFloat, angle::AbstractFloat; degrees::Bool=false)
     if degrees
         return radius*cos(deg2rad(angle)), radius*sin(deg2rad(angle))
     else
@@ -37,14 +37,17 @@ function polrec(radius::Number, angle::Number; degrees::Bool=false)
     end
 end
 
-polrec(r_a::Tuple{Number, Number}; degrees::Bool=false) = polrec(r_a[1], r_a[2],
-                                                                 degrees=degrees)
+polrec(radius::Real, angle::Real; degrees::Bool=false) =
+    polrec(promote(float(radius), float(angle))..., degrees=degrees)
 
-function polrec{R<:Number, A<:Number}(r::AbstractArray{R}, a::AbstractArray{A};
-                                      degrees::Bool=false)
+polrec(r_a::Tuple{Real, Real}; degrees::Bool=false) = polrec(r_a...,
+                                                             degrees=degrees)
+
+function polrec{R<:Real, A<:Real}(r::AbstractArray{R}, a::AbstractArray{A};
+                                  degrees::Bool=false)
     @assert length(r) == length(a)
-    x = similar(r, Float64)
-    y = similar(a, Float64)
+    x = similar(r, AbstractFloat)
+    y = similar(a, AbstractFloat)
     for i in eachindex(r)
         x[i], y[i] = polrec(r[i], a[i], degrees=degrees)
     end

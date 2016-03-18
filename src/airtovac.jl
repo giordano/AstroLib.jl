@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    airtovac(wave_air) -> Float64
+    airtovac(wave_air) -> wave_vacuum
 
 ### Purpose ###
 
@@ -38,8 +38,8 @@ yields an vacuum wavelength of `6057.8019`.
 ### Notes ###
 Code of this function is based on IDL Astronomy User's Library.
 """
-function airtovac(wave_air::Number)
-    wave_vac = convert(Float64, wave_air)
+function airtovac(wave_air::AbstractFloat)
+    wave_vac = wave_air
     if wave_vac >= 2000.0
         for iter= 1:2
             sigma2 = (1e4/wave_vac)^2.0 # Convert to wavenumber squared
@@ -51,4 +51,7 @@ function airtovac(wave_air::Number)
     end
     return wave_vac
 end
+
+airtovac(wave_air::Real) = airtovac(float(wave_air))
+
 @vectorize_1arg Number airtovac

@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    recpol(x, y[, degrees=true]) -> Float64, Float64
+    recpol(x, y[, degrees=true]) -> radius, angle
 
 ### Purpose ###
 
@@ -32,7 +32,7 @@ or `[-180, 180]` when `degrees=true`.
 If `x` and `y` are arrays, `radius` and `angle` are arrays of the same length as
 `radius` and `angle`.
 """
-function recpol(x::Number, y::Number; degrees::Bool=false)
+function recpol(x::AbstractFloat, y::AbstractFloat; degrees::Bool=false)
     if degrees
         return hypot(x, y), rad2deg(atan2(y, x))
     else
@@ -40,14 +40,17 @@ function recpol(x::Number, y::Number; degrees::Bool=false)
     end
 end
 
-recpol(xy::Tuple{Number, Number}; degrees::Bool=false) = recpol(xy[1], xy[2],
-                                                                degrees=degrees)
+recpol(x::Real, y::Real; degrees::Bool=false) =
+    recpol(promote(float(x), float(y))..., degrees=degrees)
 
-function recpol{X<:Number, Y<:Number}(x::AbstractArray{X}, y::AbstractArray{Y};
-                                      degrees::Bool=false)
+recpol(xy::Tuple{Real, Real}; degrees::Bool=false) =
+    recpol(xy..., degrees=degrees)
+
+function recpol{X<:Real, Y<:Real}(x::AbstractArray{X}, y::AbstractArray{Y};
+                                  degrees::Bool=false)
     @assert length(x) == length(y)
-    r = similar(x, Float64)
-    a = similar(y, Float64)
+    r = similar(x, AbstractFloat)
+    a = similar(y, AbstractFloat)
     for i in eachindex(x)
         r[i], a[i] = recpol(x[i], y[i], degrees=degrees)
     end

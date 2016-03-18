@@ -4,9 +4,9 @@
 # This function is based on IDL Astronomy User's Library.
 
 # TODO: this function requires "bprecess" and "xyz".
-function helio_jd(date::Number, ra::Number, dec::Number;
-                  b1950::Bool=false, time_diff::Bool=false)
-    if b1950
+function helio_jd(date::AbstractFloat, ra::AbstractFloat, dec::AbstractFloat;
+                  B1950::Bool=false, time_diff::Bool=false)
+    if B1950
         ra, dec = bprecess(ra, dec)
     end
     delta_t = (date - 33282.42345905)/36525.0
@@ -23,3 +23,8 @@ function helio_jd(date::Number, ra::Number, dec::Number;
         return date + time/86400.0
     end
 end
+
+helio_jd(date::Real, ra::Real, dec::Real;
+         B1950::Bool=false, time_diff::Bool=false) =
+             helio_jd(promote(float(date), float(ra), float(dec))...,
+                      B1950=B1950, time_diff=time_diff)

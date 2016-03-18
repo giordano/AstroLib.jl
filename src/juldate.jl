@@ -2,20 +2,20 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    juldate(date::DateTime) -> Float64
+    juldate(date::DateTime) -> reduced_julia_days
 
 ### Purpose ###
 
-Convert from calendar to Reduced Julian Date.
+Convert from calendar to Reduced Julian Days.
 
 ### Explanation ###
 
 Julian Day Number is a count of days elapsed since Greenwich mean noon on 1
-January 4713 B.C.  The Julian Date is the Julian day number followed by the
+January 4713 B.C.  Julian Days are the number of Julian days followed by the
 fraction of the day elapsed since the preceding noon.
 
 This function takes the given `date` and returns the number of Julian calendar
-days since epoch `1858-11-16T12:00:00` (Reduced Julian Date = Julian Date -
+days since epoch `1858-11-16T12:00:00` (Reduced Julian Days = Julian Days -
 2400000).
 
 ### Argument ###

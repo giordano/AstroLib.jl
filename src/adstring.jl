@@ -2,10 +2,10 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    adstring(ra::Number, dec::Number[, precision::Int=2, truncate::Bool=true]) -> ASCIIString
-    adstring([ra, dec]) -> ASCIIString
-    adstring(dec) -> ASCIIString
-    adstring([ra], [dec]) -> AbstractArray{ASCIIString}
+    adstring(ra::Real, dec::Real[, precision::Int=2, truncate::Bool=true]) -> string
+    adstring([ra, dec]) -> string
+    adstring(dec) -> string
+    adstring([ra], [dec]) -> ["string1", "string2", ...]
 
 ### Purpose ###
 
@@ -66,10 +66,10 @@ julia> adstring([30.4, -15.63], [-1.23, 48.41], precision=1)
  "-22 57 28.80  +48 24 36.0"
 ```
 """
-function adstring(ra::Number, dec::Number;
+function adstring(ra::AbstractFloat, dec::AbstractFloat;
                   precision::Int=0, truncate::Bool=false)
     # Helper function to format seconds part.
-    function formatsec(sec::Number, prec::Integer)
+    function formatsec(sec::Real, prec::Integer)
         sec = truncate ? trunc(sec, prec) : round(sec, prec)
         # Seconds of right ascension should be always positive (the hours part
         # holds the sign), so we don't need to take the absolute values.
@@ -108,22 +108,27 @@ function adstring(ra::Number, dec::Number;
     return string(ra_string, dec_string)
 end
 
-adstring(radec::Tuple{Number, Number};
+adstring(ra::Real, dec::Real;
          precision::Int=0, truncate::Bool=false) =
-             adstring(radec[1], radec[2], precision=precision, truncate=truncate)
+             adstring(promote(float(ra), float(dec))...,
+                      precision=precision, truncate=truncate)
+
+adstring(radec::Tuple{Real, Real};
+         precision::Int=0, truncate::Bool=false) =
+             adstring(radec..., precision=precision, truncate=truncate)
 
 # When printing only declination, IDL implementation defaults "precision" to 1
 # instead of 0.
-adstring(dec::Number; precision::Int=1, truncate::Bool=false) =
+adstring(dec::Real; precision::Int=1, truncate::Bool=false) =
     adstring(NaN, dec, precision=precision, truncate=truncate)
 
-function adstring{T<:Number}(radec::AbstractArray{T};
+function adstring{T<:Real}(radec::AbstractArray{T};
                              precision::Int=0, truncate::Bool=false)
     @assert length(radec) == 2 "provide a 2-element [ra, dec] array"
     return adstring(radec[1], radec[2], precision=precision, truncate=truncate)
 end
 
-function adstring{R<:Number, D<:Number}(ra::AbstractArray{R},
+function adstring{R<:Real, D<:Real}(ra::AbstractArray{R},
                                         dec::AbstractArray{D};
                                         precision::Int=0, truncate::Bool=false)
     @assert length(ra) == length(dec) "ra and dec arrays should be of the same length"
@@ -135,11 +140,11 @@ function adstring{R<:Number, D<:Number}(ra::AbstractArray{R},
     return result
 end
 
-function adstring{N<:Number}(radec::AbstractArray{Tuple{N, N}};
+function adstring{N<:Real}(radec::AbstractArray{Tuple{N, N}};
                              precision::Int=0, truncate::Bool=false)
     result = similar(radec, AbstractString)
     for i in eachindex(radec)
-        result[i] = adstring(radec[i][1], radec[i][2],
+        result[i] = adstring(radec[i]...,
                              precision=precision, truncate=truncate)
     end
     return result

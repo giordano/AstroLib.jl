@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    altaz2hadec(alt, az, lat) -> Float64, Float64
+    altaz2hadec(alt, az, lat) -> ha, dec
 
 ### Purpose ###
 
@@ -15,8 +15,8 @@ Can deal with the NCP singularity.  Intended mainly to be used by program
 
 ### Arguments ###
 
-Input coordinates may be either a scalar or an array, of the same dimension N,
-the output coordinates are always Float64 and have the same type (scalar or
+Input coordinates may be either a scalar or an array, of the same dimension, the
+output coordinates are always floating points and have the same type (scalar or
 array) as the input coordinates.
 
 * `alt`: local apparent altitude, in degrees, scalar or array.
@@ -24,6 +24,8 @@ array) as the input coordinates.
  *east* of *north*!!!  If you have measured azimuth west-of-south (like the book
  Meeus does), convert it to east of north via: `az = (az + 180) % 360`.
 * `lat`: the local geodetic latitude, in degrees, scalar or array.
+
+`alt` and `az` may be given as a signle 2-tuple `(alt, az)`.
 
 ### Output ###
 
@@ -53,7 +55,7 @@ The widely available XEPHEM code gets:
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function altaz2hadec(alt::Number, az::Number, lat::Number)
+function altaz2hadec(alt::AbstractFloat, az::AbstractFloat, lat::AbstractFloat)
     # Convert to radians.
     alt_r = deg2rad(alt)
     az_r = deg2rad(az)
@@ -70,12 +72,18 @@ function altaz2hadec(alt::Number, az::Number, lat::Number)
     dec = rad2deg(asin(sindec))  # convert dec to degrees
     return ha, dec
 end
-function altaz2hadec{N1<:Number, N2<:Number, N3<:Number}(alt::AbstractArray{N1},
-                                                         az::AbstractArray{N2},
-                                                         lat::AbstractArray{N3})
+
+altaz2hadec(alt::Real, az::Real, lat::Real) =
+    altaz2hadec(promote(float(alt), float(az), float(lat))...)
+
+altaz2hadec(altazlat::Tuple{Real, Real}, lat::Real) = altaz2hadec(altaz..., lat)
+
+function altaz2hadec{R1<:Real, R2<:Real, R3<:Real}(alt::AbstractArray{R1},
+                                                   az::AbstractArray{R2},
+                                                   lat::AbstractArray{R3})
     @assert length(alt) == length(az) == length(lat)
-    ha  = similar(alt, Float64)
-    dec = similar(alt, Float64)
+    ha  = similar(alt, AbstractFloat)
+    dec = similar(alt, AbstractFloat)
     for i in eachindex(alt)
         ha[i], dec[i] = altaz2hadec(alt[i], az[i], lat[i])
     end

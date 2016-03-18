@@ -1,10 +1,10 @@
 adstring
 ~~~~~~~~
 
-.. function:: adstring(ra::Number, dec::Number[, precision::Int=2, truncate::Bool=true]) -> ASCIIString
-    adstring([ra, dec]) -> ASCIIString
-    adstring(dec) -> ASCIIString
-    adstring([ra], [dec]) -> AbstractArray{ASCIIString}
+.. function:: adstring(ra::Real, dec::Real[, precision::Int=2, truncate::Bool=true]) -> string
+    adstring([ra, dec]) -> string
+    adstring(dec) -> string
+    adstring([ra], [dec]) -> ["string1", "string2", ...]
 
 Purpose
 '''''''
@@ -79,7 +79,7 @@ Example
 airtovac
 ~~~~~~~~
 
-.. function:: airtovac(wave_air) -> Float64
+.. function:: airtovac(wave_air) -> wave_vacuum
 
 Purpose
 '''''''
@@ -128,7 +128,7 @@ Code of this function is based on IDL Astronomy User's Library.
 aitoff
 ~~~~~~
 
-.. function:: aitoff(l, b) -> Float64, Float64
+.. function:: aitoff(l, b) -> x, y
 
 Purpose
 '''''''
@@ -182,7 +182,7 @@ Code of this function is based on IDL Astronomy User's Library.
 altaz2hadec
 ~~~~~~~~~~~
 
-.. function:: altaz2hadec(alt, az, lat) -> Float64, Float64
+.. function:: altaz2hadec(alt, az, lat) -> ha, dec
 
 Purpose
 '''''''
@@ -199,8 +199,8 @@ Arguments
 '''''''''
 
 Input coordinates may be either a scalar or an array, of the same
-dimension N, the output coordinates are always Float64 and have the same
-type (scalar or array) as the input coordinates.
+dimension, the output coordinates are always floating points and have
+the same type (scalar or array) as the input coordinates.
 
 -  ``alt``: local apparent altitude, in degrees, scalar or array.
 -  ``az``: the local apparent azimuth, in degrees, scalar or vector,
@@ -208,6 +208,8 @@ type (scalar or array) as the input coordinates.
    west-of-south (like the book Meeus does), convert it to east of north
    via: ``az = (az + 180) % 360``.
 -  ``lat``: the local geodetic latitude, in degrees, scalar or array.
+
+``alt`` and ``az`` may be given as a signle 2-tuple ``(alt, az)``.
 
 Output
 ''''''
@@ -249,7 +251,7 @@ Code of this function is based on IDL Astronomy User's Library.
 calz\_unred
 ~~~~~~~~~~~
 
-.. function:: calz_unred(wave, flux, ebv[, r_v]) -> Float64
+.. function:: calz_unred(wave, flux, ebv[, r_v]) -> deredden_wave
 
 Purpose
 '''''''
@@ -355,7 +357,7 @@ Notes
 flux2mag
 ~~~~~~~~
 
-.. function:: flux2mag(flux[, zero_point, ABwave=number]) -> Float64
+.. function:: flux2mag(flux[, zero_point, ABwave=number]) -> magnitude
 
 Purpose
 '''''''
@@ -408,9 +410,9 @@ Code of this function is based on IDL Astronomy User's Library.
 get\_date
 ~~~~~~~~~
 
-.. function:: get_date([date::DateTime]) -> ASCIIString
-    get_date([date::DateTime;] old=true) -> ASCIIString
-    get_date([date::DateTime;] timetag=true) -> ASCIIString
+.. function:: get_date([date::DateTime]) -> string
+    get_date([date::DateTime;] old=true) -> string
+    get_date([date::DateTime;] timetag=true) -> string
 
 Purpose
 '''''''
@@ -483,7 +485,7 @@ Notes
 get\_juldate
 ~~~~~~~~~~~~
 
-.. function:: get_juldate() -> Float64
+.. function:: get_juldate() -> julian_days
 
 Purpose
 '''''''
@@ -494,7 +496,7 @@ Explanation
 '''''''''''
 
 Return for current time the number of Julian calendar days since epoch
-``-4713-11-24T12:00:00`` as a ``Float64``.
+``-4713-11-24T12:00:00`` as a floating point.
 
 Example
 '''''''
@@ -517,7 +519,7 @@ Use ``jdcnv`` to get the number of Julian days for a different date.
 gcirc
 ~~~~~
 
-.. function:: gcirc(units, ra1, dec1, ra2, dec2) -> Float64
+.. function:: gcirc(units, ra1, dec1, ra2, dec2) -> angular_distance
 
 Purpose
 '''''''
@@ -548,11 +550,14 @@ Arguments
 -  ``ra2``: right ascension or longitude of point 2
 -  ``dec2``: declination or latitude of point 2
 
+Both ``ra1`` and ``dec1``, and ``ra2`` and ``dec2`` can be given as
+2-tuples ``(ra1, dec1)`` and ``(ra2, dec2)``.
+
 Output
 ''''''
 
-Angular distance on the sky between points 1 and 2, as a ``Float64``.
-See ``units`` argument above for the units.
+Angular distance on the sky between points 1 and 2, as a
+``AbstractFloat``. See ``units`` argument above for the units.
 
 Method
 ''''''
@@ -583,7 +588,7 @@ Code of this function is based on IDL Astronomy User's Library.
 jdcnv
 ~~~~~
 
-.. function:: jdcnv(date::DateTime) -> Float64
+.. function:: jdcnv(date::DateTime) -> julian_days
 
 Purpose
 '''''''
@@ -605,7 +610,7 @@ Argument
 Output
 ''''''
 
-Number of Julian days, as a ``Float64``.
+Number of Julian days, as a floating point.
 
 Example
 '''''''
@@ -633,23 +638,23 @@ For the conversion of Julian date to number of Julian days, use
 juldate
 ~~~~~~~
 
-.. function:: juldate(date::DateTime) -> Float64
+.. function:: juldate(date::DateTime) -> reduced_julia_days
 
 Purpose
 '''''''
 
-Convert from calendar to Reduced Julian Date.
+Convert from calendar to Reduced Julian Days.
 
 Explanation
 '''''''''''
 
 Julian Day Number is a count of days elapsed since Greenwich mean noon
-on 1 January 4713 B.C. The Julian Date is the Julian day number followed
-by the fraction of the day elapsed since the preceding noon.
+on 1 January 4713 B.C. Julian Days are the number of Julian days
+followed by the fraction of the day elapsed since the preceding noon.
 
 This function takes the given ``date`` and returns the number of Julian
-calendar days since epoch ``1858-11-16T12:00:00`` (Reduced Julian Date =
-Julian Date - 2400000).
+calendar days since epoch ``1858-11-16T12:00:00`` (Reduced Julian Days =
+Julian Days - 2400000).
 
 Argument
 ''''''''
@@ -671,7 +676,7 @@ Code of this function is based on IDL Astronomy User's Library.
 mag2flux
 ~~~~~~~~
 
-.. function:: mag2flux(mag[, zero_point, ABwave=number]) -> Float64
+.. function:: mag2flux(mag[, zero_point, ABwave=number]) -> flux
 
 Purpose
 '''''''
@@ -724,7 +729,7 @@ Code of this function is based on IDL Astronomy User's Library.
 polrec
 ~~~~~~
 
-.. function:: polrec(radius, angle[, degrees=true]) -> Float64, Float64
+.. function:: polrec(radius, angle[, degrees=true]) -> x, y
 
 Purpose
 '''''''
@@ -747,7 +752,7 @@ Arguments
    assumed to be in degrees, otherwise in radians. It defaults to
    ``false``.
 
-Mandatory arguments may also be passed as the 2-tuple
+Mandatory arguments can also be passed as the 2-tuple
 ``(radius, angle)``, so that it is possible to execute
 ``recpol(polrec(radius, angle))``.
 
@@ -763,7 +768,7 @@ same length as ``radius`` and ``angle``.
 precess
 ~~~~~~~
 
-.. function:: precess(ra, dec, equinox1, equinox2[, FK4=true, radian=true]) -> (Float64, Float64)
+.. function:: precess(ra, dec, equinox1, equinox2[, FK4=true, radian=true]) -> prec_ra, prec_dec
 
 Purpose
 '''''''
@@ -845,7 +850,7 @@ Code of this function is based on IDL Astronomy User's Library.
 premat
 ~~~~~~
 
-.. function:: premat(equinox1, equinox2[, FK4=true]) -> Float64
+.. function:: premat(equinox1, equinox2[, FK4=true]) -> precession_matrix
 
 Purpose
 '''''''
@@ -872,7 +877,7 @@ Arguments
 Output
 ''''''
 
-A 3×3 ``Float64`` matrix, used to precess equatorial rectangular
+A 3×3 ``AbstractFloat`` matrix, used to precess equatorial rectangular
 coordinates.
 
 Example
@@ -906,7 +911,7 @@ Code of this function is based on IDL Astronomy User's Library.
 radec
 ~~~~~
 
-.. function:: radec(ra::Number, dec::Number[, hours=true]) -> Float64, Float64, Float64, Float64, Float64, Float64
+.. function:: radec(ra::Number, dec::Number[, hours=true]) -> ra_hours, ra_minutes, ra_seconds, dec_degrees, dec_minutes, dec_seconds
 
 Purpose
 '''''''
@@ -934,7 +939,7 @@ Arguments
 Output
 ''''''
 
-A 6-tuple of ``Float64``:
+A 6-tuple of ``AbstractFloat``:
 
 ::
 
@@ -960,7 +965,7 @@ given by
 recpol
 ~~~~~~
 
-.. function:: recpol(x, y[, degrees=true]) -> Float64, Float64
+.. function:: recpol(x, y[, degrees=true]) -> radius, angle
 
 Purpose
 '''''''
@@ -1001,7 +1006,7 @@ the same length as ``radius`` and ``angle``.
 sixty
 ~~~~~
 
-.. function:: sixty(number::Number) -> [deg::Float64, min::Float64, sec::Float64]
+.. function:: sixty(number) -> [deg, min, sec]
 
 Purpose
 '''''''
@@ -1021,8 +1026,8 @@ Argument
 Output
 ''''''
 
-An array of three ``Float64``, that are the sexagesimal counterpart
-(degrees, minutes, seconds) of ``number``.
+An array of three ``AbstractFloat``, that are the sexagesimal
+counterpart (degrees, minutes, seconds) of ``number``.
 
 Notes
 '''''
@@ -1034,7 +1039,7 @@ Code of this function is based on IDL Astronomy User's Library.
 sphdist
 ~~~~~~~
 
-.. function:: sphdist(long1, lat1, long2, lat2[, degrees=true]) -> Float64
+.. function:: sphdist(long1, lat1, long2, lat2[, degrees=true]) -> angular_distance
 
 Purpose
 '''''''
@@ -1055,9 +1060,9 @@ Arguments
 Output
 ''''''
 
-Angular distance on a sphere between points 1 and 2, as a ``Float64``.
-It is expressed in radians unless ``degrees`` keyword is set to
-``true``.
+Angular distance on a sphere between points 1 and 2, as an
+``AbstractFloat``. It is expressed in radians unless ``degrees`` keyword
+is set to ``true``.
 
 Notes
 '''''
@@ -1081,10 +1086,10 @@ Code of this function is based on IDL Astronomy User's Library.
 ten
 ~~~
 
-.. function:: ten(deg[, min, sec]) -> Float64
-    ten("deg:min:sec") -> Float64
-    tenv([deg], [min], [sec]) -> Float64
-    tenv(["deg:min:sec"]) -> Float64
+.. function:: ten(deg[, min, sec]) -> decimal
+    ten("deg:min:sec") -> decimal
+    tenv([deg], [min], [sec]) -> decimal
+    tenv(["deg:min:sec"]) -> decimal
 
 Purpose
 '''''''

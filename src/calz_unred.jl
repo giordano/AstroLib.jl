@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    calz_unred(wave, flux, ebv[, r_v]) -> Float64
+    calz_unred(wave, flux, ebv[, r_v]) -> deredden_wave
 
 ### Purpose ###
 
@@ -51,7 +51,8 @@ julia> AstroLib.calz_unred(wave, flux, -0.1);
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function calz_unred(wave::Number, flux::Number, ebv::Number, r_v::Number=4.05)
+function calz_unred(wave::AbstractFloat, flux::AbstractFloat,
+                    ebv::AbstractFloat, r_v::AbstractFloat)
     x  = 10000.0/wave # Wavelength in inverse microns
     klam = 0.0
     if 6300.0 <= wave <= 22000.0
@@ -61,11 +62,15 @@ function calz_unred(wave::Number, flux::Number, ebv::Number, r_v::Number=4.05)
     end
     return flux*10.0^(0.4*klam*ebv)
 end
-function calz_unred{W<:Number, F<:Number}(wave::AbstractArray{W},
-                                          flux::AbstractArray{F},
-                                          ebv::Number, r_v::Number=4.05)
+
+calz_unred(wave::Real, flux::Real, ebv::Real, r_v::Real=4.05) =
+    calz_unred(promote(float(wave), float(flux), float(ebv), float(r_v))...)
+
+function calz_unred{W<:Real, F<:Real}(wave::AbstractArray{W},
+                                      flux::AbstractArray{F},
+                                      ebv::Real, r_v::Real=4.05)
     @assert length(wave) == length(flux)
-    flux_unred  = similar(flux, Float64)
+    flux_unred  = similar(flux, AbstractFloat)
     for i in eachindex(flux)
         flux_unred[i] = calz_unred(wave[i], flux[i], ebv, r_v)
     end
