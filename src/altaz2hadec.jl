@@ -55,7 +55,7 @@ The widely available XEPHEM code gets:
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function altaz2hadec(alt::AbstractFloat, az::AbstractFloat, lat::AbstractFloat)
+function altaz2hadec{T<:AbstractFloat}(alt::T, az::T, lat::T)
     # Convert to radians.
     alt_r = deg2rad(alt)
     az_r = deg2rad(az)

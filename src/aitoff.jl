@@ -19,6 +19,8 @@ centered.
 * `l`: longitude, scalar or vector, in degrees.
 * `b`: latitude, number of elements as `l`, in degrees.
 
+Coordinates can be given also as a 2-tuple `(l, b)`.
+
 ### Output ###
 
 2-tuple `(x, y)`.
@@ -56,6 +58,8 @@ function aitoff(l::AbstractFloat, b::AbstractFloat)
 end
 
 aitoff(l::Real, b::Real) = aitoff(promote(float(l), float(b))...)
+
+aitoff(lb::Tuple{Real, Real}) = aitoff(lb...)
 
 function aitoff{L<:Real,B<:Real}(l::AbstractArray{L}, b::AbstractArray{B})
     @assert length(l) == length(b)

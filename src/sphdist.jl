@@ -50,9 +50,7 @@ function sphdist(long1::AbstractFloat, lat1::AbstractFloat,
     xc = y1*z2 - z1*y2
     yc = z1*x2 - x1*z2
     zc = x1*y2 - y1*x2
-    # Layman implementation of hypot(x,y,z).  Doesn't provide optimal
-    # performance but it should be safer than "sqrt" in some cases.
-    sn = hypot(xc, hypot(yc, zc))
+    sn = vecnorm((xc, yc, zc))
     # Convert to polar coordinates.
     radius, angle = recpol(cs, sn)
     degrees ? (return rad2deg(angle)) : (return angle)

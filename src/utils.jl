@@ -52,6 +52,9 @@ export polrec
 include("precess.jl")
 export precess
 
+include("precess_xyz.jl")
+export precess_xyz
+
 include("premat.jl")
 export premat
 

@@ -71,9 +71,8 @@ Accuracy of precession decreases for declination values near 90 degrees.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function precessione(ra::AbstractFloat, dec::AbstractFloat,
-                 equinox1::AbstractFloat, equinox2::AbstractFloat;
-                 FK4::Bool=false, radians::Bool=false)
+function precess{T<:AbstractFloat}(ra::T, dec::T, equinox1::T, equinox2::T;
+                                   FK4::Bool=false, radians::Bool=false)
     if radians
         ra_rad  = ra
         dec_rad = dec
@@ -88,7 +87,7 @@ function precessione(ra::AbstractFloat, dec::AbstractFloat,
     x2 = r*x
     ra_rad  = atan2(x2[2], x2[1])
     dec_rad = asin(x2[3])
-    # TOOD: @code_warntype says that output is of type "Tuple{Any,Float64}", but
+    # TODO: @code_warntype says that output is of type "Tuple{Any,Float64}", but
     # I can't understand why.
     if radians
         return cirrange(ra_rad, max=2.0*pi), dec_rad
@@ -99,7 +98,7 @@ end
 
 precess(ra::Real, dec::Real, equinox1::Real, equinox2::Real;
         FK4::Bool=false, radians::Bool=false) =
-            precessione(promote(float(ra), float(dec),
+            precess(promote(float(ra), float(dec),
                             float(equinox1), float(equinox2))...,
                     FK4=FK4, radians=radians)
 

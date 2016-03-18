@@ -66,7 +66,7 @@ julia> adstring([30.4, -15.63], [-1.23, 48.41], precision=1)
  "-22 57 28.80  +48 24 36.0"
 ```
 """
-function adstring(ra::AbstractFloat, dec::AbstractFloat;
+function adstring{T<:AbstractFloat}(ra::T, dec::T;
                   precision::Int=0, truncate::Bool=false)
     # Helper function to format seconds part.
     function formatsec(sec::Real, prec::Integer)

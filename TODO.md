@@ -25,6 +25,7 @@ Done
 * `mag2flux`
 * `polrec`
 * `precess`
+* `precess_xyz`
 * `premat`
 * `radec`
 * `recpol`
@@ -369,7 +370,6 @@ Missing
 * `posang`
 * `positivity`
 * `precess_cd`
-* `precess_xyz`
 * `prime`
 * `print_struct`
 * `prob_ks`
