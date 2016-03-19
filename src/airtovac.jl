@@ -11,15 +11,15 @@ Converts air wavelengths to vacuum wavelengths.
 ### Explanation ###
 
 Wavelengths are corrected for the index of refraction of air under standard
-conditions.  Wavelength values below 2000 Å will not be altered.  Uses relation
-of Ciddor (1996).
+conditions.  Wavelength values below \$2000 Å\$ will not be altered.  Uses
+relation of Ciddor (1996).
 
 ### Arguments ###
 
 * `wave_air`: can be either a scalar or an array of numbers.  Wavelengths are
 corrected for the index of refraction of air under standard conditions.
-Wavelength values below 2000 Å will *not* be altered, take care within [1 Å,
-2000 Å].
+Wavelength values below \$2000 Å\$ will *not* be altered, take care within \$[1
+Å, 2000 Å]\$.
 
 ### Output ###
 

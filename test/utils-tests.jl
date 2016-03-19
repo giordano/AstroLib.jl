@@ -134,9 +134,9 @@ end
 let
     local r = a = zeros(Float64, 3)
     r, a = recpol([0, sqrt(2.0), 2.0*sqrt(3.0)],
-                  [0, sqrt(2.0), 2.0], degrees=true)
+                  [0, sqrt(2.0), 2.0])
     @test_approx_eq r [0.0,  2.0,  4.0]
-    @test_approx_eq a [0.0, 45.0, 30.0]
+    @test_approx_eq a [0.0, pi/4.0, pi/6.0]
     # Test polrec is the inverse of recpol
     local xi = 6.3, yi = -2.7, x = y = 0.0
     x, y = polrec(recpol(xi, yi, degrees=true), degrees=true)

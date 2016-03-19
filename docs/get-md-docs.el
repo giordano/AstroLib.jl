@@ -35,11 +35,14 @@
     (goto-char (point-min))
     ;; Fetch the docstring using `get-md-docs--docs-regexp'.
     (when (re-search-forward get-md-docs--docs-regexp nil t)
-      ;; Demote sections for the online docs, from "###" to "####".
       (replace-regexp-in-string
-       "^### \\([^#\n]*\\) ###$"
-       "##### \\1 ####"
-       (match-string-no-properties 1)))))
+       ;; Replace "\$" with "$" for math modes.
+       "\\\\\\$" "\$"
+       (replace-regexp-in-string
+	;; Demote sections for the online docs, from "###" to "####".
+	"^### \\([^#\n]*\\) ###$"
+	"##### \\1 ####"
+	(match-string-no-properties 1))))))
 
 (defun get-md-docs-search-file (file-name)
   "Search in FILE-NAME files from which extract docstrings.

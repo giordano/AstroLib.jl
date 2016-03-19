@@ -26,8 +26,8 @@ possible to execute `polrec(recpol(x, y))`.
 ### Output ###
 
 A 2-tuple `(radius, angle)` with the polar coordinates of the input.  The
-coordinate `angle` coordinate lies in the range `[-pi, pi]` if `degrees=false`,
-or `[-180, 180]` when `degrees=true`.
+coordinate `angle` coordinate lies in the range \$[-\pi, \pi]\$ if
+`degrees=false`, or \$[-180, 180]\$ when `degrees=true`.
 
 If `x` and `y` are arrays, `radius` and `angle` are arrays of the same length as
 `radius` and `angle`.

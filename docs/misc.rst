@@ -6,15 +6,15 @@ cirrange
 Purpose
 '''''''
 
-Force a number into a given range ``[0, max)``.
+Force a number into a given range :math:`[0, \text{max})`.
 
 Argument
 ''''''''
 
 -  ``number``: the number to modify. Can be a scalar or an array.
 -  ``max`` (optional numerical keyword): specify the extremum of the
-   range ``[0, max)`` into which the number should be restricted. If
-   omitted, defaults to ``360.0``.
+   range :math:`[0, \text{max})` into which the number should be
+   restricted. If omitted, defaults to ``360.0``.
 
 Output
 ''''''
@@ -24,8 +24,8 @@ The converted number or array of numbers, as ``AbstractFloat``.
 Example
 '''''''
 
-Restrict an array of numbers in the range ``[0, 2pi)`` as if they are
-angles expressed in radians:
+Restrict an array of numbers in the range :math:`[0, 2\pi)` as if they
+are angles expressed in radians:
 
 .. code:: julia
 

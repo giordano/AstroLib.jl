@@ -29,11 +29,11 @@ The magnitude.  It is of the same type, scalar or array, as `flux`.
 
 If the `ABwave` keyword is set then magnitude is given by the expression
 
-    ABmag = -2.5*log10(f) - 5*log10(ABwave) - 2.406 
-            
+\$\$\text{ABmag} = -2.5\log_{10}(f) - 5\log_{10}(\text{ABwave}) - 2.406\$\$
+
 Otherwise, magnitude is given by the expression
 
-    mag = -2.5*log10(flux) - zero_point
+\$\$\text{mag} = -2.5\log_{10}(\text{flux}) - \text{zero point}\$\$
 
 ### Notes ###
 

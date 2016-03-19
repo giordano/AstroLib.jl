@@ -26,9 +26,9 @@ Coordinates can be given also as a 2-tuple `(l, b)`.
 2-tuple `(x, y)`.
 
 * `x`: x coordinate, same number of elements as `l`.  `x` is normalized to be in
-  [-180, 180].
+  \$[-180, 180]\$.
 * `y`: y coordinate, same number of elements as `l`.  `y` is normalized to be in
-  [-90, 90].
+  \$[-90, 90]\$.
 
 ### Example ###
 

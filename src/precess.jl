@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    precess(ra, dec, equinox1, equinox2[, FK4=true, radian=true]) -> prec_ra, prec_dec
+    precess(ra, dec, equinox1, equinox2[, FK4=true, radians=true]) -> prec_ra, prec_dec
 
 ### Purpose ###
 

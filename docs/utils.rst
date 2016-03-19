@@ -90,16 +90,16 @@ Explanation
 '''''''''''
 
 Wavelengths are corrected for the index of refraction of air under
-standard conditions. Wavelength values below 2000 Å will not be altered.
-Uses relation of Ciddor (1996).
+standard conditions. Wavelength values below :math:`2000 Å` will not be
+altered. Uses relation of Ciddor (1996).
 
 Arguments
 '''''''''
 
 -  ``wave_air``: can be either a scalar or an array of numbers.
    Wavelengths are corrected for the index of refraction of air under
-   standard conditions. Wavelength values below 2000 Å will *not* be
-   altered, take care within [1 Å, 2000 Å].
+   standard conditions. Wavelength values below :math:`2000 Å` will
+   *not* be altered, take care within :math:`[1 Å, 2000 Å]`.
 
 Output
 ''''''
@@ -157,9 +157,9 @@ Output
 2-tuple ``(x, y)``.
 
 -  ``x``: x coordinate, same number of elements as ``l``. ``x`` is
-   normalized to be in [-180, 180].
+   normalized to be in :math:`[-180, 180]`.
 -  ``y``: y coordinate, same number of elements as ``l``. ``y`` is
-   normalized to be in [-90, 90].
+   normalized to be in :math:`[-90, 90]`.
 
 Example
 '''''''
@@ -266,8 +266,9 @@ Explanation
 Calzetti et al. (2000, ApJ 533, 682;
 http://adsabs.harvard.edu/abs/2000ApJ...533..682C) developed a recipe
 for dereddening the spectra of galaxies where massive stars dominate the
-radiation output, valid between 0.12 to 2.2 microns. (``calz_unred``
-extrapolates between 0.12 and 0.0912 microns.)
+radiation output, valid between :math:`0.12` to :math:`2.2` microns.
+(``calz_unred`` extrapolates between :math:`0.12` and :math:`0.0912`
+microns.)
 
 Arguments
 '''''''''
@@ -282,21 +283,23 @@ Arguments
    the gas, EBV(gas), via the Balmer decrement by EBV(stars) =
    0.44\*EBV(gas).
 -  ``r_v`` (optional): scalar ratio of total to selective extinction,
-   default = 4.05. Calzetti et al. (2000) estimate r\_v = 4.05 +/- 0.80
-   from optical-IR observations of 4 starbursts.
+   default is 4.05. Calzetti et al. (2000) estimate
+   :math:`r_v = 4.05 \pm 0.80` from optical-IR observations of 4
+   starbursts.
 
 Output
 ''''''
 
 Unreddened flux vector, same units and number of elements as ``flux``.
-Flux values will be left unchanged outside valid domain (0.0912 - 2.2
-microns).
+Flux values will be left unchanged outside valid domain (:math:`0.0912`
+- :math:`2.2` microns).
 
 Example
 '''''''
 
-Estimate how a flat galaxy spectrum (in wavelength) between 1200 Å and
-3200 Å is altered by a reddening of E(B-V) = 0.1.
+Estimate how a flat galaxy spectrum (in wavelength) between
+:math:`1200 Å` and :math:`3200 Å` is altered by a reddening of E(B-V) =
+0.1.
 
 .. code:: julia
 
@@ -304,7 +307,7 @@ Estimate how a flat galaxy spectrum (in wavelength) between 1200 Å and
 
     julia> flux = ones(wave);
 
-    julia> AstroLib.calz_unred(wave, flux, -0.1);
+    julia> calz_unred(wave, flux, -0.1);
 
 Notes
 '''''
@@ -392,15 +395,11 @@ The magnitude. It is of the same type, scalar or array, as ``flux``.
 If the ``ABwave`` keyword is set then magnitude is given by the
 expression
 
-::
-
-    ABmag = -2.5*log10(f) - 5*log10(ABwave) - 2.406
+.. math:: \text{ABmag} = -2.5\log_{10}(f) - 5\log_{10}(\text{ABwave}) - 2.406
 
 Otherwise, magnitude is given by the expression
 
-::
-
-    mag = -2.5*log10(flux) - zero_point
+.. math:: \text{mag} = -2.5\log_{10}(\text{flux}) - \text{zero point}
 
 Notes
 '''''
@@ -711,15 +710,11 @@ The flux. It is of the same type, scalar or array, as ``mag``.
 If the ``ABwave`` keyword is set, then the flux is given by the
 expression
 
-::
-
-    flux = 10^(-0.4*(mag +2.406 + 4*log10(ABwave)))
+.. math:: \text{flux} = 10^{-0.4(\text{mag} +2.406 + 4\log_{10}(\text{ABwave}))}
 
 Otherwise the flux is given by
 
-::
-
-    f =  10^(-0.4*(mag + zero_point))
+.. math:: \text{flux} =  10^{-0.4(\text{mag} + \text{zero point})}
 
 Notes
 '''''
@@ -770,7 +765,7 @@ same length as ``radius`` and ``angle``.
 precess
 ~~~~~~~
 
-.. function:: precess(ra, dec, equinox1, equinox2[, FK4=true, radian=true]) -> prec_ra, prec_dec
+.. function:: precess(ra, dec, equinox1, equinox2[, FK4=true, radians=true]) -> prec_ra, prec_dec
 
 Purpose
 '''''''
@@ -939,10 +934,10 @@ Return the precession matrix from 1950.0 to 1975.0 in the FK4 system
 .. code:: julia
 
     julia> premat(1950,1975,FK4=true)
-    3x3 Array{Float64,2}:
-      0.999981     0.00558913   0.00242967
-     -0.00558913   0.999984    -6.78963e-6
-     -0.00242967  -6.79021e-6   0.999997
+    3x3 Array{AbstractFloat,2}:
+     0.999981    -0.00558775  -0.00242909
+     0.00558775   0.999984    -6.78691e-6
+     0.00242909  -6.78633e-6   0.999997
 
 Method
 ''''''
@@ -1046,8 +1041,9 @@ Output
 ''''''
 
 A 2-tuple ``(radius, angle)`` with the polar coordinates of the input.
-The coordinate ``angle`` coordinate lies in the range ``[-pi, pi]`` if
-``degrees=false``, or ``[-180, 180]`` when ``degrees=true``.
+The coordinate ``angle`` coordinate lies in the range
+:math:`[-\pi, \pi]` if ``degrees=false``, or :math:`[-180, 180]` when
+``degrees=true``.
 
 If ``x`` and ``y`` are arrays, ``radius`` and ``angle`` are arrays of
 the same length as ``radius`` and ``angle``.
@@ -1178,9 +1174,7 @@ Method
 
 The formula used for the conversion is
 
-::
-
-    sign(deg)·(|deg| + min/60 + sec/3600)
+.. math:: \mathrm{sign}(\mathrm{deg})·\left(|\mathrm{deg}| + \frac{\mathrm{min}}{60} + \frac{\mathrm{sec}}{3600}\right)
 
 Notes
 '''''
