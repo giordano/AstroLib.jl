@@ -82,8 +82,9 @@ function altaz2hadec{R1<:Real, R2<:Real, R3<:Real}(alt::AbstractArray{R1},
                                                    az::AbstractArray{R2},
                                                    lat::AbstractArray{R3})
     @assert length(alt) == length(az) == length(lat)
-    ha  = similar(alt, AbstractFloat)
-    dec = similar(alt, AbstractFloat)
+    typealt = typeof(float(one(R1)))
+    ha  = similar(alt, typealt)
+    dec = similar(alt, typealt)
     for i in eachindex(alt)
         ha[i], dec[i] = altaz2hadec(alt[i], az[i], lat[i])
     end

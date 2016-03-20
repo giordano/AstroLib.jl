@@ -29,8 +29,8 @@ function ten{T<:Real}(vector::AbstractArray{T,1})
 end
 
 tenv{D<:Real,M<:Real,S<:Real}(deg::AbstractArray{D},
-                              min::AbstractArray{M}=zeros(AbstractFloat, deg),
-                              sec::AbstractArray{S}=zeros(AbstractFloat, deg)) =
+                              min::AbstractArray{M}=zeros(typeof(float(zero(D))), length(deg)),
+                              sec::AbstractArray{S}=zeros(typeof(float(zero(D))), length(deg))) =
                                   map(ten, deg, min, sec)
 tenv{T<:AbstractString}(strings::AbstractArray{T}) = map(ten, strings)
 

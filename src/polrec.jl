@@ -57,8 +57,9 @@ polrec(r_a::Tuple{Real, Real}; degrees::Bool=false) = polrec(r_a...,
 function polrec{R<:Real, A<:Real}(r::AbstractArray{R}, a::AbstractArray{A};
                                   degrees::Bool=false)
     @assert length(r) == length(a)
-    x = similar(r, AbstractFloat)
-    y = similar(a, AbstractFloat)
+    typer = typeof(float(one(R)))
+    x = similar(r, typer)
+    y = similar(r, typer)
     for i in eachindex(r)
         x[i], y[i] = polrec(r[i], a[i], degrees=degrees)
     end

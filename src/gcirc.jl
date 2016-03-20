@@ -107,7 +107,7 @@ function gcirc{R1<:Real, D1<:Real}(units::Integer,
                                        ra2::Real,
                                        dec2::Real)
     @assert length(ra1) == length(dec1)
-    dist = similar(ra1, AbstractFloat)
+    dist = similar(ra1, typeof(float(one(R1))))
     for i in eachindex(ra1)
         dist[i] = gcirc(units, ra1[i], dec1[i], ra2, dec2)
     end
@@ -120,7 +120,7 @@ function gcirc{R2<:Real, D2<:Real}(units::Integer,
                                        ra2::AbstractArray{R2},
                                        dec2::AbstractArray{D2})
     @assert length(ra2) == length(dec2)
-    dist = similar(ra2, AbstractFloat)
+    dist = similar(ra2, typeof(float(one(R2))))
     for i in eachindex(ra1)
         dist[i] = gcirc(units, ra1, dec1, ra2[i], dec2[i])
     end
@@ -133,7 +133,7 @@ function gcirc{R1<:Real, D1<:Real, R2<:Real, D2<:Real}(units::Integer,
                                                        ra2::AbstractArray{R2},
                                                        dec2::AbstractArray{D2})
     @assert length(ra1) == length(dec1) == length(ra2) == length(dec2)
-    dist = similar(ra1, AbstractFloat)
+    dist = similar(ra1, typeof(float(one(R1))))
     for i in eachindex(ra1)
         dist[i] = gcirc(units, ra1[i], dec1[i], ra2[i], dec2[i])
     end

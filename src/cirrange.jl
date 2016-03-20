@@ -49,7 +49,7 @@ cirrange(number::Real; max::Real=360.0) =
     cirrange(float(number), max=float(max))
 
 function cirrange{N<:Real}(numbers::AbstractArray{N}; max::Real=360.0)
-    result = similar(numbers, AbstractFloat)
+    result = similar(numbers, typeof(float(one(N))))
     for i in eachindex(numbers)
         result[i] = cirrange(numbers[i], max=max)
     end

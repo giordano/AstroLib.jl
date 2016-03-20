@@ -60,7 +60,7 @@ flux2mag(flux::Real, zero_point::Real=21.1; ABwave::Real=NaN) =
 
 function flux2mag{N<:Real}(flux::AbstractArray{N}, zero_point::Real=21.1;
                            ABwave::Real=NaN)
-    mag = similar(flux, AbstractFloat)
+    mag = similar(flux, typeof(float(one(N))))
     for i in eachindex(flux)
         mag[i] = flux2mag(flux[i], zero_point, ABwave=ABwave)
     end

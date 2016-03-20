@@ -66,8 +66,9 @@ aitoff(lb::Tuple{Real, Real}) = aitoff(lb...)
 
 function aitoff{L<:Real,B<:Real}(l::AbstractArray{L}, b::AbstractArray{B})
     @assert length(l) == length(b)
-    x = similar(l, AbstractFloat)
-    y = similar(b, AbstractFloat)
+    typel = typeof(float(one(L)))
+    x = similar(l, typel)
+    y = similar(b, typel)
     for i in eachindex(l)
         x[i], y[i] = aitoff(l[i], b[i])
     end

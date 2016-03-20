@@ -71,7 +71,7 @@ function calz_unred{W<:Real, F<:Real}(wave::AbstractArray{W},
                                       flux::AbstractArray{F},
                                       ebv::Real, r_v::Real=4.05)
     @assert length(wave) == length(flux)
-    flux_unred  = similar(flux, AbstractFloat)
+    flux_unred  = similar(flux, typeof(float(one(W))))
     for i in eachindex(flux)
         flux_unred[i] = calz_unred(wave[i], flux[i], ebv, r_v)
     end

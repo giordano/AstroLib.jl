@@ -32,7 +32,7 @@ Return the precession matrix from 1950.0 to 1975.0 in the FK4 system
 
 ``` julia
 julia> premat(1950,1975,FK4=true)
-3x3 Array{AbstractFloat,2}:
+3x3 Array{Float64,2}:
  0.999981    -0.00558775  -0.00242909
  0.00558775   0.999984    -6.78691e-6
  0.00242909  -6.78633e-6   0.999997
@@ -73,7 +73,7 @@ function premat(equinox1::AbstractFloat, equinox2::AbstractFloat;
     end
     sina = sin(a); sinb = sin(b); sinc = sin(c)
     cosa = cos(a); cosb = cos(b); cosc = cos(c)
-    r = Array(AbstractFloat, 3, 3)
+    r = Array(typeof(equinox1), 3, 3)
     r[:,1] = [ cosa*cosb*cosc - sina*sinb,  sina*cosb + cosa*sinb*cosc,  cosa*sinc]
     r[:,2] = [-cosa*sinb - sina*cosb*cosc,  cosa*cosb - sina*sinb*cosc, -sina*sinc]
     r[:,3] = [                 -cosb*sinc,                  -sinb*sinc,       cosc]

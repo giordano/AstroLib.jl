@@ -25,7 +25,7 @@ An array of three `AbstractFloat`, that are the sexagesimal counterpart
 
 ``` julia
 julia> sixty(-0.615)
-3-element Array{AbstractFloat,1}:
+3-element Array{Float64,1}:
  -0.0
  36.0
  54.0
@@ -43,7 +43,7 @@ function sixty(number::AbstractFloat)
     dd = trunc(abs(number))
     mm = abs(60.0*number)
     ss = abs(3600.0*number)
-    result = zeros(AbstractFloat, 3)
+    result = zeros(typeof(number), 3)
     result[1] = trunc(number)
     result[2] = trunc(mm - 60.0*dd)
     result[3] = ss - 3600.0*dd - 60.0*result[2]

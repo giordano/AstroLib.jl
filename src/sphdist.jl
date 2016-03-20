@@ -74,7 +74,7 @@ function sphdist{LO1<:Real, LA1<:Real}(long1::AbstractArray{LO1},
                                        lat2::Real;
                                        degrees::Bool=false)
     @assert length(long1) == length(lat1)
-    dist = similar(long1, AbstractFloat)
+    dist = similar(long1, typeof(float(one(LO1))))
     for i in eachindex(long1)
         dist[i] = sphdist(long1[i], lat1[i], long2, lat2, degrees=degrees)
     end
@@ -87,7 +87,7 @@ function sphdist{LO2<:Real, LA2<:Real}(long1::Real,
                                        lat2::AbstractArray{LA2};
                                        degrees::Bool=false)
     @assert length(long2) == length(lat2)
-    dist = similar(long2, AbstractFloat)
+    dist = similar(long2, typeof(float(one(LO2))))
     for i in eachindex(long1)
         dist[i] = sphdist(long1, lat1, long2[i], lat2[i], degrees=degrees)
     end
@@ -100,7 +100,7 @@ function sphdist{LO1<:Real, LA1<:Real, LO2<:Real, LA2<:Real}(long1::AbstractArra
                                                              lat2::AbstractArray{LA2};
                                                              degrees::Bool=false)
     @assert length(long1) == length(lat1) == length(long2) == length(lat2)
-    dist = similar(long1, AbstractFloat)
+    dist = similar(long1, typeof(float(one(LO1))))
     for i in eachindex(long1)
         dist[i] = sphdist(long1[i], lat1[i], long2[i], lat2[i], degrees=degrees)
     end
