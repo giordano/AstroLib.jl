@@ -21,6 +21,16 @@ The reverse of `ten` function.
 An array of three `AbstractFloat`, that are the sexagesimal counterpart
 (degrees, minutes, seconds) of `number`.
 
+### Example ###
+
+``` julia
+julia> sixty(-0.615)
+3-element Array{AbstractFloat,1}:
+ -0.0
+ 36.0
+ 54.0
+```
+
 ### Notes ###
 
 Code of this function is based on IDL Astronomy User's Library.

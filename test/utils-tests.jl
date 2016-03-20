@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 # Test adstring
-@test adstring(30.4, -1.23, truncate=true) ==
+@test adstring((30.4, -1.23), truncate=true) ==
     adstring([30.4, -1.23], truncate=true) == " 02 01 35.9  -01 13 48"
 @test adstring(19.19321, truncate=true) == "+19 11 35.5"
 @test adstring([30.4, -15.63], [-1.23, 48.41], precision=2) ==
@@ -16,9 +16,12 @@
     ([-137.92196683723276, 115.17541338020645], [-11.772527357473054, -44.491889962090085])
 @test aitoff([375], [2.437]) ==
     ([16.63760711611838],[2.712427279646118])
+@test aitoff((227.23, -8.890)) ==
+    (-137.92196683723276,-11.772527357473054)
 
 # Test altaz2hadec
 @test altaz2hadec(59.086111, 133.30806, 43.07833) ==
+    altaz2hadec((59.086111, 133.30806), 43.07833) ==
     (336.68286017949157, 19.182449588316555)
 @test altaz2hadec([15, 25, 35],
                   [25.12, 45.32, -20.3],
@@ -45,6 +48,7 @@
 @test_approx_eq flux2mag([1.5e-12, 8.7e-15, 4.4e-10]) [8.459771852360795,
                                                        14.051201868453454,
                                                        2.291368308784527]
+@test_approx_eq flux2mag(1) -21.1
 
 # Test get_date with mixed keywords.
 @test get_date(DateTime(2001,09,25,14,56,14), old=true,timetag=true) ==
@@ -54,6 +58,10 @@
 @test_approx_eq gcirc(0, [0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.222450611061632,
                                                               2.500353926443337,
                                                               1.5892569925227757]
+@test_approx_eq gcirc(0,  120, -43,   175, +22)  1.590442261600714
+@test_approx_eq gcirc(0, (120, -43),  175, +22)  1.590442261600714
+@test_approx_eq gcirc(0,  120, -43,  (175, +22)) 1.590442261600714
+@test_approx_eq gcirc(0, (120, -43), (175, +22)) 1.590442261600714
 
 # Test jdcnv.
 @test_approx_eq jdcnv(DateTime(-4713, 11, 24, 12)) 0.0
@@ -88,6 +96,9 @@ let
     x, y = polrec([1, 2, 3], [pi, pi/2.0, pi/4.0])
     @test_approx_eq x [-1.0, 0.0, 1.5*sqrt(2.0)]
     @test_approx_eq y [ 0.0, 2.0, 1.5*sqrt(2.0)]
+    x, y = polrec((2, 135), degrees=true)
+    @test_approx_eq x -sqrt(2)
+    @test_approx_eq y  sqrt(2)
 end
 
 # Test precess
@@ -139,7 +150,7 @@ let
     @test_approx_eq a [0.0, pi/4.0, pi/6.0]
     # Test polrec is the inverse of recpol
     local xi = 6.3, yi = -2.7, x = y = 0.0
-    x, y = polrec(recpol(xi, yi, degrees=true), degrees=true)
+    x, y = polrec(recpol((xi, yi), degrees=true), degrees=true)
     @test_approx_eq x xi
     @test_approx_eq y yi
 end
@@ -152,6 +163,7 @@ end
 @test_approx_eq sphdist([0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.222450611061632,
                                                              2.500353926443337,
                                                              1.5892569925227762]
+@test_approx_eq sphdist(120, -43, 175, +22) 1.5904422616007134
 
 # Test "ten" and "tenv".  Always make sure string and numerical inputs are
 # consistent (IDL implementation of "ten" is not).

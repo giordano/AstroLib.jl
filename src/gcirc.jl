@@ -40,6 +40,13 @@ Angular distance on the sky between points 1 and 2, as a `AbstractFloat`.  See
 
 "Haversine formula" see http://en.wikipedia.org/wiki/Great-circle_distance.
 
+### Example ###
+
+``` julia
+julia> gcirc(0, 120, -43, 175, +22)
+1.590442261600714
+```
+
 ### Notes ###
 
 * If `ra1`, `dec1` are scalars, and `ra2`, `dec2` are vectors, then the output

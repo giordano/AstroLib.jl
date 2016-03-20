@@ -28,6 +28,17 @@ it is possible to execute `recpol(polrec(radius, angle))`.
 A 2-tuple `(x, y)` with the rectangular coordinate of the input.  If `radius`
 and `angle` are arrays, `x` and `y` are arrays of the same length as `radius`
 and `angle`.
+
+### Example ###
+
+Get rectangular coordinates \$(x, y)\$ of the point with polar coordinates \$(r,
+\varphi) = (1.7, 227)\$, with angle \$\varphi\$ expressed in degrees.
+
+``` julia
+julia> x, y = polrec(1.7, 227, degrees=true)
+(-1.1593972121062475,-1.2433012927525897)
+```
+
 """
 function polrec(radius::AbstractFloat, angle::AbstractFloat; degrees::Bool=false)
     if degrees

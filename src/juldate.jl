@@ -20,7 +20,16 @@ days since epoch `1858-11-16T12:00:00` (Reduced Julian Days = Julian Days -
 
 ### Argument ###
 
-* `date`: date of `DateTime` type, in Julian Calendar.
+* `date`: date of `DateTime` type, in Julian Calendar, UTC standard.
+
+### Example ###
+
+Get number of Reduced Julian Days at 2015-03-20T15:24:00.
+
+``` julia
+julia> juldate(DateTime(2016, 03, 20, 15, 24))
+57468.14166666667
+```
 
 ### Notes ###
 

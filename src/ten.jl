@@ -71,6 +71,19 @@ The formula used for the conversion is
 
 \$\$\mathrm{sign}(\mathrm{deg})·\left(|\mathrm{deg}| + \frac{\mathrm{min}}{60} + \frac{\mathrm{sec}}{3600}\right)\$\$
 
+### Example ###
+
+``` julia
+julia> ten(-0.0, 19, 47)
+-0.3297222222222222
+
+julia> ten("+5:14:58")
+5.249444444444444
+
+julia> ten("-10 26")
+-10.433333333333334
+```
+
 ### Notes ###
 
 These functions cannot deal with `-0` (negative integer zero) in numeric input.

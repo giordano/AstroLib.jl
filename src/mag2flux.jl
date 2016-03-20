@@ -36,6 +36,13 @@ Otherwise the flux is given by
 
 \$\$\text{flux} =  10^{-0.4(\text{mag} + \text{zero point})}\$\$
 
+### Example ###
+
+``` julia
+julia> mag2flux(8.3)
+1.7378008287493692e-12
+```
+
 ### Notes ###
 
 Code of this function is based on IDL Astronomy User's Library.

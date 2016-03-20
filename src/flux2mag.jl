@@ -35,6 +35,13 @@ Otherwise, magnitude is given by the expression
 
 \$\$\text{mag} = -2.5\log_{10}(\text{flux}) - \text{zero point}\$\$
 
+### Example ###
+
+``` julia
+julia> flux2mag(5.2e-15)
+14.609991640913002
+```
+
 ### Notes ###
 
 Code of this function is based on IDL Astronomy User's Library.
@@ -49,7 +56,7 @@ function flux2mag(flux::AbstractFloat, zero_point::AbstractFloat;
 end
 
 flux2mag(flux::Real, zero_point::Real=21.1; ABwave::Real=NaN) =
-    flux2mag(promote(float(flux), float(zero_point))..., ABWave=float(ABwave))
+    flux2mag(promote(float(flux), float(zero_point))..., ABwave=float(ABwave))
 
 function flux2mag{N<:Real}(flux::AbstractArray{N}, zero_point::Real=21.1;
                            ABwave::Real=NaN)

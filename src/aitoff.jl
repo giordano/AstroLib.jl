@@ -32,9 +32,12 @@ Coordinates can be given also as a 2-tuple `(l, b)`.
 
 ### Example ###
 
+Get \$(x ,y)\$ Aitoff coordinates of Sirius, whose Galactic coordinates are
+\$(227.23, -8.890)\$.
+
 ``` julia
-julia> x, y = aitoff(375, 2.437)
-(16.63760711611838,2.712427279646118)
+julia> x, y = aitoff(227.23, -8.890)
+(-137.92196683723276,-11.772527357473054)
 ```
 
 ### Notes ###

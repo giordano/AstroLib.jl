@@ -25,7 +25,7 @@ array) as the input coordinates.
  Meeus does), convert it to east of north via: `az = (az + 180) % 360`.
 * `lat`: the local geodetic latitude, in degrees, scalar or array.
 
-`alt` and `az` may be given as a signle 2-tuple `(alt, az)`.
+`alt` and `az` can be given as a 2-tuple `(alt, az)`.
 
 ### Output ###
 
@@ -76,7 +76,7 @@ end
 altaz2hadec(alt::Real, az::Real, lat::Real) =
     altaz2hadec(promote(float(alt), float(az), float(lat))...)
 
-altaz2hadec(altazlat::Tuple{Real, Real}, lat::Real) = altaz2hadec(altaz..., lat)
+altaz2hadec(altaz::Tuple{Real, Real}, lat::Real) = altaz2hadec(altaz..., lat)
 
 function altaz2hadec{R1<:Real, R2<:Real, R3<:Real}(alt::AbstractArray{R1},
                                                    az::AbstractArray{R2},

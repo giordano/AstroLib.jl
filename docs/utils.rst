@@ -164,10 +164,13 @@ Output
 Example
 '''''''
 
+Get :math:`(x ,y)` Aitoff coordinates of Sirius, whose Galactic
+coordinates are :math:`(227.23, -8.890)`.
+
 .. code:: julia
 
-    julia> x, y = aitoff(375, 2.437)
-    (16.63760711611838,2.712427279646118)
+    julia> x, y = aitoff(227.23, -8.890)
+    (-137.92196683723276,-11.772527357473054)
 
 Notes
 '''''
@@ -211,7 +214,7 @@ the same type (scalar or array) as the input coordinates.
    via: ``az = (az + 180) % 360``.
 -  ``lat``: the local geodetic latitude, in degrees, scalar or array.
 
-``alt`` and ``az`` may be given as a signle 2-tuple ``(alt, az)``.
+``alt`` and ``az`` can be given as a 2-tuple ``(alt, az)``.
 
 Output
 ''''''
@@ -401,6 +404,14 @@ Otherwise, magnitude is given by the expression
 
 .. math:: \text{mag} = -2.5\log_{10}(\text{flux}) - \text{zero point}
 
+Example
+'''''''
+
+.. code:: julia
+
+    julia> flux2mag(5.2e-15)
+    14.609991640913002
+
 Notes
 '''''
 
@@ -566,6 +577,14 @@ Method
 "Haversine formula" see
 http://en.wikipedia.org/wiki/Great-circle\_distance.
 
+Example
+'''''''
+
+.. code:: julia
+
+    julia> gcirc(0, 120, -43, 175, +22)
+    1.590442261600714
+
 Notes
 '''''
 
@@ -660,7 +679,18 @@ Julian Days - 2400000).
 Argument
 ''''''''
 
--  ``date``: date of ``DateTime`` type, in Julian Calendar.
+-  ``date``: date of ``DateTime`` type, in Julian Calendar, UTC
+   standard.
+
+Example
+'''''''
+
+Get number of Reduced Julian Days at 2015-03-20T15:24:00.
+
+.. code:: julia
+
+    julia> juldate(DateTime(2016, 03, 20, 15, 24))
+    57468.14166666667
 
 Notes
 '''''
@@ -716,6 +746,14 @@ Otherwise the flux is given by
 
 .. math:: \text{flux} =  10^{-0.4(\text{mag} + \text{zero point})}
 
+Example
+'''''''
+
+.. code:: julia
+
+    julia> mag2flux(8.3)
+    1.7378008287493692e-12
+
 Notes
 '''''
 
@@ -759,6 +797,18 @@ Output
 A 2-tuple ``(x, y)`` with the rectangular coordinate of the input. If
 ``radius`` and ``angle`` are arrays, ``x`` and ``y`` are arrays of the
 same length as ``radius`` and ``angle``.
+
+Example
+'''''''
+
+Get rectangular coordinates :math:`(x, y)` of the point with polar
+coordinates :math:`(r, \varphi) = (1.7, 227)`, with angle
+:math:`\varphi` expressed in degrees.
+
+.. code:: julia
+
+    julia> x, y = polrec(1.7, 227, degrees=true)
+    (-1.1593972121062475,-1.2433012927525897)
 
 --------------
 
@@ -1048,6 +1098,19 @@ The coordinate ``angle`` coordinate lies in the range
 If ``x`` and ``y`` are arrays, ``radius`` and ``angle`` are arrays of
 the same length as ``radius`` and ``angle``.
 
+Example
+'''''''
+
+Calculate polar coordinates :math:`(r, \varphi)` of point with
+rectangular coordinates :math:`(x, y) = (2.24, -1.87)`.
+
+.. code:: julia
+
+    julia> r, φ = recpol(2.24, -1.87)
+    (2.9179616172938263,-0.6956158538564537)
+
+Angle :math:`\varphi` is given in radians.
+
 --------------
 
 sixty
@@ -1075,6 +1138,17 @@ Output
 
 An array of three ``AbstractFloat``, that are the sexagesimal
 counterpart (degrees, minutes, seconds) of ``number``.
+
+Example
+'''''''
+
+.. code:: julia
+
+    julia> sixty(-0.615)
+    3-element Array{AbstractFloat,1}:
+     -0.0
+     36.0
+     54.0
 
 Notes
 '''''
@@ -1110,6 +1184,14 @@ Output
 Angular distance on a sphere between points 1 and 2, as an
 ``AbstractFloat``. It is expressed in radians unless ``degrees`` keyword
 is set to ``true``.
+
+Example
+'''''''
+
+.. code:: julia
+
+    julia> sphdist(120, -43, 175, +22)
+    1.5904422616007134
 
 Notes
 '''''
@@ -1175,6 +1257,20 @@ Method
 The formula used for the conversion is
 
 .. math:: \mathrm{sign}(\mathrm{deg})·\left(|\mathrm{deg}| + \frac{\mathrm{min}}{60} + \frac{\mathrm{sec}}{3600}\right)
+
+Example
+'''''''
+
+.. code:: julia
+
+    julia> ten(-0.0, 19, 47)
+    -0.3297222222222222
+
+    julia> ten("+5:14:58")
+    5.249444444444444
+
+    julia> ten("-10 26")
+    -10.433333333333334
 
 Notes
 '''''

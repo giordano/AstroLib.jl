@@ -23,6 +23,13 @@ Angular distance between points on a sphere.
 Angular distance on a sphere between points 1 and 2, as an `AbstractFloat`.  It
 is expressed in radians unless `degrees` keyword is set to `true`.
 
+### Example ###
+
+``` julia
+julia> sphdist(120, -43, 175, +22)
+1.5904422616007134
+```
+
 ### Notes ###
 
 * `gcirc` function is similar to `sphdist`, but may be more suitable for
@@ -53,7 +60,7 @@ function sphdist(long1::AbstractFloat, lat1::AbstractFloat,
     sn = vecnorm((xc, yc, zc))
     # Convert to polar coordinates.
     radius, angle = recpol(cs, sn)
-    degrees ? (return rad2deg(angle)) : (return angle)
+    return degrees ? rad2deg(angle) : angle
 end
 
 sphdist(long1::Real, lat1::Real,
