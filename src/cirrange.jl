@@ -20,7 +20,7 @@ The converted number or array of numbers, as `AbstractFloat`.
 
 ### Example ###
 
-Restrict an array of numbers in the range \$[0, 2\pi)\$ as if they are angles
+Restrict an array of numbers in the range \$[0, 2π)\$ as if they are angles
 expressed in radians:
 
 ``` julia

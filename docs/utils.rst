@@ -1091,9 +1091,8 @@ Output
 ''''''
 
 A 2-tuple ``(radius, angle)`` with the polar coordinates of the input.
-The coordinate ``angle`` coordinate lies in the range
-:math:`[-\pi, \pi]` if ``degrees=false``, or :math:`[-180, 180]` when
-``degrees=true``.
+The coordinate ``angle`` coordinate lies in the range :math:`[-π, π]` if
+``degrees=false``, or :math:`[-180, 180]` when ``degrees=true``.
 
 If ``x`` and ``y`` are arrays, ``radius`` and ``angle`` are arrays of
 the same length as ``radius`` and ``angle``.
@@ -1101,15 +1100,15 @@ the same length as ``radius`` and ``angle``.
 Example
 '''''''
 
-Calculate polar coordinates :math:`(r, \varphi)` of point with
-rectangular coordinates :math:`(x, y) = (2.24, -1.87)`.
+Calculate polar coordinates :math:`(r, φ)` of point with rectangular
+coordinates :math:`(x, y) = (2.24, -1.87)`.
 
 .. code:: julia
 
     julia> r, φ = recpol(2.24, -1.87)
     (2.9179616172938263,-0.6956158538564537)
 
-Angle :math:`\varphi` is given in radians.
+Angle :math:`φ` is given in radians.
 
 --------------
 
