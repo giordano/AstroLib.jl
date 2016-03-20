@@ -1,8 +1,10 @@
 # AstroLib
 
-Build status:
-* on GNU/Linux and OS X: [![Travis Build Status](https://travis-ci.org/giordano/AstroLib.jl.svg?branch=master)](https://travis-ci.org/giordano/AstroLib.jl)
-* on Windows: [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/jfa9e54lv92rqd3m?svg=true)](https://ci.appveyor.com/project/giordano/astrolib-jl)
+[![Travis Build Status on GNU/Linux and OS X](https://travis-ci.org/giordano/AstroLib.jl.svg?branch=master)](https://travis-ci.org/giordano/AstroLib.jl) [![Appveyor Build Status on Windows](https://ci.appveyor.com/api/projects/status/jfa9e54lv92rqd3m?svg=true)](https://ci.appveyor.com/project/giordano/astrolib-jl)
+
+[![Coverage Status](https://coveralls.io/repos/github/giordano/AstroLib.jl/badge.svg?branch=master)](https://coveralls.io/github/giordano/AstroLib.jl?branch=master) [![codecov.io](https://codecov.io/github/giordano/AstroLib.jl/coverage.svg?branch=master)](https://codecov.io/github/giordano/AstroLib.jl?branch=master)
+
+[![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.4.svg)](http://pkg.julialang.org/?pkg=AstroLib) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.5.svg)](http://pkg.julialang.org/?pkg=AstroLib)
 
 Goal
 ----

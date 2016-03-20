@@ -7,9 +7,11 @@
 @test adstring(19.19321, truncate=true) == "+19 11 35.5"
 @test adstring([30.4, -15.63], [-1.23, 48.41], precision=2) ==
     [" 02 01 36.000  -01 13 48.00", "-22 57 28.800  +48 24 36.00"]
+@test adstring([(-58, 24)]) == ["-20 08 00.0  +24 00 00"]
 
 # Test airtovac
-@test_approx_eq airtovac([1234 2100 6056.125]) [1234.0 2100.666421596007 6057.801930991426]
+@test_approx_eq airtovac([1234 6056.125]) [1234.0 6057.801930991426]
+@test_approx_eq airtovac(2100) 2100.666421596007
 
 # Test aitoff
 @test aitoff([227.23, 130], [-8.890, -35]) ==
@@ -30,11 +32,11 @@
                        [44.38225395397647, 48.542947077386664, 67.33061196497327])
 
 # Test calz_unred
-@test calz_unred(reshape(1200:200:3000, 10, 1), ones(Float64, 10), -0.1) ==
-    [0.3275103090302725, 0.3706688594333945, 0.3992066520267901,
-     0.42172386610064166, 0.44163446679589663, 0.46026961834331576,
-     0.4781384142299673, 0.49542409215100497, 0.5121824744205304,
-     0.5284227515508443]
+@test_approx_eq calz_unred(reshape(900:1000:9900, 10, 1), ones(Float64, 10), -0.1) [1.0,                0.43189326452379095,
+                                                                                    0.5203675483533704, 0.594996469192435,
+                                                                                    0.6569506252451913, 0.7080829505773865,
+                                                                                    0.7502392743978797, 0.7861262388745882,
+                                                                                    0.8151258710444882, 0.8390325371659836]
 
 # Test daycnv with Gregorian Calendar in force.
 @test daycnv(2440000.0) == DateTime(1968, 05, 23, 12)
@@ -53,15 +55,18 @@
 # Test get_date with mixed keywords.
 @test get_date(DateTime(2001,09,25,14,56,14), old=true,timetag=true) ==
     "25/09/2001:T14:56:14"
+@test get_date(DateTime(2001,09,25,14,56,14)) == "2001-09-25"
 
 # Test gcirc.
 @test_approx_eq gcirc(0, [0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.222450611061632,
                                                               2.500353926443337,
                                                               1.5892569925227757]
 @test_approx_eq gcirc(0,  120, -43,   175, +22)  1.590442261600714
-@test_approx_eq gcirc(0, (120, -43),  175, +22)  1.590442261600714
-@test_approx_eq gcirc(0,  120, -43,  (175, +22)) 1.590442261600714
+@test_approx_eq gcirc(1, (120, -43),  175, +22)  415908.56615322345
+@test_approx_eq gcirc(2,  120, -43,  (175, +22)) 296389.3666794745
 @test_approx_eq gcirc(0, (120, -43), (175, +22)) 1.590442261600714
+@test_approx_eq gcirc(1, [120], [-43],  175, +22)  [415908.56615322345]
+@test_approx_eq gcirc(2,  120, -43,  [175], [+22]) [296389.3666794745]
 
 # Test jdcnv.
 @test_approx_eq jdcnv(DateTime(-4713, 11, 24, 12)) 0.0
@@ -88,7 +93,8 @@
 
 # Test mag2flux
 @test_approx_eq mag2flux(4.83, 21.12) 4.1686938347033296e-11
-@test_approx_eq flux2mag(mag2flux(15)) 15.0
+@test_approx_eq mag2flux([4.83], 21.12) 4.1686938347033296e-11
+@test_approx_eq flux2mag(mag2flux(15, ABwave=12.), ABwave=12) 15.0
 
 # Test polrec
 let
@@ -104,10 +110,10 @@ end
 # Test precess
 let
     local ra1, dec1, ra2, dec2
-    ra1, dec1 = precess(ten(2,31,46.3)*15, ten(89,15,50.6), 2000, 1985)
+    ra1, dec1 = precess((ten(2,31,46.3)*15, ten(89,15,50.6)), 2000, 1985)
     @test_approx_eq ra1  34.09470328718033
     @test_approx_eq dec1 89.19647174928589
-    ra2, dec2 = precess(ten(21, 59, 33.053)*15, ten(-56, 59, 33.053), 1950, 1975, FK4=true)
+    ra2, dec2 = precess([ten(21, 59, 33.053)*15], [ten(-56, 59, 33.053)], 1950, 1975, FK4=true)
     @test_approx_eq ra2  330.3144305418865
     @test_approx_eq dec2 -56.87186126487889
 end
@@ -137,6 +143,7 @@ end
 # Test radec
 @test radec(15.90, -0.85) == (1.0, 3.0, 36.0, -0.0, 51.0, 0.0)
 @test radec(-0.85,15.9) == (23.0,56.0,36.0,15.0,54.0,0.0)
+@test radec(-20,4,hours=true) == (4.0,0.0,0.0,4.0,0.0,0.0)
 @test radec([15.90, -0.85], [-0.85,15.9]) ==
     ([1.0, 23.0], [3.0, 56.0], [36.0, 36.0],
      [-0.0, 15.0], [51.0, 54.0], [0.0, 0.0])
@@ -148,6 +155,9 @@ let
                   [0, sqrt(2.0), 2.0])
     @test_approx_eq r [0.0,  2.0,  4.0]
     @test_approx_eq a [0.0, pi/4.0, pi/6.0]
+    r, a = recpol(1, 1)
+    @test_approx_eq r sqrt(2.0)
+    @test_approx_eq a pi/4.0
     # Test polrec is the inverse of recpol
     local xi = 6.3, yi = -2.7, x = y = 0.0
     x, y = polrec(recpol((xi, yi), degrees=true), degrees=true)
@@ -158,12 +168,15 @@ end
 # Test "sixty".  Test also it's the reverse of ten.
 @test_approx_eq sixty(-51.36) [-51.0, 21.0, 36.0]
 @test_approx_eq ten(sixty(-0.10934835545824395)) -0.10934835545824395
+@test_approx_eq sixty(1) [1.0, 0.0, 0.0]
 
 # Test sphdist.
 @test_approx_eq sphdist([0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.222450611061632,
                                                              2.500353926443337,
                                                              1.5892569925227762]
 @test_approx_eq sphdist(120, -43, 175, +22) 1.5904422616007134
+@test_approx_eq sphdist([120], [-43], 175, +22) 1.5904422616007134
+@test_approx_eq sphdist(120, -43, [175], [+22]) 1.5904422616007134
 
 # Test "ten" and "tenv".  Always make sure string and numerical inputs are
 # consistent (IDL implementation of "ten" is not).

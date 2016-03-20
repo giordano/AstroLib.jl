@@ -55,11 +55,12 @@ Code of this function is based on IDL Astronomy User's Library.
 function calz_unred(wave::AbstractFloat, flux::AbstractFloat,
                     ebv::AbstractFloat, r_v::AbstractFloat)
     x  = 10000.0/wave # Wavelength in inverse microns
-    klam = 0.0
     if 6300.0 <= wave <= 22000.0
         klam = 2.659*(-1.857 + 1.040*x) + r_v
     elseif 912.0 <= wave < 6300.0
         klam = 2.659*(@evalpoly(x, -2.156, 1.509, -0.198, 0.011)) + r_v
+    else
+        return flux
     end
     return flux*10.0^(0.4*klam*ebv)
 end

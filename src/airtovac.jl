@@ -54,4 +54,4 @@ end
 
 airtovac(wave_air::Real) = airtovac(float(wave_air))
 
-@vectorize_1arg Number airtovac
+@vectorize_1arg Real airtovac

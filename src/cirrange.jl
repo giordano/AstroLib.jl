@@ -38,15 +38,16 @@ Use `max=2.0*pi` to restrict a number to the same interval.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function cirrange(number::AbstractFloat; max::AbstractFloat=360.0)
+function cirrange(number::AbstractFloat; max::Real=360.0)
+    fmax = float(max)
     # Deal with the lower limit.
-    result = mod(number, max)
+    result = mod(number, fmax)
     # Deal with negative values, if any
-    return result < 0.0 ? (result + max) : result
+    return result < 0.0 ? (result + fmax) : result
 end
 
 cirrange(number::Real; max::Real=360.0) =
-    cirrange(float(number), max=float(max))
+    cirrange(float(number), max=max)
 
 function cirrange{N<:Real}(numbers::AbstractArray{N}; max::Real=360.0)
     result = similar(numbers, typeof(float(one(N))))

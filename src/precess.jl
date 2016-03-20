@@ -117,7 +117,7 @@ function precess{R<:Real, D<:Real}(ra::AbstractArray{R},
     ra_out  = similar(ra,  typera)
     dec_out = similar(dec, typera)
     for i in eachindex(ra)
-        ra_out[i], dec_out[i] = precess(radec[i], radec[i], equinox1, equinox2,
+        ra_out[i], dec_out[i] = precess(ra[i], dec[i], equinox1, equinox2,
                                         FK4=FK4, radians=radians)
     end
     return ra_out, dec_out

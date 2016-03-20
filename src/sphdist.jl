@@ -88,7 +88,7 @@ function sphdist{LO2<:Real, LA2<:Real}(long1::Real,
                                        degrees::Bool=false)
     @assert length(long2) == length(lat2)
     dist = similar(long2, typeof(float(one(LO2))))
-    for i in eachindex(long1)
+    for i in eachindex(long2)
         dist[i] = sphdist(long1, lat1, long2[i], lat2[i], degrees=degrees)
     end
     return dist

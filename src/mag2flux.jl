@@ -47,17 +47,17 @@ julia> mag2flux(8.3)
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function mag2flux(mag::AbstractFloat, zero_point::AbstractFloat;
-                  ABwave::AbstractFloat=NaN)
+function mag2flux{T<:AbstractFloat}(mag::T, zero_point::T;
+                                    ABwave::Real=NaN)
     if isnan(ABwave)
         return exp10(-0.4*(mag + zero_point))
     else
-        return exp10(-0.4*(mag + 2.406 + 5*log10(ABwave)))
+        return exp10(-0.4*(mag + 2.406 + 5*log10(float(ABwave))))
     end
 end
 
 mag2flux(mag::Real, zero_point::Real=21.1; ABwave::Real=NaN) =
-    mag2flux(promote(float(mag), float(zero_point))..., ABwave=float(ABwave))
+    mag2flux(promote(float(mag), float(zero_point))..., ABwave=ABwave)
 
 function mag2flux{N<:Real}(mag::AbstractArray{N}, zero_point::Real=21.1;
                            ABwave::Real=NaN)

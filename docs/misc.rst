@@ -6,7 +6,7 @@ cirrange
 Purpose
 '''''''
 
-Force a number into a given range :math:`[0, \\text{max})`.
+Force a number into a given range :math:`[0, \text{max})`.
 
 Argument
 ''''''''

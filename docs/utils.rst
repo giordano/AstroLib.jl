@@ -984,7 +984,7 @@ Return the precession matrix from 1950.0 to 1975.0 in the FK4 system
 .. code:: julia
 
     julia> premat(1950,1975,FK4=true)
-    3x3 Array{AbstractFloat,2}:
+    3x3 Array{Float64,2}:
      0.999981    -0.00558775  -0.00242909
      0.00558775   0.999984    -6.78691e-6
      0.00242909  -6.78633e-6   0.999997
@@ -1144,7 +1144,7 @@ Example
 .. code:: julia
 
     julia> sixty(-0.615)
-    3-element Array{AbstractFloat,1}:
+    3-element Array{Float64,1}:
      -0.0
      36.0
      54.0
