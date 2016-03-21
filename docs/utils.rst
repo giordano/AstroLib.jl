@@ -480,7 +480,7 @@ Example
 .. code:: julia
 
     julia> get_date(timetag=true)
-    "2016-03-14:T11:26:23"
+    "2016-03-14T11:26:23"
 
 Notes
 '''''
@@ -685,7 +685,7 @@ Argument
 Example
 '''''''
 
-Get number of Reduced Julian Days at 2015-03-20T15:24:00.
+Get number of Reduced Julian Days at 2016-03-20T15:24:00.
 
 .. code:: julia
 
@@ -922,11 +922,11 @@ The 3-tuple ``(x, y, z)`` of coordinates modified by precession.
 Example
 '''''''
 
-Precess 1950 equinox coords ``(1, 1, 1)`` to 2000.
+Precess 2000 equinox coordinates ``(1, 1, 1)`` to 2050.
 
 .. code:: julia
 
-    julia> precess_xyz(1,1,1,2000,2050)
+    julia> precess_xyz(1, 1, 1, 2000, 2050)
     (0.9838854500981734,1.0110925876508692,1.0048189888146941)
 
 Method

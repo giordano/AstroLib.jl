@@ -54,7 +54,7 @@
 
 # Test get_date with mixed keywords.
 @test get_date(DateTime(2001,09,25,14,56,14), old=true,timetag=true) ==
-    "25/09/2001:T14:56:14"
+    "25/09/2001T14:56:14"
 @test get_date(DateTime(2001,09,25,14,56,14)) == "2001-09-25"
 
 # Test gcirc.
@@ -67,6 +67,7 @@
 @test_approx_eq gcirc(0, (120, -43), (175, +22)) 1.590442261600714
 @test_approx_eq gcirc(1, [120], [-43],  175, +22)  [415908.56615322345]
 @test_approx_eq gcirc(2,  120, -43,  [175], [+22]) [296389.3666794745]
+@test_throws ErrorException gcirc(3, 0, 0, 0, 0)
 
 # Test jdcnv.
 @test_approx_eq jdcnv(DateTime(-4713, 11, 24, 12)) 0.0

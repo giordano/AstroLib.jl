@@ -47,7 +47,7 @@ string will have `"DD/MM/YYThh:mm:ss"` format.
 
 ``` julia
 julia> get_date(timetag=true)
-"2016-03-14:T11:26:23"
+"2016-03-14T11:26:23"
 ```
 
 ### Notes ###
@@ -76,7 +76,7 @@ function get_date(dt::DateTime=Dates.unix2datetime(Libc.time());
     ymds = old ? "$(dd)/$(mm)/$(yy)" : "$(yy)-$(mm)-$(dd)"
 
     if timetag
-        return "$(ymds):T$(hh):$(mii):$(ss)"
+        return "$(ymds)T$(hh):$(mii):$(ss)"
     else
         return ymds
     end
