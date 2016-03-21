@@ -33,6 +33,7 @@ Done
 * `sphdist`
 * `ten`
 * `tenv`
+* `vactoair`
 * `xyz`
 
 ### `misc.jl` ###
@@ -487,7 +488,6 @@ Missing
 * `unzoom_xy`
 * `update_distort`
 * `uvbybeta`
-* `vactoair`
 * `valid_num`
 * `vect`
 * `vsym`

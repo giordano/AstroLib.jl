@@ -27,8 +27,7 @@ Vacuum wavelength in angstroms, same number of elements as `wave_air`.
 
 ### Method ###
 
-Uses relation of Ciddor (1996), Applied Optics 62, 958
-(http://adsabs.harvard.edu/abs/1996ApOpt..35.1566C).
+Uses relation of Ciddor (1996), Applied Optics 62, 958.
 
 ### Example ###
 
@@ -36,11 +35,14 @@ If the air wavelength is `w = 6056.125` (a Krypton line), then `airtovac(w)`
 yields an vacuum wavelength of `6057.8019`.
 
 ### Notes ###
+
+`vactoair` converts vacuum wavelengths to air wavelengths.
+
 Code of this function is based on IDL Astronomy User's Library.
 """
 function airtovac(wave_air::AbstractFloat)
-    wave_vac = wave_air
-    if wave_vac >= 2000.0
+    if wave_air >= 2000.0
+        wave_vac = wave_air
         for iter= 1:2
             sigma2 = (1e4/wave_vac)^2.0 # Convert to wavenumber squared
             # Computer conversion factor.
@@ -48,8 +50,10 @@ function airtovac(wave_air::AbstractFloat)
                 1.67917e-3/(57.362e0 - sigma2)
             wave_vac = wave_air*fact # Convert Wavelength
         end
+        return wave_vac
+    else
+        return wave_air
     end
-    return wave_vac
 end
 
 airtovac(wave_air::Real) = airtovac(float(wave_air))

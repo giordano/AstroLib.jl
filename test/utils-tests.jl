@@ -190,6 +190,12 @@ end
     [-0.37388888888888894, -1.0, -3.0]
 @test tenv([12.0, -0.0], [24, 30]) == tenv([" 12::24", " -0:30: "]) == [12.4, -0.5]
 
+# Test vactoair and that airtovac is its inverse (it isn't true only around
+# 2000, just avoid those values)
+@test_approx_eq vactoair([2000]) [1999.3526230448367]
+@test_approx_eq airtovac(vactoair(collect(1000:300:4000))) collect(1000:300:4000)
+
+# Test xyz
 let
     local x, y, z, vx, vy, vz
     x, y, z, vx, vy, vz = xyz([51200.5 + 64./86400.], equinox=2000)

@@ -109,8 +109,7 @@ Vacuum wavelength in angstroms, same number of elements as ``wave_air``.
 Method
 ''''''
 
-Uses relation of Ciddor (1996), Applied Optics 62, 958
-(http://adsabs.harvard.edu/abs/1996ApOpt..35.1566C).
+Uses relation of Ciddor (1996), Applied Optics 62, 958.
 
 Example
 '''''''
@@ -120,6 +119,8 @@ If the air wavelength is ``w = 6056.125`` (a Krypton line), then
 
 Notes
 '''''
+
+``vactoair`` converts vacuum wavelengths to air wavelengths.
 
 Code of this function is based on IDL Astronomy User's Library.
 
@@ -1279,6 +1280,58 @@ numeric input. If it is important to give sense to negative zero, you
 can either make sure to pass a floating point negative zero ``-0.0``
 (this is the best option), or use negative minutes and seconds, or
 non-integer negative degrees and minutes.
+
+--------------
+
+vactoair
+~~~~~~~~
+
+.. function:: vactoair(wave_vacuum) -> wave_air
+
+Purpose
+'''''''
+
+Converts vacuum wavelengths to air wavelengths.
+
+Explanation
+'''''''''''
+
+Corrects for the index of refraction of air under standard conditions.
+Wavelength values below :math:`2000 Å` will not be altered. Uses
+relation of Ciddor (1996).
+
+Arguments
+'''''''''
+
+-  ``wave_vacuum``: vacuum wavelength in angstroms. Can be either a
+   scalar or an array of numbers. Wavelengths are corrected for the
+   index of refraction of air under standard conditions. Wavelength
+   values below :math:`2000 Å` will *not* be altered, take care within
+   :math:`[1 Å, 2000 Å]`.
+
+Output
+''''''
+
+Air wavelength in angstroms, same number of elements as ``wave_vacuum``.
+
+Method
+''''''
+
+Uses relation of Ciddor (1996), Applied Optics 35, 1566
+(http://adsabs.harvard.edu/abs/1996ApOpt..35.1566C).
+
+Example
+'''''''
+
+If the vacuum wavelength is ``w = 2000``, then ``vactoair(w)`` yields an
+air wavelength of ``1999.353``.
+
+Notes
+'''''
+
+``airtovac`` converts air wavelengths to vacuum wavelengths.
+
+Code of this function is based on IDL Astronomy User's Library.
 
 --------------
 

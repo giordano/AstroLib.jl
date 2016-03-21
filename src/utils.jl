@@ -73,5 +73,8 @@ export sphdist
 include("ten.jl")
 export ten, tenv
 
+include("vactoair.jl")
+export vactoair
+
 include("xyz.jl")
 export xyz
