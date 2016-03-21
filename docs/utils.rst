@@ -1279,3 +1279,92 @@ numeric input. If it is important to give sense to negative zero, you
 can either make sure to pass a floating point negative zero ``-0.0``
 (this is the best option), or use negative minutes and seconds, or
 non-integer negative degrees and minutes.
+
+--------------
+
+xyz
+~~~
+
+.. function:: xyz(jd[, equinox=2000]) -> x, y, z, v_x, v_y, v_z
+
+Purpose
+'''''''
+
+Calculate geocentric :math:`x`, :math:`y`, and :math:`z` and velocity
+coordinates of the Sun.
+
+Explanation
+'''''''''''
+
+Calculates geocentric :math:`x`, :math:`y`, and :math:`z` vectors and
+velocity coordinates (:math:`dx`, :math:`dy` and :math:`dz`) of the Sun.
+(The positive :math:`x` axis is directed towards the equinox, the
+:math:`y`-axis, towards the point on the equator at right ascension 6h,
+and the :math:`z` axis toward the north pole of the equator). Typical
+position accuracy is :math:`<10^{-4}` AU (15000 km).
+
+Arguments
+'''''''''
+
+-  ``jd``: number of Reduced Julian Days for the wanted date. It can be
+   either a scalr or a vector.
+-  ``equinox`` (optional numeric keyword): equinox of output. Default is
+   1950.
+
+You can use ``juldate`` to get the number of Reduced Julian Days for the
+selected dates.
+
+Output
+''''''
+
+The 6-tuple :math:`(x, y, z, v_x, v_y, v_z)`, where
+
+-  :math:`x`, :math:`y`, :math:`z`: scalars or vectors giving
+   heliocentric rectangular coordinates (in AU) for each date supplied.
+   Note that :math:`\sqrt{x^2 + y^2 + z^2}` gives the Earth-Sun distance
+   for the given date.
+-  :math:`v_x`, :math:`v_y`, :math:`v_z`: velocity vectors corresponding
+   to :math:`x`, :math:`y`, and :math:`z`.
+
+Example
+'''''''
+
+What were the rectangular coordinates and velocities of the Sun on
+1999-01-22T00:00:00 (= JD 2451200.5) in J2000 coords? Note: Astronomical
+Almanac (AA) is in TDT, so add 64 seconds to UT to convert.
+
+.. code:: julia
+
+    julia> jd = juldate(DateTime(1999, 1, 22))
+    51200.5
+
+    julia> xyz(jd + 64./86400., equinox=2000)
+    (0.5145687092402946,-0.7696326261820777,-0.33376880143026394,0.014947267514081075,0.008314838205475709,0.003606857607574784)
+
+Compare to Astronomical Almanac (1999 page C20)
+
+::
+
+                x  (AU)        y  (AU)     z (AU)
+    xyz:      0.51456871   -0.76963263  -0.33376880
+    AA:       0.51453130   -0.7697110   -0.3337152
+    abs(err): 0.00003739    0.00007839   0.00005360
+    abs(err)
+        (km):   5609          11759         8040
+
+NOTE: Velocities in AA are for Earth/Moon barycenter (a very minor
+offset) see AA 1999 page E3
+
+::
+
+               x vel (AU/day) y vel (AU/day)   z vel (AU/day)
+    xyz:      -0.014947268   -0.0083148382    -0.0036068576
+    AA:       -0.01494574    -0.00831185      -0.00360365
+    abs(err):  0.000001583    0.0000029886     0.0000032076
+    abs(err)
+     (km/sec): 0.00265        0.00519          0.00557
+
+Notes
+'''''
+
+Code of this function is based on IDL Astronomy User's Library.

@@ -72,3 +72,6 @@ export sphdist
 
 include("ten.jl")
 export ten, tenv
+
+include("xyz.jl")
+export xyz

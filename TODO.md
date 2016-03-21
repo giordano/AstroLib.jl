@@ -33,6 +33,7 @@ Done
 * `sphdist`
 * `ten`
 * `tenv`
+* `xyz`
 
 ### `misc.jl` ###
 
@@ -508,7 +509,6 @@ Missing
 * `xy2ad`
 * `xyad`
 * `xyxy`
-* `xyz`
 * `ydn2md`
 * `ymd2dn`
 * `zang`
