@@ -5,41 +5,6 @@ Here is the list of proedures and function provided by IDL AstroLib.  Not all
 utilities listed under "Missing" need to be translated, they can be of no or
 little utility or deprecated in original AstroLib.
 
-Done
-----
-
-### `utils.jl` ###
-
-* `adstring`
-* `airtovac`
-* `aitoff`
-* `altaz2hadec`
-* `calz_unred`
-* `daycnv`
-* `flux2mag`
-* `gcirc`
-* `get_date`
-* `get_juldate`
-* `jdcnv`
-* `juldate`
-* `mag2flux`
-* `polrec`
-* `precess`
-* `precess_xyz`
-* `premat`
-* `radec`
-* `recpol`
-* `sixty`
-* `sphdist`
-* `ten`
-* `tenv`
-* `vactoair`
-* `xyz`
-
-### `misc.jl` ###
-
-* `cirrange`
-
 Deprecated or Not Needed
 ------------------------
 
@@ -58,8 +23,12 @@ Present in Other Libraries
 * `aper`, see https://github.com/kbarbary/AperturePhotometry.jl
 * `cosmo_param`, see `Cosmology` package
   (https://github.com/JuliaAstro/Cosmology.jl)
+* `galage`, see `Cosmology` package
+  (https://github.com/JuliaAstro/Cosmology.jl)
 * `glactc_pm`, see `SkyCoords` package (https://github.com/kbarbary/SkyCoords.jl)
 * `glactc`, see `SkyCoords` package (https://github.com/kbarbary/SkyCoords.jl)
+* `lumdist`, see `Cosmology` package
+  (https://github.com/JuliaAstro/Cosmology.jl)
 
 Missing
 -------
@@ -410,7 +379,6 @@ Missing
 * `repchr`
 * `repstr`
 * `resistant_mean`
-* `rhotheta`
 * `rinter`
 * `rob_checkfit`
 * `robust_linefit`

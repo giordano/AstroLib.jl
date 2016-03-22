@@ -166,6 +166,14 @@ let
     @test_approx_eq y yi
 end
 
+# Test rhotheta
+let
+    local ρ, θ
+    ρ, θ = rhotheta(41.623, 1934.008, 0.2763, 0.907, 59.025, 23.717, 219.907, 1980)
+    @test_approx_eq ρ 0.4110177665209899
+    @test_approx_eq θ 318.4242565041763
+end
+
 # Test "sixty".  Test also it's the reverse of ten.
 @test_approx_eq sixty(-51.36) [-51.0, 21.0, 36.0]
 @test_approx_eq ten(sixty(-0.10934835545824395)) -0.10934835545824395

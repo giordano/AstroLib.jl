@@ -64,6 +64,9 @@ export radec
 include("recpol.jl")
 export recpol
 
+include("rhotheta.jl")
+export rhotheta
+
 include("sixty.jl")
 export sixty
 

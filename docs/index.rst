@@ -119,10 +119,14 @@ of such utilities:
 -  ``aper``, see https://github.com/kbarbary/AperturePhotometry.jl
 -  ``cosmo_param``, see ``Cosmology`` package
    (https://github.com/JuliaAstro/Cosmology.jl)
+-  ``galage``, see ``Cosmology`` package
+   (https://github.com/JuliaAstro/Cosmology.jl)
 -  ``glactc_pm``, see ``SkyCoords`` package
    (https://github.com/kbarbary/SkyCoords.jl)
 -  ``glactc``, see ``SkyCoords`` package
    (https://github.com/kbarbary/SkyCoords.jl)
+-  ``lumdist``, see ``Cosmology`` package
+   (https://github.com/JuliaAstro/Cosmology.jl)
 
 In addition, there are similar projects for Python (`Python AstroLib
 <http://www.hs.uni-hamburg.de/DE/Ins/Per/Czesla/PyA/PyA/pyaslDoc/pyasl.html>`__)

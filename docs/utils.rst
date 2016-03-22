@@ -803,8 +803,8 @@ Example
 '''''''
 
 Get rectangular coordinates :math:`(x, y)` of the point with polar
-coordinates :math:`(r, \varphi) = (1.7, 227)`, with angle
-:math:`\varphi` expressed in degrees.
+coordinates :math:`(r, φ) = (1.7, 227)`, with angle :math:`φ` expressed
+in degrees.
 
 .. code:: julia
 
@@ -1101,15 +1101,73 @@ the same length as ``radius`` and ``angle``.
 Example
 '''''''
 
-Calculate polar coordinates :math:`(r, φ)` of point with rectangular
+Calculate polar coordinates :math:`(r, ϕ)` of point with rectangular
 coordinates :math:`(x, y) = (2.24, -1.87)`.
 
 .. code:: julia
 
-    julia> r, φ = recpol(2.24, -1.87)
+    julia> r, phi = recpol(2.24, -1.87)
     (2.9179616172938263,-0.6956158538564537)
 
-Angle :math:`φ` is given in radians.
+Angle :math:`ϕ` is given in radians.
+
+--------------
+
+rhotheta
+~~~~~~~~
+
+.. function:: rhotheta(period, periastron, eccentricity, semimajor_axis, inclination, omega, omega2, epoch) -> rho, theta
+
+Purpose
+'''''''
+
+Calculate the separation and position angle of a binary star.
+
+Explanation
+'''''''''''
+
+This function will return the separation :math:`ρ` and position angle
+:math:`θ` of a visual binary star derived from its orbital elements. The
+algorithms described in the following book will be used: Meeus J., 1992,
+Astronomische Algorithmen, Barth. Compared to the examples given at page
+400 and no discrepancy found.
+
+Arguments
+'''''''''
+
+-  ``period``: period [year]
+-  ``periastro``: time of periastron passage [year]
+-  ``eccentricity``: eccentricity of the orbit
+-  ``semimajor_axis``: semi-major axis [arc second]
+-  ``inclination``: inclination angle [degree]
+-  ``omega``: node [degree]
+-  ``omega2``: longitude of periastron [degree]
+-  ``epoch``: epoch of observation [year]
+
+All input parameters have to be scalars.
+
+Output
+''''''
+
+The 2-tuple :math:`(ρ, θ)`, where
+
+-  :math:`ρ`: separation [arc second]
+-  :math:`θ`: position angle [degree]
+
+Example
+'''''''
+
+Find the position of Eta Coronae Borealis at the epoch 2016
+
+.. code:: julia
+
+    julia> ρ, θ = rhotheta(41.623, 1934.008, 0.2763, 0.907, 59.025, 23.717, 219.907, 2016)
+    (0.6351167848228113,214.42513388052114)
+
+Notes
+'''''
+
+Code of this function is based on IDL Astronomy User's Library.
 
 --------------
 
@@ -1360,7 +1418,7 @@ Arguments
 '''''''''
 
 -  ``jd``: number of Reduced Julian Days for the wanted date. It can be
-   either a scalr or a vector.
+   either a scalar or a vector.
 -  ``equinox`` (optional numeric keyword): equinox of output. Default is
    1950.
 

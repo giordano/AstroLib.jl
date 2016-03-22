@@ -20,7 +20,7 @@ position accuracy is \$<10^{-4}\$ AU (15000 km).
 ### Arguments ###
 
 * `jd`: number of Reduced Julian Days for the wanted date.  It can be either a
-  scalr or a vector.
+  scalar or a vector.
 * `equinox` (optional numeric keyword): equinox of output. Default is 1950.
 
 You can use `juldate` to get the number of Reduced Julian Days for the selected
