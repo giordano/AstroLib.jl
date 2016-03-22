@@ -40,7 +40,7 @@
 
 #test ct2lst
 @test_approx_eq ct2lst(-76.72, -4, [DateTime(2008, 7, 30, 15, 53)]) [11.356505172312609]
-@test_approx_eq ct2lst(ten(8, 43), [jdcnv(DateTime(2015, 11, 24, 12, 21))]) [17.140685171005316]
+@test_approx_eq ct2lst(9, [jdcnv(DateTime(2015, 11, 24, 12, 21))]) [17.159574059885927]
 
 # Test daycnv with Gregorian Calendar in force.
 @test daycnv(2440000.0) == DateTime(1968, 05, 23, 12)

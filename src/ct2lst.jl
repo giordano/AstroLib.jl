@@ -114,10 +114,8 @@ function ct2lst{T<:AbstractFloat}(long::T, tz::T,
     return ct2lst(long, jdcnv(date))
 end
 
-ct2lst(long::Real, tz::Real,
-       date::DateTime=Dates.now()) =
-           ct2lst(promote(float(long), float(tz))..., date)
-
+ct2lst(long::Real, tz::Real, date::DateTime) =
+    ct2lst(promote(float(long), float(tz))..., date)
 
 # Vectorial versions
 function ct2lst{D<:DateTime}(long::Real, tz::Real, date::AbstractArray{D})
