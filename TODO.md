@@ -476,7 +476,6 @@ Missing in AstroLib.jl
 * `xy2ad`
 * `xyad`
 * `xyxy`
-* `ydn2md`
 * `zang`
 * `zbrent`
 * `zenpos`

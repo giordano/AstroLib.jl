@@ -219,5 +219,10 @@ let
     @test_approx_eq vz [0.003606857607574784]
 end
 
+# Test ydn2md.
+@test ydn2md(2016, [60, 234]) == [Date(2016, 02, 29), Date(2016, 08, 21)]
+@test ymd2dn(ydn2md(2016, 60)) == 60
+
 # Test ymd2dn
 @test ymd2dn([Date(2015,3,5), Date(2016,3,5)]) == [64, 65]
+@test ydn2md(2016, ymd2dn(Date(2016, 09, 16))) == Date(2016, 09, 16)

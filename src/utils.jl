@@ -85,5 +85,8 @@ export vactoair
 include("xyz.jl")
 export xyz
 
+include("ydn2md.jl")
+export ydn2md
+
 include("ymd2dn.jl")
 export ymd2dn
