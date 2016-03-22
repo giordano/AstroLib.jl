@@ -1,7 +1,7 @@
 cirrange
 ~~~~~~~~
 
-.. function:: cirrange(number[, max=2.0*pi]) -> restricted_number
+.. function:: cirrange(number[, max]) -> restricted_number
 
 Purpose
 '''''''
@@ -12,7 +12,7 @@ Argument
 ''''''''
 
 -  ``number``: the number to modify. Can be a scalar or an array.
--  ``max`` (optional numerical keyword): specify the extremum of the
+-  ``max`` (optional numerical argument): specify the extremum of the
    range :math:`[0, \text{max})` into which the number should be
    restricted. If omitted, defaults to ``360.0``.
 
@@ -29,7 +29,7 @@ angles expressed in radians:
 
 .. code:: julia
 
-    julia> cirrange([4pi, 10, -5.23], max=2.0*pi)
+    julia> cirrange([4pi, 10, -5.23], 2.0*pi)
     3-element Array{Float64,1}:
      0.0
      3.71681

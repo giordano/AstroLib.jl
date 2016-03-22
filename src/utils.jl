@@ -18,6 +18,9 @@ export altaz2hadec
 include("calz_unred.jl")
 export calz_unred
 
+include("ct2lst.jl")
+export ct2lst
+
 include("daycnv.jl")
 export daycnv
 

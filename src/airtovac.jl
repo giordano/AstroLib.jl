@@ -32,7 +32,7 @@ Uses relation of Ciddor (1996), Applied Optics 62, 958.
 ### Example ###
 
 If the air wavelength is `w = 6056.125` (a Krypton line), then `airtovac(w)`
-yields an vacuum wavelength of `6057.8019`.
+yields a vacuum wavelength of `6057.8019`.
 
 ### Notes ###
 

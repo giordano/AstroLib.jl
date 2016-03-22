@@ -30,8 +30,8 @@ Present in Other Libraries
 * `lumdist`, see `Cosmology` package
   (https://github.com/JuliaAstro/Cosmology.jl)
 
-Missing
--------
+Missing in AstroLib.jl
+----------------------
 
 * `ad2xy`
 * `add_distort`
@@ -77,7 +77,6 @@ Missing
 * `create_struct`
 * `cr_reject`
 * `cspline`
-* `ct2lst`
 * `curs`
 * `curval`
 * `daoerf`
