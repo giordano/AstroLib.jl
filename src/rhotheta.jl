@@ -57,7 +57,7 @@ function rhotheta{T<:AbstractFloat}(period::T, periastron::T, eccentricity::T,
     M = deg2rad(n*(epoch - periastron))
 
     # Solution of Kepler equation, see chapter 29, 3rd method.
-    M = cirrange(M, max=2pi)
+    M = cirrange(M, 2pi)
     if M > pi
         f = -1.0
         M = 2pi - M

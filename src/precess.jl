@@ -90,7 +90,7 @@ function precess{T<:AbstractFloat}(ra::T, dec::T, equinox1::T, equinox2::T;
     # TODO: @code_warntype says that output is of type "Tuple{Any,Float64}", but
     # I can't understand why.
     if radians
-        return cirrange(ra_rad, max=2.0*pi), dec_rad
+        return cirrange(ra_rad, 2.0*pi), dec_rad
     else
         return cirrange(rad2deg(ra_rad)), rad2deg(dec_rad)
     end

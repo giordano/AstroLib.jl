@@ -44,7 +44,7 @@ julia> radec(6.7525, -16.7161, hours=true)
 function radec(ra::AbstractFloat, dec::AbstractFloat; hours::Bool=false)
     # Compute right ascension.
     if hours
-        ra_hr, ra_min, ra_sec = sixty(cirrange(ra, max=24.0))
+        ra_hr, ra_min, ra_sec = sixty(cirrange(ra, 24.0))
     else
         ra_hr, ra_min, ra_sec = sixty(cirrange(ra)/15.0)
     end
