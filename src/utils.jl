@@ -46,6 +46,9 @@ export jdcnv
 include("juldate.jl")
 export juldate
 
+include("kepler_solver.jl")
+export kepler_solver
+
 include("mag2flux.jl")
 export mag2flux
 

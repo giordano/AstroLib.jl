@@ -55,26 +55,7 @@ function rhotheta{T<:AbstractFloat}(period::T, periastron::T, eccentricity::T,
     # See chapter 55.
     n = 360.0/period
     M = deg2rad(n*(epoch - periastron))
-
-    # Solution of Kepler equation, see chapter 29, 3rd method.
-    M = cirrange(M, 2pi)
-    if M > pi
-        f = -1.0
-        M = 2pi - M
-    else
-        f = 1.0
-    end
-    e0 = pi/2.0
-    d  = pi/4.0
-    for j = 1:33
-        M1 = e0 - eccentricity*sin(e0)
-        signM = (M - M1) > 0 ? 1 : -1
-        e0 = e0 + d*signM
-        d= d/2.0
-    end
-    e0 = e0*f
-
-    # Return to chapter 55.
+    e0 = kepler_solver(M, eccentricity)
     r  = semimajor_axis*(1.0 - eccentricity*cos(e0))
     nu = 2.0*atan(sqrt((1.0 + eccentricity)/(1.0 - eccentricity))*tan(e0/2.0))
     # Convert variables in radians.

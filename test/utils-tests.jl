@@ -89,12 +89,19 @@
 @test_approx_eq juldate(DateTime(1000, 1, 1, 20)) (-313692.0 + 1.0/3.0)
 @test_approx_eq juldate(DateTime(100, 10, 25, 20)) (-642119.0 + 1.0/3.0)
 @test_approx_eq juldate(DateTime(-4713, 1, 1, 12)) -2.4e6
-
 # Test daycnv and juldate together, with Gregorian Calendar in force.  Note that
 # they are not expected to be one the inverse of the other during Julian
 # Calendar.
 @test (dt=DateTime(2016, 1, 1, 20);
        daycnv(juldate(dt) + 2.4e6) == dt)
+
+# Test kepler_solver
+@test_approx_eq kepler_solver(8pi/3, 0.7) 2.5085279492864223
+@test_approx_eq kepler_solver(pi/4, 0) pi/4
+@test_approx_eq kepler_solver(3pi/2, 0.8) -2.2119306096084457
+@test_approx_eq kepler_solver(0, 1) 0.0
+@test_throws ErrorException kepler_solver(pi, -0.5)
+@test_throws ErrorException kepler_solver(pi,  1.5)
 
 # Test mag2flux
 @test_approx_eq mag2flux(4.83, 21.12) 4.1686938347033296e-11
@@ -174,8 +181,8 @@ end
 let
     local ρ, θ
     ρ, θ = rhotheta(41.623, 1934.008, 0.2763, 0.907, 59.025, 23.717, 219.907, 1980)
-    @test_approx_eq ρ 0.4110177665209899
-    @test_approx_eq θ 318.4242565041763
+    @test_approx_eq ρ 0.41101776646245836
+    @test_approx_eq θ 318.4242564860495
 end
 
 # Test "sixty".  Test also it's the reverse of ten.

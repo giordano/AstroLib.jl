@@ -808,6 +808,85 @@ Code of this function is based on IDL Astronomy User's Library.
 
 --------------
 
+kepler\_solver
+~~~~~~~~~~~~~~
+
+.. function:: kepler_solver(M, e) -> E
+
+Purpose
+'''''''
+
+Solve Kepler's equation in the elliptic motion regime
+(:math:`0 \leq e \leq 1`) and return eccentric anomaly :math:`E`.
+
+Explanation
+'''''''''''
+
+In order to find the position of a body in elliptic motion (e.g., in the
+two-body problem) at a given time :math:`t`, one has to solve the
+`Kepler's
+equation <https://en.wikipedia.org/wiki/Kepler%27s_equation>`__
+
+.. math::  M(t) = E(t) - e\sin E(t)
+
+where :math:`M(t) = (t - t_{0})/P` is the mean anomaly, :math:`E(t)` the
+eccentric anomaly, :math:`e` the eccentricity of the orbit, :math:`t_0`
+is the time of periapsis passage, and :math:`P` is the period of the
+orbit.
+
+Once that the Kepler's equation is solved and :math:`E(t)` is known, the
+polar coordinates :math:`(r(t), θ(t))` of the body at time :math:`t` in
+the elliptic orbit are given by
+
+.. math::  θ(t) = 2\arctan \left(\sqrt{\frac{1 + e}{1 - e}} \tan\frac{E(t)}{2} \right)
+
+.. math::  r(t) = \frac{a(1 - e^{2})}{1 + e\cos(θ(t) - θ_{0})}
+
+in which :math:`a` is the semi-major axis of the orbit, and :math:`θ_0`
+the value of angular coordinate at time :math:`t = t_{0}`.
+
+Arguments
+'''''''''
+
+-  ``M``: mean anomaly
+-  ``e``: eccentricity, in the elliptic motion regime
+   (:math:`0 \leq e \leq 1`)
+
+Output
+''''''
+
+The eccentric anomaly :math:`E`, restricted to the range
+:math:`[-π, π]`.
+
+Method
+''''''
+
+Many different numerical methods exist to solve Kepler's equation. This
+function implements the algorithm proposed in Markley (1995) Celestial
+Mechanics and Dynamical Astronomy, 63, 101
+(http://dx.doi.org/10.1007/BF00691917). This method is not iterative,
+requires only four transcendental function evaluations, and has been
+proved to be fast and efficient over the entire range of elliptic motion
+:math:`0 \leq e \leq 1`.
+
+Example
+'''''''
+
+Find the angular polar coordinate :math:`θ(t)` for an orbit with
+eccentricity :math:`e = 0.7` and for :math:`M(t) = 8π/3`.
+
+.. code:: julia
+
+    julia> ecc = 0.7;
+
+    julia> E = kepler_solver(8pi/3, ecc)
+    2.5085279492864223
+
+    julia> θ = 2*atan(sqrt((1.0 + ecc)/(1.0 - ecc))*tan(E/2.0))
+    2.8681167800611607
+
+--------------
+
 mag2flux
 ~~~~~~~~
 
