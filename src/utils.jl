@@ -27,6 +27,9 @@ export daycnv
 include("deredd.jl")
 export deredd
 
+include("eqpole.jl")
+export eqpole
+
 include("flux2mag.jl")
 export flux2mag
 

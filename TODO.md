@@ -130,7 +130,6 @@ Missing in AstroLib.jl
 * `eci2geo`
 * `eq2hor`
 * `eqpole_grid`
-* `eqpole`
 * `euler`
 * `expand_tilde`
 * `extast`

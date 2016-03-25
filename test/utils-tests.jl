@@ -52,11 +52,22 @@
 # Test deredd
 let
     local by0, m0, c0, ub0
-    by0, m0, c0, ub0 = deredd([0.5, -0.5], [0.2, 0.5], [1.0, 1.0], [1.0, 1.0], [0.1, 0.3])
+    by0, m0, c0, ub0 = deredd([0.5, -0.5], [0.2, 0.5], [1, 1], [1, 1], [0.1, 0.3])
     @test_approx_eq by0 [-0.3,0.5]
     @test_approx_eq m0  [1.165,1.0]
     @test_approx_eq c0  [0.905,1.0]
     @test_approx_eq ub0 [-0.665,0.3]
+end
+
+# Test eqpole
+let
+    local x, y
+    x, y = eqpole([100], [35], southpole=true)
+    @test_approx_eq x [-111.18287262822456]
+    @test_approx_eq y [ -19.604540237028665]
+    x, y = eqpole([80], [19])
+    @test_approx_eq x [72.78853915267848]
+    @test_approx_eq y [12.83458333897169]
 end
 
 # Test flux2mag
