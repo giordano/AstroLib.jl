@@ -120,7 +120,7 @@ If the air wavelength is ``w = 6056.125`` (a Krypton line), then
 Notes
 '''''
 
-:func:`vactoair` converts vacuum wavelengths to air wavelengths.
+``vactoair`` converts vacuum wavelengths to air wavelengths.
 
 Code of this function is based on IDL Astronomy User's Library.
 
