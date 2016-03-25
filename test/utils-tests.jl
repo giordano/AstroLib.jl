@@ -44,11 +44,20 @@
 
 # Test daycnv with Gregorian Calendar in force.
 @test daycnv(2440000.0) == DateTime(1968, 05, 23, 12)
-
 # Test daycnv with Julian Calendar in force (same result as IDL AstroLib's
 # daycnv).
 @test daycnv(2000000.0) == DateTime(763, 09, 18, 12)
 @test daycnv(0.0) == DateTime(-4713, 11, 24, 12)
+
+# Test deredd
+let
+    local by0, m0, c0, ub0
+    by0, m0, c0, ub0 = deredd([0.5, -0.5], [0.2, 0.5], [1.0, 1.0], [1.0, 1.0], [0.1, 0.3])
+    @test_approx_eq by0 [-0.3,0.5]
+    @test_approx_eq m0  [1.165,1.0]
+    @test_approx_eq c0  [0.905,1.0]
+    @test_approx_eq ub0 [-0.665,0.3]
+end
 
 # Test flux2mag
 @test_approx_eq flux2mag([1.5e-12, 8.7e-15, 4.4e-10]) [8.459771852360795,

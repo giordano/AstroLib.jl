@@ -19,11 +19,13 @@ equation](https://en.wikipedia.org/wiki/Kepler%27s_equation)
 
 where \$M(t) = (t - t_{0})/P\$ is the mean anomaly, \$E(t)\$ the eccentric
 anomaly, \$e\$ the eccentricity of the orbit, \$t_0\$ is the time of periapsis
-passage, and \$P\$ is the period of the orbit.
+passage, and \$P\$ is the period of the orbit.  Usually the eccentricity is
+given and one wants to find the eccentric anomaly \$E(t)\$ at a specific time
+\$t\$, so that also the mean anomaly \$M(t)\$ is known.
 
-Once that the Kepler's equation is solved and \$E(t)\$ is known, the polar
-coordinates \$(r(t), θ(t))\$ of the body at time \$t\$ in the elliptic
-orbit are given by
+Once that the Kepler's equation is solved and \$E(t)\$ is determined, the polar
+coordinates \$(r(t), θ(t))\$ of the body at time \$t\$ in the elliptic orbit are
+given by
 
 \$\$ θ(t) = 2\arctan \left(\sqrt{\frac{1 + e}{1 - e}} \tan\frac{E(t)}{2} \right)\$\$
 \$\$ r(t) = \frac{a(1 - e^{2})}{1 + e\cos(θ(t) - θ_{0})}\$\$

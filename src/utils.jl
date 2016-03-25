@@ -24,6 +24,9 @@ export ct2lst
 include("daycnv.jl")
 export daycnv
 
+include("deredd.jl")
+export deredd
+
 include("flux2mag.jl")
 export flux2mag
 

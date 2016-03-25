@@ -124,7 +124,6 @@ Missing in AstroLib.jl
 * `dbxput`
 * `dbxval`
 * `delvarx`
-* `deredd`
 * `detabify`
 * `dist_circle`
 * `dist_ellipse`
