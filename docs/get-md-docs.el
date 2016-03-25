@@ -36,13 +36,16 @@
     ;; Fetch the docstring using `get-md-docs--docs-regexp'.
     (when (re-search-forward get-md-docs--docs-regexp nil t)
       (replace-regexp-in-string
-       ;; Replace "\$" with "$" for math modes.
-       "\\\\\\$" "\$"
+       ;; Replace [funcname](:func:`funcname`) links with :func:`funcname`.
+       "\\[[^[]+](\\(:func:`.+`\\))" "\\1"
        (replace-regexp-in-string
-	;; Demote sections for the online docs, from "###" to "####".
-	"^### \\([^#\n]*\\) ###$"
-	"##### \\1 ####"
-	(match-string-no-properties 1))))))
+	;; Replace "\$" with "$" for math modes.
+	"\\\\\\$" "\$"
+	(replace-regexp-in-string
+	 ;; Demote sections for the online docs, from "###" to "####".
+	 "^### \\([^#\n]*\\) ###$"
+	 "##### \\1 ####"
+	 (match-string-no-properties 1)))))))
 
 (defun get-md-docs-search-file (file-name)
   "Search in FILE-NAME files from which extract docstrings.
@@ -101,10 +104,23 @@ The real extraction is then done by `get-md-docs-on-file'."
       (goto-char (point-min))
       (save-excursion
 	(save-match-data
-	  ;; Turn the beginning of docstring of each function info a `function'
-	  ;; block.
-	  (while (re-search-forward fix-rst-docs--function-regexp nil t)
-	    (replace-match "\n.. function:: " nil nil nil 1))))
+	  (while (re-search-forward
+		  (concat "\\("
+			  ;; Group 2.
+			  fix-rst-docs--function-regexp
+			  "\\|"
+			  ;; Group 3.
+			  ":func:``\\(.+\\)``"
+			  "\\)")
+		  nil t)
+	    (cond
+	     ((match-beginning 2)
+	      ;; Turn the beginning of docstring of each function info a
+	      ;; `function' block.
+	      (replace-match "\n.. function:: " nil nil nil 2))
+	     ;; Replace :func:``funcname`` with :func:`funcname`.
+	     ((match-beginning 3)
+	      (replace-match ":func:`\\3`"))))))
       (delete-trailing-whitespace)
       (save-buffer))))
 

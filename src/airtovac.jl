@@ -36,7 +36,7 @@ yields a vacuum wavelength of `6057.8019`.
 
 ### Notes ###
 
-`vactoair` converts vacuum wavelengths to air wavelengths.
+[`vactoair`](:func:`vactoair`) converts vacuum wavelengths to air wavelengths.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
