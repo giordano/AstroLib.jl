@@ -58,6 +58,9 @@ export kepler_solver
 include("mag2flux.jl")
 export mag2flux
 
+include("month_cnv.jl")
+export month_cnv
+
 include("polrec.jl")
 export polrec
 

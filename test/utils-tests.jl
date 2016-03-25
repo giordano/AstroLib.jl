@@ -128,6 +128,11 @@ end
 @test_approx_eq mag2flux([4.83], 21.12) 4.1686938347033296e-11
 @test_approx_eq flux2mag(mag2flux(15, ABwave=12.), ABwave=12) 15.0
 
+# Test month_conv
+@test month_cnv([" janua  ", "SEP ", " aUgUsT", "la"]) == [1, 9, 8, -1]
+@test month_cnv([2, 12, 6], short=true, low=true) == ["feb", "dec", "jun"]
+@test month_cnv(5, up=true) == "MAY"
+
 # Test polrec
 let
     local x=zeros(Float64, 3), y=zeros(Float64, 3)

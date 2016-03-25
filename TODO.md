@@ -297,7 +297,6 @@ Missing in AstroLib.jl
 * `mlinmix_err`
 * `mmm`
 * `modfits`
-* `month_cnv`
 * `moonpos`
 * `mphase`
 * `mrandomn`
