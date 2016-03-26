@@ -61,6 +61,12 @@ export mag2flux
 include("month_cnv.jl")
 export month_cnv
 
+include("planck_freq.jl")
+export planck_freq
+
+include("planck_wave.jl")
+export planck_wave
+
 include("polrec.jl")
 export polrec
 

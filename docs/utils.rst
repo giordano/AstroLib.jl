@@ -528,9 +528,9 @@ coordinate :math:`(x, y)` using an equal-area polar projection.
 Explanation
 '''''''''''
 
-The output :math:`x` and :math:`y` coordinates are scaled to be between
--90 and +90 to go from equator to pole to equator. Output map points can
-be centered on the north pole or south pole.
+The output :math:`x` and :math:`y` coordinates are scaled to be in the
+range :math:`[-90, 90]` and to go from equator to pole to equator.
+Output map points can be centered on the north pole or south pole.
 
 Arguments
 '''''''''
@@ -548,9 +548,9 @@ Output
 The 2-tuple :math:`(x, y)`:
 
 -  :math:`x` coordinate, same number of elements as right ascension,
-   normalized to be between -90 and 90.
+   normalized to be in the range :math:`[-90, 90]`.
 -  :math:`y` coordinate, same number of elements as declination,
-   normalized to be between -90 and 90.
+   normalized to be in the range :math:`[-90, 90]`.
 
 Example
 '''''''
@@ -1115,6 +1115,116 @@ Example
      "feb"
      "dec"
      "jun"
+
+--------------
+
+planck\_freq
+~~~~~~~~~~~~
+
+.. function:: planck_freq(frequency, temperature) -> black_body_flux
+
+Purpose
+'''''''
+
+Calculate the flux of a black body per unit frequency.
+
+Explanation
+'''''''''''
+
+Return the spectral radiance of a black body per unit frequency using
+`Planck's law <https://en.wikipedia.org/wiki/Planck%27s_law>`__
+
+.. math::  B_ν(ν, T) = \frac{2hν^3}{c^2} \frac{1}{e^\frac{hν}{k_\mathrm{B}T} - 1}
+
+Arguments
+'''''''''
+
+-  ``frequency``: frequency at which the flux is to be calculated, in
+   Hertz.
+-  ``temperature``: the equilibrium temperature of the black body, in
+   Kelvin.
+
+Both arguments can be either scalar or arrays of the same length.
+
+Output
+''''''
+
+The spectral radiance of the black body, in units of W/(sr·m²·Hz).
+
+Example
+'''''''
+
+Calculate the spectrum of a black body in :math:`[10^{12}, 10^{16}]` Hz
+at :math:`8000` K.
+
+.. code:: julia
+
+    julia> frequency=logspace(12, 16, 1000);
+
+    julia> temperature=ones(wavelength)*8000;
+
+    julia> flux=planck_freq(frequency, temperature);
+
+Notes
+'''''
+
+``planck_wave`` calculates the flux of a black body per unit wavelength.
+
+--------------
+
+planck\_wave
+~~~~~~~~~~~~
+
+.. function:: planck_wave(wavelength, temperature) -> black_body_flux
+
+Purpose
+'''''''
+
+Calculate the flux of a black body per unit wavelength.
+
+Explanation
+'''''''''''
+
+Return the spectral radiance of a black body per unit wavelength using
+`Planck's law <https://en.wikipedia.org/wiki/Planck%27s_law>`__
+
+.. math::  B_λ(λ, T) =\frac{2hc^2}{λ^5}\frac{1}{e^{\frac{hc}{λk_\mathrm{B}T}} - 1}
+
+Arguments
+'''''''''
+
+-  ``wavelength``: wavelength at which the flux is to be calculated, in
+   meters.
+-  ``temperature``: the equilibrium temperature of the black body, in
+   Kelvin.
+
+Both arguments can be either scalar or arrays of the same length.
+
+Output
+''''''
+
+The spectral radiance of the black body, in units of W/(sr·m³).
+
+Example
+'''''''
+
+Calculate the spectrum of a black body in :math:`[0, 3]` µm at
+:math:`5000` K.
+
+.. code:: julia
+
+    julia> wavelength=linspace(0, 5e-6, 1000);
+
+    julia> temperature=ones(wavelength)*5000;
+
+    julia> flux=planck_wave(wavelength, temperature);
+
+Notes
+'''''
+
+``planck_freq`` calculates the flux of a black body per unit frequency.
+
+Code of this function is based on IDL Astronomy User's Library.
 
 --------------
 

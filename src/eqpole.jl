@@ -11,9 +11,9 @@ using an equal-area polar projection.
 
 ### Explanation ###
 
-The output \$x\$ and \$y\$ coordinates are scaled to be between -90 and +90 to
-go from equator to pole to equator.  Output map points can be centered on the
-north pole or south pole.
+The output \$x\$ and \$y\$ coordinates are scaled to be in the range \$[-90,
+90]\$ and to go from equator to pole to equator.  Output map points can be
+centered on the north pole or south pole.
 
 ### Arguments ###
 
@@ -28,9 +28,9 @@ north pole or south pole.
 The 2-tuple \$(x, y)\$:
 
 * \$x\$ coordinate, same number of elements as right ascension, normalized to be
-  between -90 and 90.
+  in the range \$[-90, 90]\$.
 * \$y\$ coordinate, same number of elements as declination, normalized to be
-  between -90 and 90.
+  in the range \$[-90, 90]\$.
 
 ### Example ###
 

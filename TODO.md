@@ -325,7 +325,6 @@ Missing in AstroLib.jl
 * `pixcolor`
 * `pixwt`
 * `pkfit`
-* `planck`
 * `planet_coords`
 * `ploterror`
 * `plothist`

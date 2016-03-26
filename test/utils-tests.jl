@@ -133,6 +133,12 @@ end
 @test month_cnv([2, 12, 6], short=true, low=true) == ["feb", "dec", "jun"]
 @test month_cnv(5, up=true) == "MAY"
 
+# Test planck_freq
+@test_approx_eq planck_freq([2000], [5000]) [6.1447146126144004e-30]
+
+# Test planck_wave
+@test_approx_eq planck_wave([2000], [5000]) [8.127064833530511e-24]
+
 # Test polrec
 let
     local x=zeros(Float64, 3), y=zeros(Float64, 3)
