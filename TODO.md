@@ -233,7 +233,6 @@ Missing in AstroLib.jl
 * `gsssextast`
 * `gsss_stdast`
 * `gsssxyad`
-* `hadec2altaz`
 * `hastrom`
 * `hboxave`
 * `hcongrid`

@@ -93,6 +93,19 @@ end
 @test_approx_eq gcirc(2,  120, -43,  [175], [+22]) [296389.3666794745]
 @test_throws ErrorException gcirc(3, 0, 0, 0, 0)
 
+# Test hadec2altaz
+let
+    local alt1, az1, alt2, az2
+    alt1, az1 = hadec2altaz([0], [11.978165], [ten(43,4,42)])
+    @test_approx_eq alt1 [58.89983166666667]
+    @test_approx_eq az1 [180.0]
+    @test_approx_eq hadec2altaz((0, 11.978165), ten(43,4,42), ws=true)[2] 0.0
+    alt1, az1 = 50, 20
+    alt2, az2 = hadec2altaz(altaz2hadec(alt1, az1, 40), 40)
+    @test_approx_eq alt1 alt2
+    @test_approx_eq az1  az2
+end
+
 # Test jdcnv.
 @test_approx_eq jdcnv(DateTime(-4713, 11, 24, 12)) 0.0
 @test_approx_eq jdcnv(DateTime(763, 09, 18, 12)) 2000000.0

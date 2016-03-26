@@ -42,6 +42,9 @@ export get_juldate
 include("gcirc.jl")
 export gcirc
 
+include("hadec2altaz.jl")
+export hadec2altaz
+
 # TODO: this function requires "bprecess" and "xyz".
 # include("helio_jd.jl")
 # export helio_jd

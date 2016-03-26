@@ -15,9 +15,7 @@ Can deal with the NCP singularity.  Intended mainly to be used by program
 
 ### Arguments ###
 
-Input coordinates may be either a scalar or an array, of the same dimension, the
-output coordinates are always floating points and have the same type (scalar or
-array) as the input coordinates.
+Input coordinates may be either a scalar or an array, of the same dimension.
 
 * `alt`: local apparent altitude, in degrees, scalar or array.
 * `az`: the local apparent azimuth, in degrees, scalar or vector, measured
@@ -35,6 +33,9 @@ array) as the input coordinates.
   that right ascension of 0 hours crosses the local meridian.  It is
   unambiguously defined.
 * `dec`: the local apparent declination, in degrees.
+
+The output coordinates are always floating points and have the same type (scalar
+or array) as the input coordinates.
 
 ### Example ###
 
