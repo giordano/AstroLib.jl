@@ -76,6 +76,27 @@ end
                                                        2.291368308784527]
 @test_approx_eq flux2mag(1) -21.1
 
+# Test geo2geodetic
+let
+    local lat, long, alt
+    lat, long, alt = geo2geodetic([90], [0], [0], "Jupiter")
+    @test_approx_eq lat [90]
+    @test_approx_eq long [0]
+    @test_approx_eq alt [4355.443799999994]
+    lat, long, alt = geo2geodetic((90, 0, 0))
+    @test_approx_eq lat 90
+    @test_approx_eq long 0
+    @test_approx_eq alt 21.38499999999931
+    lat, long, alt = geo2geodetic((43.16, -24.32, 3.87), 8724.32, 8619.19)
+    @test_approx_eq lat 43.849399515234516
+    @test_approx_eq long -24.32
+    @test_approx_eq alt 53.53354478670836
+    lat, long, alt = geo2geodetic([43.16], [-24.32], [3.87], 8724.32, 8619.19)
+    @test_approx_eq lat [43.849399515234516]
+    @test_approx_eq long [-24.32]
+    @test_approx_eq alt [53.53354478670836]
+end
+
 # Test get_date with mixed keywords.
 @test get_date(DateTime(2001,09,25,14,56,14), old=true,timetag=true) ==
     "25/09/2001T14:56:14"

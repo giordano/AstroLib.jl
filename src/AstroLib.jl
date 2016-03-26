@@ -3,6 +3,7 @@
 
 module AstroLib
 
+include("common.jl")
 include("misc.jl")
 include("utils.jl")
 

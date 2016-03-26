@@ -216,7 +216,6 @@ Missing in AstroLib.jl
 * `gaussian`
 * `gcntrd`
 * `geo2eci`
-* `geo2geodetic`
 * `geo2mag`
 * `geodetic2geo`
 * `get_coords`

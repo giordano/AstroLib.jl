@@ -33,6 +33,9 @@ export eqpole
 include("flux2mag.jl")
 export flux2mag
 
+include("geo2geodetic.jl")
+export geo2geodetic
+
 include("get_date.jl")
 export get_date
 
