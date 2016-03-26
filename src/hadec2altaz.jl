@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    hadec2altaz(alt, az, lat[, ws=true]) -> ha, dec
+    hadec2altaz(ha, dec, lat[, ws=true]) -> alt, az
 
 ### Purpose ###
 
@@ -49,6 +49,9 @@ julia> alt, az = hadec2altaz(336.6829, 19.1825, ten(43, 4, 42))
 ```
 
 ### Notes ###
+
+`altaz2hadec` converts Horizon (Alt-Az) coordinates to Hour Angle and
+Declination.
 
 Code of this function is based on IDL Astronomy User's Library.
 """

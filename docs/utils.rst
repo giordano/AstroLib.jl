@@ -252,6 +252,9 @@ The widely available XEPHEM code gets:
 Notes
 '''''
 
+``hadec2altaz`` converts Hour Angle and Declination to Horizon (Alt-Az)
+coordinates.
+
 Code of this function is based on IDL Astronomy User's Library.
 
 --------------
@@ -942,7 +945,7 @@ Code of this function is based on IDL Astronomy User's Library.
 hadec2altaz
 ~~~~~~~~~~~
 
-.. function:: hadec2altaz(alt, az, lat[, ws=true]) -> ha, dec
+.. function:: hadec2altaz(ha, dec, lat[, ws=true]) -> alt, az
 
 Purpose
 '''''''
@@ -997,6 +1000,9 @@ the local altitude and azimuth of this object?
 
 Notes
 '''''
+
+``altaz2hadec`` converts Horizon (Alt-Az) coordinates to Hour Angle and
+Declination.
 
 Code of this function is based on IDL Astronomy User's Library.
 

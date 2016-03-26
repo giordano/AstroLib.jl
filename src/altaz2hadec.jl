@@ -54,6 +54,9 @@ The widely available XEPHEM code gets:
 
 ### Notes ###
 
+`hadec2altaz` converts Hour Angle and Declination to Horizon (Alt-Az)
+coordinates.
+
 Code of this function is based on IDL Astronomy User's Library.
 """
 function altaz2hadec{T<:AbstractFloat}(alt::T, az::T, lat::T)
