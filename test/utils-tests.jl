@@ -129,9 +129,11 @@ end
 @test_approx_eq flux2mag(mag2flux(15, ABwave=12.), ABwave=12) 15.0
 
 # Test month_conv
-@test month_cnv([" janua  ", "SEP ", " aUgUsT", "la"]) == [1, 9, 8, -1]
+@test month_cnv([" januavv  ", "SEPPES ", " aUgUsT", "la"]) == [1, 9, 8, -1]
 @test month_cnv([2, 12, 6], short=true, low=true) == ["feb", "dec", "jun"]
 @test month_cnv(5, up=true) == "MAY"
+@test (list=[1, 2, 3]; month_cnv(month_cnv(list)) == list)
+@test (list=["July", "March", "November"]; month_cnv(month_cnv(list)) == list)
 
 # Test planck_freq
 @test_approx_eq planck_freq([2000], [5000]) [6.1447146126144004e-30]
