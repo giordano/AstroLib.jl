@@ -36,6 +36,9 @@ export flux2mag
 include("geo2geodetic.jl")
 export geo2geodetic
 
+include("geodetic2geo.jl")
+export geodetic2geo
+
 include("get_date.jl")
 export get_date
 

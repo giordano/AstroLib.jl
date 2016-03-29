@@ -97,6 +97,33 @@ let
     @test_approx_eq alt [53.53354478670836]
 end
 
+# Test geodetic2geo
+let
+    local lat, long, alt
+    lat, long, alt = geodetic2geo([90], [0], [0], "Jupiter")
+    @test_approx_eq lat [90]
+    @test long == [0]
+    @test_approx_eq alt [-4355.443799999994]
+    lat, long, alt = geodetic2geo((90, 0, 0))
+    @test_approx_eq lat 90
+    @test long == 0
+    @test_approx_eq alt -21.38499999999931
+    lat, long, alt = geodetic2geo((43.16, -24.32, 3.87), 8724.32, 8619.19)
+    @test_approx_eq lat 42.46772711708433
+    @test long == -24.32
+    @test_approx_eq alt -44.52902080669082
+    lat, long, alt = geodetic2geo([43.16], [-24.32], [3.87], 8724.32, 8619.19)
+    @test_approx_eq lat [42.46772711708433]
+    @test long == [-24.32]
+    @test_approx_eq alt [-44.52902080669082]
+    # Test geodetic2geo is the inverse of geo2geodetic, within a certain
+    # tolerance.
+    lat, long, alt = geodetic2geo(geo2geodetic(67.2,13.4,1.2))
+    @test_approx_eq_eps lat 67.2 1e-8
+    @test long == 13.4
+    @test_approx_eq_eps alt 1.2 1e-9
+end
+
 # Test get_date with mixed keywords.
 @test get_date(DateTime(2001,09,25,14,56,14), old=true,timetag=true) ==
     "25/09/2001T14:56:14"
