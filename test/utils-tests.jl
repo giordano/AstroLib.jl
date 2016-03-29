@@ -213,6 +213,20 @@ let
     @test_approx_eq y  sqrt(2)
 end
 
+# Test posang.
+@test_approx_eq posang(1, ten(13, 25, 13.5), ten(54, 59, 17),
+                       ten(13, 23, 55.5), ten(54, 55, 31)) -108.46011246802047
+@test_approx_eq posang(0, [0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.27896824717634,
+                                                               1.6840484573313608,
+                                                               0.2609280020139511]
+@test_approx_eq posang(0,  120, -43,   175, +22)  -1.5842896165356724
+@test_approx_eq posang(1, (120, -43),  175, +22)  82.97831348792039
+@test_approx_eq posang(2,  120, -43,  (175, +22)) 50.02816530382374
+@test_approx_eq posang(0, (120, -43), (175, +22)) -1.5842896165356724
+@test_approx_eq posang(1, [120], [-43],  175, +22)  [82.97831348792039]
+@test_approx_eq posang(2,  120, -43,  [175], [+22]) [50.02816530382374]
+@test_throws ErrorException posang(3, 0, 0, 0, 0)
+
 # Test precess
 let
     local ra1, dec1, ra2, dec2

@@ -330,7 +330,6 @@ Missing in AstroLib.jl
 * `polint`
 * `polyleg`
 * `poly_smooth`
-* `posang`
 * `positivity`
 * `precess_cd`
 * `prime`

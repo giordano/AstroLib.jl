@@ -79,6 +79,9 @@ export planck_wave
 include("polrec.jl")
 export polrec
 
+include("posang.jl")
+export posang
+
 include("precess.jl")
 export precess
 

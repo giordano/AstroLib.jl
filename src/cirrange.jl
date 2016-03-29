@@ -34,7 +34,7 @@ julia> cirrange([4pi, 10, -5.23], 2.0*pi)
 ### Notes ###
 
 This function does not support the `radians` keyword like IDL implementation.
-Use `max=2.0*pi` to restrict a number to the same interval.
+Use `2.0*pi` as second argument to restrict a number to the same interval.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
