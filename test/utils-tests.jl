@@ -59,6 +59,26 @@ let
     @test_approx_eq ub0 [-0.665,0.3]
 end
 
+
+# Test eci2geo
+let
+    local lat, long, alt, jd
+    lat, long, alt = eci2geo([0], [0], [0], [2452343])
+    @test_approx_eq lat  [0]
+    @test_approx_eq long [12.992783145436988]
+    @test_approx_eq alt  [-6378.137]
+    lat, long, alt = eci2geo((6978.137, 0, 0), jdcnv(DateTime("2015-06-30T14:03:12.857")))
+    @test_approx_eq lat  0
+    @test_approx_eq long 230.87301833205856
+    @test_approx_eq alt  600
+    # Test `eci2geo' is the inverse of `geo2eci'
+    jd = get_juldate()
+    lat, long, alt = eci2geo(geo2eci(10, 10, 10, jd), jd)
+    @test_approx_eq lat  10
+    @test_approx_eq long 10
+    @test_approx_eq alt  10
+end
+
 # Test eqpole
 let
     local x, y

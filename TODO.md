@@ -127,7 +127,6 @@ Missing in AstroLib.jl
 * `detabify`
 * `dist_circle`
 * `dist_ellipse`
-* `eci2geo`
 * `eq2hor`
 * `eqpole_grid`
 * `euler`

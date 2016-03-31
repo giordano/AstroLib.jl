@@ -27,6 +27,9 @@ export daycnv
 include("deredd.jl")
 export deredd
 
+include("eci2geo.jl")
+export eci2geo
+
 include("eqpole.jl")
 export eqpole
 
