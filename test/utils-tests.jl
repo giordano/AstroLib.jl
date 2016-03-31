@@ -76,6 +76,20 @@ end
                                                        2.291368308784527]
 @test_approx_eq flux2mag(1) -21.1
 
+# Test gal_uvw
+let
+    local u, v, w
+    u, v, w = gal_uvw([ten(1,9,42.3)*15], [ten(61,32,49.5)], [627.89], [77.84],
+                      [-321.4], [1e3/129], lsr=true)
+    @test_approx_eq u [118.2110474553902]
+    @test_approx_eq v [-466.4828898385057]
+    @test_approx_eq w [88.16573278565097]
+    u, v, w = gal_uvw(1, 2, 3, 4, 5, 6)
+    @test_approx_eq u  4.0228405867158745
+    @test_approx_eq v  3.7912174342038227
+    @test_approx_eq w -3.1700191400725464
+end
+
 # Test geo2geodetic
 let
     local lat, long, alt

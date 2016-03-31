@@ -212,7 +212,6 @@ Missing in AstroLib.jl
 * `fxwrite`
 * `galage`
 * `gal_flat`
-* `gal_uvw`
 * `gaussian`
 * `gcntrd`
 * `geo2eci`

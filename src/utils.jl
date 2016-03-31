@@ -33,6 +33,9 @@ export eqpole
 include("flux2mag.jl")
 export flux2mag
 
+include("gal_uvw.jl")
+export gal_uvw
+
 include("geo2geodetic.jl")
 export geo2geodetic
 
