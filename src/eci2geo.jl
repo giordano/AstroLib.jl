@@ -57,7 +57,7 @@ These coordinates can be further transformed into geodetic coordinates using
 
 ### Notes ###
 
-`eci2geo` converts Earth-centered inertial coordinates to geographic spherical
+`geo2eci` converts geographic spherical coordinates to Earth-centered inertial
 coordinates.
 
 Code of this function is based on IDL Astronomy User's Library.

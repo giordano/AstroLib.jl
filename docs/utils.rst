@@ -587,8 +587,8 @@ using ``geo2geodetic`` or into geomagnetic coordinates using
 Notes
 '''''
 
-``eci2geo`` converts Earth-centered inertial coordinates to geographic
-spherical coordinates.
+``geo2eci`` converts geographic spherical coordinates to Earth-centered
+inertial coordinates.
 
 Code of this function is based on IDL Astronomy User's Library.
 
