@@ -36,6 +36,9 @@ export flux2mag
 include("gal_uvw.jl")
 export gal_uvw
 
+include("geo2eci.jl")
+export geo2eci
+
 include("geo2geodetic.jl")
 export geo2geodetic
 

@@ -90,6 +90,19 @@ let
     @test_approx_eq w -3.1700191400725464
 end
 
+# Test geo2eci
+let
+    local x, y, z
+    x, y, z = geo2eci([0], [0], [0], [2452343])
+    @test_approx_eq x [6214.846433007192]
+    @test_approx_eq y [-1433.9858454345972]
+    @test_approx_eq z [0.0]
+    x, y, z = geo2eci((0,0,0), jdcnv(DateTime("2015-06-30T14:03:12.857")))
+    @test_approx_eq x -4024.8671780315185
+    @test_approx_eq y 4947.835465127513
+    @test_approx_eq z 0.0
+end
+
 # Test geo2geodetic
 let
     local lat, long, alt
