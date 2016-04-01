@@ -27,7 +27,7 @@ Either scalars or arrays all of the same length can be supplied.
 
 * `pmra`: proper motion in right ascension in arc units (typically
   milli-arcseconds/yr).  If given \$µ_α\$ -- proper motion in seconds of
-  time/year -- then this is equal to \$15 µ_α \cos(\text{dec})\$.
+  time/year -- then this is equal to \$15 µ_α \cos(\\text{dec})\$.
 * `pmdec`: proper motion in declination (typically mas/yr).
 
 (3) Radial Velocity
@@ -39,14 +39,14 @@ Either scalars or arrays all of the same length can be supplied.
 * `plx`: parallax with same distance units as proper motion measurements
   typically milliarcseconds (mas)
 
-If you know the distance in parsecs, then set `plx` to \$1000/\text{distance}\$,
+If you know the distance in parsecs, then set `plx` to \$1000/\\text{distance}\$,
 if proper motion measurements are given in milli-arcseconds/yr.
 
 There is an additional optional keyword:
 
 * `lsr` (optional boolean keyword): if this keyword is set to `true`, then the
   output velocities will be corrected for the solar motion
-  \$(u, v, w)_\odot = (-8.5, 13.38, 6.49)\$ (Coşkunoǧlu et al. 2011 MNRAS, 412,
+  \$(u, v, w)_\\odot = (-8.5, 13.38, 6.49)\$ (Coşkunoǧlu et al. 2011 MNRAS, 412,
   1237; http://dx.doi.org/10.1111/j.1365-2966.2010.17983.x) to the local
   standard of rest (LSR).  Note that the value of the solar motion through the
   LSR remains poorly determined.

@@ -20,7 +20,7 @@ Returns the date corresponding to the `day` of `year`.
 
 ### Output ###
 
-The date, of `Date` type, of \$\text{day} - 1\$ days after January 1st of
+The date, of `Date` type, of \$\\text{day} - 1\$ days after January 1st of
 `year`.
 
 ### Example ###

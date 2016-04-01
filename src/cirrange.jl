@@ -6,12 +6,12 @@
 
 ### Purpose ###
 
-Force a number into a given range \$[0, \text{max})\$.
+Force a number into a given range \$[0, \\text{max})\$.
 
 ### Argument ###
 
 * `number`: the number to modify.  Can be a scalar or an array.
-* `max` (optional numerical argument): specify the extremum of the range \$[0, \text{max})\$
+* `max` (optional numerical argument): specify the extremum of the range \$[0, \\text{max})\$
  into which the number should be restricted.  If omitted, defaults to `360.0`.
 
 ### Output ###

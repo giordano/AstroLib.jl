@@ -11,8 +11,8 @@ using an equal-area polar projection.
 
 ### Explanation ###
 
-The output \$x\$ and \$y\$ coordinates are scaled to be in the range \$[-90,
-90]\$ and to go from equator to pole to equator.  Output map points can be
+The output \$x\$ and \$y\$ coordinates are scaled to be in the range \$[-90, 90]\$
+and to go from equator to pole to equator.  Output map points can be
 centered on the north pole or south pole.
 
 ### Arguments ###

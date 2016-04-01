@@ -69,7 +69,7 @@ output has the same dimension as the input.
 
 The formula used for the conversion is
 
-\$\$\mathrm{sign}(\mathrm{deg})·\left(|\mathrm{deg}| + \frac{\mathrm{min}}{60} + \frac{\mathrm{sec}}{3600}\right)\$\$
+\$\$\\mathrm{sign}(\\mathrm{deg})·\\left(|\\mathrm{deg}| + \\frac{\\mathrm{min}}{60} + \\frac{\\mathrm{sec}}{3600}\\right)\$\$
 
 ### Example ###
 

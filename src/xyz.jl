@@ -31,7 +31,7 @@ dates.
 The 6-tuple \$(x, y, z, v_x, v_y, v_z)\$, where
 
 * \$x\$, \$y\$, \$z\$: scalars or vectors giving heliocentric rectangular
-  coordinates (in AU) for each date supplied.  Note that \$\sqrt{x^2 + y^2 + z^2}\$
+  coordinates (in AU) for each date supplied.  Note that \$\\sqrt{x^2 + y^2 + z^2}\$
   gives the Earth-Sun distance for the given date.
 * \$v_x\$, \$v_y\$, \$v_z\$: velocity vectors corresponding to \$x\$, \$y\$, and
   \$z\$.

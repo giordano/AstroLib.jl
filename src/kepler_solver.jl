@@ -6,8 +6,8 @@
 
 ### Purpose ###
 
-Solve Kepler's equation in the elliptic motion regime (\$0 \leq e \leq 1\$) and
-return eccentric anomaly \$E\$.
+Solve Kepler's equation in the elliptic motion regime (\$0 \\leq e \\leq 1\$)
+and return eccentric anomaly \$E\$.
 
 ### Explanation ###
 
@@ -15,7 +15,7 @@ In order to find the position of a body in elliptic motion (e.g., in the
 two-body problem) at a given time \$t\$, one has to solve the [Kepler's
 equation](https://en.wikipedia.org/wiki/Kepler%27s_equation)
 
-\$\$ M(t) = E(t) - e\sin E(t)\$\$
+\$\$ M(t) = E(t) - e\\sin E(t)\$\$
 
 where \$M(t) = (t - t_{0})/P\$ is the mean anomaly, \$E(t)\$ the eccentric
 anomaly, \$e\$ the eccentricity of the orbit, \$t_0\$ is the time of periapsis
@@ -27,8 +27,8 @@ Once that the Kepler's equation is solved and \$E(t)\$ is determined, the polar
 coordinates \$(r(t), θ(t))\$ of the body at time \$t\$ in the elliptic orbit are
 given by
 
-\$\$ θ(t) = 2\arctan \left(\sqrt{\frac{1 + e}{1 - e}} \tan\frac{E(t)}{2} \right)\$\$
-\$\$ r(t) = \frac{a(1 - e^{2})}{1 + e\cos(θ(t) - θ_{0})}\$\$
+\$\$ θ(t) = 2\\arctan \\left(\\sqrt{\\frac{1 + e}{1 - e}} \\tan\\frac{E(t)}{2} \\right)\$\$
+\$\$ r(t) = \\frac{a(1 - e^{2})}{1 + e\\cos(θ(t) - θ_{0})}\$\$
 
 in which \$a\$ is the semi-major axis of the orbit, and \$θ_0\$ the value
 of angular coordinate at time \$t = t_{0}\$.
@@ -36,7 +36,7 @@ of angular coordinate at time \$t = t_{0}\$.
 ### Arguments ###
 
 * `M`: mean anomaly
-* `e`: eccentricity, in the elliptic motion regime (\$0 \leq e \leq 1\$)
+* `e`: eccentricity, in the elliptic motion regime (\$0 \\leq e \\leq 1\$)
 
 ### Output ###
 
@@ -49,7 +49,7 @@ function implements the algorithm proposed in Markley (1995) Celestial Mechanics
 and Dynamical Astronomy, 63, 101 (http://dx.doi.org/10.1007/BF00691917).  This
 method is not iterative, requires only four transcendental function evaluations,
 and has been proved to be fast and efficient over the entire range of elliptic
-motion \$0 \leq e \leq 1\$.
+motion \$0 \\leq e \\leq 1\$.
 
 ### Example ###
 

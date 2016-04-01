@@ -30,11 +30,11 @@ The flux.  It is of the same type, scalar or array, as `mag`.
 
 If the `ABwave` keyword is set, then the flux is given by the expression
 
-\$\$\text{flux} = 10^{-0.4(\text{mag} +2.406 + 4\log_{10}(\text{ABwave}))}\$\$
+\$\$\\text{flux} = 10^{-0.4(\\text{mag} +2.406 + 4\\log_{10}(\\text{ABwave}))}\$\$
 
 Otherwise the flux is given by
 
-\$\$\text{flux} =  10^{-0.4(\text{mag} + \text{zero point})}\$\$
+\$\$\\text{flux} =  10^{-0.4(\\text{mag} + \\text{zero point})}\$\$
 
 ### Example ###
 

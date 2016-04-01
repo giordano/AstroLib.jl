@@ -13,7 +13,7 @@ Calculate the flux of a black body per unit frequency.
 Return the spectral radiance of a black body per unit frequency using [Planck's
 law](https://en.wikipedia.org/wiki/Planck%27s_law)
 
-\$\$ B_ν(ν, T) = \frac{2hν^3}{c^2} \frac{1}{e^\frac{hν}{k_\mathrm{B}T} - 1} \$\$
+\$\$ B_ν(ν, T) = \\frac{2hν^3}{c^2} \\frac{1}{e^\\frac{hν}{k_\\mathrm{B}T} - 1} \$\$
 
 ### Arguments ###
 

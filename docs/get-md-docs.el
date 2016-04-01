@@ -36,13 +36,17 @@
     ;; Fetch the docstring using `get-md-docs--docs-regexp'.
     (when (re-search-forward get-md-docs--docs-regexp nil t)
       (replace-regexp-in-string
-       ;; Replace "\$" with "$" for math modes.
-       "\\\\\\$" "\$"
+       ;; Replace escaped backslashes (needed in Markdown) with single
+       ;; backslashes.
+       "\\\\\\\\" "\\\\"
        (replace-regexp-in-string
-	;; Demote sections for the online docs, from "###" to "####".
-	"^### \\([^#\n]*\\) ###$"
-	"##### \\1 ####"
-	(match-string-no-properties 1))))))
+	;; Replace "\$" with "$" for math modes.
+	"\\\\\\$" "\$"
+	(replace-regexp-in-string
+	 ;; Demote sections for the online docs, from "###" to "####".
+	 "^### \\([^#\n]*\\) ###$"
+	 "##### \\1 ####"
+	 (match-string-no-properties 1)))))))
 
 (defun get-md-docs-search-file (file-name)
   "Search in FILE-NAME files from which extract docstrings.
