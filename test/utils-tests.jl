@@ -95,6 +95,10 @@ end
                                                        14.051201868453454,
                                                        2.291368308784527]
 @test_approx_eq flux2mag(1) -21.1
+@test_approx_eq flux2mag(5.2e-15) 14.609991640913002
+@test_approx_eq flux2mag(5.2e-15, 15) 20.709991640913003
+@test_approx_eq flux2mag(5.2e-15, ABwave=15) 27.423535345634598
+
 
 # Test gal_uvw
 let
@@ -235,6 +239,9 @@ end
 @test_approx_eq mag2flux(4.83, 21.12) 4.1686938347033296e-11
 @test_approx_eq mag2flux([4.83], 21.12) 4.1686938347033296e-11
 @test_approx_eq flux2mag(mag2flux(15, ABwave=12.), ABwave=12) 15.0
+@test_approx_eq mag2flux(8.3) 1.7378008287493692e-12
+@test_approx_eq mag2flux(8.3, 12) 7.58577575029182e-9
+@test_approx_eq mag2flux(8.3, ABwave=12) 3.6244115683017193e-7
 
 # Test month_conv
 @test month_cnv([" januavv  ", "SEPPES ", " aUgUsT", "la"]) == [1, 9, 8, -1]
@@ -372,7 +379,7 @@ end
 # Test xyz
 let
     local x, y, z, vx, vy, vz
-    x, y, z, vx, vy, vz = xyz([51200.5 + 64./86400.], equinox=2000)
+    x, y, z, vx, vy, vz = xyz([51200.5 + 64./86400.], 2000)
     @test_approx_eq x  [0.5145687092402946]
     @test_approx_eq y  [-0.7696326261820777]
     @test_approx_eq z  [-0.33376880143026394]

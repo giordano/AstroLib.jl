@@ -46,7 +46,7 @@ julia> eqpole(80, 19)
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function eqpole{T<:AbstractFloat}(l::T, b::T; southpole::Bool=false)
+function eqpole{T<:AbstractFloat}(l::T, b::T, southpole::Bool)
     sgn = southpole ? -1.0 : 1.0
     l = deg2rad(sgn*l)
     b = deg2rad(sgn*b)
@@ -59,7 +59,7 @@ function eqpole{T<:AbstractFloat}(l::T, b::T; southpole::Bool=false)
 end
 
 eqpole(l::Real, b::Real; southpole::Bool=false) =
-    eqpole(promote(float(l), float(b))..., southpole=southpole)
+    eqpole(promote(float(l), float(b))..., southpole)
 
 function eqpole{L<:Real, B<:Real}(l::AbstractArray{L},
                                   b::AbstractArray{B};

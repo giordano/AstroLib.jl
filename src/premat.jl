@@ -49,8 +49,7 @@ Almanac" 1992, page 104 Table 3.211.1
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function premat(equinox1::AbstractFloat, equinox2::AbstractFloat;
-                FK4::Bool=false)
+function premat{T<:AbstractFloat}(equinox1::T, equinox2::T, FK4::Bool)
     # Helper function to convert from seconds to radians.
     sec2rad(sec::AbstractFloat) = deg2rad(sec/3600.0)
     t = 0.001*(equinox2 - equinox1)
@@ -73,7 +72,7 @@ function premat(equinox1::AbstractFloat, equinox2::AbstractFloat;
     end
     sina = sin(a); sinb = sin(b); sinc = sin(c)
     cosa = cos(a); cosb = cos(b); cosc = cos(c)
-    r = Array(typeof(equinox1), 3, 3)
+    r = Array(T, 3, 3)
     r[:,1] = [ cosa*cosb*cosc - sina*sinb,  sina*cosb + cosa*sinb*cosc,  cosa*sinc]
     r[:,2] = [-cosa*sinb - sina*cosb*cosc,  cosa*cosb - sina*sinb*cosc, -sina*sinc]
     r[:,3] = [                 -cosb*sinc,                  -sinb*sinc,       cosc]
@@ -81,4 +80,4 @@ function premat(equinox1::AbstractFloat, equinox2::AbstractFloat;
 end
 
 premat(eq1::Real, eq2::Real; FK4::Bool=false) =
-    premat(promote(float(eq1), float(eq2))..., FK4=FK4)
+    premat(promote(float(eq1), float(eq2))..., FK4)

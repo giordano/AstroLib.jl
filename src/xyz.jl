@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    xyz(jd[, equinox=2000]) -> x, y, z, v_x, v_y, v_z
+    xyz(jd[, equinox]) -> x, y, z, v_x, v_y, v_z
 
 ### Purpose ###
 
@@ -21,7 +21,7 @@ position accuracy is \$<10^{-4}\$ AU (15000 km).
 
 * `jd`: number of Reduced Julian Days for the wanted date.  It can be either a
   scalar or a vector.
-* `equinox` (optional numeric keyword): equinox of output. Default is 1950.
+* `equinox` (optional numeric argument): equinox of output. Default is 1950.
 
 You can use `juldate` to get the number of Reduced Julian Days for the selected
 dates.
@@ -46,7 +46,7 @@ Almanac (AA) is in TDT, so add 64 seconds to UT to convert.
 julia> jd = juldate(DateTime(1999, 1, 22))
 51200.5
 
-julia> xyz(jd + 64./86400., equinox=2000)
+julia> xyz(jd + 64./86400., 2000)
 (0.5145687092402946,-0.7696326261820777,-0.33376880143026394,0.014947267514081075,0.008314838205475709,0.003606857607574784)
 ```
 
@@ -74,7 +74,7 @@ NOTE: Velocities in AA are for Earth/Moon barycenter
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function xyz(jd::Real; equinox::Real=NaN)
+function xyz{T<:AbstractFloat}(jd::T, equinox::T=NaN)
     t = (float(jd) - 15020.0)/36525.0  # Relative Julian century from 1900
 
     # NOTE: longitude arguments below are given in *equinox* of date.  Precess
@@ -189,8 +189,10 @@ function xyz(jd::Real; equinox::Real=NaN)
     return x, y, z, xvel, yvel, zvel
 end
 
+xyz(jd::Real, equinox::Real=NaN) = xyz(promote(float(jd), float(equinox))...)
+
 # Can't use @vectorize_1arg because of the optional keyword.
-function xyz{J<:Real}(jd::AbstractArray{J}; equinox::Real=NaN)
+function xyz{J<:Real}(jd::AbstractArray{J}, equinox::Real=NaN)
     typej = typeof(float(one(J)))
     x     = similar(jd, typej)
     y     = similar(jd, typej)
@@ -199,7 +201,7 @@ function xyz{J<:Real}(jd::AbstractArray{J}; equinox::Real=NaN)
     yvel  = similar(jd, typej)
     zvel  = similar(jd, typej)    
     for i in eachindex(jd)
-        x[i], y[i], z[i], xvel[i], yvel[i], zvel[i] = xyz(jd[i], equinox=equinox)
+        x[i], y[i], z[i], xvel[i], yvel[i], zvel[i] = xyz(jd[i], equinox)
     end
     return x, y, z, xvel, yvel, zvel
 end

@@ -40,7 +40,7 @@ julia> x, y = polrec(1.7, 227, degrees=true)
 ```
 
 """
-function polrec(radius::AbstractFloat, angle::AbstractFloat; degrees::Bool=false)
+function polrec{T<:AbstractFloat}(radius::T, angle::T, degrees::Bool)
     if degrees
         return radius*cos(deg2rad(angle)), radius*sin(deg2rad(angle))
     else
@@ -49,7 +49,7 @@ function polrec(radius::AbstractFloat, angle::AbstractFloat; degrees::Bool=false
 end
 
 polrec(radius::Real, angle::Real; degrees::Bool=false) =
-    polrec(promote(float(radius), float(angle))..., degrees=degrees)
+    polrec(promote(float(radius), float(angle))..., degrees)
 
 polrec(r_a::Tuple{Real, Real}; degrees::Bool=false) = polrec(r_a...,
                                                              degrees=degrees)

@@ -41,14 +41,19 @@ Otherwise the flux is given by
 ``` julia
 julia> mag2flux(8.3)
 1.7378008287493692e-12
+
+julia> mag2flux(8.3, 12)
+7.58577575029182e-9
+
+julia> mag2flux(8.3, ABwave=12)
+3.6244115683017193e-7
 ```
 
 ### Notes ###
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function mag2flux{T<:AbstractFloat}(mag::T, zero_point::T;
-                                    ABwave::Real=NaN)
+function mag2flux{T<:AbstractFloat}(mag::T, zero_point::T, ABwave::T)
     if isnan(ABwave)
         return exp10(-0.4*(mag + zero_point))
     else
@@ -57,7 +62,7 @@ function mag2flux{T<:AbstractFloat}(mag::T, zero_point::T;
 end
 
 mag2flux(mag::Real, zero_point::Real=21.1; ABwave::Real=NaN) =
-    mag2flux(promote(float(mag), float(zero_point))..., ABwave=ABwave)
+    mag2flux(promote(float(mag), float(zero_point), float(ABwave))...,)
 
 function mag2flux{N<:Real}(mag::AbstractArray{N}, zero_point::Real=21.1;
                            ABwave::Real=NaN)

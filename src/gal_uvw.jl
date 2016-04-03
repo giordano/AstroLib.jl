@@ -90,7 +90,7 @@ for how to provide it using parallax argument.
 Code of this function is based on IDL Astronomy User's Library.
 """
 function gal_uvw{T<:AbstractFloat}(ra::T, dec::T, pmra::T, pmdec::T,
-                                   vrad::T, plx::T; lsr::Bool=false)
+                                   vrad::T, plx::T, lsr::Bool)
     cosdec = cosd(dec)
     sindec = sind(dec)
     cosra  = cosd(ra)
@@ -123,7 +123,7 @@ end
 gal_uvw(ra::Real, dec::Real, pmra::Real, pmdec::Real,
         vrad::Real, plx::Real; lsr::Bool=false) =
             gal_uvw(promote(float(ra), float(dec), float(pmra), float(pmdec),
-                            float(vrad), float(plx))..., lsr=lsr)
+                            float(vrad), float(plx))..., lsr)
 
 function gal_uvw{R<:Real,
                  D<:Real,

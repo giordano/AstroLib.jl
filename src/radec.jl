@@ -41,7 +41,7 @@ julia> radec(6.7525, -16.7161, hours=true)
 (6.0,45.0,9.0,-16.0,42.0,57.9600000000064)
 ```
 """
-function radec(ra::AbstractFloat, dec::AbstractFloat; hours::Bool=false)
+function radec{T<:AbstractFloat}(ra::T, dec::T, hours::Bool)
     # Compute right ascension.
     if hours
         ra_hr, ra_min, ra_sec = sixty(cirrange(ra, 24.0))
@@ -54,7 +54,7 @@ function radec(ra::AbstractFloat, dec::AbstractFloat; hours::Bool=false)
 end
 
 radec(ra::Real, dec::Real; hours::Bool=false) =
-    radec(promote(float(ra), float(dec))..., hours=hours)
+    radec(promote(float(ra), float(dec))..., hours)
 
 function radec{R<:Real, D<:Real}(ra::AbstractArray{R}, dec::AbstractArray{D};
                                  hours::Bool=false)

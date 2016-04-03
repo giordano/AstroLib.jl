@@ -44,8 +44,8 @@ julia> sphdist(120, -43, 175, +22)
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function sphdist(long1::AbstractFloat, lat1::AbstractFloat,
-                 long2::AbstractFloat, lat2::AbstractFloat; degrees::Bool=false)
+function sphdist{T<:AbstractFloat}(long1::T, lat1::T, long2::T, lat2::T,
+                                   degrees::Bool)
     # Convert both points to rectangular coordinates.
     rxy, z1 = polrec(1.0, lat1,  degrees=degrees)
     x1, y1  = polrec(rxy, long1, degrees=degrees)
@@ -66,7 +66,7 @@ end
 sphdist(long1::Real, lat1::Real,
         long2::Real, lat2::Real; degrees::Bool=false) =
             sphdist(promote(float(long1), float(lat1),
-                            float(long2), float(lat2))... , degrees=degrees)
+                            float(long2), float(lat2))... , degrees)
 
 function sphdist{LO1<:Real, LA1<:Real}(long1::AbstractArray{LO1},
                                        lat1::AbstractArray{LA1},

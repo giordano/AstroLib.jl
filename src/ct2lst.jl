@@ -21,8 +21,8 @@ both methods is `longitude`:
 The civil date to be converted to mean sidereal time can be specified either by
 providing the Julian days:
 
-* `jd` (optional numeric keyword): this is number of Julian days for the date to
-  be converted.  It can be a scalar or an array.
+* `jd`: this is number of Julian days for the date to be converted.  It can be a
+  scalar or an array.
 
 or the time zone and the date:
 

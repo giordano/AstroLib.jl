@@ -45,7 +45,7 @@ julia> r, phi = recpol(2.24, -1.87)
 Angle \$ϕ\$ is given in radians.
 
 """
-function recpol(x::AbstractFloat, y::AbstractFloat; degrees::Bool=false)
+function recpol{T<:AbstractFloat}(x::T, y::T, degrees::Bool)
     if degrees
         return hypot(x, y), rad2deg(atan2(y, x))
     else
@@ -54,7 +54,7 @@ function recpol(x::AbstractFloat, y::AbstractFloat; degrees::Bool=false)
 end
 
 recpol(x::Real, y::Real; degrees::Bool=false) =
-    recpol(promote(float(x), float(y))..., degrees=degrees)
+    recpol(promote(float(x), float(y))..., degrees)
 
 recpol(xy::Tuple{Real, Real}; degrees::Bool=false) =
     recpol(xy..., degrees=degrees)

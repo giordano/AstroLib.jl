@@ -55,7 +55,7 @@ Declination.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function hadec2altaz{T<:AbstractFloat}(ha::T, dec::T, lat::T; ws::Bool=false)
+function hadec2altaz{T<:AbstractFloat}(ha::T, dec::T, lat::T, ws::Bool)
     sh = sind(ha)
     ch = cosd(ha)
     sd = sind(dec)
@@ -79,7 +79,7 @@ function hadec2altaz{T<:AbstractFloat}(ha::T, dec::T, lat::T; ws::Bool=false)
 end
 
 hadec2altaz(ha::Real, dec::Real, lat::Real; ws::Bool=false) =
-    hadec2altaz(promote(float(ha), float(dec), float(lat))..., ws=ws)
+    hadec2altaz(promote(float(ha), float(dec), float(lat))..., ws)
 
 hadec2altaz(hadec::Tuple{Real, Real}, lat::Real; ws::Bool=false) =
     hadec2altaz(hadec..., lat, ws=ws)

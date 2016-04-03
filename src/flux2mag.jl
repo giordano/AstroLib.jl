@@ -40,14 +40,19 @@ Otherwise, magnitude is given by the expression
 ``` julia
 julia> flux2mag(5.2e-15)
 14.609991640913002
+
+julia> flux2mag(5.2e-15, 15)
+20.709991640913003
+
+julia> flux2mag(5.2e-15, ABwave=15)
+27.423535345634598
 ```
 
 ### Notes ###
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function flux2mag{T<:AbstractFloat}(flux::T, zero_point::T;
-                                    ABwave::Real=NaN)
+function flux2mag{T<:AbstractFloat}(flux::T, zero_point::T, ABwave::T)
     if isnan(ABwave)
         return -2.5*log10(flux) - zero_point
     else
@@ -56,7 +61,7 @@ function flux2mag{T<:AbstractFloat}(flux::T, zero_point::T;
 end
 
 flux2mag(flux::Real, zero_point::Real=21.1; ABwave::Real=NaN) =
-    flux2mag(promote(float(flux), float(zero_point))..., ABwave=ABwave)
+    flux2mag(promote(float(flux), float(zero_point), float(ABwave))...)
 
 function flux2mag{N<:Real}(flux::AbstractArray{N}, zero_point::Real=21.1;
                            ABwave::Real=NaN)

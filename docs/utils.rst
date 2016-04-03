@@ -350,8 +350,8 @@ common to both methods is ``longitude``:
 The civil date to be converted to mean sidereal time can be specified
 either by providing the Julian days:
 
--  ``jd`` (optional numeric keyword): this is number of Julian days for
-   the date to be converted. It can be a scalar or an array.
+-  ``jd``: this is number of Julian days for the date to be converted.
+   It can be a scalar or an array.
 
 or the time zone and the date:
 
@@ -699,6 +699,12 @@ Example
 
     julia> flux2mag(5.2e-15)
     14.609991640913002
+
+    julia> flux2mag(5.2e-15, 15)
+    20.709991640913003
+
+    julia> flux2mag(5.2e-15, ABwave=15)
+    27.423535345634598
 
 Notes
 '''''
@@ -1615,6 +1621,12 @@ Example
     julia> mag2flux(8.3)
     1.7378008287493692e-12
 
+    julia> mag2flux(8.3, 12)
+    7.58577575029182e-9
+
+    julia> mag2flux(8.3, ABwave=12)
+    3.6244115683017193e-7
+
 Notes
 '''''
 
@@ -2519,7 +2531,7 @@ Code of this function is based on IDL Astronomy User's Library.
 xyz
 ~~~
 
-.. function:: xyz(jd[, equinox=2000]) -> x, y, z, v_x, v_y, v_z
+.. function:: xyz(jd[, equinox]) -> x, y, z, v_x, v_y, v_z
 
 Purpose
 '''''''
@@ -2542,8 +2554,8 @@ Arguments
 
 -  ``jd``: number of Reduced Julian Days for the wanted date. It can be
    either a scalar or a vector.
--  ``equinox`` (optional numeric keyword): equinox of output. Default is
-   1950.
+-  ``equinox`` (optional numeric argument): equinox of output. Default
+   is 1950.
 
 You can use ``juldate`` to get the number of Reduced Julian Days for the
 selected dates.
@@ -2572,7 +2584,7 @@ Almanac (AA) is in TDT, so add 64 seconds to UT to convert.
     julia> jd = juldate(DateTime(1999, 1, 22))
     51200.5
 
-    julia> xyz(jd + 64./86400., equinox=2000)
+    julia> xyz(jd + 64./86400., 2000)
     (0.5145687092402946,-0.7696326261820777,-0.33376880143026394,0.014947267514081075,0.008314838205475709,0.003606857607574784)
 
 Compare to Astronomical Almanac (1999 page C20)
