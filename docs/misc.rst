@@ -27,7 +27,7 @@ Example
 Restrict an array of numbers in the range :math:`[0, 2π)` as if they are
 angles expressed in radians:
 
-.. code:: julia
+.. code-block:: julia
 
     julia> cirrange([4pi, 10, -5.23], 2.0*pi)
     3-element Array{Float64,1}:

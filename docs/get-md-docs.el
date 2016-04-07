@@ -107,8 +107,23 @@ The real extraction is then done by `get-md-docs-on-file'."
 	(save-match-data
 	  ;; Turn the beginning of docstring of each function info a `function'
 	  ;; block.
-	  (while (re-search-forward fix-rst-docs--function-regexp nil t)
-	    (replace-match "\n.. function:: " nil nil nil 1))))
+	  (while (re-search-forward
+		  (concat "\\(?:"
+			  ;; Group 1.
+			  fix-rst-docs--function-regexp
+			  "\\|"
+			  ;; Group 2.
+			  "\\(^\.\. code::\\)"
+			  "\\)")
+		  nil t)
+	    (cond
+	     ((match-beginning 1)
+	      ;; Turn the beginning of docstring of each function info a
+	      ;; `function' block.
+	      (replace-match "\n.. function:: " nil nil nil 1))
+	     ;; Replace ".. code::" with ".. code-block::"
+	     ((match-beginning 2)
+	      (replace-match ".. code-block::"))))))
       (delete-trailing-whitespace)
       (save-buffer))))
 

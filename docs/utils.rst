@@ -64,7 +64,7 @@ strings will be returned. The format of strings can be specified with
 Example
 '''''''
 
-.. code:: julia
+.. code-block:: julia
 
     julia> adstring(30.4, -1.23, truncate=true)
     " 02 01 35.9  -01 13 48"
@@ -168,7 +168,7 @@ Example
 Get :math:`(x ,y)` Aitoff coordinates of Sirius, whose Galactic
 coordinates are :math:`(227.23, -8.890)`.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> x, y = aitoff(227.23, -8.890)
     (-137.92196683723276,-11.772527357473054)
@@ -237,7 +237,7 @@ azimuth (measured east of north) of 133d,18m,29s while at the latitude
 of +43.07833 degrees. What are the local hour angle and declination of
 this object?
 
-.. code:: julia
+.. code-block:: julia
 
     julia>  ha, dec = altaz2hadec(ten(59,05,10), ten(133,18,29), 43.07833)
     (336.6828582472844,19.182450965120402)
@@ -310,7 +310,7 @@ Estimate how a flat galaxy spectrum (in wavelength) between
 :math:`1200 Å` and :math:`3200 Å` is altered by a reddening of E(B-V) =
 0.1.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> wave = reshape(1200:50:3150,40);
 
@@ -384,7 +384,7 @@ Find the Greenwich mean sidereal time (GMST) on 2008-07-30 at 15:53 in
 Baltimore, Maryland (longitude=-76.72 degrees). The timezone is EDT or
 tz=-4
 
-.. code:: julia
+.. code-block:: julia
 
     julia> ct2lst(-76.72, -4, DateTime(2008, 7, 30, 15, 53))
     11.356505172312609
@@ -400,7 +400,7 @@ Heidelberg, Germany (longitude=08° 43' E). The timezone is CET or tz=1.
 Provide ``ct2lst`` only with the longitude of the place and the number
 of Julian days.
 
-.. code:: julia
+.. code-block:: julia
 
     # Convert longitude to decimals.
     julia> longitude=ten(8, 43)
@@ -459,7 +459,7 @@ to the given Julian days number.
 Example
 '''''''
 
-.. code:: julia
+.. code-block:: julia
 
     julia> daycnv(2440000)
     1968-05-23T12:00:00
@@ -507,7 +507,7 @@ These are scalars or arrays of the same length as the input arguments.
 Example
 '''''''
 
-.. code:: julia
+.. code-block:: julia
 
     julia> deredd(0.5, 0.2, 1.0, 1.0, 0.1)
     (-0.3,1.165,0.905,-0.665)
@@ -573,7 +573,7 @@ Obtain the geographic direction of the vernal point on
 Note: equatorial radii of Solar System planets are stored into
 ``AstroLib.PLANETSRADII`` dictionary.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> x = AstroLib.PLANETSRADII["earth"][1] + 600;
 
@@ -635,7 +635,7 @@ The 2-tuple :math:`(x, y)`:
 Example
 '''''''
 
-.. code:: julia
+.. code-block:: julia
 
     julia> eqpole(100, 35, southpole=true)
     (-111.18287262822456,-19.604540237028665)
@@ -695,7 +695,7 @@ Otherwise, magnitude is given by the expression
 Example
 '''''''
 
-.. code:: julia
+.. code-block:: julia
 
     julia> flux2mag(5.2e-15)
     14.609991640913002
@@ -799,7 +799,7 @@ Example
 Compute the U,V,W coordinates for the halo star HD 6755. Use values from
 Hipparcos catalog, and correct to the LSR.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> ra=ten(1,9,42.3)*15.; dec = ten(61,32,49.5);
 
@@ -870,7 +870,7 @@ Example
 Obtain the ECI coordinates of the intersection of the equator and
 Greenwich's meridian on 2015-06-30T14:03:12.857
 
-.. code:: julia
+.. code-block:: julia
 
     julia> geo2eci(0, 0, 0, jdcnv(DateTime("2015-06-30T14:03:12.857")))
     (-4024.8671780315185,4947.835465127513,0.0)
@@ -972,14 +972,14 @@ Example
 Locate the Earth geographic North pole (latitude: 90°, longitude: 0°,
 altitude 0 km), in geodetic coordinates:
 
-.. code:: julia
+.. code-block:: julia
 
     julia> geo2geodetic(90, 0, 0)
     (90.0,0.0,21.38499999999931)
 
 The same for Jupiter:
 
-.. code:: julia
+.. code-block:: julia
 
     julia> geo2geodetic(90, 0, 0, "Jupiter")
     (90.0,0.0,4355.443799999994)
@@ -988,7 +988,7 @@ Find geodetic coordinates for point of geographic coordinates (latitude,
 longitude, altitude) = (43.16°, -24.32°, 3.87 km) on a planet with
 equatorial radius 8724.32 km and polar radius 8619.19 km:
 
-.. code:: julia
+.. code-block:: julia
 
     julia> geo2geodetic(43.16, -24.32, 3.87, 8724.32, 8619.19)
     (43.849399515234516,-24.32,53.53354478670836)
@@ -1009,7 +1009,7 @@ In any case, the function ``geodetic2geo``, which converts from geodetic
 (or planetodetic) to geographic coordinates, can be used to estimate the
 accuracy of ``geo2geodetic``.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> collect(geodetic2geo(geo2geodetic(67.2,13.4,1.2))) - collect((67.2,13.4,1.2))
     3-element Array{Float64,1}:
@@ -1108,14 +1108,14 @@ Example
 Find geographic coordinates of geodetic North pole (latitude: 90°,
 longitude: 0°, altitude 0 km) of the Earth:
 
-.. code:: julia
+.. code-block:: julia
 
     julia> geodetic2geo(90, 0, 0)
     (90.0,0.0,-21.38499999999931)
 
 The same for Jupiter:
 
-.. code:: julia
+.. code-block:: julia
 
     julia> geodetic2geo(90, 0, 0, "Jupiter")
     (90.0,0.0,-4355.443799999994)
@@ -1124,7 +1124,7 @@ Find geographic coordinates for point of geodetic coordinates (latitude,
 longitude, altitude) = (43.16°, -24.32°, 3.87 km) on a planet with
 equatorial radius 8724.32 km and polar radius 8619.19 km:
 
-.. code:: julia
+.. code-block:: julia
 
     julia> geodetic2geo(43.16, -24.32, 3.87, 8724.32, 8619.19)
     (42.46772711708433,-24.32,-44.52902080669082)
@@ -1197,7 +1197,7 @@ the output string will have ``"DD/MM/YYThh:mm:ss"`` format.
 Example
 '''''''
 
-.. code:: julia
+.. code-block:: julia
 
     julia> get_date(timetag=true)
     "2016-03-14T11:26:23"
@@ -1233,7 +1233,7 @@ Return for current time the number of Julian calendar days since epoch
 Example
 '''''''
 
-.. code:: julia
+.. code-block:: julia
 
     julia> get_juldate()
     2.4574620222685183e6
@@ -1300,7 +1300,7 @@ http://en.wikipedia.org/wiki/Great-circle\_distance.
 Example
 '''''''
 
-.. code:: julia
+.. code-block:: julia
 
     julia> gcirc(0, 120, -43, 175, +22)
     1.590442261600714
@@ -1376,7 +1376,7 @@ Arcturus is observed at an apparent hour angle of 336.6829 and a
 declination of 19.1825 while at the latitude of +43° 4' 42''. What are
 the local altitude and azimuth of this object?
 
-.. code:: julia
+.. code-block:: julia
 
     julia> alt, az = hadec2altaz(336.6829, 19.1825, ten(43, 4, 42))
     (59.08617155005683,133.3080693440254)
@@ -1423,7 +1423,7 @@ Example
 
 Find the Julian days number at 2009 August 23, 03:39:06.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> jdcnv(DateTime(2009, 08, 23, 03, 39, 06))
     2.4550666521527776e6
@@ -1473,7 +1473,7 @@ Example
 
 Get number of Reduced Julian Days at 2016-03-20T15:24:00.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> juldate(DateTime(2016, 03, 20, 15, 24))
     57468.14166666667
@@ -1559,7 +1559,7 @@ Example
 Find the angular polar coordinate :math:`θ(t)` for an orbit with
 eccentricity :math:`e = 0.7` and for :math:`M(t) = 8π/3`.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> ecc = 0.7;
 
@@ -1616,7 +1616,7 @@ Otherwise the flux is given by
 Example
 '''''''
 
-.. code:: julia
+.. code-block:: julia
 
     julia> mag2flux(8.3)
     1.7378008287493692e-12
@@ -1686,7 +1686,7 @@ keywords.
 Example
 '''''''
 
-.. code:: julia
+.. code-block:: julia
 
     julia> month_cnv(["janua", "SEP", "aUgUsT"])
     3-element Array{Integer,1}:
@@ -1741,7 +1741,7 @@ Example
 Calculate the spectrum of a black body in :math:`[10^{12}, 10^{16}]` Hz
 at :math:`8000` K.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> frequency=logspace(12, 16, 1000);
 
@@ -1795,7 +1795,7 @@ Example
 Calculate the spectrum of a black body in :math:`[0, 3]` µm at
 :math:`5000` K.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> wavelength=linspace(0, 5e-6, 1000);
 
@@ -1856,7 +1856,7 @@ Get rectangular coordinates :math:`(x, y)` of the point with polar
 coordinates :math:`(r, φ) = (1.7, 227)`, with angle :math:`φ` expressed
 in degrees.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> x, y = polrec(1.7, 227, degrees=true)
     (-1.1593972121062475,-1.2433012927525897)
@@ -1921,7 +1921,7 @@ Mizar has coordinates (ra, dec) = (13h 23m 55.5s, +54° 55' 31''). Its
 companion, Alcor, has coordinates (ra, dec) = (13h 25m 13.5s, +54° 59'
 17''). Find the position angle of Alcor with respect to Mizar.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> posang(1, ten(13, 25, 13.5), ten(54, 59, 17), ten(13, 23, 55.5), ten(54, 55, 31))
     -108.46011246802047
@@ -1992,7 +1992,7 @@ Example
 The Pole Star has J2000.0 coordinates (2h, 31m, 46.3s, 89d 15' 50.6");
 compute its coordinates at J1985.0
 
-.. code:: julia
+.. code-block:: julia
 
     julia> ra, dec = ten(2,31,46.3)*15, ten(89,15,50.6)
     (37.94291666666666,89.26405555555556)
@@ -2003,7 +2003,7 @@ compute its coordinates at J1985.0
 Precess the B1950 coordinates of Eps Ind (RA = 21h 59m,33.053s, DEC =
 (-56d, 59', 33.053") to equinox B1975.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> ra, dec = ten(21, 59, 33.053)*15, ten(-56, 59, 33.053)
     (329.88772083333333,-56.992514722222225)
@@ -2060,7 +2060,7 @@ Example
 
 Precess 2000 equinox coordinates ``(1, 1, 1)`` to 2050.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> precess_xyz(1, 1, 1, 2000, 2050)
     (0.9838854500981734,1.0110925876508692,1.0048189888146941)
@@ -2117,7 +2117,7 @@ Example
 
 Return the precession matrix from 1950.0 to 1975.0 in the FK4 system
 
-.. code:: julia
+.. code-block:: julia
 
     julia> premat(1950,1975,FK4=true)
     3x3 Array{Float64,2}:
@@ -2187,7 +2187,7 @@ Position of Sirius in the sky is (ra, dec) = (6.7525, -16.7161), with
 right ascension expressed in hours. Its sexagesimal representation is
 given by
 
-.. code:: julia
+.. code-block:: julia
 
     julia> radec(6.7525, -16.7161, hours=true)
     (6.0,45.0,9.0,-16.0,42.0,57.9600000000064)
@@ -2239,7 +2239,7 @@ Example
 Calculate polar coordinates :math:`(r, ϕ)` of point with rectangular
 coordinates :math:`(x, y) = (2.24, -1.87)`.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> r, phi = recpol(2.24, -1.87)
     (2.9179616172938263,-0.6956158538564537)
@@ -2294,7 +2294,7 @@ Example
 
 Find the position of Eta Coronae Borealis at the epoch 2016
 
-.. code:: julia
+.. code-block:: julia
 
     julia> ρ, θ = rhotheta(41.623, 1934.008, 0.2763, 0.907, 59.025, 23.717, 219.907, 2016)
     (0.6351167848228113,214.42513388052114)
@@ -2335,7 +2335,7 @@ counterpart (degrees, minutes, seconds) of ``number``.
 Example
 '''''''
 
-.. code:: julia
+.. code-block:: julia
 
     julia> sixty(-0.615)
     3-element Array{Float64,1}:
@@ -2381,7 +2381,7 @@ is set to ``true``.
 Example
 '''''''
 
-.. code:: julia
+.. code-block:: julia
 
     julia> sphdist(120, -43, 175, +22)
     1.5904422616007134
@@ -2454,7 +2454,7 @@ The formula used for the conversion is
 Example
 '''''''
 
-.. code:: julia
+.. code-block:: julia
 
     julia> ten(-0.0, 19, 47)
     -0.3297222222222222
@@ -2579,7 +2579,7 @@ What were the rectangular coordinates and velocities of the Sun on
 1999-01-22T00:00:00 (= JD 2451200.5) in J2000 coords? Note: Astronomical
 Almanac (AA) is in TDT, so add 64 seconds to UT to convert.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> jd = juldate(DateTime(1999, 1, 22))
     51200.5
@@ -2650,7 +2650,7 @@ Example
 
 Find the date of the 60th and 234th days of the year 2016.
 
-.. code:: julia
+.. code-block:: julia
 
     julia> ydn2md(2016, [60, 234])
     2-element Array{Date,1}:
@@ -2697,7 +2697,7 @@ Example
 Find the days of the year for March 5 in the years 2015 and 2016 (this
 is a leap year).
 
-.. code:: julia
+.. code-block:: julia
 
     julia> ymd2dn([Date(2015, 3, 5), Date(2016, 3, 5)])
     2-element Array{Int64,1}:
