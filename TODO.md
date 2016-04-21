@@ -213,7 +213,6 @@ Missing in AstroLib.jl
 * `gal_flat`
 * `gaussian`
 * `gcntrd`
-* `geo2mag`
 * `get_coords`
 * `get_equinox`
 * `getopt`

@@ -19,3 +19,20 @@ const PLANETSRADII = Dict("mercury"=>[ 2439.7,    2439.7],
                           "uranus"=> [25559.0,   24986.1354],
                           "neptune"=>[24764.0,   24347.6551],
                           "pluto"=>  [ 1195.0,    1195.0])
+
+"""
+List of locations of North Magnetic Pole since 1590.
+
+This is provided by World Magnetic Model
+(https://www.ngdc.noaa.gov/geomag/data/poles/NP.xy).
+"""
+POLELATLONG = Dict()
+let
+    local polelatlong, rows
+    polelatlong = readdlm(joinpath(dirname(@__FILE__), "..", "deps", "NP.xy"))
+    rows = size(polelatlong, 1)
+    for i = 1:rows
+        merge!(POLELATLONG, Dict(polelatlong[2rows + i]=>
+                                 (polelatlong[rows + i], polelatlong[i])))
+    end
+end

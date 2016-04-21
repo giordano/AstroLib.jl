@@ -148,6 +148,17 @@ let
     @test_approx_eq alt [53.53354478670836]
 end
 
+# Test geo2mag
+let
+    local lat, long
+    lat, long = geo2mag(ten(35,0,42), ten(135,46,6), 2016)
+    @test_approx_eq lat 36.86579228937769
+    @test_approx_eq long -60.184060536651614
+    lat, long = geo2mag([15], [24], 2016)
+    @test_approx_eq lat [11.452100529696096]
+    @test_approx_eq long [-169.86030510727102]
+end
+
 # Test geodetic2geo
 let
     local lat, long, alt

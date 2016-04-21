@@ -45,6 +45,9 @@ export geo2eci
 include("geo2geodetic.jl")
 export geo2geodetic
 
+include("geo2mag.jl")
+export geo2mag
+
 include("geodetic2geo.jl")
 export geodetic2geo
 

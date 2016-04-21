@@ -6,3 +6,4 @@ _build
 *.elc
 *~
 docs/*.md
+/deps/NP.xy
