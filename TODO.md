@@ -272,7 +272,6 @@ Missing in AstroLib.jl
 * `list_with_path`
 * `lsf_rotate`
 * `lumdist`
-* `mag2geo`
 * `make_2d`
 * `make_astr`
 * `match2`

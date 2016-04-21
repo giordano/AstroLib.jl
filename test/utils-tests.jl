@@ -254,6 +254,21 @@ end
 @test_approx_eq mag2flux(8.3, 12) 7.58577575029182e-9
 @test_approx_eq mag2flux(8.3, ABwave=12) 3.6244115683017193e-7
 
+# Test mag2geo
+let
+    local lat, long
+    lat, long = mag2geo(90, 0, 2016)
+    @test_approx_eq lat 86.395
+    @test_approx_eq long -166.29000000000002
+    lat, long = mag2geo([15], [24], 2016)
+    @test_approx_eq lat [11.702066965890157]
+    @test_approx_eq long [-142.6357492442842]
+    # Test geo2mag is approximately the inverse of mag2geo
+    lat, long = geo2mag(mag2geo(12.34, 56.78, 2016)..., 2016)
+    @test_approx_eq lat 12.34
+    @test_approx_eq long 56.78
+end
+
 # Test month_conv
 @test month_cnv([" januavv  ", "SEPPES ", " aUgUsT", "la"]) == [1, 9, 8, -1]
 @test month_cnv([2, 12, 6], short=true, low=true) == ["feb", "dec", "jun"]

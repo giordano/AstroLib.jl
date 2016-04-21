@@ -79,6 +79,9 @@ export kepler_solver
 include("mag2flux.jl")
 export mag2flux
 
+include("mag2geo.jl")
+export mag2geo
+
 include("month_cnv.jl")
 export month_cnv
 
