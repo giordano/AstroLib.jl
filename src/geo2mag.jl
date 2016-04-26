@@ -84,8 +84,8 @@ end
 
 geo2mag(lat::Real, long::Real, year::Real=Dates.year(Dates.now())) =
     geo2mag(promote(float(lat), float(long),
-                    deg2rad(POLELATLONG[year][1]),
-                    deg2rad(POLELATLONG[year][2]))...)
+                    deg2rad(POLELATLONG[year][1]::AbstractFloat),
+                    deg2rad(POLELATLONG[year][2]::AbstractFloat))...)
 
 function geo2mag{LA<:Real, LO<:Real}(lat::AbstractArray{LA},
                                      long::AbstractArray{LO},

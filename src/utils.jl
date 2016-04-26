@@ -85,6 +85,9 @@ export mag2geo
 include("month_cnv.jl")
 export month_cnv
 
+include("paczynski.jl")
+export paczynski
+
 include("planck_freq.jl")
 export planck_freq
 

@@ -276,6 +276,13 @@ end
 @test (list=[1, 2, 3]; month_cnv(month_cnv(list)) == list)
 @test (list=["July", "March", "November"]; month_cnv(month_cnv(list)) == list)
 
+# Test paczynski
+@test_approx_eq paczynski(-1e-10)  -1e10
+@test_approx_eq paczynski(1e-1)   -10.037461005722337
+@test_approx_eq paczynski(-1)      -1.3416407864998738
+@test_approx_eq paczynski(10)      -1.0001922892047386
+@test_approx_eq paczynski(-1e10)   -1
+
 # Test planck_freq
 @test_approx_eq planck_freq([2000], [5000]) [6.1447146126144004e-30]
 

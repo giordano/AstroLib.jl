@@ -1818,6 +1818,91 @@ Example
 
 --------------
 
+paczynski
+~~~~~~~~~
+
+.. function:: paczynski(u) -> amplification
+
+Purpose
+'''''''
+
+Calculate gravitational microlensing amplification of a point-like
+source by a single point-like lens.
+
+Explanation
+'''''''''''
+
+Return the `gravitational
+microlensing <https://en.wikipedia.org/wiki/Gravitational_microlensing>`__
+amplification of a point-like source by a single point-like lens, using
+Paczyński formula
+
+.. math::  A(u) = \frac{u^2 + 2}{u\sqrt{u^2 + 4}}
+
+where :math:`u` is the projected distance between the lens and the
+source in units of `Einstein
+radii <https://en.wikipedia.org/wiki/Einstein_radius>`__.
+
+In order to speed up calculations for extreme values of :math:`u`, the
+following asyntotic expressions for :math:`A(u)` are used:
+
+.. math::
+
+    A(u) =
+   \begin{cases}
+    1/u & |u| \ll 1 \\
+    \text{sgn}(u) & |u| \gg 1
+   \end{cases}
+
+Arguments
+'''''''''
+
+-  ``u``: projected distance between the lens and the source, in units
+   of Einstein radii
+
+The distance can be either a scalar or an array.
+
+Output
+''''''
+
+The microlensing amplification for the given distance. If ``u`` is
+passed as an array, an array of the same length is returned.
+
+Example
+'''''''
+
+Calculate the microlensing amplification for :math:`u = 10^-10`,
+:math:`10^-1`, :math:`1`, :math:`10`, :math:`10^10`:
+
+.. code-block:: julia
+
+    julia> paczynski([1e-10, 1e-1, 1, 10, 1e10])
+    5-element Array{Float64,1}:
+      1.0e10
+     10.0375
+      1.34164
+      1.00019
+      1.0
+
+Notes
+'''''
+
+The expression of :math:`A(u)` of microlensing amplification has been
+given by Bohdan Paczyński in
+
+-  Paczynski, B. 1986, ApJ, 304, 1.
+   DOI:\ `10.1086/164140 <http://dx.doi.org/10.1086/164140>`__,
+   Bibcode:\ `1986ApJ...304....1P <http://adsabs.harvard.edu/abs/1986ApJ...304....1P>`__
+
+The same expression was actually found by Albert Einstein half a century
+earlier:
+
+-  Einstein, A. 1936, Science, 84, 506.
+   DOI:\ `10.1126/science.84.2188.506 <http://dx.doi.org/10.1126/science.84.2188.506>`__,
+   Bibcode:\ `1936Sci....84..506E <http://adsabs.harvard.edu/abs/1936Sci....84..506E>`__
+
+--------------
+
 planck\_freq
 ~~~~~~~~~~~~
 

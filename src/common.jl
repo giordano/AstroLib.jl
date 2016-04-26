@@ -26,7 +26,7 @@ List of locations of North Magnetic Pole since 1590.
 This is provided by World Magnetic Model
 (https://www.ngdc.noaa.gov/geomag/data/poles/NP.xy).
 """
-POLELATLONG = Dict()
+POLELATLONG = Dict{AbstractFloat,Tuple{AbstractFloat,AbstractFloat}}()
 let
     local polelatlong, rows
     polelatlong = readdlm(joinpath(dirname(@__FILE__), "..", "deps", "NP.xy"))
