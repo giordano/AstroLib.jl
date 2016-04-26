@@ -26,8 +26,8 @@ Either scalars or arrays all of the same length can be supplied.
 (2) Proper Motion
 
 * `pmra`: proper motion in right ascension in arc units (typically
-  milli-arcseconds/yr).  If given \$µ_α\$ -- proper motion in seconds of
-  time/year -- then this is equal to \$15 µ_α \cos(\\text{dec})\$.
+  milli-arcseconds/yr).  If given \$\\mu_\\alpha\$ -- proper motion in seconds of
+  time/year -- then this is equal to \$15 \\mu_\\alpha \cos(\\text{dec})\$.
 * `pmdec`: proper motion in declination (typically mas/yr).
 
 (3) Radial Velocity

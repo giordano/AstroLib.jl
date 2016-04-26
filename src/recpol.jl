@@ -26,23 +26,23 @@ possible to execute `polrec(recpol(x, y))`.
 ### Output ###
 
 A 2-tuple `(radius, angle)` with the polar coordinates of the input.  The
-coordinate `angle` coordinate lies in the range \$[-π, π]\$ if `degrees=false`,
-or \$[-180, 180]\$ when `degrees=true`.
+coordinate `angle` coordinate lies in the range \$[-\\pi, \\pi]\$ if
+`degrees=false`, or \$[-180, 180]\$ when `degrees=true`.
 
 If `x` and `y` are arrays, `radius` and `angle` are arrays of the same length as
 `radius` and `angle`.
 
 ### Example ###
 
-Calculate polar coordinates \$(r, ϕ)\$ of point with rectangular coordinates
-\$(x, y) = (2.24, -1.87)\$.
+Calculate polar coordinates \$(r, \\varphi)\$ of point with rectangular
+coordinates \$(x, y) = (2.24, -1.87)\$.
 
 ``` julia
 julia> r, phi = recpol(2.24, -1.87)
 (2.9179616172938263,-0.6956158538564537)
 ```
 
-Angle \$ϕ\$ is given in radians.
+Angle \$\\varphi\$ is given in radians.
 
 """
 function recpol{T<:AbstractFloat}(x::T, y::T, degrees::Bool)

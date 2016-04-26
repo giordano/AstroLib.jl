@@ -24,8 +24,8 @@ The converted number or array of numbers, as ``AbstractFloat``.
 Example
 '''''''
 
-Restrict an array of numbers in the range :math:`[0, 2π)` as if they are
-angles expressed in radians:
+Restrict an array of numbers in the range :math:`[0, 2\pi)` as if they
+are angles expressed in radians:
 
 .. code-block:: julia
 

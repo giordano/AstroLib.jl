@@ -67,7 +67,7 @@ julia> posang(1, ten(13, 25, 13.5), ten(54, 59, 17), ten(13, 23, 55.5), ten(54, 
 * The function `sphdist` provides an alternate method of computing a spherical
  distance.
 * Note that `posang` is not commutative: the position angle between A and B is
-  \$θ\$, then the position angle between B and A is \$180 + θ\$.
+  \$\\theta\$, then the position angle between B and A is \$180 + \\theta\$.
 
 Code of this function is based on IDL Astronomy User's Library.
 """

@@ -98,7 +98,7 @@ Astronomical Utilities
 
 Miscellaneous (Non-Astronomy) Utilities
 '''''''''''''''''''''''''''''''''''''''
-   
+
 .. toctree::
    :maxdepth: 1
 
@@ -113,8 +113,8 @@ https://juliaastro.github.io/.  A list of other packages is available at
 https://github.com/svaksha/Julia.jl/blob/master/Astronomy.md.
 
 Because of this, some of IDL AstroLib's utilities are not provided in
-``AstroLib.jl`` because already present in other Julia packages.  Here is a list
-of such utilities:
+``AstroLib.jl`` as they are already present in other Julia packages.  Here is a
+list of such utilities:
 
 -  ``aper``, see https://github.com/kbarbary/AperturePhotometry.jl
 -  ``cosmo_param``, see ``Cosmology`` package
@@ -127,17 +127,20 @@ of such utilities:
    (https://github.com/kbarbary/SkyCoords.jl)
 -  ``lumdist``, see ``Cosmology`` package
    (https://github.com/JuliaAstro/Cosmology.jl)
+- ``readcol``, use ``readdlm``, part of Julia ``Base.DataFmt`` module
+  (http://docs.julialang.org/en/stable/stdlib/io-network/#Base.readdlm).  This
+  is not a complete replacement for ``readcol`` but most of the time it
+  does-the-right-thing even without using any option (it automatically
+  identifies string and numerical columns) and you do not need to manually
+  specify a variable for each column
 
 In addition, there are similar projects for Python (`Python AstroLib
 <http://www.hs.uni-hamburg.de/DE/Ins/Per/Czesla/PyA/PyA/pyaslDoc/pyasl.html>`__)
 and R (`Astronomy Users Library
 <http://rpackages.ianhowson.com/cran/astrolibR/>`__).
 
-..
-   Indices and tables
-   ==================
+Indices and tables
+==================
 
-   * :ref:`genindex`
-   * :ref:`modindex`
-   * :ref:`search`
-
+* :ref:`genindex`
+* :ref:`search`

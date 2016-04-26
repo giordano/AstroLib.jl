@@ -13,7 +13,7 @@ Calculate the flux of a black body per unit wavelength.
 Return the spectral radiance of a black body per unit wavelength using [Planck's
 law](https://en.wikipedia.org/wiki/Planck%27s_law)
 
-\$\$ B_λ(λ, T) =\\frac{2hc^2}{λ^5}\\frac{1}{e^{\\frac{hc}{λk_\\mathrm{B}T}} - 1} \$\$
+\$\$ B_\\lambda(\\lambda, T) =\\frac{2hc^2}{\\lambda^5}\\frac{1}{e^{\\frac{hc}{\\lambda k_\\mathrm{B}T}} - 1} \$\$
 
 ### Arguments ###
 

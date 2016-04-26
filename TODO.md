@@ -352,7 +352,6 @@ Missing in AstroLib.jl
 * `rdfloat`
 * `rdplot`
 * `rdpsf`
-* `readcol`
 * `readfits`
 * `read_fmr`
 * `readfmt`

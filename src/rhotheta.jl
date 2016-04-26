@@ -10,10 +10,11 @@ Calculate the separation and position angle of a binary star.
 
 ### Explanation ###
 
-This function will return the separation \$ρ\$ and position angle \$θ\$ of a
-visual binary star derived from its orbital elements.  The algorithms described
-in the following book will be used: Meeus J., 1992, Astronomische Algorithmen,
-Barth.  Compared to the examples given at page 400 and no discrepancy found.
+This function will return the separation \$\\rho\$ and position angle
+\$\\theta\$ of a visual binary star derived from its orbital elements.  The
+algorithms described in the following book will be used: Meeus J., 1992,
+Astronomische Algorithmen, Barth.  Compared to the examples given at page 400
+and no discrepancy found.
 
 ### Arguments ###
 
@@ -30,10 +31,10 @@ All input parameters have to be scalars.
 
 ### Output ###
 
-The 2-tuple \$(ρ, θ)\$, where
+The 2-tuple \$(\\rho, \\theta)\$, where
 
-* \$ρ\$: separation [arc second]
-* \$θ\$: position angle [degree]
+* \$\\rho\$: separation [arc second]
+* \$\\theta\$: position angle [degree]
 
 ### Example ###
 

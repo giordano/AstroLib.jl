@@ -31,8 +31,8 @@ and `angle`.
 
 ### Example ###
 
-Get rectangular coordinates \$(x, y)\$ of the point with polar coordinates \$(r, φ) = (1.7, 227)\$,
-with angle \$φ\$ expressed in degrees.
+Get rectangular coordinates \$(x, y)\$ of the point with polar coordinates \$(r,
+\\varphi) = (1.7, 227)\$, with angle \$\\varphi\$ expressed in degrees.
 
 ``` julia
 julia> x, y = polrec(1.7, 227, degrees=true)

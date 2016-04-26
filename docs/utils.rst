@@ -745,9 +745,9 @@ supplied.
 (2) Proper Motion
 
 -  ``pmra``: proper motion in right ascension in arc units (typically
-   milli-arcseconds/yr). If given :math:`µ_α` -- proper motion in
+   milli-arcseconds/yr). If given :math:`\mu_\alpha` -- proper motion in
    seconds of time/year -- then this is equal to
-   :math:`15 µ_α \cos(\text{dec})`.
+   :math:`15 \mu_\alpha \cos(\text{dec})`.
 -  ``pmdec``: proper motion in declination (typically mas/yr).
 
 (3) Radial Velocity
@@ -1578,15 +1578,16 @@ eccentric anomaly :math:`E(t)` at a specific time :math:`t`, so that
 also the mean anomaly :math:`M(t)` is known.
 
 Once that the Kepler's equation is solved and :math:`E(t)` is
-determined, the polar coordinates :math:`(r(t), θ(t))` of the body at
-time :math:`t` in the elliptic orbit are given by
+determined, the polar coordinates :math:`(r(t), \theta(t))` of the body
+at time :math:`t` in the elliptic orbit are given by
 
-.. math::  θ(t) = 2\arctan \left(\sqrt{\frac{1 + e}{1 - e}} \tan\frac{E(t)}{2} \right)
+.. math::  \theta(t) = 2\arctan \left(\sqrt{\frac{1 + e}{1 - e}} \tan\frac{E(t)}{2} \right)
 
-.. math::  r(t) = \frac{a(1 - e^{2})}{1 + e\cos(θ(t) - θ_{0})}
+.. math::  r(t) = \frac{a(1 - e^{2})}{1 + e\cos(\theta(t) - \theta_{0})}
 
-in which :math:`a` is the semi-major axis of the orbit, and :math:`θ_0`
-the value of angular coordinate at time :math:`t = t_{0}`.
+in which :math:`a` is the semi-major axis of the orbit, and
+:math:`\theta_0` the value of angular coordinate at time
+:math:`t = t_{0}`.
 
 Arguments
 '''''''''
@@ -1599,7 +1600,7 @@ Output
 ''''''
 
 The eccentric anomaly :math:`E`, restricted to the range
-:math:`[-π, π]`.
+:math:`[-\pi, \pi]`.
 
 Method
 ''''''
@@ -1615,8 +1616,8 @@ entire range of elliptic motion :math:`0 \leq e \leq 1`.
 Example
 '''''''
 
-Find the angular polar coordinate :math:`θ(t)` for an orbit with
-eccentricity :math:`e = 0.7` and for :math:`M(t) = 8π/3`.
+Find the angular polar coordinate :math:`\theta(t)` for an orbit with
+eccentricity :math:`e = 0.7` and for :math:`M(t) = 8\pi/3`.
 
 .. code-block:: julia
 
@@ -1919,7 +1920,7 @@ Explanation
 Return the spectral radiance of a black body per unit frequency using
 `Planck's law <https://en.wikipedia.org/wiki/Planck%27s_law>`__
 
-.. math::  B_ν(ν, T) = \frac{2hν^3}{c^2} \frac{1}{e^\frac{hν}{k_\mathrm{B}T} - 1}
+.. math::  B_\nu(\nu, T) = \frac{2h\nu ^3}{c^2} \frac{1}{e^\frac{h\nu}{k_\mathrm{B}T} - 1}
 
 Arguments
 '''''''''
@@ -1973,7 +1974,7 @@ Explanation
 Return the spectral radiance of a black body per unit wavelength using
 `Planck's law <https://en.wikipedia.org/wiki/Planck%27s_law>`__
 
-.. math::  B_λ(λ, T) =\frac{2hc^2}{λ^5}\frac{1}{e^{\frac{hc}{λk_\mathrm{B}T}} - 1}
+.. math::  B_\lambda(\lambda, T) =\frac{2hc^2}{\lambda^5}\frac{1}{e^{\frac{hc}{\lambda k_\mathrm{B}T}} - 1}
 
 Arguments
 '''''''''
@@ -2054,8 +2055,8 @@ Example
 '''''''
 
 Get rectangular coordinates :math:`(x, y)` of the point with polar
-coordinates :math:`(r, φ) = (1.7, 227)`, with angle :math:`φ` expressed
-in degrees.
+coordinates :math:`(r, \varphi) = (1.7, 227)`, with angle
+:math:`\varphi` expressed in degrees.
 
 .. code-block:: julia
 
@@ -2142,8 +2143,8 @@ Notes
 -  The function ``sphdist`` provides an alternate method of computing a
    spherical distance.
 -  Note that ``posang`` is not commutative: the position angle between A
-   and B is :math:`θ`, then the position angle between B and A is
-   :math:`180 + θ`.
+   and B is :math:`\theta`, then the position angle between B and A is
+   :math:`180 + \theta`.
 
 Code of this function is based on IDL Astronomy User's Library.
 
@@ -2428,8 +2429,9 @@ Output
 ''''''
 
 A 2-tuple ``(radius, angle)`` with the polar coordinates of the input.
-The coordinate ``angle`` coordinate lies in the range :math:`[-π, π]` if
-``degrees=false``, or :math:`[-180, 180]` when ``degrees=true``.
+The coordinate ``angle`` coordinate lies in the range
+:math:`[-\pi, \pi]` if ``degrees=false``, or :math:`[-180, 180]` when
+``degrees=true``.
 
 If ``x`` and ``y`` are arrays, ``radius`` and ``angle`` are arrays of
 the same length as ``radius`` and ``angle``.
@@ -2437,15 +2439,15 @@ the same length as ``radius`` and ``angle``.
 Example
 '''''''
 
-Calculate polar coordinates :math:`(r, ϕ)` of point with rectangular
-coordinates :math:`(x, y) = (2.24, -1.87)`.
+Calculate polar coordinates :math:`(r, \varphi)` of point with
+rectangular coordinates :math:`(x, y) = (2.24, -1.87)`.
 
 .. code-block:: julia
 
     julia> r, phi = recpol(2.24, -1.87)
     (2.9179616172938263,-0.6956158538564537)
 
-Angle :math:`ϕ` is given in radians.
+Angle :math:`\varphi` is given in radians.
 
 --------------
 
@@ -2462,11 +2464,11 @@ Calculate the separation and position angle of a binary star.
 Explanation
 '''''''''''
 
-This function will return the separation :math:`ρ` and position angle
-:math:`θ` of a visual binary star derived from its orbital elements. The
-algorithms described in the following book will be used: Meeus J., 1992,
-Astronomische Algorithmen, Barth. Compared to the examples given at page
-400 and no discrepancy found.
+This function will return the separation :math:`\rho` and position angle
+:math:`\theta` of a visual binary star derived from its orbital
+elements. The algorithms described in the following book will be used:
+Meeus J., 1992, Astronomische Algorithmen, Barth. Compared to the
+examples given at page 400 and no discrepancy found.
 
 Arguments
 '''''''''
@@ -2485,10 +2487,10 @@ All input parameters have to be scalars.
 Output
 ''''''
 
-The 2-tuple :math:`(ρ, θ)`, where
+The 2-tuple :math:`(\rho, \theta)`, where
 
--  :math:`ρ`: separation [arc second]
--  :math:`θ`: position angle [degree]
+-  :math:`\rho`: separation [arc second]
+-  :math:`\theta`: position angle [degree]
 
 Example
 '''''''

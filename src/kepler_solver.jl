@@ -24,13 +24,13 @@ given and one wants to find the eccentric anomaly \$E(t)\$ at a specific time
 \$t\$, so that also the mean anomaly \$M(t)\$ is known.
 
 Once that the Kepler's equation is solved and \$E(t)\$ is determined, the polar
-coordinates \$(r(t), θ(t))\$ of the body at time \$t\$ in the elliptic orbit are
-given by
+coordinates \$(r(t), \\theta(t))\$ of the body at time \$t\$ in the elliptic
+orbit are given by
 
-\$\$ θ(t) = 2\\arctan \\left(\\sqrt{\\frac{1 + e}{1 - e}} \\tan\\frac{E(t)}{2} \\right)\$\$
-\$\$ r(t) = \\frac{a(1 - e^{2})}{1 + e\\cos(θ(t) - θ_{0})}\$\$
+\$\$ \\theta(t) = 2\\arctan \\left(\\sqrt{\\frac{1 + e}{1 - e}} \\tan\\frac{E(t)}{2} \\right)\$\$
+\$\$ r(t) = \\frac{a(1 - e^{2})}{1 + e\\cos(\\theta(t) - \\theta_{0})}\$\$
 
-in which \$a\$ is the semi-major axis of the orbit, and \$θ_0\$ the value
+in which \$a\$ is the semi-major axis of the orbit, and \$\\theta_0\$ the value
 of angular coordinate at time \$t = t_{0}\$.
 
 ### Arguments ###
@@ -40,7 +40,7 @@ of angular coordinate at time \$t = t_{0}\$.
 
 ### Output ###
 
-The eccentric anomaly \$E\$, restricted to the range \$[-π, π]\$.
+The eccentric anomaly \$E\$, restricted to the range \$[-\\pi, \\pi]\$.
 
 ### Method ###
 
@@ -54,8 +54,8 @@ motion \$0 \\leq e \\leq 1\$.
 
 ### Example ###
 
-Find the angular polar coordinate \$θ(t)\$ for an orbit with eccentricity \$e =
-0.7\$ and for \$M(t) = 8π/3\$.
+Find the angular polar coordinate \$\\theta(t)\$ for an orbit with eccentricity \$e =
+0.7\$ and for \$M(t) = 8\\pi/3\$.
 
 ``` julia
 julia> ecc = 0.7;
