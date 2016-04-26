@@ -769,9 +769,9 @@ There is an additional optional keyword:
    ``true``, then the output velocities will be corrected for the solar
    motion :math:`(u, v, w)_\odot = (-8.5, 13.38, 6.49)` (Coşkunoǧlu et
    al. 2011 MNRAS, 412, 1237;
-   http://dx.doi.org/10.1111/j.1365-2966.2010.17983.x) to the local
-   standard of rest (LSR). Note that the value of the solar motion
-   through the LSR remains poorly determined.
+   DOI:\ `10.1111/j.1365-2966.2010.17983.x <http://dx.doi.org/10.1111/j.1365-2966.2010.17983.x>`__)
+   to the local standard of rest (LSR). Note that the value of the solar
+   motion through the LSR remains poorly determined.
 
 Output
 ''''''
@@ -788,10 +788,10 @@ Method
 ''''''
 
 Follows the general outline of Johnson & Soderblom (1987, AJ, 93, 864;
-http://dx.doi.org/10.1086/114370) except that :math:`u` is positive
-outward toward the Galactic *anti*\ center, and the J2000 transformation
-matrix to Galactic coordinates is taken from the introduction to the
-Hipparcos catalog.
+DOI:\ `10.1086/114370 <http://dx.doi.org/10.1086/114370>`__) except that
+:math:`u` is positive outward toward the Galactic *anti*\ center, and
+the J2000 transformation matrix to Galactic coordinates is taken from
+the introduction to the Hipparcos catalog.
 
 Example
 '''''''
@@ -961,7 +961,7 @@ Method
 
 Stephen P. Keeler and Yves Nievergelt, "Computing geodetic coordinates",
 SIAM Rev. Vol. 40, No. 2, pp. 300-309, June 1998
-(http://dx.doi.org/10.1137/S0036144597323921).
+(DOI:`10.1137/S0036144597323921 <http://dx.doi.org/10.1137/S0036144597323921>`__).
 
 Planetary constants from "Allen's Astrophysical Quantities", Fourth Ed.,
 (2000).
@@ -1011,7 +1011,7 @@ accuracy of ``geo2geodetic``.
 
 .. code-block:: julia
 
-    julia> collect(geodetic2geo(geo2geodetic(67.2,13.4,1.2))) - collect((67.2,13.4,1.2))
+    julia> collect(geodetic2geo(geo2geodetic(67.2, 13.4, 1.2))) - [67.2, 13.4, 1.2]
     3-element Array{Float64,1}:
      -3.56724e-9
       0.0
@@ -1156,7 +1156,7 @@ Method
 
 Stephen P. Keeler and Yves Nievergelt, "Computing geodetic coordinates",
 SIAM Rev. Vol. 40, No. 2, pp. 300-309, June 1998
-(http://dx.doi.org/10.1137/S0036144597323921).
+(DOI:`10.1137/S0036144597323921 <http://dx.doi.org/10.1137/S0036144597323921>`__).
 
 Planetary constants from "Allen's Astrophysical Quantities", Fourth Ed.,
 (2000).
@@ -1607,10 +1607,10 @@ Method
 Many different numerical methods exist to solve Kepler's equation. This
 function implements the algorithm proposed in Markley (1995) Celestial
 Mechanics and Dynamical Astronomy, 63, 101
-(http://dx.doi.org/10.1007/BF00691917). This method is not iterative,
-requires only four transcendental function evaluations, and has been
-proved to be fast and efficient over the entire range of elliptic motion
-:math:`0 \leq e \leq 1`.
+(DOI:`10.1007/BF00691917 <http://dx.doi.org/10.1007/BF00691917>`__).
+This method is not iterative, requires only four transcendental function
+evaluations, and has been proved to be fast and efficient over the
+entire range of elliptic motion :math:`0 \leq e \leq 1`.
 
 Example
 '''''''
@@ -1871,8 +1871,8 @@ passed as an array, an array of the same length is returned.
 Example
 '''''''
 
-Calculate the microlensing amplification for :math:`u = 10^-10`,
-:math:`10^-1`, :math:`1`, :math:`10`, :math:`10^10`:
+Calculate the microlensing amplification for :math:`u = 10^{-10}`,
+:math:`10^{-1}`, :math:`1`, :math:`10`, :math:`10^{10}`:
 
 .. code-block:: julia
 

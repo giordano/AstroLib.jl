@@ -64,7 +64,7 @@ length is returned.
 
 Stephen P.  Keeler and Yves Nievergelt, "Computing geodetic coordinates", SIAM
 Rev. Vol. 40, No. 2, pp. 300-309, June 1998
-(http://dx.doi.org/10.1137/S0036144597323921).
+(DOI:[10.1137/S0036144597323921](http://dx.doi.org/10.1137/S0036144597323921)).
 
 Planetary constants from "Allen's Astrophysical Quantities", Fourth Ed., (2000).
 
@@ -110,7 +110,7 @@ planetodetic) to geographic coordinates, can be used to estimate the accuracy of
 `geo2geodetic`.
 
 ``` julia
-julia> collect(geodetic2geo(geo2geodetic(67.2,13.4,1.2))) - collect((67.2,13.4,1.2))
+julia> collect(geodetic2geo(geo2geodetic(67.2, 13.4, 1.2))) - [67.2, 13.4, 1.2]
 3-element Array{Float64,1}:
  -3.56724e-9
   0.0

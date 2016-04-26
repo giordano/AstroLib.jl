@@ -47,9 +47,10 @@ There is an additional optional keyword:
 * `lsr` (optional boolean keyword): if this keyword is set to `true`, then the
   output velocities will be corrected for the solar motion
   \$(u, v, w)_\\odot = (-8.5, 13.38, 6.49)\$ (Coşkunoǧlu et al. 2011 MNRAS, 412,
-  1237; http://dx.doi.org/10.1111/j.1365-2966.2010.17983.x) to the local
-  standard of rest (LSR).  Note that the value of the solar motion through the
-  LSR remains poorly determined.
+  1237;
+  DOI:[10.1111/j.1365-2966.2010.17983.x](http://dx.doi.org/10.1111/j.1365-2966.2010.17983.x))
+  to the local standard of rest (LSR).  Note that the value of the solar motion
+  through the LSR remains poorly determined.
 
 ### Output ###
 
@@ -62,9 +63,10 @@ The 3-tuple \$(u, v, w)\$
 ### Method ###
 
 Follows the general outline of Johnson & Soderblom (1987, AJ, 93, 864;
-http://dx.doi.org/10.1086/114370) except that \$u\$ is positive outward toward
-the Galactic *anti*center, and the J2000 transformation matrix to Galactic
-coordinates is taken from the introduction to the Hipparcos catalog.
+DOI:[10.1086/114370](http://dx.doi.org/10.1086/114370)) except that \$u\$ is
+positive outward toward the Galactic *anti*center, and the J2000 transformation
+matrix to Galactic coordinates is taken from the introduction to the Hipparcos
+catalog.
 
 ### Example ###
 

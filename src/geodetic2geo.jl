@@ -64,7 +64,7 @@ length is returned.
 
 Stephen P.  Keeler and Yves Nievergelt, "Computing geodetic coordinates", SIAM
 Rev. Vol. 40, No. 2, pp. 300-309, June 1998
-(http://dx.doi.org/10.1137/S0036144597323921).
+(DOI:[10.1137/S0036144597323921](http://dx.doi.org/10.1137/S0036144597323921)).
 
 Planetary constants from "Allen's Astrophysical Quantities", Fourth Ed., (2000).
 

@@ -45,8 +45,8 @@ array, an array of the same length is returned.
 
 ### Example ###
 
-Calculate the microlensing amplification for \$u = 10^-10\$, \$10^-1\$, \$1\$,
-\$10\$, \$10^10\$:
+Calculate the microlensing amplification for \$u = 10^{-10}\$, \$10^{-1}\$,
+\$1\$, \$10\$, \$10^{10}\$:
 
 ``` julia
 julia> paczynski([1e-10, 1e-1, 1, 10, 1e10])

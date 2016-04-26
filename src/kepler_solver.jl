@@ -46,9 +46,10 @@ The eccentric anomaly \$E\$, restricted to the range \$[-π, π]\$.
 
 Many different numerical methods exist to solve Kepler's equation.  This
 function implements the algorithm proposed in Markley (1995) Celestial Mechanics
-and Dynamical Astronomy, 63, 101 (http://dx.doi.org/10.1007/BF00691917).  This
-method is not iterative, requires only four transcendental function evaluations,
-and has been proved to be fast and efficient over the entire range of elliptic
+and Dynamical Astronomy, 63, 101
+(DOI:[10.1007/BF00691917](http://dx.doi.org/10.1007/BF00691917)).  This method
+is not iterative, requires only four transcendental function evaluations, and
+has been proved to be fast and efficient over the entire range of elliptic
 motion \$0 \\leq e \\leq 1\$.
 
 ### Example ###
