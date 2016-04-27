@@ -65,7 +65,7 @@ julia> @doc FunctionName
 ```
 
 Full documentation of all functions can be accessed at
-https://astrolibjl.readthedocs.org/.  There you can find the complete list of
+https://astrolibjl.readthedocs.io/.  There you can find the complete list of
 all functions provided by this library.  You can also download the manual in PDF
 format from https://media.readthedocs.org/pdf/astrolibjl/latest/astrolibjl.pdf.
 

@@ -76,6 +76,9 @@ export juldate
 include("kepler_solver.jl")
 export kepler_solver
 
+include("lsf_rotate.jl")
+export lsf_rotate
+
 include("mag2flux.jl")
 export mag2flux
 

@@ -80,14 +80,14 @@ function paczynski{T<:AbstractFloat}(u::T)
         # You can verify that:
         #   u=1e5; (u*u + 2)/(u*sqrt(u*u + 4)) === 1.0
         return copysign(1.0, u)
-    elseif absu <= 1e-10
+    elseif absu <= 1e-8
         # You can verify that:
-        #   u = 1e-10; (u*u + 2)/(u*sqrt(u*u + 4)) === inv(u)
+        #   u = 1e-8; (u*u + 2)/(u*sqrt(u*u + 4)) === inv(u)
         inv(u)
     else
         u2 = u*u
         # Using `hypot' in place of the square root would be an overkill since
-        #   1e-10 < |u| < 1e5
+        #   1e-8 < |u| < 1e5
         return (u2 + 2)/(u*sqrt(u2 + 4))
     end
 end

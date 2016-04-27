@@ -247,6 +247,16 @@ end
 @test_throws ErrorException kepler_solver(pi,  1.5)
 
 # Test mag2flux
+let
+    local vel, lsf
+    vel, lsf = lsf_rotate(3, 90)
+    @test length(vel) == length(lsf) == 61
+    vel, lsf = lsf_rotate(5, 10)
+    @test_approx_eq vel collect(-10.0:5.0:10.0)
+    @test_approx_eq lsf [0.0, 0.556914447710896, 0.6933098861837907, 0.556914447710896, 0.0]
+end
+
+# Test mag2flux
 @test_approx_eq mag2flux(4.83, 21.12) 4.1686938347033296e-11
 @test_approx_eq mag2flux([4.83], 21.12) 4.1686938347033296e-11
 @test_approx_eq flux2mag(mag2flux(15, ABwave=12.), ABwave=12) 15.0

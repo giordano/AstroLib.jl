@@ -270,7 +270,6 @@ Missing in AstroLib.jl
 * `linmix_err`
 * `linterp`
 * `list_with_path`
-* `lsf_rotate`
 * `lumdist`
 * `make_2d`
 * `make_astr`
