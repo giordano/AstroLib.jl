@@ -22,8 +22,8 @@ differ.
 An extensive error testing suite ensures old fixed bugs will not be brought back
 by future changes.
 
-Install
--------
+Installation
+------------
 
 ``AstroLib.jl`` is available for Julia 0.4 and later versions, and can
 be installed with `Julia built-in package
@@ -109,30 +109,31 @@ Related Projects
 
 This is not the only effort to bundle astronomical functions written in Julia
 language. Other packages useful for more specific purposes are available at
-https://juliaastro.github.io/.  A list of other packages is available at
-https://github.com/svaksha/Julia.jl/blob/master/Astronomy.md.
+https://juliaastro.github.io/.  A list of other packages is available `here
+<https://github.com/svaksha/Julia.jl/blob/master/Astronomy.md>`__.
 
 Because of this, some of IDL AstroLib's utilities are not provided in
 ``AstroLib.jl`` as they are already present in other Julia packages.  Here is a
 list of such utilities:
 
--  ``aper``, see https://github.com/kbarbary/AperturePhotometry.jl
--  ``cosmo_param``, see ``Cosmology`` package
-   (https://github.com/JuliaAstro/Cosmology.jl)
--  ``galage``, see ``Cosmology`` package
-   (https://github.com/JuliaAstro/Cosmology.jl)
--  ``glactc_pm``, see ``SkyCoords`` package
-   (https://github.com/kbarbary/SkyCoords.jl)
--  ``glactc``, see ``SkyCoords`` package
-   (https://github.com/kbarbary/SkyCoords.jl)
--  ``lumdist``, see ``Cosmology`` package
-   (https://github.com/JuliaAstro/Cosmology.jl)
-- ``readcol``, use ``readdlm``, part of Julia ``Base.DataFmt`` module
-  (http://docs.julialang.org/en/stable/stdlib/io-network/#Base.readdlm).  This
-  is not a complete replacement for ``readcol`` but most of the time it
-  does-the-right-thing even without using any option (it automatically
-  identifies string and numerical columns) and you do not need to manually
-  specify a variable for each column
+- ``aper``, see `AperturePhotometry.jl
+  <https://github.com/kbarbary/AperturePhotometry.jl>`__ package
+- ``cosmo_param``, see `Cosmology.jl
+  <https://github.com/JuliaAstro/Cosmology.jl>`__ package
+- ``galage``, see `Cosmology.jl <https://github.com/JuliaAstro/Cosmology.jl>`__
+  package
+- ``glactc_pm``, see `SkyCoords.jl <https://github.com/kbarbary/SkyCoords.jl>`__
+  package
+- ``glactc``, see `SkyCoords.jl <https://github.com/kbarbary/SkyCoords.jl>`__
+  package
+- ``lumdist``, see `Cosmology.jl <https://github.com/JuliaAstro/Cosmology.jl>`__
+  package
+- ``readcol``, use `readdlm
+  <http://docs.julialang.org/en/stable/stdlib/io-network/#Base.readdlm>`__, part
+  of Julia ``Base.DataFmt`` module.  This is not a complete replacement for
+  ``readcol`` but most of the time it does-the-right-thing even without using
+  any option (it automatically identifies string and numerical columns) and you
+  do not need to manually specify a variable for each column
 
 In addition, there are similar projects for Python (`Python AstroLib
 <http://www.hs.uni-hamburg.de/DE/Ins/Per/Czesla/PyA/PyA/pyaslDoc/pyasl.html>`__)
@@ -143,4 +144,3 @@ Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`search`
