@@ -33,6 +33,27 @@
                       ([324.9881067314537, 256.7468302330436, 132.4919217875949],
                        [44.38225395397647, 48.542947077386664, 67.33061196497327])
 
+# Test bprecess
+let
+    local ra, dec
+    ra, dec = bprecess([ten(13, 42, 12.74)*15], [ten(8, 23, 17.69)],
+                       reshape(100*[-15*0.0257, -0.090], 2, 1))
+    @test_approx_eq ra  204.93552515632123
+    @test_approx_eq dec 8.641287183886163
+    ra, dec = bprecess([57], [23], 2024)
+    @test_approx_eq ra  56.26105898810067
+    @test_approx_eq dec 22.84693298145991
+    ra, dec = bprecess([57], [23], reshape([9, 86], 2, 1), parallax=[1], radvel=[4])
+    @test_approx_eq ra  56.25988479854577
+    @test_approx_eq dec 22.83493370392355
+    ra, dec = bprecess((-57, -23), 2024)
+    @test_approx_eq ra   302.2593299643789
+    @test_approx_eq dec -23.150089972802036
+    ra, dec = bprecess((-57, -23), [9, 86], parallax=1, radvel=4)
+    @test_approx_eq ra   302.2580376402947
+    @test_approx_eq dec -23.16208183899836
+end
+
 # Test calz_unred
 @test_approx_eq calz_unred(reshape(900:1000:9900, 10, 1), ones(Float64, 10), -0.1) [1.0,                0.43189326452379095,
                                                                                     0.5203675483533704, 0.594996469192435,

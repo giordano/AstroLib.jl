@@ -259,6 +259,98 @@ Code of this function is based on IDL Astronomy User's Library.
 
 --------------
 
+bprecess
+~~~~~~~~
+
+.. function:: bprecess(ra, dec[, parallax=parallax, radvel=radvel]) -> ra1950, dec1950
+    bprecess(ra, dec, epoch[, parallax=parallax, radvel=radvel]) -> ra1950, dec1950
+    bprecess(ra, dec, muradec[, parallax=parallax, radvel=radvel]) -> ra1950, dec1950
+
+Purpose
+'''''''
+
+Precess positions from J2000.0 (FK5) to B1950.0 (FK4).
+
+Explanation
+'''''''''''
+
+Calculates the mean place of a star at B1950.0 on the FK4 system from
+the mean place at J2000.0 on the FK5 system.
+
+Arguments
+'''''''''
+
+The function has 2 methods. The common mandatory arguments are:
+
+-  ``ra``: input J2000 right ascension, in degrees.
+-  ``dec``: input J2000 declination, in degrees.
+
+The two methods have a different third argument. It can be one of the
+following:
+
+-  ``muradec``: 2-element vector containing the proper motion in seconds
+   of arc per tropical *century* in right ascension and declination.
+-  ``epoch``: scalar giving epoch of original observations.
+
+If none of the two arguments is provided, it is assumed
+``epoch = 2000``.
+
+All methods accept the following optional keywords:
+
+-  ``parallax`` (optional numerical keyword): stellar parallax, in
+   seconds of arc.
+-  ``radvel`` (optional numerical keyword): radial velocity in km/s.
+
+Right ascension and declination can be passed as the 2-tuple
+``(ra, dec)``. You can also pass ``ra``, ``dec``, ``parallax``, and
+``radvel`` as arrays, all of the same length N. In that case,
+``muradec`` should be a matrix 2×N.
+
+Output
+''''''
+
+The 2-tuple of right ascension and declination in 1950, in degrees, of
+input coordinates is returned. If ``ra`` and ``dec`` (and other possible
+optional arguments) are arrays, the 2-tuple of arrays
+``(ra1950, dec1950)`` of the same length as the input coordinates is
+returned.
+
+Method
+''''''
+
+The algorithm is taken from the Explanatory Supplement to the
+Astronomical Almanac 1992, page 186. See also Aoki et al (1983), A&A,
+128, 263. URL: http://adsabs.harvard.edu/abs/1983A%26A...128..263A.
+
+Example
+'''''''
+
+The SAO2000 catalogue gives the J2000 position and proper motion for the
+star HD 119288. Find the B1950 position.
+
+-  RA(2000) = 13h 42m 12.740s
+-  Dec(2000) = 8d 23' 17.69''
+-  Mu(RA) = -.0257 s/yr
+-  Mu(Dec) = -.090 ''/yr
+
+.. code-block:: julia
+
+    julia> muradec = 100*[-15*0.0257, -0.090]; # convert to century proper motion
+
+    julia> ra = ten(13, 42, 12.74)*15;
+
+    julia> dec = ten(8, 23, 17.69);
+
+    julia> adstring(bprecess(ra, dec, muradec), precision=2)
+    " 13 39 44.526  +08 38 28.63"
+
+Notes
+'''''
+
+Code of this function is based on IDL Astronomy User's Library.
+
+--------------
+
 calz\_unred
 ~~~~~~~~~~~
 

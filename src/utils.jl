@@ -15,6 +15,9 @@ export aitoff
 include("altaz2hadec.jl")
 export altaz2hadec
 
+include("bprecess.jl")
+export bprecess
+
 include("calz_unred.jl")
 export calz_unred
 

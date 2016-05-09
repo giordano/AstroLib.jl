@@ -52,7 +52,6 @@ Missing in AstroLib.jl
 * `blkshift`
 * `boost_array`
 * `boxave`
-* `bprecess`
 * `break_path`
 * `bsort`
 * `ccm_unred`
