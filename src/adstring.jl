@@ -1,6 +1,22 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+# Helper function to format seconds part.
+function formatsec(sec::Real, prec::Integer, truncate::Bool)
+    sec = truncate ? trunc(sec, prec) : round(sec, prec)
+    # Seconds of right ascension should be always positive (the hours part
+    # holds the sign), so we don't need to take the absolute values.
+    sec_frac, sec_int = modf(sec)
+    # Format the integer part left padding with zeros.
+    sec_int_str = lpad(string(trunc(Integer, sec_int)), 2, "0")
+    # Unless precision is 0, format the fractional part with the decimal
+    # separator "." followed by seconds rounded to the precision required
+    # and right padded with zeros.
+    sec_frac_str = prec == 0 ? "" : rpad(string(round(sec_frac, prec+1)),
+                                         prec+2, "0")[2:end]
+    return sec_string = string(sec_int_str, sec_frac_str)
+end
+
 """
     adstring(ra::Real, dec::Real[, precision::Int=2, truncate::Bool=true]) -> string
     adstring([ra, dec]) -> string
@@ -68,22 +84,6 @@ julia> adstring([30.4, -15.63], [-1.23, 48.41], precision=1)
 """
 function adstring{T<:AbstractFloat}(ra::T, dec::T;
                   precision::Int=0, truncate::Bool=false)
-    # Helper function to format seconds part.
-    function formatsec(sec::Real, prec::Integer)
-        sec = truncate ? trunc(sec, prec) : round(sec, prec)
-        # Seconds of right ascension should be always positive (the hours part
-        # holds the sign), so we don't need to take the absolute values.
-        sec_frac, sec_int = modf(sec)
-        # Format the integer part left padding with zeros.
-        sec_int_str = lpad(string(trunc(Integer, sec_int)), 2, "0")
-        # Unless precision is 0, format the fractional part with the decimal
-        # separator "." followed by seconds rounded to the precision required
-        # and right padded with zeros.
-        sec_frac_str = prec == 0 ? "" : rpad(string(round(sec_frac, prec+1)),
-                                             prec+2, "0")[2:end]
-        return sec_string = string(sec_int_str, sec_frac_str)
-    end
-
     # XXX: IDL implementation takes also real values for "precision" and
     # truncates it.  I think it's better to enforce an integer type and cure
     # only negative values.
@@ -97,12 +97,12 @@ function adstring{T<:AbstractFloat}(ra::T, dec::T;
         # Don't print "+" for positive right ascension and leave the first
         # character blank.
         ra_sign = ra >= 0.0 ? ' ' : '-'
-        ra_sec_string = formatsec(ra_sec, precision + 1)
+        ra_sec_string = formatsec(ra_sec, precision + 1, truncate)
         ra_string = @sprintf("%c%02d %02d %s  ", ra_sign, abs(ra_hr),
                              ra_min, ra_sec_string)
     end
     dec_sign = dec >= 0.0 ? '+' : '-'
-    dec_sec_string = formatsec(dec_sec, precision)
+    dec_sec_string = formatsec(dec_sec, precision, truncate)
     dec_string = @sprintf("%c%02d %02d %s", dec_sign, abs(dec_deg),
                           dec_min, dec_sec_string)
     return string(ra_string, dec_string)
