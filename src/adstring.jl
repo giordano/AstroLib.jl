@@ -94,16 +94,12 @@ function adstring{T<:AbstractFloat}(ra::T, dec::T;
         ra_string = ""
     else
         ra_hr, ra_min, ra_sec, dec_deg, dec_min, dec_sec = radec(ra, dec)
-        # Don't print "+" for positive right ascension and leave the first
-        # character blank.
-        ra_sign = ra >= 0.0 ? ' ' : '-'
         ra_sec_string = formatsec(ra_sec, precision + 1, truncate)
-        ra_string = @sprintf("%c%02d %02d %s  ", ra_sign, abs(ra_hr),
+        ra_string = @sprintf("%03.2d %02d %s  ", ra_hr,
                              ra_min, ra_sec_string)
     end
-    dec_sign = dec >= 0.0 ? '+' : '-'
     dec_sec_string = formatsec(dec_sec, precision, truncate)
-    dec_string = @sprintf("%c%02d %02d %s", dec_sign, abs(dec_deg),
+    dec_string = @sprintf("%+03.2d %02d %s", dec_deg,
                           dec_min, dec_sec_string)
     return string(ra_string, dec_string)
 end
