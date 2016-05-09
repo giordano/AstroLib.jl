@@ -79,8 +79,8 @@ function adstring{T<:AbstractFloat}(ra::T, dec::T;
         # Unless precision is 0, format the fractional part with the decimal
         # separator "." followed by seconds rounded to the precision required
         # and right padded with zeros.
-        sec_frac_str = prec == 0 ? "" :
-            rpad(string(".", round(Integer, sec_frac*exp10(prec))), prec + 1, "0")
+        sec_frac_str = prec == 0 ? "" : rpad(string(round(sec_frac, prec+1)),
+                                             prec+2, "0")[2:end]
         return sec_string = string(sec_int_str, sec_frac_str)
     end
 

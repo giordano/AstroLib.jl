@@ -5,6 +5,8 @@
 @test adstring((30.4, -1.23), truncate=true) ==
     adstring([30.4, -1.23], truncate=true) == " 02 01 35.9  -01 13 48"
 @test adstring(19.19321, truncate=true) == "+19 11 35.5"
+@test adstring(ten(36,24,15.015), -ten(8,24,36.0428), precision=3) ==
+    " 02 25 37.0010  -08 24 36.043"
 @test adstring([30.4, -15.63], [-1.23, 48.41], precision=2) ==
     [" 02 01 36.000  -01 13 48.00", "-22 57 28.800  +48 24 36.00"]
 @test adstring([(-58, 24)]) == ["-20 08 00.0  +24 00 00"]
