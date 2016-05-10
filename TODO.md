@@ -386,7 +386,6 @@ Missing in AstroLib.jl
 * `strn`
 * `strnumber`
 * `substar`
-* `sunpos`
 * `sunsymbol`
 * `sxaddhist`
 * `sxaddpar`

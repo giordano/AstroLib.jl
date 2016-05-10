@@ -130,6 +130,9 @@ export sixty
 include("sphdist.jl")
 export sphdist
 
+include("sunpos.jl")
+export sunpos
+
 include("ten.jl")
 export ten, tenv
 

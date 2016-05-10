@@ -40,6 +40,9 @@ let
                        reshape(100*[-15*0.0257, -0.090], 2, 1))
     @test_approx_eq ra  204.93552515632123
     @test_approx_eq dec 8.641287183886163
+    ra, dec = bprecess(82, 19)
+    @test_approx_eq ra  81.26467916346334
+    @test_approx_eq dec 18.959495700195394
     ra, dec = bprecess([57], [23], 2024)
     @test_approx_eq ra  56.26105898810067
     @test_approx_eq dec 22.84693298145991
@@ -425,6 +428,21 @@ end
 @test_approx_eq sphdist(120, -43, 175, +22) 1.5904422616007134
 @test_approx_eq sphdist([120], [-43], 175, +22) 1.5904422616007134
 @test_approx_eq sphdist(120, -43, [175], [+22]) 1.5904422616007134
+
+# Test sunpos
+let
+    local ra, dec, lon, obl
+    ra, dec, lon, obl = sunpos(jdcnv(DateTime(1982, 5, 1)))
+    @test_approx_eq ra  37.88589057369026
+    @test_approx_eq dec 14.909699471099517
+    @test_approx_eq lon 2309.6312912217463
+    @test_approx_eq obl 1343.0612563977593
+    ra, dec, lon, obl = sunpos(jdcnv([DateTime(2016, 5, 10)]), radians=true)
+    @test_approx_eq ra  0.8259691339090751
+    @test_approx_eq dec 0.3085047454107549
+    @test_approx_eq lon 49.77773359512005
+    @test_approx_eq obl 23.434647165246304
+end
 
 # Test "ten" and "tenv".  Always make sure string and numerical inputs are
 # consistent (IDL implementation of "ten" is not).

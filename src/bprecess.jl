@@ -80,6 +80,10 @@ bprecess{R<:Real}(ra::Real, dec::Real, muradec::Vector{R};
                                        float(radvel), NaN)...,
                                float(muradec))
 
+# TODO: investigate type-stability.  A method with "epoch" as optional argument
+# with default values 2000.0 doesn't appear to be type-stable when both
+# mandatory arguments are integers (that's why I split it in two different
+# methods).  The same happens for bprecess with 2-tuple argument for ra-dec.
 bprecess(ra::Real, dec::Real, epoch::Real;
          parallax::Real=0.0, radvel::Real=0.0) =
              bprecess(promote(float(ra), float(dec), float(parallax),
