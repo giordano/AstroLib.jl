@@ -242,6 +242,11 @@ let
     @test_approx_eq az1  az2
 end
 
+# Test helio_jd
+@test_approx_eq helio_jd([juldate(DateTime(2016, 6, 15, 11, 40))], ten(20, 9, 7.8)*15, ten(37, 9, 7)) 57554.98808289718
+@test_approx_eq helio_jd(1000, 23, 67, B1950=true) 999.9997659545342
+@test_approx_eq helio_jd(2000, 12, 88, diff=true) -167.24845957792076
+
 # Test jdcnv.
 @test_approx_eq jdcnv(DateTime(-4713, 11, 24, 12)) 0.0
 @test_approx_eq jdcnv(DateTime(763, 09, 18, 12)) 2000000.0

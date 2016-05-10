@@ -69,7 +69,6 @@ The returned `ra` and `dec` are in the given date's equinox.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-
 function sunpos(jd::AbstractFloat, radians::Bool)
     # Number of Julian centuries since 1899-12-31T12:00:00
     t = (jd - 2415020.0)/36525.0

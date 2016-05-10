@@ -129,7 +129,7 @@ function bprecess{R<:Real,D<:Real,P<:Real,V<:Real}(ra::AbstractArray{R},
                                                    parallax::AbstractArray{P}=zeros(R, length(ra)),
                                                    radvel::AbstractArray{V}=zeros(R, length(ra)))
     @assert length(ra) == length(dec) == length(epoch) == length(parallax) == length(radvel)
-    typer = typeof(float(one(R)))
+    typer = float(R)
     ra1950  = similar(ra, typer)
     dec1950 = similar(dec, typer)
     for i in eachindex(ra)

@@ -230,7 +230,6 @@ Missing in AstroLib.jl
 * `hboxave`
 * `hcongrid`
 * `headfits`
-* `helio_jd`
 * `helio`
 * `helio_rv`
 * `hermite`
