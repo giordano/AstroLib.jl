@@ -2,6 +2,8 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 module AstroLib
+using Compat
+import Compat.String
 
 include("common.jl")
 include("misc.jl")

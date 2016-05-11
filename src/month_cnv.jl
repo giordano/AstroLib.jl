@@ -76,7 +76,7 @@ end
 function month_cnv{N<:Integer}(numbers::AbstractArray{N}; short::Bool=false,
                                up::Bool=false, low::Bool=false)
     # Use same type as "Dates.VALUETOMONTH".
-    months = similar(numbers, UTF8String)
+    months = similar(numbers, String)
     for i in eachindex(numbers)
         months[i] = month_cnv(numbers[i], short=short, up=up, low=low)
     end
