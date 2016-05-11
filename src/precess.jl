@@ -67,7 +67,7 @@ Almanac" 1992, page 104 Table 3.211.1
 
 Accuracy of precession decreases for declination values near 90 degrees.
 `precess` should not be used more than 2.5 centuries from 2000 on the FK5 system
-(1950.0 on the FK4 system).
+(1950.0 on the FK4 system).  If you need better accuracy, use `bprecess`.
 
 Code of this function is based on IDL Astronomy User's Library.
 """

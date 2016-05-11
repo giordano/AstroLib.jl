@@ -262,8 +262,7 @@ Code of this function is based on IDL Astronomy User's Library.
 bprecess
 ~~~~~~~~
 
-.. function:: bprecess(ra, dec[, parallax=parallax, radvel=radvel]) -> ra1950, dec1950
-    bprecess(ra, dec, epoch[, parallax=parallax, radvel=radvel]) -> ra1950, dec1950
+.. function:: bprecess(ra, dec[, epoch]) -> ra1950, dec1950
     bprecess(ra, dec, muradec[, parallax=parallax, radvel=radvel]) -> ra1950, dec1950
 
 Purpose
@@ -277,6 +276,14 @@ Explanation
 Calculates the mean place of a star at B1950.0 on the FK4 system from
 the mean place at J2000.0 on the FK5 system.
 
+``bprecess`` function has two methods, one for each of the following
+cases:
+
+-  the proper motion is known and non-zero
+-  the proper motion is unknown or known to be exactly zero (i.e.
+   extragalactic radio sources). Better precision can be achieved in
+   this case by inputting the epoch of the original observations.
+
 Arguments
 '''''''''
 
@@ -285,17 +292,19 @@ The function has 2 methods. The common mandatory arguments are:
 -  ``ra``: input J2000 right ascension, in degrees.
 -  ``dec``: input J2000 declination, in degrees.
 
-The two methods have a different third argument. It can be one of the
-following:
+The two methods have a different third argument (see "Explanation"
+section for more details). It can be one of the following:
 
 -  ``muradec``: 2-element vector containing the proper motion in seconds
    of arc per tropical *century* in right ascension and declination.
 -  ``epoch``: scalar giving epoch of original observations.
 
-If none of the two arguments is provided, it is assumed
-``epoch = 2000``.
+If none of these two arguments is provided (so ``bprecess`` is fed only
+with right ascension and declination), it is assumed that proper motion
+is exactly zero and ``epoch = 2000``.
 
-All methods accept the following optional keywords:
+If it is used the method involving ``muradec`` argument, the following
+keywords are available:
 
 -  ``parallax`` (optional numerical keyword): stellar parallax, in
    seconds of arc.
@@ -2469,7 +2478,8 @@ Notes
 
 Accuracy of precession decreases for declination values near 90 degrees.
 ``precess`` should not be used more than 2.5 centuries from 2000 on the
-FK5 system (1950.0 on the FK4 system).
+FK5 system (1950.0 on the FK4 system). If you need better accuracy, use
+``bprecess``.
 
 Code of this function is based on IDL Astronomy User's Library.
 
