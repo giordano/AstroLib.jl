@@ -1318,14 +1318,12 @@ a FITS header.
 Argument
 ''''''''
 
--  ``date`` (optional): the date in UTC standard, of ``DateTime`` type.
-   If omitted, defaults to the current UTC time. It can be either a
-   single date or an array of dates. When it is a single date, it can be
-   a ``DateTime`` type or anything that can be converted to that type.
-   If you are providing an array of dates, they can be of type
-   ``DateTime``, ``Date``, or an ``AbstractString`` that can be directly
-   converted to ``DateTime``. Note that you must provide homogeneous
-   arrays, you cannot mix element with different types.
+-  ``date`` (optional): the date in UTC standard. If omitted, defaults
+   to the current UTC time. It can be either a single date or an array
+   of dates. Each element can be either a ``DateTime`` type or anything
+   that can be converted to that type. In the case of vectorial input,
+   each element is considered as a date, so you cannot provide a date by
+   parts.
 -  ``old`` (optional boolean keyword): see below.
 -  ``timetag`` (optional boolean keyword): see below.
 
@@ -1609,7 +1607,7 @@ UT?
 
 .. code-block:: julia
 
-    julia> jd = juldate(DateTime(2016, 6, 15, 11, 40));
+    julia> jd = juldate(2016, 6, 15, 11, 40);
 
     julia> helio_jd(jd, ten(20, 9, 7.8)*15, ten(37, 9, 7))
     57554.98808289718
@@ -1658,25 +1656,10 @@ Argument
 ''''''''
 
 -  ``date``: date in proleptic Gregorian Calendar. Can be either a
-   scalar or an array.
-
-When the argument is a single date, following types are recognized:
-
--  ``DateTime``
--  anything that can be converted to ``DateTime``. For example, you can
-   specify the date by parts (``(y[, m, d, h, mi, s, ms])``), or as a
-   string accepted by ``DateTime``, or as a ``Date`` type.
-
-When ``date`` is an array it accepts the elements of the following
-types:
-
--  ``DateTime``
--  ``Date``
--  ``AbstractString`` that can be directly parsed by ``DateTime``.
-
-Arrays must be homogenous, you cannot mix elements of different type.
-
-Note that in all cases missing parts of the date are assumed to be zero.
+   single date or an array of dates. Each element can be either a
+   ``DateTime`` type or anything that can be converted directly to
+   ``DateTime``. In the case of vectorial input, each element is
+   considered as a date, so you cannot provide a date by parts.
 
 Output
 ''''''
@@ -1736,8 +1719,17 @@ Julian Days - 2400000).
 Argument
 ''''''''
 
--  ``date``: date of ``DateTime`` type, in Julian Calendar, UTC
-   standard.
+-  ``date``: date in Julian Calendar, UTC standard. It can be either e
+   single date or an array of dates. Each element can be given in
+   ``DateTime`` type or anything that can be converted to that type. In
+   the case of vectorial input, each element is considered as a date, so
+   you cannot provide a date by parts.
+
+Output
+''''''
+
+The number of Reduced Julian Days is returned. If ``date`` is an array,
+an array of the same length as ``date`` is returned.
 
 Example
 '''''''
@@ -1747,6 +1739,12 @@ Get number of Reduced Julian Days at 2016-03-20T15:24:00.
 .. code-block:: julia
 
     julia> juldate(DateTime(2016, 03, 20, 15, 24))
+    57468.14166666667
+
+    julia> juldate(2016, 03, 20, 15, 24)
+    57468.14166666667
+
+    julia> juldate("2016-03-20T15:24")
     57468.14166666667
 
 Notes

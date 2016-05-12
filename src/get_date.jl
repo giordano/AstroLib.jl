@@ -15,13 +15,11 @@ header.
 
 ### Argument ###
 
-* `date` (optional): the date in UTC standard, of `DateTime` type.  If omitted,
-  defaults to the current UTC time.  It can be either a single date or an array
-  of dates.  When it is a single date, it can be a `DateTime` type or anything
-  that can be converted to that type.  If you are providing an array of dates,
-  they can be of type `DateTime`, `Date`, or an `AbstractString` that can be
-  directly converted to `DateTime`.  Note that you must provide homogeneous
-  arrays, you cannot mix element with different types.
+* `date` (optional): the date in UTC standard.  If omitted, defaults to the
+  current UTC time.  It can be either a single date or an array of dates.  Each
+  element can be either a `DateTime` type or anything that can be converted to
+  that type.  In the case of vectorial input, each element is considered as a
+  date, so you cannot provide a date by parts.
 * `old` (optional boolean keyword): see below.
 * `timetag` (optional boolean keyword): see below.
 
@@ -92,26 +90,8 @@ get_date(dt...; old::Bool=false, timetag::Bool=false) =
     get_date(DateTime(dt...), old, timetag)
 
 # Vectorial function
-function get_date{D<:DateTime}(dt::AbstractArray{D};
+function get_date{D<:Any}(dt::AbstractArray{D};
                                old::Bool=false, timetag::Bool=false)
-    dates = similar(dt, String)
-    for i in eachindex(dt)
-        dates[i] = get_date(dt[i], old, timetag)
-    end
-    return dates
-end
-
-function get_date{D<:Date}(dt::AbstractArray{D};
-                           old::Bool=false, timetag::Bool=false)
-    dates = similar(dt, String)
-    for i in eachindex(dt)
-        dates[i] = get_date(dt[i], old=old, timetag=timetag)
-    end
-    return dates
-end
-
-function get_date{S<:AbstractString}(dt::AbstractArray{S};
-                           old::Bool=false, timetag::Bool=false)
     dates = similar(dt, String)
     for i in eachindex(dt)
         dates[i] = get_date(dt[i], old=old, timetag=timetag)

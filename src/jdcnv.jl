@@ -16,25 +16,10 @@ of Julian calendar days since epoch `-4713-11-24T12:00:00`.
 
 ### Argument ###
 
-* `date`: date in proleptic Gregorian Calendar.  Can be either a scalar or an
-  array.
-
-When the argument is a single date, following types are recognized:
-
-* `DateTime`
-* anything that can be converted to `DateTime`.  For example, you can specify
-  the date by parts (`(y[, m, d, h, mi, s, ms])`), or as a string accepted by
-  `DateTime`, or as a `Date` type.
-
-When `date` is an array it accepts the elements of the following types:
-
-* `DateTime`
-* `Date`
-* `AbstractString` that can be directly parsed by `DateTime`.
-
-Arrays must be homogenous, you cannot mix elements of different type.
-
-Note that in all cases missing parts of the date are assumed to be zero.
+* `date`: date in proleptic Gregorian Calendar.  Can be either a single date or
+  an array of dates.  Each element can be either a `DateTime` type or anything
+  that can be converted directly to `DateTime`.  In the case of vectorial input,
+  each element is considered as a date, so you cannot provide a date by parts.
 
 ### Output ###
 
@@ -67,5 +52,10 @@ For the conversion of Julian date to number of Julian days, use `juldate`.
 const jdcnv = Dates.datetime2julian
 jdcnv(date...) = jdcnv(DateTime(date...))
 
-@vectorize_1arg Date jdcnv
-@vectorize_1arg AbstractString jdcnv
+function jdcnv{T<:Any}(dt::AbstractArray{T})
+    jd = similar(dt, Float64)
+    for i in eachindex(dt)
+        jd[i] = jdcnv(dt[i])
+    end
+    return jd
+end

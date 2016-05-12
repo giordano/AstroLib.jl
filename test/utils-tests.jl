@@ -220,9 +220,9 @@ end
 @test get_date(DateTime(2001,09,25,14,56,14)) ==
     get_date(2001,09,25,14,56,14) == get_date("2001-09-25T14:56:14") ==
     "2001-09-25"
-@test get_date([DateTime(2024), DateTime(2016, 3, 14)]) ==
-    get_date([Date(2024), Date(2016, 3, 14)]) ==
-    get_date(["2024-01", "2016-03-14"]) == ["2024-01-01", "2016-03-14"]
+@test get_date([DateTime(2024), Date(2016, 3, 14)]) ==
+    get_date([Date(2024), "2016-03-14"]) ==
+    get_date(["2024-01", DateTime(2016, 3, 14)]) == ["2024-01-01", "2016-03-14"]
 
 # Test gcirc.
 @test_approx_eq gcirc(0, [0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.222450611061632,
@@ -250,7 +250,7 @@ let
 end
 
 # Test helio_jd
-@test_approx_eq helio_jd([juldate(DateTime(2016, 6, 15, 11, 40))], ten(20, 9, 7.8)*15, ten(37, 9, 7)) 57554.98808289718
+@test_approx_eq helio_jd([juldate(2016, 6, 15, 11, 40)], ten(20, 9, 7.8)*15, ten(37, 9, 7)) 57554.98808289718
 @test_approx_eq helio_jd(1000, 23, 67, B1950=true) 999.9997659545342
 @test_approx_eq helio_jd(2000, 12, 88, diff=true) -167.24845957792076
 
@@ -258,21 +258,21 @@ end
 @test_approx_eq jdcnv(-4713, 11, 24, 12) 0.0
 @test jdcnv(763, 09, 18, 12) == jdcnv("763-09-18T12") == 2000000.0
 @test (jd=1234567.89; jdcnv(daycnv(jd)) == jd)
-@test jdcnv([DateTime(2016, 07, 31), DateTime(1969, 07, 20)]) ==
-    jdcnv([Date(2016, 07, 31), Date(1969, 07, 20)]) ==
-    jdcnv(["2016-07-31", "1969-07-20"])
+@test jdcnv([DateTime(2016, 07, 31), "1969-07-20"]) ==
+    jdcnv([Date(2016, 07, 31), DateTime(1969, 07, 20)]) ==
+    jdcnv(["2016-07-31", Date(1969, 07, 20)])
 
 # Test juldate with Gregorian Calendar in force.  This also makes sure precision
 # of the result is high enough.  Note that "juldate(dt::DateTime) =
 # Dates.datetime2julian(dt)-2.4e6" would not be precise.
-@test_approx_eq juldate(DateTime(2016, 1, 1, 8)) (57388.5 + 1.0/3.0)
+@test_approx_eq juldate([DateTime(2016, 1, 1, 8)]) (57388.5 + 1.0/3.0)
 
 # Test juldate with Julian Calendar in force, for different centuries.  This
 # also makes sure precision of the result is high enough.
-@test_approx_eq juldate(DateTime(1582, 10, 1, 20)) (-100843.0 + 1.0/3.0)
-@test_approx_eq juldate(DateTime(1000, 1, 1, 20)) (-313692.0 + 1.0/3.0)
-@test_approx_eq juldate(DateTime(100, 10, 25, 20)) (-642119.0 + 1.0/3.0)
-@test_approx_eq juldate(DateTime(-4713, 1, 1, 12)) -2.4e6
+@test_approx_eq juldate(1582, 10, 1, 20) (-100843.0 + 1.0/3.0)
+@test_approx_eq juldate(["1000-01-01T20"]) (-313692.0 + 1.0/3.0)
+@test_approx_eq juldate("100-10-25T20") (-642119.0 + 1.0/3.0)
+@test_approx_eq juldate(-4713, 1, 1, 12) -2.4e6
 # Test daycnv and juldate together, with Gregorian Calendar in force.  Note that
 # they are not expected to be one the inverse of the other during Julian
 # Calendar.

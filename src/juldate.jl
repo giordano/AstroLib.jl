@@ -20,7 +20,15 @@ days since epoch `1858-11-16T12:00:00` (Reduced Julian Days = Julian Days -
 
 ### Argument ###
 
-* `date`: date of `DateTime` type, in Julian Calendar, UTC standard.
+* `date`: date in Julian Calendar, UTC standard.  It can be either e single date
+  or an array of dates.  Each element can be given in `DateTime` type or
+  anything that can be converted to that type.  In the case of vectorial input,
+  each element is considered as a date, so you cannot provide a date by parts.
+
+### Output ###
+
+The number of Reduced Julian Days is returned.  If `date` is an array, an array
+of the same length as `date` is returned.
 
 ### Example ###
 
@@ -28,6 +36,12 @@ Get number of Reduced Julian Days at 2016-03-20T15:24:00.
 
 ``` julia
 julia> juldate(DateTime(2016, 03, 20, 15, 24))
+57468.14166666667
+
+julia> juldate(2016, 03, 20, 15, 24)
+57468.14166666667
+
+julia> juldate("2016-03-20T15:24")
 57468.14166666667
 ```
 
@@ -68,6 +82,16 @@ function juldate(dt::DateTime)
     if jd > -100830.5
         a = div(year, 100)
         jd += 2.0 - a + fld(a, 4.0)
+    end
+    return jd
+end
+
+juldate(dt...) = juldate(DateTime(dt...))
+
+function juldate{T<:Any}(dt::AbstractArray{T})
+    jd = similar(dt, Float64)
+    for i in eachindex(dt)
+        jd[i] = juldate(dt[i])
     end
     return jd
 end
