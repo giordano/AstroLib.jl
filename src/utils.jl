@@ -90,6 +90,9 @@ export mag2geo
 include("month_cnv.jl")
 export month_cnv
 
+include("nutate.jl")
+export nutate
+
 include("paczynski.jl")
 export paczynski
 

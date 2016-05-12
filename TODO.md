@@ -301,7 +301,6 @@ Missing in AstroLib.jl
 * `nint`
 * `nstar`
 * `nulltrim`
-* `nutate`
 * `observatory`
 * `one_arrow`
 * `one_ray`

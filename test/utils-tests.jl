@@ -317,6 +317,22 @@ end
 @test (list=[1, 2, 3]; month_cnv(month_cnv(list)) == list)
 @test (list=["July", "March", "November"]; month_cnv(month_cnv(list)) == list)
 
+# Test nutate
+let
+    local long, obl
+    long, obl = nutate(jdcnv(DateTime(1987, 4, 10)))
+    @test_approx_eq long -3.787931077110755
+    @test_approx_eq obl   9.442520698644401
+    long, obl = nutate(2457521)
+    @test_approx_eq long -4.401443629818089
+    @test_approx_eq obl  -9.26823431959121
+    long, obl = nutate([2457000, 2458000])
+    @test_approx_eq long[1]  4.327189321653877
+    @test_approx_eq obl[1]  -9.507794266102866
+    @test_approx_eq long[2] -9.686089990639474
+    @test_approx_eq obl[2]  -6.970768250588256
+end
+
 # Test paczynski
 @test_approx_eq paczynski(-1e-10)  -1e10
 @test_approx_eq paczynski(1e-1)    10.037461005722337
