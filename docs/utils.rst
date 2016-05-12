@@ -1302,9 +1302,7 @@ Code of this function is based on IDL Astronomy User's Library.
 get\_date
 ~~~~~~~~~
 
-.. function:: get_date([date::DateTime]) -> string
-    get_date([date::DateTime;] old=true) -> string
-    get_date([date::DateTime;] timetag=true) -> string
+.. function:: get_date([date, old=true, timetag=true]) -> string
 
 Purpose
 '''''''
@@ -1321,7 +1319,13 @@ Argument
 ''''''''
 
 -  ``date`` (optional): the date in UTC standard, of ``DateTime`` type.
-   If omitted, defaults to the current UTC time.
+   If omitted, defaults to the current UTC time. It can be either a
+   single date or an array of dates. When it is a single date, it can be
+   a ``DateTime`` type or anything that can be converted to that type.
+   If you are providing an array of dates, they can be of type
+   ``DateTime``, ``Date``, or an ``AbstractString`` that can be directly
+   converted to ``DateTime``. Note that you must provide homogeneous
+   arrays, you cannot mix element with different types.
 -  ``old`` (optional boolean keyword): see below.
 -  ``timetag`` (optional boolean keyword): see below.
 

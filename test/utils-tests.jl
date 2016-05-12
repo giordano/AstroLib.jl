@@ -214,8 +214,15 @@ end
 
 # Test get_date with mixed keywords.
 @test get_date(DateTime(2001,09,25,14,56,14), old=true,timetag=true) ==
+    get_date(2001,09,25,14,56,14, old=true,timetag=true) ==
+    get_date("2001-09-25T14:56:14", old=true,timetag=true) ==
     "25/09/2001T14:56:14"
-@test get_date(DateTime(2001,09,25,14,56,14)) == "2001-09-25"
+@test get_date(DateTime(2001,09,25,14,56,14)) ==
+    get_date(2001,09,25,14,56,14) == get_date("2001-09-25T14:56:14") ==
+    "2001-09-25"
+@test get_date([DateTime(2024), DateTime(2016, 3, 14)]) ==
+    get_date([Date(2024), Date(2016, 3, 14)]) ==
+    get_date(["2024-01", "2016-03-14"]) == ["2024-01-01", "2016-03-14"]
 
 # Test gcirc.
 @test_approx_eq gcirc(0, [0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.222450611061632,

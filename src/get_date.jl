@@ -2,9 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-    get_date([date::DateTime]) -> string
-    get_date([date::DateTime;] old=true) -> string
-    get_date([date::DateTime;] timetag=true) -> string
+    get_date([date, old=true, timetag=true]) -> string
 
 ### Purpose ###
 
@@ -18,7 +16,12 @@ header.
 ### Argument ###
 
 * `date` (optional): the date in UTC standard, of `DateTime` type.  If omitted,
-  defaults to the current UTC time.
+  defaults to the current UTC time.  It can be either a single date or an array
+  of dates.  When it is a single date, it can be a `DateTime` type or anything
+  that can be converted to that type.  If you are providing an array of dates,
+  they can be of type `DateTime`, `Date`, or an `AbstractString` that can be
+  directly converted to `DateTime`.  Note that you must provide homogeneous
+  arrays, you cannot mix element with different types.
 * `old` (optional boolean keyword): see below.
 * `timetag` (optional boolean keyword): see below.
 
@@ -59,8 +62,7 @@ julia> get_date(timetag=true)
  use TAI time) should look at Bill Thompson's time routines in
  http://sohowww.nascom.nasa.gov/solarsoft/gen/idl/time
 """
-function get_date(dt::DateTime=Dates.unix2datetime(Libc.time());
-                  old::Bool=false, timetag::Bool=false)
+function get_date(dt::DateTime, old::Bool, timetag::Bool)
     # Based on `Base.string' definition in base/dates/io.jl.
     y, m, d = Dates.yearmonthday(dt)
     h, mi, s = Dates.hour(dt), Dates.minute(dt), Dates.second(dt)
@@ -80,4 +82,39 @@ function get_date(dt::DateTime=Dates.unix2datetime(Libc.time());
     else
         return ymds
     end
+end
+
+# Scalar function
+get_date(dt::DateTime=Dates.unix2datetime(Libc.time());
+         old::Bool=false, timetag::Bool=false) = get_date(dt, old, timetag)
+
+get_date(dt...; old::Bool=false, timetag::Bool=false) =
+    get_date(DateTime(dt...), old, timetag)
+
+# Vectorial function
+function get_date{D<:DateTime}(dt::AbstractArray{D};
+                               old::Bool=false, timetag::Bool=false)
+    dates = similar(dt, String)
+    for i in eachindex(dt)
+        dates[i] = get_date(dt[i], old, timetag)
+    end
+    return dates
+end
+
+function get_date{D<:Date}(dt::AbstractArray{D};
+                           old::Bool=false, timetag::Bool=false)
+    dates = similar(dt, String)
+    for i in eachindex(dt)
+        dates[i] = get_date(dt[i], old=old, timetag=timetag)
+    end
+    return dates
+end
+
+function get_date{S<:AbstractString}(dt::AbstractArray{S};
+                           old::Bool=false, timetag::Bool=false)
+    dates = similar(dt, String)
+    for i in eachindex(dt)
+        dates[i] = get_date(dt[i], old=old, timetag=timetag)
+    end
+    return dates
 end
