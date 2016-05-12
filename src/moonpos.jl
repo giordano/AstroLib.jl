@@ -104,7 +104,7 @@ difference in the position calculation.
 (1) Find the position of the moon on April 12, 1992
 
 ``` julia
-julia> jd = jdcnv(DateTime(1992, 4, 12));
+julia> jd = jdcnv(1992, 4, 12);
 
 julia> adstring(moonpos(jd)[1:2],precision=1)
 " 08 58 45.23  +13 46 06.1"
@@ -133,9 +133,9 @@ julia> plot(days, distance)
 If you want a smoother plot, increase sampling of `days` variable:
 
 ``` julia
-julia> days = DateTime(2016, 6, 1):Dates.Hour(1):DateTime(2016, 7, 31);
+julia> hours = DateTime(2016, 6, 1):Dates.Hour(1):DateTime(2016, 7, 31);
 
-julia> plot(days, moonpos(jdcnv(days))[3])
+julia> plot(hours, moonpos(jdcnv(hours))[3])
 ```
 
 ### Notes ###

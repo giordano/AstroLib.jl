@@ -678,7 +678,7 @@ Note: equatorial radii of Solar System planets are stored into
 
     julia> x = AstroLib.PLANETSRADII["earth"][1] + 600;
 
-    julia> lat, long, alt = eci2geo(x, 0, 0, jdcnv(DateTime("2015-06-30T14:03:12.857")))
+    julia> lat, long, alt = eci2geo(x, 0, 0, jdcnv("2015-06-30T14:03:12.857"))
     (0.0,230.87301833205856,600.0)
 
 These coordinates can be further transformed into geodetic coordinates
@@ -973,7 +973,7 @@ Greenwich's meridian on 2015-06-30T14:03:12.857
 
 .. code-block:: julia
 
-    julia> geo2eci(0, 0, 0, jdcnv(DateTime("2015-06-30T14:03:12.857")))
+    julia> geo2eci(0, 0, 0, jdcnv("2015-06-30T14:03:12.857"))
     (-4024.8671780315185,4947.835465127513,0.0)
 
 Notes
@@ -1333,14 +1333,10 @@ keywords.
 
 -  When no optional keywords (``timetag`` and ``old``) are supplied, the
    format of the output string is ``"CCYY-MM-DD"`` (year-month-day part
-   of the date), where represents a 4-digit calendar year, the 2-digit
-   ordinal number of a calendar month within the calendar year, and
-
-   .. raw:: html
-
-      <DD>
-
-   the 2-digit ordinal number of a day within the calendar month.
+   of the date), where ``CCYY`` represents a 4-digit calendar year,
+   ``MM`` the 2-digit ordinal number of a calendar month within the
+   calendar year, and ``DD`` the 2-digit ordinal number of a day within
+   the calendar month.
 -  If the boolean keyword ``old`` is true (default: false), the
    year-month-day part of date has ``"DD/MM/YY"`` format. This is the
    formerly (pre-1997) recommended for FITS. Note that this format is
@@ -1640,7 +1636,7 @@ Code of this function is based on IDL Astronomy User's Library.
 jdcnv
 ~~~~~
 
-.. function:: jdcnv(date::DateTime) -> julian_days
+.. function:: jdcnv(date) -> julian_days
 
 Purpose
 '''''''
@@ -1657,7 +1653,26 @@ number of Julian calendar days since epoch ``-4713-11-24T12:00:00``.
 Argument
 ''''''''
 
--  ``date``: date of ``DateTime`` type, in proleptic Gregorian Calendar.
+-  ``date``: date in proleptic Gregorian Calendar. Can be either a
+   scalar or an array.
+
+When the argument is a single date, following types are recognized:
+
+-  ``DateTime``
+-  anything that can be converted to ``DateTime``. For example, you can
+   specify the date by parts (``(y[, m, d, h, mi, s, ms])``), or as a
+   string accepted by ``DateTime``, or as a ``Date`` type.
+
+When ``date`` is an array it accepts the elements of the following
+types:
+
+-  ``DateTime``
+-  ``Date``
+-  ``AbstractString`` that can be directly parsed by ``DateTime``.
+
+Arrays must be homogenous, you cannot mix elements of different type.
+
+Note that in all cases missing parts of the date are assumed to be zero.
 
 Output
 ''''''
@@ -1667,12 +1682,18 @@ Number of Julian days, as a floating point.
 Example
 '''''''
 
-Find the Julian days number at 2009 August 23, 03:39:06.
+Find the Julian days number at 2016 August 23, 03:39:06.
 
 .. code-block:: julia
 
-    julia> jdcnv(DateTime(2009, 08, 23, 03, 39, 06))
-    2.4550666521527776e6
+    julia> jdcnv(DateTime(2016, 08, 23, 03, 39, 06))
+    2.4576236521527776e6
+
+    julia> jdcnv(2016, 08, 23, 03, 39, 06)
+    2.4576236521527776e6
+
+    julia> jdcnv("2016-08-23T03:39:06")
+    2.4576236521527776e6
 
 Notes
 '''''
@@ -2129,7 +2150,7 @@ Example
 
 .. code-block:: julia
 
-    julia> jd = jdcnv(DateTime(1992, 4, 12));
+    julia> jd = jdcnv(1992, 4, 12);
 
     julia> adstring(moonpos(jd)[1:2],precision=1)
     " 08 58 45.23  +13 46 06.1"
@@ -2159,9 +2180,9 @@ If you want a smoother plot, increase sampling of ``days`` variable:
 
 .. code-block:: julia
 
-    julia> days = DateTime(2016, 6, 1):Dates.Hour(1):DateTime(2016, 7, 31);
+    julia> hours = DateTime(2016, 6, 1):Dates.Hour(1):DateTime(2016, 7, 31);
 
-    julia> plot(days, moonpos(jdcnv(days))[3])
+    julia> plot(hours, moonpos(jdcnv(hours))[3])
 
 Notes
 '''''
@@ -2211,7 +2232,7 @@ Example
 
 .. code-block:: julia
 
-    julia> jd = jdcnv(DateTime(1987, 4, 10));
+    julia> jd = jdcnv(1987, 4, 10);
 
     julia> nutate(jd)
     (-3.787931077110755,9.442520698644401)
@@ -2221,9 +2242,9 @@ Example
 
 .. code-block:: julia
 
-    julia> yr = DateTime(2000):DateTime(2100);
+    julia> years = DateTime(2000):DateTime(2100);
 
-    julia> long, obl = nutate(jdcnv(yr));
+    julia> long, obl = nutate(jdcnv(years));
 
 Using a plotting tool you can visualize the change of nutation over
 years. For example, with
@@ -3084,9 +3105,7 @@ Example
 
 .. code-block:: julia
 
-    julia> jd = jdcnv(DateTime(1982, 5, 1));
-
-    julia> adstring(sunpos(jd)[1:2], precision=2)
+    julia> adstring(sunpos(jdcnv(1982, 5, 1))[1:2], precision=2)
     " 02 31 32.614  +14 54 34.92"
 
 The Astronomical Almanac gives ``02 31 32.58 +14 54 34.9`` so the error

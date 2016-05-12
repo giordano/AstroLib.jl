@@ -27,18 +27,18 @@ header.
 A string with the date formatted according to the given optional keywords.
 
 * When no optional keywords (`timetag` and `old`) are supplied, the format of
- the output string is `"CCYY-MM-DD"` (year-month-day part of the date), where
- <CCYY> represents a 4-digit calendar year, <MM> the 2-digit ordinal number of a
- calendar month within the calendar year, and <DD> the 2-digit ordinal number of
- a day within the calendar month.
+  the output string is `"CCYY-MM-DD"` (year-month-day part of the date), where
+  `CCYY` represents a 4-digit calendar year, `MM` the 2-digit ordinal number of
+  a calendar month within the calendar year, and `DD` the 2-digit ordinal number
+  of a day within the calendar month.
 * If the boolean keyword `old` is true (default: false), the year-month-day part
- of date has `"DD/MM/YY"` format.  This is the formerly (pre-1997) recommended
- for FITS.  Note that this format is now deprecated because it uses only a
- 2-digit representation of the year.
+  of date has `"DD/MM/YY"` format.  This is the formerly (pre-1997) recommended
+  for FITS.  Note that this format is now deprecated because it uses only a
+  2-digit representation of the year.
 * If the boolean keyword `timetag` is true (default: false), `"Thh:mm:ss"` is
- appended to the year-month-day part of the date, where <hh> represents the hour
- in the day, <mm> the minutes, <ss> the seconds, and the literal 'T' the ISO
- 8601 time designator.
+  appended to the year-month-day part of the date, where <hh> represents the
+  hour in the day, <mm> the minutes, <ss> the seconds, and the literal 'T' the
+  ISO 8601 time designator.
 
 Note that `old` and `timetag` keywords can be used together, so that the output
 string will have `"DD/MM/YYThh:mm:ss"` format.

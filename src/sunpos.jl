@@ -40,9 +40,7 @@ by CD Pike, which was adapted from a FORTRAN routine by B. Emerson (RGO).
 (1) Find the apparent right ascension and declination of the Sun on May 1, 1982
 
 ``` julia
-julia> jd = jdcnv(DateTime(1982, 5, 1));
-
-julia> adstring(sunpos(jd)[1:2], precision=2)
+julia> adstring(sunpos(jdcnv(1982, 5, 1))[1:2], precision=2)
 " 02 31 32.614  +14 54 34.92"
 ```
 

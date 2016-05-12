@@ -71,7 +71,7 @@ all terms larger than 0.0003".
 example 22.a from Meeus
 
 ``` julia
-julia> jd = jdcnv(DateTime(1987, 4, 10));
+julia> jd = jdcnv(1987, 4, 10);
 
 julia> nutate(jd)
 (-3.787931077110755,9.442520698644401)
@@ -80,9 +80,9 @@ julia> nutate(jd)
 (2) Get the daily nutation in longitude and obliquity during the 21st century
 
 ``` julia
-julia> yr = DateTime(2000):DateTime(2100);
+julia> years = DateTime(2000):DateTime(2100);
 
-julia> long, obl = nutate(jdcnv(yr));
+julia> long, obl = nutate(jdcnv(years));
 ```
 
 Using a plotting tool you can visualize the change of nutation over years.  For

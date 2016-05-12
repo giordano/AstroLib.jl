@@ -48,7 +48,7 @@ System planets are stored into `AstroLib.PLANETSRADII` dictionary.
 ``` julia
 julia> x = AstroLib.PLANETSRADII["earth"][1] + 600;
 
-julia> lat, long, alt = eci2geo(x, 0, 0, jdcnv(DateTime("2015-06-30T14:03:12.857")))
+julia> lat, long, alt = eci2geo(x, 0, 0, jdcnv("2015-06-30T14:03:12.857"))
 (0.0,230.87301833205856,600.0)
 ```
 

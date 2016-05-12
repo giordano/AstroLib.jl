@@ -66,7 +66,7 @@ end
 
 #test ct2lst
 @test_approx_eq ct2lst(-76.72, -4, [DateTime(2008, 7, 30, 15, 53)]) [11.356505172312609]
-@test_approx_eq ct2lst(9, [jdcnv(DateTime(2015, 11, 24, 12, 21))]) [17.159574059885927]
+@test_approx_eq ct2lst(9, [jdcnv(2015, 11, 24, 12, 21)]) [17.159574059885927]
 
 # Test daycnv with Gregorian Calendar in force.
 @test daycnv(2440000.0) == DateTime(1968, 05, 23, 12)
@@ -93,7 +93,7 @@ let
     @test_approx_eq lat  [0]
     @test_approx_eq long [12.992783145436988]
     @test_approx_eq alt  [-6378.137]
-    lat, long, alt = eci2geo((6978.137, 0, 0), jdcnv(DateTime("2015-06-30T14:03:12.857")))
+    lat, long, alt = eci2geo((6978.137, 0, 0), jdcnv("2015-06-30T14:03:12.857"))
     @test_approx_eq lat  0
     @test_approx_eq long 230.87301833205856
     @test_approx_eq alt  600
@@ -147,7 +147,7 @@ let
     @test_approx_eq x [6214.846433007192]
     @test_approx_eq y [-1433.9858454345972]
     @test_approx_eq z [0.0]
-    x, y, z = geo2eci((0,0,0), jdcnv(DateTime("2015-06-30T14:03:12.857")))
+    x, y, z = geo2eci((0,0,0), jdcnv("2015-06-30T14:03:12.857"))
     @test_approx_eq x -4024.8671780315185
     @test_approx_eq y 4947.835465127513
     @test_approx_eq z 0.0
@@ -248,9 +248,12 @@ end
 @test_approx_eq helio_jd(2000, 12, 88, diff=true) -167.24845957792076
 
 # Test jdcnv.
-@test_approx_eq jdcnv(DateTime(-4713, 11, 24, 12)) 0.0
-@test_approx_eq jdcnv(DateTime(763, 09, 18, 12)) 2000000.0
+@test_approx_eq jdcnv(-4713, 11, 24, 12) 0.0
+@test jdcnv(763, 09, 18, 12) == jdcnv("763-09-18T12") == 2000000.0
 @test (jd=1234567.89; jdcnv(daycnv(jd)) == jd)
+@test jdcnv([DateTime(2016, 07, 31), DateTime(1969, 07, 20)]) ==
+    jdcnv([Date(2016, 07, 31), Date(1969, 07, 20)]) ==
+    jdcnv(["2016-07-31", "1969-07-20"])
 
 # Test juldate with Gregorian Calendar in force.  This also makes sure precision
 # of the result is high enough.  Note that "juldate(dt::DateTime) =
@@ -321,7 +324,7 @@ end
 let
     local ra, dec, dis, lng, lat
     ra, dec, dis, lng, lat =
-        moonpos(jdcnv(DateTime(1992, 4, 12)))
+        moonpos(jdcnv(1992, 4, 12))
     @test_approx_eq ra  134.68846854844108
     @test_approx_eq dec 13.768366630560255
     @test_approx_eq dis 368409.68481612665
@@ -339,7 +342,7 @@ end
 # Test nutate
 let
     local long, obl
-    long, obl = nutate(jdcnv(DateTime(1987, 4, 10)))
+    long, obl = nutate(jdcnv(1987, 4, 10))
     @test_approx_eq long -3.787931077110755
     @test_approx_eq obl   9.442520698644401
     long, obl = nutate(2457521)
@@ -472,7 +475,7 @@ end
 # Test sunpos
 let
     local ra, dec, lon, obl
-    ra, dec, lon, obl = sunpos(jdcnv(DateTime(1982, 5, 1)))
+    ra, dec, lon, obl = sunpos(jdcnv(1982, 5, 1))
     @test_approx_eq ra  37.88589057369026
     @test_approx_eq dec 14.909699471099517
     @test_approx_eq lon 2309.6312912217463
