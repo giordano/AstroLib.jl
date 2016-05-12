@@ -2071,6 +2071,105 @@ Example
 
 --------------
 
+moonpos
+~~~~~~~
+
+.. function:: moonpos(jd[, radians=true]) -> ra, dec, dis, geolong, geolat
+
+Purpose
+'''''''
+
+Compute the right ascension and declination of the Moon at specified
+Julian date.
+
+Arguments
+'''''''''
+
+-  ``jd``: the Julian ephemeris date. It can be either a scalar or an
+   array
+-  ``radians`` (optional boolean keyword): if set to ``true``, then all
+   output angular quantities are given in radians rather than degrees.
+   The default is ``false``
+
+Output
+''''''
+
+The 5-tuple ``(ra, dec, dis, geolong, geolat)``:
+
+-  ``ra``: apparent right ascension of the Moon in degrees, referred to
+   the true equator of the specified date(s)
+-  ``dec``: the declination of the Moon in degrees
+-  ``dis``: the distance between the centre of the Earth and the centre
+   of the Moon in kilometers
+-  ``geolong``: apparent longitude of the moon in degrees, referred to
+   the ecliptic of the specified date(s)
+-  ``geolat``: apparent longitude of the moon in degrees, referred to
+   the ecliptic of the specified date(s)
+
+If ``jd`` is an array, then all output quantities are arrays of the same
+length as ``jd``.
+
+Method
+''''''
+
+Derived from the Chapront ELP2000/82 Lunar Theory (Chapront-Touze' and
+Chapront, 1983, 124, 50), as described by Jean Meeus in Chapter 47 of
+\`\`Astronomical Algorithms'' (Willmann-Bell, Richmond), 2nd edition,
+1998. Meeus quotes an approximate accuracy of 10" in longitude and 4" in
+latitude, but he does not give the time range for this accuracy.
+
+Comparison of the IDL procedure with the example in \`\`Astronomical
+Algorithms'' reveals a very small discrepancy (~1 km) in the distance
+computation, but no difference in the position calculation.
+
+Example
+'''''''
+
+(1) Find the position of the moon on April 12, 1992
+
+.. code-block:: julia
+
+    julia> jd = jdcnv(DateTime(1992, 4, 12));
+
+    julia> adstring(moonpos(jd)[1:2],precision=1)
+    " 08 58 45.23  +13 46 06.1"
+
+This is within 1" from the position given in the Astronomical Almanac.
+
+(2) Get the Earth-moon distance for every day at 0 TD during months of
+    June and July 2016.
+
+.. code-block:: julia
+
+    julia> days = DateTime(2016, 6, 1):DateTime(2016, 7, 31);
+
+    julia> distance = moonpos(jdcnv(days))[3];
+
+Using a plotting tool you can also visualize how the distance is
+changing over time. For example, with
+`PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__
+
+.. code-block:: julia
+
+    julia> using PyPlot
+
+    julia> plot(days, distance)
+
+If you want a smoother plot, increase sampling of ``days`` variable:
+
+.. code-block:: julia
+
+    julia> days = DateTime(2016, 6, 1):Dates.Hour(1):DateTime(2016, 7, 31);
+
+    julia> plot(days, moonpos(jdcnv(days))[3])
+
+Notes
+'''''
+
+Code of this function is based on IDL Astronomy User's Library.
+
+--------------
+
 nutate
 ~~~~~~
 

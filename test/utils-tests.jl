@@ -317,6 +317,25 @@ end
 @test (list=[1, 2, 3]; month_cnv(month_cnv(list)) == list)
 @test (list=["July", "March", "November"]; month_cnv(month_cnv(list)) == list)
 
+# Test moonpos
+let
+    local ra, dec, dis, lng, lat
+    ra, dec, dis, lng, lat =
+        moonpos(jdcnv(DateTime(1992, 4, 12)))
+    @test_approx_eq ra  134.68846854844108
+    @test_approx_eq dec 13.768366630560255
+    @test_approx_eq dis 368409.68481612665
+    @test_approx_eq lng 133.16726428105378
+    @test_approx_eq lat -3.2291264192144356
+    ra, dec, dis, lng, lat =
+        moonpos([2457521], radians=true)
+    @test_approx_eq ra  2.2587950290926178
+    @test_approx_eq dec 0.26183388011392217
+    @test_approx_eq dis 385634.68772395694
+    @test_approx_eq lng 2.232459255739553
+    @test_approx_eq lat -0.059294466326164315
+end
+
 # Test nutate
 let
     local long, obl

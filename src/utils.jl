@@ -90,6 +90,9 @@ export mag2geo
 include("month_cnv.jl")
 export month_cnv
 
+include("moonpos.jl")
+export moonpos
+
 include("nutate.jl")
 export nutate
 
