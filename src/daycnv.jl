@@ -25,8 +25,8 @@ given Julian days number.
 ### Example ###
 
 ``` julia
-julia> daycnv(2440000)
-1968-05-23T12:00:00
+daycnv(2440000)
+# => 1968-05-23T12:00:00
 ```
 
 ### Notes ###

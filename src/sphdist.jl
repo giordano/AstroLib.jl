@@ -26,8 +26,8 @@ is expressed in radians unless `degrees` keyword is set to `true`.
 ### Example ###
 
 ``` julia
-julia> sphdist(120, -43, 175, +22)
-1.5904422616007134
+sphdist(120, -43, 175, +22)
+# => 1.5904422616007134
 ```
 
 ### Notes ###

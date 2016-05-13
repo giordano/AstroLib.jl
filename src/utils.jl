@@ -85,14 +85,14 @@ export mag2flux
 include("mag2geo.jl")
 export mag2geo
 
-include("mphase.jl")
-export mphase
-
 include("month_cnv.jl")
 export month_cnv
 
 include("moonpos.jl")
 export moonpos
+
+include("mphase.jl")
+export mphase
 
 include("nutate.jl")
 export nutate

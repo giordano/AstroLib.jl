@@ -66,13 +66,12 @@ Example
 
 .. code-block:: julia
 
-    julia> adstring(30.4, -1.23, truncate=true)
-    " 02 01 35.9  -01 13 48"
-
-    julia> adstring([30.4, -15.63], [-1.23, 48.41], precision=1)
-    2-element Array{AbstractString,1}:
-     " 02 01 36.00  -01 13 48.0"
-     "-22 57 28.80  +48 24 36.0"
+    adstring(30.4, -1.23, truncate=true)
+    # => " 02 01 35.9  -01 13 48"
+    adstring([30.4, -15.63], [-1.23, 48.41], precision=1)
+    # => 2-element Array{AbstractString,1}:
+    #     " 02 01 36.00  -01 13 48.0"
+    #     "-22 57 28.80  +48 24 36.0"
 
 --------------
 
@@ -170,8 +169,8 @@ coordinates are :math:`(227.23, -8.890)`.
 
 .. code-block:: julia
 
-    julia> x, y = aitoff(227.23, -8.890)
-    (-137.92196683723276,-11.772527357473054)
+    x, y = aitoff(227.23, -8.890)
+    # => (-137.92196683723276,-11.772527357473054)
 
 Notes
 '''''
@@ -239,8 +238,8 @@ this object?
 
 .. code-block:: julia
 
-    julia>  ha, dec = altaz2hadec(ten(59,05,10), ten(133,18,29), 43.07833)
-    (336.6828582472844,19.182450965120402)
+    ha, dec = altaz2hadec(ten(59,05,10), ten(133,18,29), 43.07833)
+    # => (336.6828582472844,19.182450965120402)
 
 The widely available XEPHEM code gets:
 
@@ -344,14 +343,11 @@ star HD 119288. Find the B1950 position.
 
 .. code-block:: julia
 
-    julia> muradec = 100*[-15*0.0257, -0.090]; # convert to century proper motion
-
-    julia> ra = ten(13, 42, 12.74)*15;
-
-    julia> dec = ten(8, 23, 17.69);
-
-    julia> adstring(bprecess(ra, dec, muradec), precision=2)
-    " 13 39 44.526  +08 38 28.63"
+    muradec = 100*[-15*0.0257, -0.090]; # convert to century proper motion
+    ra = ten(13, 42, 12.74)*15;
+    decl = ten(8, 23, 17.69);
+    adstring(bprecess(ra, decl, muradec), precision=2)
+    # => " 13 39 44.526  +08 38 28.63"
 
 Notes
 '''''
@@ -413,11 +409,17 @@ Estimate how a flat galaxy spectrum (in wavelength) between
 
 .. code-block:: julia
 
-    julia> wave = reshape(1200:50:3150,40);
+    wave = reshape(1200:50:3150,40);
+    flux = ones(wave);
+    flux_new = calz_unred(wave, flux, -0.1);
 
-    julia> flux = ones(wave);
+Using a plotting tool you can visualize the unreddend flux. For example,
+with `PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__
 
-    julia> calz_unred(wave, flux, -0.1);
+.. code-block:: julia
+
+    using PyPlot
+    plot(wave, flux_new)
 
 Notes
 '''''
@@ -487,14 +489,13 @@ tz=-4
 
 .. code-block:: julia
 
-    julia> ct2lst(-76.72, -4, DateTime(2008, 7, 30, 15, 53))
-    11.356505172312609
-
-    julia> sixty(ans)
-    3-element Array{Float64,1}:
-     11.0    # Hours
-     21.0    # Minutes
-     23.4186 # Seconds
+    lst = ct2lst(-76.72, -4, DateTime(2008, 7, 30, 15, 53))
+    # => 11.356505172312609
+    sixty(lst)
+    # => 3-element Array{Float64,1}:
+    #     11.0    # Hours
+    #     21.0    # Minutes
+    #     23.4186 # Seconds
 
 Find the Greenwich mean sidereal time (GMST) on 2015-11-24 at 13:21 in
 Heidelberg, Germany (longitude=08° 43' E). The timezone is CET or tz=1.
@@ -504,23 +505,18 @@ of Julian days.
 .. code-block:: julia
 
     # Convert longitude to decimals.
-    julia> longitude=ten(8, 43)
-    8.716666666666667
-
+    longitude=ten(8, 43);
     # Get number of Julian days.  Remember to subtract the time zone in
     # order to convert local time to UTC.
-    julia> jd = jdcnv(DateTime(2015, 11, 24, 13, 21) - Dates.Hour(1))
-    2.4573510145833334e6
-
+    jd = jdcnv(DateTime(2015, 11, 24, 13, 21) - Dates.Hour(1));
     # Calculate Greenwich Mean Sidereal Time.
-    julia> ct2lst(longitude, jd)
-    17.140685171005316
-
-    julia> sixty(ans)
-    3-element Array{Float64,1}:
-     17.0    # Hours
-      8.0    # Minutes
-     26.4666 # Seconds
+    lst = ct2lst(longitude, jd)
+    # => 17.140685171005316
+    sixty(lst)
+    # => 3-element Array{Float64,1}:
+    #     17.0    # Hours
+    #     8.0    # Minutes
+    #     26.4666 # Seconds
 
 Notes
 '''''
@@ -562,8 +558,8 @@ Example
 
 .. code-block:: julia
 
-    julia> daycnv(2440000)
-    1968-05-23T12:00:00
+    daycnv(2440000)
+    # => 1968-05-23T12:00:00
 
 Notes
 '''''
@@ -610,8 +606,8 @@ Example
 
 .. code-block:: julia
 
-    julia> deredd(0.5, 0.2, 1.0, 1.0, 0.1)
-    (-0.3,1.165,0.905,-0.665)
+    deredd(0.5, 0.2, 1.0, 1.0, 0.1)
+    # => (-0.3,1.165,0.905,-0.665)
 
 Notes
 '''''
@@ -676,10 +672,9 @@ Note: equatorial radii of Solar System planets are stored into
 
 .. code-block:: julia
 
-    julia> x = AstroLib.PLANETSRADII["earth"][1] + 600;
-
-    julia> lat, long, alt = eci2geo(x, 0, 0, jdcnv("2015-06-30T14:03:12.857"))
-    (0.0,230.87301833205856,600.0)
+    x = AstroLib.PLANETSRADII["earth"][1] + 600;
+    lat, long, alt = eci2geo(x, 0, 0, jdcnv("2015-06-30T14:03:12.857"))
+    # => (0.0,230.87301833205856,600.0)
 
 These coordinates can be further transformed into geodetic coordinates
 using ``geo2geodetic`` or into geomagnetic coordinates using
@@ -738,11 +733,10 @@ Example
 
 .. code-block:: julia
 
-    julia> eqpole(100, 35, southpole=true)
-    (-111.18287262822456,-19.604540237028665)
-
-    julia> eqpole(80, 19)
-    (72.78853915267848,12.83458333897169)
+    eqpole(100, 35, southpole=true)
+    # => (-111.18287262822456,-19.604540237028665)
+    eqpole(80, 19)
+    # => (72.78853915267848,12.83458333897169)
 
 Notes
 '''''
@@ -798,14 +792,12 @@ Example
 
 .. code-block:: julia
 
-    julia> flux2mag(5.2e-15)
-    14.609991640913002
-
-    julia> flux2mag(5.2e-15, 15)
-    20.709991640913003
-
-    julia> flux2mag(5.2e-15, ABwave=15)
-    27.423535345634598
+    flux2mag(5.2e-15)
+    # => 14.609991640913002
+    flux2mag(5.2e-15, 15)
+    # => 20.709991640913003
+    flux2mag(5.2e-15, ABwave=15)
+    # => 27.423535345634598
 
 Notes
 '''''
@@ -902,14 +894,11 @@ Hipparcos catalog, and correct to the LSR.
 
 .. code-block:: julia
 
-    julia> ra=ten(1,9,42.3)*15.; dec = ten(61,32,49.5);
-
-    julia> pmra = 627.89;  pmdec = 77.84; # mas/yr
-
-    julia> vrad = -321.4; dis = 129; # distance in parsecs
-
-    julia> u, v, w = gal_uvw(ra, dec, pmra, pmdec, vrad, 1e3/dis, lsr=true)
-    (118.2110474553902,-466.4828898385057,88.16573278565097)
+    ra=ten(1,9,42.3)*15.; dec = ten(61,32,49.5);
+    pmra = 627.89;  pmdec = 77.84; # mas/yr
+    vrad = -321.4; dis = 129; # distance in parsecs
+    u, v, w = gal_uvw(ra, dec, pmra, pmdec, vrad, 1e3/dis, lsr=true)
+    # => (118.2110474553902,-466.4828898385057,88.16573278565097)
 
 Notes
 '''''
@@ -973,8 +962,8 @@ Greenwich's meridian on 2015-06-30T14:03:12.857
 
 .. code-block:: julia
 
-    julia> geo2eci(0, 0, 0, jdcnv("2015-06-30T14:03:12.857"))
-    (-4024.8671780315185,4947.835465127513,0.0)
+    geo2eci(0, 0, 0, jdcnv("2015-06-30T14:03:12.857"))
+    # => (-4024.8671780315185,4947.835465127513,0.0)
 
 Notes
 '''''
@@ -1075,15 +1064,15 @@ altitude 0 km), in geodetic coordinates:
 
 .. code-block:: julia
 
-    julia> geo2geodetic(90, 0, 0)
-    (90.0,0.0,21.38499999999931)
+    geo2geodetic(90, 0, 0)
+    # => (90.0,0.0,21.38499999999931)
 
 The same for Jupiter:
 
 .. code-block:: julia
 
-    julia> geo2geodetic(90, 0, 0, "Jupiter")
-    (90.0,0.0,4355.443799999994)
+    geo2geodetic(90, 0, 0, "Jupiter")
+    # => (90.0,0.0,4355.443799999994)
 
 Find geodetic coordinates for point of geographic coordinates (latitude,
 longitude, altitude) = (43.16°, -24.32°, 3.87 km) on a planet with
@@ -1091,8 +1080,8 @@ equatorial radius 8724.32 km and polar radius 8619.19 km:
 
 .. code-block:: julia
 
-    julia> geo2geodetic(43.16, -24.32, 3.87, 8724.32, 8619.19)
-    (43.849399515234516,-24.32,53.53354478670836)
+    geo2geodetic(43.16, -24.32, 3.87, 8724.32, 8619.19)
+    # => (43.849399515234516,-24.32,53.53354478670836)
 
 Notes
 '''''
@@ -1112,11 +1101,11 @@ accuracy of ``geo2geodetic``.
 
 .. code-block:: julia
 
-    julia> collect(geodetic2geo(geo2geodetic(67.2, 13.4, 1.2))) - [67.2, 13.4, 1.2]
-    3-element Array{Float64,1}:
-     -3.56724e-9
-      0.0
-      9.47512e-10
+    collect(geodetic2geo(geo2geodetic(67.2, 13.4, 1.2))) - [67.2, 13.4, 1.2]
+    # => 3-element Array{Float64,1}:
+    #     -3.56724e-9
+    #      0.0
+    #      9.47512e-10
 
 Code of this function is based on IDL Astronomy User's Library.
 
@@ -1164,8 +1153,8 @@ its geomagnetic coordinates in 2016:
 
 .. code-block:: julia
 
-    julia> geo2mag(ten(35,0,42), ten(135,46,6), 2016)
-    (36.86579228937769,-60.184060536651614)
+    geo2mag(ten(35,0,42), ten(135,46,6), 2016)
+    # => (36.86579228937769,-60.184060536651614)
 
 Notes
 '''''
@@ -1270,15 +1259,15 @@ longitude: 0°, altitude 0 km) of the Earth:
 
 .. code-block:: julia
 
-    julia> geodetic2geo(90, 0, 0)
-    (90.0,0.0,-21.38499999999931)
+    geodetic2geo(90, 0, 0)
+    # => (90.0,0.0,-21.38499999999931)
 
 The same for Jupiter:
 
 .. code-block:: julia
 
-    julia> geodetic2geo(90, 0, 0, "Jupiter")
-    (90.0,0.0,-4355.443799999994)
+    geodetic2geo(90, 0, 0, "Jupiter")
+    # => (90.0,0.0,-4355.443799999994)
 
 Find geographic coordinates for point of geodetic coordinates (latitude,
 longitude, altitude) = (43.16°, -24.32°, 3.87 km) on a planet with
@@ -1286,8 +1275,8 @@ equatorial radius 8724.32 km and polar radius 8619.19 km:
 
 .. code-block:: julia
 
-    julia> geodetic2geo(43.16, -24.32, 3.87, 8724.32, 8619.19)
-    (42.46772711708433,-24.32,-44.52902080669082)
+    geodetic2geo(43.16, -24.32, 3.87, 8724.32, 8619.19)
+    # => (42.46772711708433,-24.32,-44.52902080669082)
 
 Notes
 '''''
@@ -1357,8 +1346,8 @@ Example
 
 .. code-block:: julia
 
-    julia> get_date(timetag=true)
-    "2016-03-14T11:26:23"
+    get_date(timetag=true)
+    # => "2016-03-14T11:26:23"
 
 Notes
 '''''
@@ -1393,11 +1382,8 @@ Example
 
 .. code-block:: julia
 
-    julia> get_juldate()
-    2.4574620222685183e6
-
-    julia> daycnv(get_juldate())
-    2016-03-14T12:32:13
+    get_juldate()
+    daycnv(get_juldate())
 
 Notes
 '''''
@@ -1460,8 +1446,8 @@ Example
 
 .. code-block:: julia
 
-    julia> gcirc(0, 120, -43, 175, +22)
-    1.590442261600714
+    gcirc(0, 120, -43, 175, +22)
+    # => 1.590442261600714
 
 Notes
 '''''
@@ -1536,8 +1522,8 @@ the local altitude and azimuth of this object?
 
 .. code-block:: julia
 
-    julia> alt, az = hadec2altaz(336.6829, 19.1825, ten(43, 4, 42))
-    (59.08617155005683,133.3080693440254)
+    alt, az = hadec2altaz(336.6829, 19.1825, ten(43, 4, 42))
+    # => (59.08617155005683,133.3080693440254)
 
 Notes
 '''''
@@ -1607,10 +1593,9 @@ UT?
 
 .. code-block:: julia
 
-    julia> jd = juldate(2016, 6, 15, 11, 40);
-
-    julia> helio_jd(jd, ten(20, 9, 7.8)*15, ten(37, 9, 7))
-    57554.98808289718
+    jd = juldate(2016, 6, 15, 11, 40);
+    helio_jd(jd, ten(20, 9, 7.8)*15, ten(37, 9, 7))
+    # => 57554.98808289718
 
 Notes
 '''''
@@ -1673,14 +1658,12 @@ Find the Julian days number at 2016 August 23, 03:39:06.
 
 .. code-block:: julia
 
-    julia> jdcnv(DateTime(2016, 08, 23, 03, 39, 06))
-    2.4576236521527776e6
-
-    julia> jdcnv(2016, 08, 23, 03, 39, 06)
-    2.4576236521527776e6
-
-    julia> jdcnv("2016-08-23T03:39:06")
-    2.4576236521527776e6
+    jdcnv(DateTime(2016, 08, 23, 03, 39, 06))
+    # => 2.4576236521527776e6
+    jdcnv(2016, 08, 23, 03, 39, 06)
+    # => 2.4576236521527776e6
+    jdcnv("2016-08-23T03:39:06")
+    # => 2.4576236521527776e6
 
 Notes
 '''''
@@ -1738,14 +1721,12 @@ Get number of Reduced Julian Days at 2016-03-20T15:24:00.
 
 .. code-block:: julia
 
-    julia> juldate(DateTime(2016, 03, 20, 15, 24))
-    57468.14166666667
-
-    julia> juldate(2016, 03, 20, 15, 24)
-    57468.14166666667
-
-    julia> juldate("2016-03-20T15:24")
-    57468.14166666667
+    juldate(DateTime(2016, 03, 20, 15, 24))
+    # => 57468.14166666667
+    juldate(2016, 03, 20, 15, 24)
+    # => 57468.14166666667
+    juldate("2016-03-20T15:24")
+    # => 57468.14166666667
 
 Notes
 '''''
@@ -1831,13 +1812,11 @@ eccentricity :math:`e = 0.7` and for :math:`M(t) = 8\pi/3`.
 
 .. code-block:: julia
 
-    julia> ecc = 0.7;
-
-    julia> E = kepler_solver(8pi/3, ecc)
-    2.5085279492864223
-
-    julia> θ = 2*atan(sqrt((1.0 + ecc)/(1.0 - ecc))*tan(E/2.0))
-    2.8681167800611607
+    ecc = 0.7;
+    E = kepler_solver(8pi/3, ecc)
+    # => 2.5085279492864223
+    θ = 2*atan(sqrt((1.0 + ecc)/(1.0 - ecc))*tan(E/2.0))
+    # => 2.8681167800611607
 
 --------------
 
@@ -1892,12 +1871,14 @@ The 2-tuple (``velocity_grid``, ``lsf``):
 Example
 '''''''
 
-Compute the line spread function for a star rotating at 90 km/s in
-velocity space every 3 km/s:
+Plot the line spread function for a star rotating at 90 km/s in velocity
+space every 3 km/s. Use
+`PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__ for plotting.
 
 .. code-block:: julia
 
-    julia> velocity_grid, lsf = lsf_rotate(3, 90)
+    using PyPlot
+    plot(lsf_rotate(3, 90)...)
 
 Notes
 '''''
@@ -1953,14 +1934,12 @@ Example
 
 .. code-block:: julia
 
-    julia> mag2flux(8.3)
-    1.7378008287493692e-12
-
-    julia> mag2flux(8.3, 12)
-    7.58577575029182e-9
-
-    julia> mag2flux(8.3, ABwave=12)
-    3.6244115683017193e-7
+    mag2flux(8.3)
+    # => 1.7378008287493692e-12
+    mag2flux(8.3, 12)
+    # => 7.58577575029182e-9
+    mag2flux(8.3, ABwave=12)
+    # => 3.6244115683017193e-7
 
 Notes
 '''''
@@ -2010,8 +1989,8 @@ Find position of North Magnetic Pole in 2016
 
 .. code-block:: julia
 
-    julia> mag2geo(90, 0, 2016)
-    (86.395,-166.29000000000002)
+    mag2geo(90, 0, 2016)
+    # => (86.395,-166.29000000000002)
 
 Notes
 '''''
@@ -2021,6 +2000,154 @@ World Magnetic Model
 (https://www.ngdc.noaa.gov/geomag/data/poles/NP.xy).
 
 ``geo2mag`` converts geographic coordinates to geomagnetic coordinates.
+
+Code of this function is based on IDL Astronomy User's Library.
+
+--------------
+
+month\_cnv
+~~~~~~~~~~
+
+.. function:: month_cnv(number[, shor=true, up=true, low=true]) -> month_name
+    month_cnv(name) -> number
+
+Purpose
+'''''''
+
+Convert between a month English name and the equivalent number.
+
+Explanation
+'''''''''''
+
+For example, converts from "January" to 1 or vice-versa.
+
+Arguments
+'''''''''
+
+The functions has two methods, one with numeric input (and three
+possible boolean keywords) and the other one with string input.
+
+Numeric input arguments:
+
+-  ``number``: the number of the month to be converted to month name.
+-  ``short`` (optional boolean keyword): if true, the abbreviated
+   (3-character) name of the month will be returned, e.g. "Apr" or
+   "Oct". Default is false.
+-  ``up`` (optional boolean keyword): if true, the name of the month
+   will be all in upper case, e.g. "APRIL" or "OCTOBER". Default is
+   false.
+-  ``low`` (optional boolean keyword): if true, the name of the month
+   will be all in lower case, e.g. "april" or "october". Default is
+   false.
+
+String input argument:
+
+-  ``name``: month name to be converted to month number.
+
+All mandatory arguments can be provided either as a single element or as
+an array.
+
+Output
+''''''
+
+The month name or month number, depending on the input. For numeric
+input, the format of the month name is influenced by the optional
+keywords.
+
+Example
+'''''''
+
+.. code-block:: julia
+
+    month_cnv(["janua", "SEP", "aUgUsT"])
+    # => 3-element Array{Integer,1}:
+    #     1
+    #     9
+    #     8
+    month_cnv([2, 12, 6], short=true, low=true)
+    # => 3-element Array{UTF8String,1}:
+    #     "feb"
+    #     "dec"
+    #     "jun"
+
+--------------
+
+moonpos
+~~~~~~~
+
+.. function:: moonpos(jd[, radians=true]) -> ra, dec, dis, geolong, geolat
+
+Purpose
+'''''''
+
+Compute the right ascension and declination of the Moon at specified
+Julian date.
+
+Arguments
+'''''''''
+
+-  ``jd``: the Julian ephemeris date. It can be either a scalar or an
+   array
+-  ``radians`` (optional boolean keyword): if set to ``true``, then all
+   output angular quantities are given in radians rather than degrees.
+   The default is ``false``
+
+Output
+''''''
+
+The 5-tuple ``(ra, dec, dis, geolong, geolat)``:
+
+-  ``ra``: apparent right ascension of the Moon in degrees, referred to
+   the true equator of the specified date(s)
+-  ``dec``: the declination of the Moon in degrees
+-  ``dis``: the distance between the centre of the Earth and the centre
+   of the Moon in kilometers
+-  ``geolong``: apparent longitude of the moon in degrees, referred to
+   the ecliptic of the specified date(s)
+-  ``geolat``: apparent longitude of the moon in degrees, referred to
+   the ecliptic of the specified date(s)
+
+If ``jd`` is an array, then all output quantities are arrays of the same
+length as ``jd``.
+
+Method
+''''''
+
+Derived from the Chapront ELP2000/82 Lunar Theory (Chapront-Touze' and
+Chapront, 1983, 124, 50), as described by Jean Meeus in Chapter 47 of
+\`\`Astronomical Algorithms'' (Willmann-Bell, Richmond), 2nd edition,
+1998. Meeus quotes an approximate accuracy of 10" in longitude and 4" in
+latitude, but he does not give the time range for this accuracy.
+
+Comparison of the IDL procedure with the example in \`\`Astronomical
+Algorithms'' reveals a very small discrepancy (~1 km) in the distance
+computation, but no difference in the position calculation.
+
+Example
+'''''''
+
+(1) Find the position of the moon on April 12, 1992
+
+.. code-block:: julia
+
+    jd = jdcnv(1992, 4, 12);
+    adstring(moonpos(jd)[1:2],precision=1)
+    # => " 08 58 45.23  +13 46 06.1"
+
+This is within 1" from the position given in the Astronomical Almanac.
+
+(2) Plot the Earth-moon distance during 2016 with sampling of 6 hours.
+    Use `PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__ for
+    plotting
+
+.. code-block:: julia
+
+    using PyPlot
+    points = DateTime(2016):Dates.Hour(6):DateTime(2017);
+    plot(points, moonpos(jdcnv(points))[3])
+
+Notes
+'''''
 
 Code of this function is based on IDL Astronomy User's Library.
 
@@ -2089,173 +2216,6 @@ Code of this function is based on IDL Astronomy User's Library.
 
 --------------
 
-month\_cnv
-~~~~~~~~~~
-
-.. function:: month_cnv(number[, shor=true, up=true, low=true]) -> month_name
-    month_cnv(name) -> number
-
-Purpose
-'''''''
-
-Convert between a month English name and the equivalent number.
-
-Explanation
-'''''''''''
-
-For example, converts from "January" to 1 or vice-versa.
-
-Arguments
-'''''''''
-
-The functions has two methods, one with numeric input (and three
-possible boolean keywords) and the other one with string input.
-
-Numeric input arguments:
-
--  ``number``: the number of the month to be converted to month name.
--  ``short`` (optional boolean keyword): if true, the abbreviated
-   (3-character) name of the month will be returned, e.g. "Apr" or
-   "Oct". Default is false.
--  ``up`` (optional boolean keyword): if true, the name of the month
-   will be all in upper case, e.g. "APRIL" or "OCTOBER". Default is
-   false.
--  ``low`` (optional boolean keyword): if true, the name of the month
-   will be all in lower case, e.g. "april" or "october". Default is
-   false.
-
-String input argument:
-
--  ``name``: month name to be converted to month number.
-
-All mandatory arguments can be provided either as a single element or as
-an array.
-
-Output
-''''''
-
-The month name or month number, depending on the input. For numeric
-input, the format of the month name is influenced by the optional
-keywords.
-
-Example
-'''''''
-
-.. code-block:: julia
-
-    julia> month_cnv(["janua", "SEP", "aUgUsT"])
-    3-element Array{Integer,1}:
-     1
-     9
-     8
-
-    julia> month_cnv([2, 12, 6], short=true, low=true)
-    3-element Array{UTF8String,1}:
-     "feb"
-     "dec"
-     "jun"
-
---------------
-
-moonpos
-~~~~~~~
-
-.. function:: moonpos(jd[, radians=true]) -> ra, dec, dis, geolong, geolat
-
-Purpose
-'''''''
-
-Compute the right ascension and declination of the Moon at specified
-Julian date.
-
-Arguments
-'''''''''
-
--  ``jd``: the Julian ephemeris date. It can be either a scalar or an
-   array
--  ``radians`` (optional boolean keyword): if set to ``true``, then all
-   output angular quantities are given in radians rather than degrees.
-   The default is ``false``
-
-Output
-''''''
-
-The 5-tuple ``(ra, dec, dis, geolong, geolat)``:
-
--  ``ra``: apparent right ascension of the Moon in degrees, referred to
-   the true equator of the specified date(s)
--  ``dec``: the declination of the Moon in degrees
--  ``dis``: the distance between the centre of the Earth and the centre
-   of the Moon in kilometers
--  ``geolong``: apparent longitude of the moon in degrees, referred to
-   the ecliptic of the specified date(s)
--  ``geolat``: apparent longitude of the moon in degrees, referred to
-   the ecliptic of the specified date(s)
-
-If ``jd`` is an array, then all output quantities are arrays of the same
-length as ``jd``.
-
-Method
-''''''
-
-Derived from the Chapront ELP2000/82 Lunar Theory (Chapront-Touze' and
-Chapront, 1983, 124, 50), as described by Jean Meeus in Chapter 47 of
-\`\`Astronomical Algorithms'' (Willmann-Bell, Richmond), 2nd edition,
-1998. Meeus quotes an approximate accuracy of 10" in longitude and 4" in
-latitude, but he does not give the time range for this accuracy.
-
-Comparison of the IDL procedure with the example in \`\`Astronomical
-Algorithms'' reveals a very small discrepancy (~1 km) in the distance
-computation, but no difference in the position calculation.
-
-Example
-'''''''
-
-(1) Find the position of the moon on April 12, 1992
-
-.. code-block:: julia
-
-    julia> jd = jdcnv(1992, 4, 12);
-
-    julia> adstring(moonpos(jd)[1:2],precision=1)
-    " 08 58 45.23  +13 46 06.1"
-
-This is within 1" from the position given in the Astronomical Almanac.
-
-(2) Get the Earth-moon distance for every day at 0 TD during months of
-    June and July 2016.
-
-.. code-block:: julia
-
-    julia> days = DateTime(2016, 6, 1):DateTime(2016, 7, 31);
-
-    julia> distance = moonpos(jdcnv(days))[3];
-
-Using a plotting tool you can also visualize how the distance is
-changing over time. For example, with
-`PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__
-
-.. code-block:: julia
-
-    julia> using PyPlot
-
-    julia> plot(days, distance)
-
-If you want a smoother plot, increase sampling of ``days`` variable:
-
-.. code-block:: julia
-
-    julia> hours = DateTime(2016, 6, 1):Dates.Hour(1):DateTime(2016, 7, 31);
-
-    julia> plot(hours, moonpos(jdcnv(hours))[3])
-
-Notes
-'''''
-
-Code of this function is based on IDL Astronomy User's Library.
-
---------------
-
 nutate
 ~~~~~~
 
@@ -2297,29 +2257,20 @@ Example
 
 .. code-block:: julia
 
-    julia> jd = jdcnv(1987, 4, 10);
+    jd = jdcnv(1987, 4, 10);
+    nutate(jd)
+    # => (-3.787931077110755,9.442520698644401)
 
-    julia> nutate(jd)
-    (-3.787931077110755,9.442520698644401)
-
-(2) Get the daily nutation in longitude and obliquity during the 21st
-    century
-
-.. code-block:: julia
-
-    julia> years = DateTime(2000):DateTime(2100);
-
-    julia> long, obl = nutate(jdcnv(years));
-
-Using a plotting tool you can visualize the change of nutation over
-years. For example, with
-`PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__
+(2) Plot the daily nutation in longitude and obliquity during the 21st
+    century. Use `PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__
+    for plotting.
 
 .. code-block:: julia
 
-    julia> using PyPlot
-
-    julia> plot(yr, long); plot(yr, obl)
+    using PyPlot
+    years = DateTime(2000):DateTime(2100);
+    long, obl = nutate(jdcnv(years));
+    plot(years, long); plot(years, obl)
 
 You can see both the dominant large scale period of nutation, of 18.6
 years, and smaller oscillations with shorter periods.
@@ -2389,13 +2340,13 @@ Calculate the microlensing amplification for :math:`u = 10^{-10}`,
 
 .. code-block:: julia
 
-    julia> paczynski([1e-10, 1e-1, 1, 10, 1e10])
-    5-element Array{Float64,1}:
-      1.0e10
-     10.0375
-      1.34164
-      1.00019
-      1.0
+    paczynski([1e-10, 1e-1, 1, 10, 1e10])
+    # => 5-element Array{Float64,1}:
+    #      1.0e10
+    #     10.0375
+    #      1.34164
+    #      1.00019
+    #      1.0
 
 Notes
 '''''
@@ -2452,16 +2403,17 @@ The spectral radiance of the black body, in units of W/(sr·m²·Hz).
 Example
 '''''''
 
-Calculate the spectrum of a black body in :math:`[10^{12}, 10^{16}]` Hz
-at :math:`8000` K.
+Plot the spectrum of a black body in :math:`[10^{12}, 10^{16}]` Hz at
+:math:`8000` K. Use
+`PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__ for plotting.
 
 .. code-block:: julia
 
-    julia> frequency=logspace(12, 16, 1000);
-
-    julia> temperature=ones(wavelength)*8000;
-
-    julia> flux=planck_freq(frequency, temperature);
+    using PyPlot
+    frequency=logspace(12, 15.4, 1000);
+    temperature=ones(frequency)*8000;
+    flux=planck_freq(frequency, temperature);
+    plot(frequency, flux)
 
 Notes
 '''''
@@ -2511,11 +2463,11 @@ Calculate the spectrum of a black body in :math:`[0, 3]` µm at
 
 .. code-block:: julia
 
-    julia> wavelength=linspace(0, 5e-6, 1000);
-
-    julia> temperature=ones(wavelength)*5000;
-
-    julia> flux=planck_wave(wavelength, temperature);
+    using PyPlot
+    wavelength=linspace(0, 3e-6, 1000);
+    temperature=ones(wavelength)*5000;
+    flux=planck_wave(wavelength, temperature);
+    plot(wavelength, flux)
 
 Notes
 '''''
@@ -2572,8 +2524,8 @@ coordinates :math:`(r, \varphi) = (1.7, 227)`, with angle
 
 .. code-block:: julia
 
-    julia> x, y = polrec(1.7, 227, degrees=true)
-    (-1.1593972121062475,-1.2433012927525897)
+    x, y = polrec(1.7, 227, degrees=true)
+    # => (-1.1593972121062475,-1.2433012927525897)
 
 --------------
 
@@ -2637,8 +2589,8 @@ companion, Alcor, has coordinates (ra, dec) = (13h 25m 13.5s, +54° 59'
 
 .. code-block:: julia
 
-    julia> posang(1, ten(13, 25, 13.5), ten(54, 59, 17), ten(13, 23, 55.5), ten(54, 55, 31))
-    -108.46011246802047
+    posang(1, ten(13, 25, 13.5), ten(54, 59, 17), ten(13, 23, 55.5), ten(54, 55, 31))
+    # => -108.46011246802047
 
 Notes
 '''''
@@ -2708,22 +2660,20 @@ compute its coordinates at J1985.0
 
 .. code-block:: julia
 
-    julia> ra, dec = ten(2,31,46.3)*15, ten(89,15,50.6)
-    (37.94291666666666,89.26405555555556)
-
-    julia> adstring(precess(ra, dec, 2000, 1985), precision=1)
-    " 02 16 22.73  +89 11 47.3"
+    ra, dec = ten(2,31,46.3)*15, ten(89,15,50.6)
+    # => (37.94291666666666,89.26405555555556)
+    adstring(precess(ra, dec, 2000, 1985), precision=1)
+    # => " 02 16 22.73  +89 11 47.3"
 
 Precess the B1950 coordinates of Eps Ind (RA = 21h 59m,33.053s, DEC =
 (-56d, 59', 33.053") to equinox B1975.
 
 .. code-block:: julia
 
-    julia> ra, dec = ten(21, 59, 33.053)*15, ten(-56, 59, 33.053)
-    (329.88772083333333,-56.992514722222225)
-
-    julia> adstring(precess(ra, dec, 1950, 1975, FK4=true), precision=1)
-    " 22 01 15.46  -56 52 18.7"
+    ra, dec = ten(21, 59, 33.053)*15, ten(-56, 59, 33.053)
+    # => (329.88772083333333,-56.992514722222225)
+    adstring(precess(ra, dec, 1950, 1975, FK4=true), precision=1)
+    # => " 22 01 15.46  -56 52 18.7"
 
 Method
 ''''''
@@ -2777,8 +2727,8 @@ Precess 2000 equinox coordinates ``(1, 1, 1)`` to 2050.
 
 .. code-block:: julia
 
-    julia> precess_xyz(1, 1, 1, 2000, 2050)
-    (0.9838854500981734,1.0110925876508692,1.0048189888146941)
+    precess_xyz(1, 1, 1, 2000, 2050)
+    # => (0.9838854500981734,1.0110925876508692,1.0048189888146941)
 
 Method
 ''''''
@@ -2834,11 +2784,11 @@ Return the precession matrix from 1950.0 to 1975.0 in the FK4 system
 
 .. code-block:: julia
 
-    julia> premat(1950,1975,FK4=true)
-    3x3 Array{Float64,2}:
-     0.999981    -0.00558775  -0.00242909
-     0.00558775   0.999984    -6.78691e-6
-     0.00242909  -6.78633e-6   0.999997
+    premat(1950,1975,FK4=true)
+    # => 3x3 Array{Float64,2}:
+    #     0.999981    -0.00558775  -0.00242909
+    #     0.00558775   0.999984    -6.78691e-6
+    #     0.00242909  -6.78633e-6   0.999997
 
 Method
 ''''''
@@ -2904,8 +2854,8 @@ given by
 
 .. code-block:: julia
 
-    julia> radec(6.7525, -16.7161, hours=true)
-    (6.0,45.0,9.0,-16.0,42.0,57.9600000000064)
+    radec(6.7525, -16.7161, hours=true)
+    # => (6.0,45.0,9.0,-16.0,42.0,57.9600000000064)
 
 --------------
 
@@ -2957,8 +2907,8 @@ rectangular coordinates :math:`(x, y) = (2.24, -1.87)`.
 
 .. code-block:: julia
 
-    julia> r, phi = recpol(2.24, -1.87)
-    (2.9179616172938263,-0.6956158538564537)
+    r, phi = recpol(2.24, -1.87)
+    # => (2.9179616172938263,-0.6956158538564537)
 
 Angle :math:`\varphi` is given in radians.
 
@@ -3012,8 +2962,8 @@ Find the position of Eta Coronae Borealis at the epoch 2016
 
 .. code-block:: julia
 
-    julia> ρ, θ = rhotheta(41.623, 1934.008, 0.2763, 0.907, 59.025, 23.717, 219.907, 2016)
-    (0.6351167848228113,214.42513388052114)
+    ρ, θ = rhotheta(41.623, 1934.008, 0.2763, 0.907, 59.025, 23.717, 219.907, 2016)
+    # => (0.6351167848228113,214.42513388052114)
 
 Notes
 '''''
@@ -3053,11 +3003,11 @@ Example
 
 .. code-block:: julia
 
-    julia> sixty(-0.615)
-    3-element Array{Float64,1}:
-     -0.0
-     36.0
-     54.0
+    sixty(-0.615)
+    # => 3-element Array{Float64,1}:
+    #     -0.0
+    #     36.0
+    #     54.0
 
 Notes
 '''''
@@ -3099,8 +3049,8 @@ Example
 
 .. code-block:: julia
 
-    julia> sphdist(120, -43, 175, +22)
-    1.5904422616007134
+    sphdist(120, -43, 175, +22)
+    # => 1.5904422616007134
 
 Notes
 '''''
@@ -3170,20 +3120,22 @@ Example
 
 .. code-block:: julia
 
-    julia> adstring(sunpos(jdcnv(1982, 5, 1))[1:2], precision=2)
-    " 02 31 32.614  +14 54 34.92"
+    adstring(sunpos(jdcnv(1982, 5, 1))[1:2], precision=2)
+    # => " 02 31 32.614  +14 54 34.92"
 
 The Astronomical Almanac gives ``02 31 32.58 +14 54 34.9`` so the error
 for this case is < 0.5".
 
-(2) Find the apparent right ascension and declination of the Sun for
-    every day in 2016
+(2) Plot the apparent right ascension, in hours, and declination of the
+    Sun, in degrees, for every day in 2016. Use
+    `PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__ for plotting.
 
 .. code-block:: julia
 
-    julia> jd = jdcnv(DateTime(2016):DateTime(2016, 12, 31));
-
-    julia> ra, declin = sunpos(jd);
+    using PyPlot
+    days = DateTime(2016):DateTime(2016, 12, 31);
+    ra, declin = sunpos(jdcnv(days));
+    plot(days, ra/15); plot(days, declin)
 
 Notes
 '''''
@@ -3251,14 +3203,12 @@ Example
 
 .. code-block:: julia
 
-    julia> ten(-0.0, 19, 47)
-    -0.3297222222222222
-
-    julia> ten("+5:14:58")
-    5.249444444444444
-
-    julia> ten("-10 26")
-    -10.433333333333334
+    ten(-0.0, 19, 47)
+    # => -0.3297222222222222
+    ten("+5:14:58")
+    # => 5.249444444444444
+    ten("-10 26")
+    # => -10.433333333333334
 
 Notes
 '''''
@@ -3376,11 +3326,10 @@ Almanac (AA) is in TDT, so add 64 seconds to UT to convert.
 
 .. code-block:: julia
 
-    julia> jd = juldate(DateTime(1999, 1, 22))
-    51200.5
-
-    julia> xyz(jd + 64./86400., 2000)
-    (0.5145687092402946,-0.7696326261820777,-0.33376880143026394,0.014947267514081075,0.008314838205475709,0.003606857607574784)
+    jd = juldate(DateTime(1999, 1, 22))
+    # => 51200.5
+    xyz(jd + 64./86400., 2000)
+    # => (0.5145687092402946,-0.7696326261820777,-0.33376880143026394,0.014947267514081075,0.008314838205475709,0.003606857607574784)
 
 Compare to Astronomical Almanac (1999 page C20)
 
@@ -3447,10 +3396,10 @@ Find the date of the 60th and 234th days of the year 2016.
 
 .. code-block:: julia
 
-    julia> ydn2md(2016, [60, 234])
-    2-element Array{Date,1}:
-     2016-02-29
-     2016-08-21
+    ydn2md(2016, [60, 234])
+    # => 2-element Array{Date,1}:
+    #     2016-02-29
+    #     2016-08-21
 
 Note
 ''''
@@ -3494,10 +3443,10 @@ is a leap year).
 
 .. code-block:: julia
 
-    julia> ymd2dn([Date(2015, 3, 5), Date(2016, 3, 5)])
-    2-element Array{Int64,1}:
-     64
-     65
+    ymd2dn([Date(2015, 3, 5), Date(2016, 3, 5)])
+    # => 2-element Array{Int64,1}:
+    #     64
+    #     65
 
 Note
 ''''

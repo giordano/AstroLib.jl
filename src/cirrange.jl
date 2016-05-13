@@ -24,11 +24,11 @@ Restrict an array of numbers in the range \$[0, 2\\pi)\$ as if they are angles
 expressed in radians:
 
 ``` julia
-julia> cirrange([4pi, 10, -5.23], 2.0*pi)
-3-element Array{Float64,1}:
- 0.0
- 3.71681
- 1.05319
+cirrange([4pi, 10, -5.23], 2.0*pi)
+# => 3-element Array{Float64,1}:
+#     0.0
+#     3.71681
+#     1.05319
 ```
 
 ### Notes ###

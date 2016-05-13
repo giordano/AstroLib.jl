@@ -38,22 +38,20 @@ The Pole Star has J2000.0 coordinates (2h, 31m, 46.3s, 89d 15' 50.6"); compute
 its coordinates at J1985.0
 
 ``` julia
-julia> ra, dec = ten(2,31,46.3)*15, ten(89,15,50.6)
-(37.94291666666666,89.26405555555556)
-
-julia> adstring(precess(ra, dec, 2000, 1985), precision=1)
-" 02 16 22.73  +89 11 47.3"
+ra, dec = ten(2,31,46.3)*15, ten(89,15,50.6)
+# => (37.94291666666666,89.26405555555556)
+adstring(precess(ra, dec, 2000, 1985), precision=1)
+# => " 02 16 22.73  +89 11 47.3"
 ```
 
 Precess the B1950 coordinates of Eps Ind (RA = 21h 59m,33.053s, DEC = (-56d,
 59', 33.053") to equinox B1975.
 
 ``` julia
-julia> ra, dec = ten(21, 59, 33.053)*15, ten(-56, 59, 33.053)
-(329.88772083333333,-56.992514722222225)
-
-julia> adstring(precess(ra, dec, 1950, 1975, FK4=true), precision=1)
-" 22 01 15.46  -56 52 18.7"
+ra, dec = ten(21, 59, 33.053)*15, ten(-56, 59, 33.053)
+# => (329.88772083333333,-56.992514722222225)
+adstring(precess(ra, dec, 1950, 1975, FK4=true), precision=1)
+# => " 22 01 15.46  -56 52 18.7"
 ```
 
 ### Method ###

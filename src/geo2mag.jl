@@ -35,8 +35,8 @@ Kyoto has geographic coordinates 35° 00' 42'' N, 135° 46' 06'' E, find its
 geomagnetic coordinates in 2016:
 
 ``` julia
-julia> geo2mag(ten(35,0,42), ten(135,46,6), 2016)
-(36.86579228937769,-60.184060536651614)
+geo2mag(ten(35,0,42), ten(135,46,6), 2016)
+# => (36.86579228937769,-60.184060536651614)
 ```
 
 ### Notes ###

@@ -16,11 +16,8 @@ Return for current time the number of Julian calendar days since epoch
 ### Example ###
 
 ``` julia
-julia> get_juldate()
-2.4574620222685183e6
-
-julia> daycnv(get_juldate())
-2016-03-14T12:32:13
+get_juldate()
+daycnv(get_juldate())
 ```
 
 ### Notes ###

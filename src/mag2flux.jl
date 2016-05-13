@@ -39,14 +39,12 @@ Otherwise the flux is given by
 ### Example ###
 
 ``` julia
-julia> mag2flux(8.3)
-1.7378008287493692e-12
-
-julia> mag2flux(8.3, 12)
-7.58577575029182e-9
-
-julia> mag2flux(8.3, ABwave=12)
-3.6244115683017193e-7
+mag2flux(8.3)
+# => 1.7378008287493692e-12
+mag2flux(8.3, 12)
+# => 7.58577575029182e-9
+mag2flux(8.3, ABwave=12)
+# => 3.6244115683017193e-7
 ```
 
 ### Notes ###

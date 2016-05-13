@@ -44,8 +44,8 @@ Arcturus is observed at an apparent hour angle of 336.6829 and a declination of
 azimuth of this object?
 
 ``` julia
-julia> alt, az = hadec2altaz(336.6829, 19.1825, ten(43, 4, 42))
-(59.08617155005683,133.3080693440254)
+alt, az = hadec2altaz(336.6829, 19.1825, ten(43, 4, 42))
+# => (59.08617155005683,133.3080693440254)
 ```
 
 ### Notes ###

@@ -38,8 +38,8 @@ Calculate polar coordinates \$(r, \\varphi)\$ of point with rectangular
 coordinates \$(x, y) = (2.24, -1.87)\$.
 
 ``` julia
-julia> r, phi = recpol(2.24, -1.87)
-(2.9179616172938263,-0.6956158538564537)
+r, phi = recpol(2.24, -1.87)
+# => (2.9179616172938263,-0.6956158538564537)
 ```
 
 Angle \$\\varphi\$ is given in radians.

@@ -31,11 +31,11 @@ The spectral radiance of the black body, in units of W/(sr·m³).
 Calculate the spectrum of a black body in \$[0, 3]\$ µm at \$5000\$ K.
 
 ``` julia
-julia> wavelength=linspace(0, 5e-6, 1000);
-
-julia> temperature=ones(wavelength)*5000;
-
-julia> flux=planck_wave(wavelength, temperature);
+using PyPlot
+wavelength=linspace(0, 3e-6, 1000);
+temperature=ones(wavelength)*5000;
+flux=planck_wave(wavelength, temperature);
+plot(wavelength, flux)
 ```
 
 ### Notes ###

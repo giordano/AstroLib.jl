@@ -37,8 +37,8 @@ Position of Sirius in the sky is (ra, dec) = (6.7525, -16.7161), with right
 ascension expressed in hours.  Its sexagesimal representation is given by
 
 ``` julia
-julia> radec(6.7525, -16.7161, hours=true)
-(6.0,45.0,9.0,-16.0,42.0,57.9600000000064)
+radec(6.7525, -16.7161, hours=true)
+# => (6.0,45.0,9.0,-16.0,42.0,57.9600000000064)
 ```
 """
 function radec{T<:AbstractFloat}(ra::T, dec::T, hours::Bool)

@@ -28,10 +28,10 @@ The date, of `Date` type, of \$\\text{day} - 1\$ days after January 1st of
 Find the date of the 60th and 234th days of the year 2016.
 
 ``` julia
-julia> ydn2md(2016, [60, 234])
-2-element Array{Date,1}:
- 2016-02-29
- 2016-08-21
+ydn2md(2016, [60, 234])
+# => 2-element Array{Date,1}:
+#     2016-02-29
+#     2016-08-21
 ```
 
 ### Note ###

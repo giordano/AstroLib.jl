@@ -46,10 +46,9 @@ in geographic coordinates, at altitude 600 km.  Note: equatorial radii of Solar
 System planets are stored into `AstroLib.PLANETSRADII` dictionary.
 
 ``` julia
-julia> x = AstroLib.PLANETSRADII["earth"][1] + 600;
-
-julia> lat, long, alt = eci2geo(x, 0, 0, jdcnv("2015-06-30T14:03:12.857"))
-(0.0,230.87301833205856,600.0)
+x = AstroLib.PLANETSRADII["earth"][1] + 600;
+lat, long, alt = eci2geo(x, 0, 0, jdcnv("2015-06-30T14:03:12.857"))
+# => (0.0,230.87301833205856,600.0)
 ```
 
 These coordinates can be further transformed into geodetic coordinates using

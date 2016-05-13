@@ -28,14 +28,15 @@ The spectral radiance of the black body, in units of W/(sr·m²·Hz).
 
 ### Example ###
 
-Calculate the spectrum of a black body in \$[10^{12}, 10^{16}]\$ Hz at \$8000\$ K.
+Plot the spectrum of a black body in \$[10^{12}, 10^{16}]\$ Hz at \$8000\$ K.
+Use [PyPlot.jl](https://github.com/stevengj/PyPlot.jl) for plotting.
 
 ``` julia
-julia> frequency=logspace(12, 16, 1000);
-
-julia> temperature=ones(wavelength)*8000;
-
-julia> flux=planck_freq(frequency, temperature);
+using PyPlot
+frequency=logspace(12, 15.4, 1000);
+temperature=ones(frequency)*8000;
+flux=planck_freq(frequency, temperature);
+plot(frequency, flux)
 ```
 
 ### Notes ###

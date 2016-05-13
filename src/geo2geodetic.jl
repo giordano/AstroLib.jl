@@ -74,15 +74,15 @@ Locate the Earth geographic North pole (latitude: 90°, longitude: 0°, altitude
 km), in geodetic coordinates:
 
 ``` julia
-julia> geo2geodetic(90, 0, 0)
-(90.0,0.0,21.38499999999931)
+geo2geodetic(90, 0, 0)
+# => (90.0,0.0,21.38499999999931)
 ```
 
 The same for Jupiter:
 
 ``` julia
-julia> geo2geodetic(90, 0, 0, "Jupiter")
-(90.0,0.0,4355.443799999994)
+geo2geodetic(90, 0, 0, "Jupiter")
+# => (90.0,0.0,4355.443799999994)
 ```
 
 Find geodetic coordinates for point of geographic coordinates (latitude,
@@ -90,8 +90,8 @@ longitude, altitude) = (43.16°, -24.32°, 3.87 km) on a planet with equatorial
 radius 8724.32 km and polar radius 8619.19 km:
 
 ``` julia
-julia> geo2geodetic(43.16, -24.32, 3.87, 8724.32, 8619.19)
-(43.849399515234516,-24.32,53.53354478670836)
+geo2geodetic(43.16, -24.32, 3.87, 8724.32, 8619.19)
+# => (43.849399515234516,-24.32,53.53354478670836)
 ```
 
 ### Notes ###
@@ -110,11 +110,11 @@ planetodetic) to geographic coordinates, can be used to estimate the accuracy of
 `geo2geodetic`.
 
 ``` julia
-julia> collect(geodetic2geo(geo2geodetic(67.2, 13.4, 1.2))) - [67.2, 13.4, 1.2]
-3-element Array{Float64,1}:
- -3.56724e-9
-  0.0
-  9.47512e-10
+collect(geodetic2geo(geo2geodetic(67.2, 13.4, 1.2))) - [67.2, 13.4, 1.2]
+# => 3-element Array{Float64,1}:
+#     -3.56724e-9
+#      0.0
+#      9.47512e-10
 ```
 
 Code of this function is based on IDL Astronomy User's Library.

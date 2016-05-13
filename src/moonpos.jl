@@ -104,38 +104,20 @@ difference in the position calculation.
 (1) Find the position of the moon on April 12, 1992
 
 ``` julia
-julia> jd = jdcnv(1992, 4, 12);
-
-julia> adstring(moonpos(jd)[1:2],precision=1)
-" 08 58 45.23  +13 46 06.1"
+jd = jdcnv(1992, 4, 12);
+adstring(moonpos(jd)[1:2],precision=1)
+# => " 08 58 45.23  +13 46 06.1"
 ```
 
 This is within 1" from the position given in the Astronomical Almanac.
 
-(2) Get the Earth-moon distance for every day at 0 TD during months of June and
-July 2016.
+(2) Plot the Earth-moon distance during 2016 with sampling of 6 hours.  Use
+[PyPlot.jl](https://github.com/stevengj/PyPlot.jl) for plotting
 
 ``` julia
-julia> days = DateTime(2016, 6, 1):DateTime(2016, 7, 31);
-
-julia> distance = moonpos(jdcnv(days))[3];
-```
-
-Using a plotting tool you can also visualize how the distance is changing over
-time.  For example, with [PyPlot.jl](https://github.com/stevengj/PyPlot.jl)
-
-``` julia
-julia> using PyPlot
-
-julia> plot(days, distance)
-```
-
-If you want a smoother plot, increase sampling of `days` variable:
-
-``` julia
-julia> hours = DateTime(2016, 6, 1):Dates.Hour(1):DateTime(2016, 7, 31);
-
-julia> plot(hours, moonpos(jdcnv(hours))[3])
+using PyPlot
+points = DateTime(2016):Dates.Hour(6):DateTime(2017);
+plot(points, moonpos(jdcnv(points))[3])
 ```
 
 ### Notes ###

@@ -58,13 +58,11 @@ Find the angular polar coordinate \$\\theta(t)\$ for an orbit with eccentricity 
 0.7\$ and for \$M(t) = 8\\pi/3\$.
 
 ``` julia
-julia> ecc = 0.7;
-
-julia> E = kepler_solver(8pi/3, ecc)
-2.5085279492864223
-
-julia> θ = 2*atan(sqrt((1.0 + ecc)/(1.0 - ecc))*tan(E/2.0))
-2.8681167800611607
+ecc = 0.7;
+E = kepler_solver(8pi/3, ecc)
+# => 2.5085279492864223
+θ = 2*atan(sqrt((1.0 + ecc)/(1.0 - ecc))*tan(E/2.0))
+# => 2.8681167800611607
 ```
 """
 function kepler_solver{T<:AbstractFloat}(M::T, e::T)

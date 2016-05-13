@@ -43,8 +43,8 @@ Angular distance on the sky between points 1 and 2, as a `AbstractFloat`.  See
 ### Example ###
 
 ``` julia
-julia> gcirc(0, 120, -43, 175, +22)
-1.590442261600714
+gcirc(0, 120, -43, 175, +22)
+# => 1.590442261600714
 ```
 
 ### Notes ###

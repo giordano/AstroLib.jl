@@ -51,8 +51,8 @@ companion, Alcor, has coordinates (ra, dec) = (13h 25m 13.5s, +54° 59' 17'').
 Find the position angle of Alcor with respect to Mizar.
 
 ``` julia
-julia> posang(1, ten(13, 25, 13.5), ten(54, 59, 17), ten(13, 23, 55.5), ten(54, 55, 31))
--108.46011246802047
+posang(1, ten(13, 25, 13.5), ten(54, 59, 17), ten(13, 23, 55.5), ten(54, 55, 31))
+# => -108.46011246802047
 ```
 
 ### Notes ###

@@ -43,17 +43,16 @@ format of the month name is influenced by the optional keywords.
 ### Example ###
 
 ``` julia
-julia> month_cnv(["janua", "SEP", "aUgUsT"])
-3-element Array{Integer,1}:
- 1
- 9
- 8
-
-julia> month_cnv([2, 12, 6], short=true, low=true)
-3-element Array{UTF8String,1}:
- "feb"
- "dec"
- "jun"
+month_cnv(["janua", "SEP", "aUgUsT"])
+# => 3-element Array{Integer,1}:
+#     1
+#     9
+#     8
+month_cnv([2, 12, 6], short=true, low=true)
+# => 3-element Array{UTF8String,1}:
+#     "feb"
+#     "dec"
+#     "jun"
 ```
 
 """

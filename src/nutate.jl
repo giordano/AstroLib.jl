@@ -71,27 +71,19 @@ all terms larger than 0.0003".
 example 22.a from Meeus
 
 ``` julia
-julia> jd = jdcnv(1987, 4, 10);
-
-julia> nutate(jd)
-(-3.787931077110755,9.442520698644401)
+jd = jdcnv(1987, 4, 10);
+nutate(jd)
+# => (-3.787931077110755,9.442520698644401)
 ```
 
-(2) Get the daily nutation in longitude and obliquity during the 21st century
+(2) Plot the daily nutation in longitude and obliquity during the 21st century.
+Use [PyPlot.jl](https://github.com/stevengj/PyPlot.jl) for plotting.
 
 ``` julia
-julia> years = DateTime(2000):DateTime(2100);
-
-julia> long, obl = nutate(jdcnv(years));
-```
-
-Using a plotting tool you can visualize the change of nutation over years.  For
-example, with [PyPlot.jl](https://github.com/stevengj/PyPlot.jl)
-
-``` julia
-julia> using PyPlot
-
-julia> plot(yr, long); plot(yr, obl)
+using PyPlot
+years = DateTime(2000):DateTime(2100);
+long, obl = nutate(jdcnv(years));
+plot(years, long); plot(years, obl)
 ```
 
 You can see both the dominant large scale period of nutation, of 18.6 years, and

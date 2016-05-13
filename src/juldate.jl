@@ -35,14 +35,12 @@ of the same length as `date` is returned.
 Get number of Reduced Julian Days at 2016-03-20T15:24:00.
 
 ``` julia
-julia> juldate(DateTime(2016, 03, 20, 15, 24))
-57468.14166666667
-
-julia> juldate(2016, 03, 20, 15, 24)
-57468.14166666667
-
-julia> juldate("2016-03-20T15:24")
-57468.14166666667
+juldate(DateTime(2016, 03, 20, 15, 24))
+# => 57468.14166666667
+juldate(2016, 03, 20, 15, 24)
+# => 57468.14166666667
+juldate("2016-03-20T15:24")
+# => 57468.14166666667
 ```
 
 ### Notes ###
