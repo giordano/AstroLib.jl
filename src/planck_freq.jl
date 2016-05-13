@@ -28,7 +28,7 @@ The spectral radiance of the black body, in units of W/(sr·m²·Hz).
 
 ### Example ###
 
-Plot the spectrum of a black body in \$[10^{12}, 10^{16}]\$ Hz at \$8000\$ K.
+Plot the spectrum of a black body in \$[10^{12}, 10^{15.4}]\$ Hz at \$8000\$ K.
 Use [PyPlot.jl](https://github.com/stevengj/PyPlot.jl) for plotting.
 
 ``` julia

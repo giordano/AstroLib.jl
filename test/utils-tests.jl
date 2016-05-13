@@ -281,7 +281,7 @@ end
 
 # Test kepler_solver
 @test_approx_eq kepler_solver(8pi/3, 0.7) 2.5085279492864223
-@test_approx_eq kepler_solver(pi/4, 0) pi/4
+@test_approx_eq kepler_solver([pi/4, pi/6, 8pi/3], 0) [pi/4, pi/6, 2pi/3]
 @test_approx_eq kepler_solver(3pi/2, 0.8) -2.2119306096084457
 @test_approx_eq kepler_solver(0, 1) 0.0
 @test_throws ErrorException kepler_solver(pi, -0.5)

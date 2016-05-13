@@ -1783,7 +1783,7 @@ in which :math:`a` is the semi-major axis of the orbit, and
 Arguments
 '''''''''
 
--  ``M``: mean anomaly
+-  ``M``: mean anomaly. This can be either a scalar or an array
 -  ``e``: eccentricity, in the elliptic motion regime
    (:math:`0 \leq e \leq 1`)
 
@@ -1791,7 +1791,8 @@ Output
 ''''''
 
 The eccentric anomaly :math:`E`, restricted to the range
-:math:`[-\pi, \pi]`.
+:math:`[-\pi, \pi]`. If an array of mean anomalies is provided in input,
+an array of the same length as ``M`` is returned.
 
 Method
 ''''''
@@ -1807,8 +1808,8 @@ entire range of elliptic motion :math:`0 \leq e \leq 1`.
 Example
 '''''''
 
-Find the angular polar coordinate :math:`\theta(t)` for an orbit with
-eccentricity :math:`e = 0.7` and for :math:`M(t) = 8\pi/3`.
+(1) Find the angular polar coordinate :math:`\theta(t)` for an orbit
+    with eccentricity :math:`e = 0.7` and for :math:`M(t) = 8\pi/3`.
 
 .. code-block:: julia
 
@@ -1817,6 +1818,31 @@ eccentricity :math:`e = 0.7` and for :math:`M(t) = 8\pi/3`.
     # => 2.5085279492864223
     θ = 2*atan(sqrt((1.0 + ecc)/(1.0 - ecc))*tan(E/2.0))
     # => 2.8681167800611607
+
+(2) Plot the eccentric anomaly as a function of mean anomaly for
+    eccentricity :math:`e = 0`, :math:`0.5`, :math:`0.9`. Recall that
+    ``kepler_solver`` gives :math:`E \in [-\pi, \pi]`, use ``cirrange``
+    to have it in :math:`[0, 2\pi]`. Use
+    `PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__ for plotting.
+
+.. code-block:: julia
+
+    using PyPlot
+    M=linspace(0, 2pi, 1001)[1:end-1];
+    for ecc in (0, 0.5, 0.9); plot(M, cirrange(kepler_solver(M, ecc), 2pi)); end
+
+Plot also the polar coordinate :math:`\theta` as a function of mean
+anomaly for different values of eccentricity.
+
+.. code-block:: julia
+
+    using PyPlot
+    M=linspace(0, 2pi, 1001)[1:end-1];
+    for ecc in (0, 0.5, 0.9)
+        E = kepler_solver(M, ecc);
+        θ = 2*atan(sqrt((1.0 + ecc)/(1.0 - ecc))*tan(E/2.0));
+        plot(M, cirrange(θ, 2pi))
+    end
 
 --------------
 
@@ -2403,7 +2429,7 @@ The spectral radiance of the black body, in units of W/(sr·m²·Hz).
 Example
 '''''''
 
-Plot the spectrum of a black body in :math:`[10^{12}, 10^{16}]` Hz at
+Plot the spectrum of a black body in :math:`[10^{12}, 10^{15.4}]` Hz at
 :math:`8000` K. Use
 `PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__ for plotting.
 
@@ -2458,8 +2484,9 @@ The spectral radiance of the black body, in units of W/(sr·m³).
 Example
 '''''''
 
-Calculate the spectrum of a black body in :math:`[0, 3]` µm at
-:math:`5000` K.
+Plot the spectrum of a black body in :math:`[0, 3]` µm at :math:`5000`
+K. Use `PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__ for
+plotting.
 
 .. code-block:: julia
 

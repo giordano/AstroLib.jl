@@ -28,7 +28,8 @@ The spectral radiance of the black body, in units of W/(sr·m³).
 
 ### Example ###
 
-Calculate the spectrum of a black body in \$[0, 3]\$ µm at \$5000\$ K.
+Plot the spectrum of a black body in \$[0, 3]\$ µm at \$5000\$ K.  Use
+[PyPlot.jl](https://github.com/stevengj/PyPlot.jl) for plotting.
 
 ``` julia
 using PyPlot

@@ -35,12 +35,14 @@ of angular coordinate at time \$t = t_{0}\$.
 
 ### Arguments ###
 
-* `M`: mean anomaly
+* `M`: mean anomaly.  This can be either a scalar or an array
 * `e`: eccentricity, in the elliptic motion regime (\$0 \\leq e \\leq 1\$)
 
 ### Output ###
 
-The eccentric anomaly \$E\$, restricted to the range \$[-\\pi, \\pi]\$.
+The eccentric anomaly \$E\$, restricted to the range \$[-\\pi, \\pi]\$.  If an
+array of mean anomalies is provided in input, an array of the same length as `M`
+is returned.
 
 ### Method ###
 
@@ -54,8 +56,8 @@ motion \$0 \\leq e \\leq 1\$.
 
 ### Example ###
 
-Find the angular polar coordinate \$\\theta(t)\$ for an orbit with eccentricity \$e =
-0.7\$ and for \$M(t) = 8\\pi/3\$.
+(1) Find the angular polar coordinate \$\\theta(t)\$ for an orbit with
+eccentricity \$e = 0.7\$ and for \$M(t) = 8\\pi/3\$.
 
 ``` julia
 ecc = 0.7;
@@ -64,6 +66,30 @@ E = kepler_solver(8pi/3, ecc)
 θ = 2*atan(sqrt((1.0 + ecc)/(1.0 - ecc))*tan(E/2.0))
 # => 2.8681167800611607
 ```
+
+(2) Plot the eccentric anomaly as a function of mean anomaly for eccentricity
+\$e = 0\$, \$0.5\$, \$0.9\$.  Recall that `kepler_solver` gives \$E \\in [-\\pi,
+\\pi]\$, use `cirrange` to have it in \$[0, 2\\pi]\$.  Use
+[PyPlot.jl](https://github.com/stevengj/PyPlot.jl) for plotting.
+
+``` julia
+using PyPlot
+M=linspace(0, 2pi, 1001)[1:end-1];
+for ecc in (0, 0.5, 0.9); plot(M, cirrange(kepler_solver(M, ecc), 2pi)); end
+```
+
+Plot also the polar coordinate \$\\theta\$ as a function of mean anomaly for
+different values of eccentricity.
+``` julia
+using PyPlot
+M=linspace(0, 2pi, 1001)[1:end-1];
+for ecc in (0, 0.5, 0.9)
+    E = kepler_solver(M, ecc);
+    θ = 2*atan(sqrt((1.0 + ecc)/(1.0 - ecc))*tan(E/2.0));
+    plot(M, cirrange(θ, 2pi))
+end
+```
+
 """
 function kepler_solver{T<:AbstractFloat}(M::T, e::T)
     if 0 <= e <= 1
@@ -111,3 +137,12 @@ end
 
 kepler_solver(M::Real, e::Real) =
     kepler_solver(promote(float(M), float(e))...)
+
+function kepler_solver{R1<:Real,R2<:Real}(M::AbstractArray{R1}, e::R2)
+    typee = promote_type(float(R1), float(R2))
+    E = similar(M, typee)
+    for i in eachindex(M)
+        E[i] = kepler_solver(M[i], e)
+    end
+    return E
+end
