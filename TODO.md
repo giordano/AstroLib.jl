@@ -286,7 +286,6 @@ Missing in AstroLib.jl
 * `mlinmix_err`
 * `mmm`
 * `modfits`
-* `mphase`
 * `mrandomn`
 * `mrdfits`
 * `mrd_hread`

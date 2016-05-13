@@ -346,6 +346,11 @@ let
     @test_approx_eq lat -0.059294466326164315
 end
 
+# Test mphase
+@test_approx_eq mphase([2457520, 2457530, 2457650]) [0.2781695910737857,
+                                                     0.9969808583803166,
+                                                     0.9580708477591693]
+
 # Test nutate
 let
     local long, obl

@@ -2026,6 +2026,69 @@ Code of this function is based on IDL Astronomy User's Library.
 
 --------------
 
+mphase
+~~~~~~
+
+.. function:: mphase(jd) -> k
+
+Purpose
+'''''''
+
+Return the illuminated fraction of the Moon at given Julian date(s).
+
+Arguments
+'''''''''
+
+-  ``jd``: the Julian ephemeris date. It can be either a scalar or an
+   array.
+
+Output
+''''''
+
+The illuminated fraction :math:`k` of Moon's disk, with
+:math:`0 \leq k \leq 1`. :math:`k = 0` indicates a new moon, while
+:math:`k = 1` stands for a full moon. If ``jd`` is given as an array, an
+array of the same number of elements as ``jd`` is returned.
+
+Method
+''''''
+
+Algorithm from Chapter 46 of "Astronomical Algorithms" by Jean Meeus
+(Willmann-Bell, Richmond) 1991. ``sunpos`` and ``moonpos`` are used to
+get positions of the Sun and the Moon, and the Moon distance. The
+selenocentric elongation of the Earth from the Sun (phase angle) is then
+computed, and used to determine the illuminated fraction.
+
+Example
+'''''''
+
+Get the illuminated fraction of the Moon for every day in January 2018
+with a hourly sampling.
+
+.. code-block:: julia
+
+    points = DateTime(2018,01,01):Dates.Hour(1):DateTime(2018,01,31,23,59,59);
+    moonphase = mphase(jdcnv(points));
+
+Using a plotting tool you can also visualize the progress of the Moon
+phase over time. For example, with
+`PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__
+
+.. code-block:: julia
+
+    using PyPlot
+    plot(points, moonphase)
+
+Note that in this calendar month there are two full moons, this event is
+called `blue moon <https://en.wikipedia.org/wiki/Blue_moon>`__.
+
+Notes
+'''''
+
+Code of this function is based on IDL Astronomy User's Library.
+
+--------------
+
 month\_cnv
 ~~~~~~~~~~
 

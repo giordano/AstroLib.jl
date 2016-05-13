@@ -3,6 +3,7 @@
 
 module AstroLib
 using Compat
+using Base.Dates
 import Compat.String
 
 include("common.jl")

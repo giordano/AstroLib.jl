@@ -36,3 +36,6 @@ let
                                  (polelatlong[rows + i], polelatlong[i])))
     end
 end
+
+# Astronomical unit
+const AU = 1.495978707e8
