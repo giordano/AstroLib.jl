@@ -25,10 +25,18 @@ Present in Other Libraries
   (https://github.com/JuliaAstro/Cosmology.jl)
 * `galage`, see `Cosmology` package
   (https://github.com/JuliaAstro/Cosmology.jl)
-* `glactc_pm`, see `SkyCoords` package (https://github.com/kbarbary/SkyCoords.jl)
+* `glactc_pm`, see `SkyCoords` package
+  (https://github.com/kbarbary/SkyCoords.jl)
 * `glactc`, see `SkyCoords` package (https://github.com/kbarbary/SkyCoords.jl)
+* `jplephinterp`, see `JPLEphemeris.jl` package
+  (https://github.com/helgee/JPLEphemeris.jl)
+* `jplephread`, see `JPLEphemeris.jl` package
+  (https://github.com/helgee/JPLEphemeris.jl)
+* `jplephtest`, see `JPLEphemeris.jl` package
+  (https://github.com/helgee/JPLEphemeris.jl)
 * `lumdist`, see `Cosmology` package
   (https://github.com/JuliaAstro/Cosmology.jl)
+* `readcol`, use `readdlm`
 
 Missing in AstroLib.jl
 ----------------------
@@ -255,9 +263,6 @@ Missing in AstroLib.jl
 * `isarray`
 * `is_ieee_big`
 * `ismeuv`
-* `jplephinterp`
-* `jplephread`
-* `jplephtest`
 * `jprecess`
 * `ksone`
 * `kstwo`

@@ -126,6 +126,12 @@ list of such utilities:
   package
 - ``glactc``, see `SkyCoords.jl <https://github.com/kbarbary/SkyCoords.jl>`__
   package
+- ``jplephinterp``, see ``JPLEphemeris.jl
+  <https://github.com/helgee/JPLEphemeris.jl>`__ package
+- ``jplephread``, see ``JPLEphemeris.jl
+  <https://github.com/helgee/JPLEphemeris.jl>`__ package
+- ``jplephtest``, see ``JPLEphemeris.jl
+  <https://github.com/helgee/JPLEphemeris.jl>`__ package
 - ``lumdist``, see `Cosmology.jl <https://github.com/JuliaAstro/Cosmology.jl>`__
   package
 - ``readcol``, use `readdlm
