@@ -67,6 +67,9 @@ export hadec2altaz
 include("helio_jd.jl")
 export helio_jd
 
+include("helio_rv.jl")
+export helio_rv
+
 include("jdcnv.jl")
 export jdcnv
 

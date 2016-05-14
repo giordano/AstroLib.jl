@@ -254,6 +254,13 @@ end
 @test_approx_eq helio_jd(1000, 23, 67, B1950=true) 999.9997659545342
 @test_approx_eq helio_jd(2000, 12, 88, diff=true) -167.24845957792076
 
+# Test helio_rv
+@test_approx_eq helio_rv(helio_jd(juldate(94, 10, 25, 17, 30),
+                                  ten(04, 38, 16)*15, ten(20, 41, 05)),
+                         46487.5303, 2.0563056, -6, 59.3) -62.965570109145034
+@test_approx_eq helio_rv([0.1, 0.9], 0, 1, 0, 100, 0.6, 45) [-45.64994926111004,
+                                                             89.7820347358485]
+
 # Test jdcnv.
 @test_approx_eq jdcnv(-4713, 11, 24, 12) 0.0
 @test jdcnv(763, 09, 18, 12) == jdcnv("763-09-18T12") == 2000000.0

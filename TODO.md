@@ -231,7 +231,6 @@ Missing in AstroLib.jl
 * `hcongrid`
 * `headfits`
 * `helio`
-* `helio_rv`
 * `hermite`
 * `heuler`
 * `hextract`
