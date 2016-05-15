@@ -667,12 +667,12 @@ Example
 
 Obtain the geographic direction of the vernal point on
 2015-06-30T14:03:12.857, in geographic coordinates, at altitude 600 km.
-Note: equatorial radii of Solar System planets are stored into
-``AstroLib.PLANETSRADII`` dictionary.
+Note: equatorial radii of Solar System planets in meters are stored into
+``AstroLib.planets`` dictionary.
 
 .. code-block:: julia
 
-    x = AstroLib.PLANETSRADII["earth"][1] + 600;
+    x = AstroLib.planets["earth"].eqradius*1e-3 + 600;
     lat, long, alt = eci2geo(x, 0, 0, jdcnv("2015-06-30T14:03:12.857"))
     # => (0.0,230.87301833205856,600.0)
 
@@ -1053,8 +1053,8 @@ Stephen P. Keeler and Yves Nievergelt, "Computing geodetic coordinates",
 SIAM Rev. Vol. 40, No. 2, pp. 300-309, June 1998
 (DOI:`10.1137/S0036144597323921 <http://dx.doi.org/10.1137/S0036144597323921>`__).
 
-Planetary constants from "Allen's Astrophysical Quantities", Fourth Ed.,
-(2000).
+Planetary constants are from Planetary Fact Sheet
+(http://nssdc.gsfc.nasa.gov/planetary/factsheet/index.html).
 
 Example
 '''''''
@@ -2291,22 +2291,15 @@ computed, and used to determine the illuminated fraction.
 Example
 '''''''
 
-Get the illuminated fraction of the Moon for every day in January 2018
-with a hourly sampling.
-
-.. code-block:: julia
-
-    points = DateTime(2018,01,01):Dates.Hour(1):DateTime(2018,01,31,23,59,59);
-    moonphase = mphase(jdcnv(points));
-
-Using a plotting tool you can also visualize the progress of the Moon
-phase over time. For example, with
-`PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__
+Plot the illuminated fraction of the Moon for every day in January 2018
+with a hourly sampling. Use
+`PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__ for plotting
 
 .. code-block:: julia
 
     using PyPlot
-    plot(points, moonphase)
+    points = DateTime(2018,01,01):Dates.Hour(1):DateTime(2018,01,31,23,59,59);
+    plot(points, mphase(jdcnv(points)))
 
 Note that in this calendar month there are two full moons, this event is
 called `blue moon <https://en.wikipedia.org/wiki/Blue_moon>`__.
@@ -3279,14 +3272,14 @@ Arguments
 
 ``ten`` takes as argument either three scalars (``deg``, ``min``,
 ``sec``) or a string. The string should have the form ``"deg:min:sec"``
-or ``"deg min sec"``. Also a one dimensional array ``[deg, min, sec]``
-is accepted as argument.
+or ``"deg min sec"``. Also any iterable like ``(deg, min, sec)`` or
+``[deg, min, sec]`` is accepted as argument.
 
 If minutes and seconds are not specified they default to zero.
 
 ``tenv`` takes as input three numerical arrays of numbers (minutes and
 seconds arrays default to null arrays if omitted) or one array of
-strings.
+strings or iterables.
 
 Output
 ''''''
@@ -3311,6 +3304,8 @@ Example
     ten("+5:14:58")
     # => 5.249444444444444
     ten("-10 26")
+    # => -10.433333333333334
+    ten((-10, 26))
     # => -10.433333333333334
 
 Notes

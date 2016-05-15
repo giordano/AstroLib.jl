@@ -159,7 +159,7 @@ let
     lat, long, alt = geo2geodetic([90], [0], [0], "Jupiter")
     @test_approx_eq lat [90]
     @test_approx_eq long [0]
-    @test_approx_eq alt [4355.443799999994]
+    @test_approx_eq alt 4638
     lat, long, alt = geo2geodetic((90, 0, 0))
     @test_approx_eq lat 90
     @test_approx_eq long 0
@@ -191,7 +191,7 @@ let
     lat, long, alt = geodetic2geo([90], [0], [0], "Jupiter")
     @test_approx_eq lat [90]
     @test long == [0]
-    @test_approx_eq alt [-4355.443799999994]
+    @test_approx_eq alt -4638
     lat, long, alt = geodetic2geo((90, 0, 0))
     @test_approx_eq lat 90
     @test long == 0

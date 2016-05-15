@@ -136,8 +136,8 @@ end
 ##### Select a planet.
 geodetic2geo(lat::Real, long::Real, alt::Real, planet::AbstractString="earth") =
     (planet = lowercase(strip(planet));
-     geodetic2geo(lat, long, alt, PLANETSRADII[planet][1],
-                  PLANETSRADII[planet][2]))
+     geodetic2geo(lat, long, alt, planets[planet].eqradius*1e-3,
+                  planets[planet].polradius*1e-3))
 
 geodetic2geo(lla::Tuple{Real, Real, Real}, planet::AbstractString="earth") =
     geodetic2geo(lla..., planet)

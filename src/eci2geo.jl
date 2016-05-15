@@ -43,10 +43,10 @@ is returned.
 
 Obtain the geographic direction of the vernal point on 2015-06-30T14:03:12.857,
 in geographic coordinates, at altitude 600 km.  Note: equatorial radii of Solar
-System planets are stored into `AstroLib.PLANETSRADII` dictionary.
+System planets in meters are stored into `AstroLib.planets` dictionary.
 
 ``` julia
-x = AstroLib.PLANETSRADII["earth"][1] + 600;
+x = AstroLib.planets["earth"].eqradius*1e-3 + 600;
 lat, long, alt = eci2geo(x, 0, 0, jdcnv("2015-06-30T14:03:12.857"))
 # => (0.0,230.87301833205856,600.0)
 ```
@@ -62,7 +62,7 @@ coordinates.
 Code of this function is based on IDL Astronomy User's Library.
 """
 function eci2geo{T<:AbstractFloat}(x::T, y::T, z::T, jd::T)
-    Re    = PLANETSRADII["earth"][1]
+    Re    = planets["earth"].eqradius*1e-3
     theta = atan2(y, x) # Azimuth.
     gst   = ct2lst(0.0, jd)
     sid_angle = gst*pi/12.0 # Sidereal angle.

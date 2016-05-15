@@ -66,7 +66,8 @@ Stephen P.  Keeler and Yves Nievergelt, "Computing geodetic coordinates", SIAM
 Rev. Vol. 40, No. 2, pp. 300-309, June 1998
 (DOI:[10.1137/S0036144597323921](http://dx.doi.org/10.1137/S0036144597323921)).
 
-Planetary constants from "Allen's Astrophysical Quantities", Fourth Ed., (2000).
+Planetary constants are from Planetary Fact Sheet
+(http://nssdc.gsfc.nasa.gov/planetary/factsheet/index.html).
 
 ### Example ###
 
@@ -166,8 +167,8 @@ end
 ##### Select a planet.
 geo2geodetic(lat::Real, long::Real, alt::Real, planet::AbstractString="earth") =
     (planet = lowercase(strip(planet));
-     geo2geodetic(lat, long, alt, PLANETSRADII[planet][1],
-                  PLANETSRADII[planet][2]))
+     geo2geodetic(lat, long, alt, planets[planet].eqradius*1e-3,
+                  planets[planet].polradius*1e-3))
 
 geo2geodetic(lla::Tuple{Real, Real, Real}, planet::AbstractString="earth") =
     geo2geodetic(lla..., planet)

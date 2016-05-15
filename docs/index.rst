@@ -49,19 +49,19 @@ After installing the package, you can start using ``AstroLib.jl`` with
 New Types
 ---------
 
+Observatory
+'''''''''''
+
 ``AstroLib.jl`` defines a new ``Observatory`` type. This can be used to define a
 new object holding information about an observing site. It is a `composite type
 <http://docs.julialang.org/en/stable/manual/types/#composite-types>`__ whose
 fields are
 
--  ``name`` (``AbstractString`` type): the name of the site
--  ``latitude`` (``AbstractFloat`` type): North-ward latitude of the
-   site in degrees
--  ``longitude`` (``AbstractFloat`` type): East-ward longitude of the
-   site in degrees
--  ``altitude`` (``AbstractFloat`` type): altitude of the site in meters
--  ``tz`` (``AbstractFloat`` type): the number of hours of offset from
-   UTC
+- ``name`` (``AbstractString`` type): the name of the site
+- ``latitude`` (``Real`` type): North-ward latitude of the site in degrees
+- ``longitude`` (``Real`` type): East-ward longitude of the site in degrees
+- ``altitude`` (``Real`` type): altitude of the site in meters
+- ``tz`` (``Real`` type): the number of hours of offset from UTC
 
 The type constructor ``Observatory`` can be used to create a new
 ``Observatory`` object. Its syntax is
@@ -99,6 +99,47 @@ You can list all keys of the dictionary with
 
 Feel free to contribute new sites or adjust information of already
 present ones.
+
+Planet
+''''''
+
+The package provides ``Planet`` type to hold information about Solar
+System planets. Its fields are
+
+-  Designation:
+
+   -  ``name``: the name
+
+-  Physical characteristics:
+
+   -  ``radius``: mean radius in meters
+   -  ``eqradius``: equatorial radius in meters
+   -  ``polradius``: polar radius in meters
+   -  ``mass``: mass in kilogram
+
+-  Orbital characteristics (epoch J2000):
+
+   -  ``ecc``: eccentricity of the orbit
+   -  ``axis``: semi-major axis of the orbit in meters
+   -  ``period``: sidereal orbital period in seconds
+
+The constructor has this syntax:
+
+.. code:: julia
+
+    Planet(name, radius, eqradius, polradius, mass, ecc, axis, period)
+
+The list of Solar System planets, from Mercury to Pluto, is available
+with ``AstroLib.planets`` dictionary. The keys this dictionary are the
+lowercase names of the planets. For example:
+
+.. code:: julia
+
+    julia> AstroLib.planets["mars"].eqradius
+    3.3962e6
+
+    julia> AstroLib.planets["saturn"].mass
+    5.6834e25
 
 How Can I Help?
 ---------------

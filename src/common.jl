@@ -2,25 +2,6 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 """
-List of Solar System planets and their equatorial and polar radii.
-
-The key is the lower case of a Solar System planet, from "mercury" to "pluto",
-the corresponding value is an array with the equatorial radius of the planet as
-first element and its polar radius as second one.
-
-Values from "Allen's Astrophysical Quantities", Fourth Ed., (2000).
-"""
-const PLANETSRADII = Dict("mercury"=>[ 2439.7,    2439.7],
-                          "venus"=>  [ 6051.8,    6051.8],
-                          "earth"=>  [ 6378.137,  6356.752],
-                          "mars"=>   [ 3397.62,   3379.3845],
-                          "jupiter"=>[71492.0,   67136.5562],
-                          "saturn"=> [60268.0,   54890.7686],
-                          "uranus"=> [25559.0,   24986.1354],
-                          "neptune"=>[24764.0,   24347.6551],
-                          "pluto"=>  [ 1195.0,    1195.0])
-
-"""
 List of locations of North Magnetic Pole since 1590.
 
 This is provided by World Magnetic Model
@@ -40,6 +21,9 @@ end
 # Astronomical unit in meters
 const AU = 1.495978707e11
 
+"""
+List of observing sites.  The observatories have `Observatory` type.
+"""
 const observatories =
     Dict("mgio"=>Observatory("Mount Graham International Observatory",
                              (32,42,04.69), (-109,53,31.25), 3191.0, -7),
@@ -126,3 +110,30 @@ const observatories =
                              -30.16527778, -70.815, 2215., -4),
          "kpno"=>Observatory("Kitt Peak National Observatory",
                              (31,57.8), (-111,36.0), 2120., -7))
+
+"""
+List of planets of the Solar System, from Mercury to Pluto.  The elements of the
+list have `Planet` type.
+
+Reference for most quantities is the Planetary Fact Sheet:
+http://nssdc.gsfc.nasa.gov/planetary/factsheet/index.html
+"""
+const planets =
+    Dict("mercury"=>Planet("mercury", 2439.7e3, 2439.7e3, 2439.7e3, 3.3011e23,
+                           0.20563069, 57909050e3, 87.9691*86400),
+         "venus"=>Planet("venus", 6051.8e3, 6051.8e3, 6051.8e3, 4.8675e24,
+                         0.00677323, 108208000e3, 224.701*86400),
+         "earth"=>Planet("earth", 6371e3, 6378.137e3,  6356.752e3, 5.97237e24,
+                         0.0167086, 149598023e3, 365.256363004*86400),
+         "mars"=>Planet("mars", 3389.5e3, 3396.2e3, 3376.2e3, 3.3011e23,
+                        0.09341233, 57909050e3, 87.9691*86400),
+         "jupiter"=>Planet("jupiter", 69911e3, 71492e3, 66854e3, 1898.19e24,
+                           0.04839266, 5.20336301*AU, 4332.589*86400),
+         "saturn"=>Planet("saturn", 58232e3, 60268e3, 54364e3, 568.34e23,
+                          0.05415060, 9.53707032*AU, 10759.22*86400),
+         "uranus"=>Planet("uranus", 25362e3, 25559e3, 24973e3, 86.813e24,
+                          0.04716771, 19.19126393*AU, 30685.4*86400),
+         "neptune"=>Planet("neptune", 24622e3, 24764e3, 24341e3, 102.413e24,
+                           0.00858587, 30.06896348*AU, 60189*86400),
+         "pluto"=>Planet("pluto", 1187e3, 1187e3, 1187e3, 0.01303e24,
+                         0.24880766, 39.48168677*AU, 90560*86400))

@@ -55,7 +55,7 @@ coordinates.
 Code of this function is based on IDL Astronomy User's Library.
 """
 function geo2eci{T<:AbstractFloat}(lat::T, long::T, alt::T, jd::T)
-    Re    = PLANETSRADII["earth"][1]
+    Re    = planets["earth"].eqradius*1e-3
     lat   = deg2rad(lat)
     long  = deg2rad(long)
     gst   = ct2lst(0.0, jd)
