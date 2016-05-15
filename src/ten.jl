@@ -23,16 +23,13 @@ function ten(strng::AbstractString)
     ten(angle[1], angle[2], angle[3])
 end
 
-function ten{T<:Real}(vector::AbstractArray{T,1})
-    vect = vcat(vector, zeros(Float64, 2))
-    return ten(vect[1], vect[2], vect[3])
-end
+ten(itr) = ten(itr...)
 
 tenv{D<:Real,M<:Real,S<:Real}(deg::AbstractArray{D},
                               min::AbstractArray{M}=zeros(typeof(float(zero(D))), length(deg)),
                               sec::AbstractArray{S}=zeros(typeof(float(zero(D))), length(deg))) =
                                   map(ten, deg, min, sec)
-tenv{T<:AbstractString}(strings::AbstractArray{T}) = map(ten, strings)
+tenv{T<:Any}(any::AbstractArray{T}) = map(ten, any)
 
 """
     ten(deg[, min, sec]) -> decimal
@@ -52,13 +49,13 @@ of `ten`.
 ### Arguments ###
 
 `ten` takes as argument either three scalars (`deg`, `min`, `sec`) or a string.
-The string should have the form `"deg:min:sec"` or `"deg min sec"`.  Also a one
-dimensional array `[deg, min, sec]` is accepted as argument.
+The string should have the form `"deg:min:sec"` or `"deg min sec"`.  Also any
+iterable like `(deg, min, sec)` or `[deg, min, sec]` is accepted as argument.
 
 If minutes and seconds are not specified they default to zero.
 
 `tenv` takes as input three numerical arrays of numbers (minutes and seconds
-arrays default to null arrays if omitted) or one array of strings.
+arrays default to null arrays if omitted) or one array of strings or iterables.
 
 ### Output ###
 
@@ -79,6 +76,8 @@ ten(-0.0, 19, 47)
 ten("+5:14:58")
 # => 5.249444444444444
 ten("-10 26")
+# => -10.433333333333334
+ten((-10, 26))
 # => -10.433333333333334
 ```
 
