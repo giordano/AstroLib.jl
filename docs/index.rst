@@ -130,10 +130,20 @@ The constructor has this syntax:
     Planet(name, radius, eqradius, polradius, mass, ecc, axis, period)
 
 The list of Solar System planets, from Mercury to Pluto, is available
-with ``AstroLib.planets`` dictionary. The keys this dictionary are the
+with ``AstroLib.planets`` dictionary. The keys of this dictionary are the
 lowercase names of the planets. For example:
 
 .. code:: julia
+
+    julia> AstroLib.planets["mercury"]
+    Planet:            Mercury
+    mean radius:       2.4397e6 m
+    equatorial radius: 2.4397e6 m
+    polar radius:      2.4397e6 m
+    mass:              3.3011e23 kg
+    eccentricity:      0.20563069
+    semi-major axis:   5.790905e10 m
+    period:            5.790905e10 s
 
     julia> AstroLib.planets["mars"].eqradius
     3.3962e6
