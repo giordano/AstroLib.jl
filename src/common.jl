@@ -37,5 +37,5 @@ let
     end
 end
 
-# Astronomical unit
-const AU = 1.495978707e8
+# Astronomical unit in meters
+const AU = 1.495978707e11

@@ -28,20 +28,14 @@ determine the illuminated fraction.
 
 ### Example ###
 
-Get the illuminated fraction of the Moon for every day in January 2018 with a
-hourly sampling.
-
-``` julia
-points = DateTime(2018,01,01):Dates.Hour(1):DateTime(2018,01,31,23,59,59);
-moonphase = mphase(jdcnv(points));
-```
-
-Using a plotting tool you can also visualize the progress of the Moon phase over
-time.  For example, with [PyPlot.jl](https://github.com/stevengj/PyPlot.jl)
+Plot the illuminated fraction of the Moon for every day in January 2018 with a
+hourly sampling.  Use [PyPlot.jl](https://github.com/stevengj/PyPlot.jl) for
+plotting
 
 ``` julia
 using PyPlot
-plot(points, moonphase)
+points = DateTime(2018,01,01):Dates.Hour(1):DateTime(2018,01,31,23,59,59);
+plot(points, mphase(jdcnv(points)))
 ```
 
 Note that in this calendar month there are two full moons, this event is called
@@ -57,7 +51,8 @@ function mphase(jd::AbstractFloat)
     # phi: geocentric elongation of the Moon from the Sun
     # inc: selenocentric (Moon centered) elongation of the Earth from the Sun
     phi = acos(sin(decs)*sin(decm) + cos(decs)*cos(decm)*cos(ras - ram))
-    inc = atan2(AU*sin(phi), dism - AU*cos(phi))
+    # "dism" is in kilometers, AU in meters
+    inc = atan2(AU*sin(phi), dism*1e3 - AU*cos(phi))
     return (1.0 + cos(inc))/2.0
 end
 
