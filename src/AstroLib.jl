@@ -6,8 +6,9 @@ using Compat
 using Base.Dates
 import Compat.String
 
-include("common.jl")
 include("misc.jl")
 include("utils.jl")
+include("types.jl")
+include("common.jl")
 
 end # module
