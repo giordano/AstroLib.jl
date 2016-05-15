@@ -47,6 +47,56 @@ After installing the package, you can start using it with
 using AstroLib
 ```
 
+New Types
+---------
+
+`AstroLib.jl` defines a new `Observatory` type.  This can be used to define a
+new object holding information about an observing site.  It is a
+[composite type](http://docs.julialang.org/en/stable/manual/types/#composite-types)
+whose fields are
+
+* `name` (`AbstractString` type): the name of the site
+* `latitude` (`AbstractFloat` type): North-ward latitude of the site in degrees
+* `longitude` (`AbstractFloat` type): East-ward longitude of the site in degrees
+* `altitude` (`AbstractFloat` type): altitude of the site in meters
+* `tz` (`AbstractFloat` type): the number of hours of offset from UTC
+
+The type constructor `Observatory` can be used to create a new `Observatory`
+object.  Its syntax is
+
+``` julia
+Observatory(name, lat, long, alt, tz)
+```
+
+`name` should be a string; `lat`, `long`, and `tz` should be anything that can
+be converted to a floating number with `ten` function; `alt` should be a real
+number.
+
+A predefined list of some observing sites is provided with
+`AstroLib.observatories` constant.  It is a dictionary whose keys are the
+abbreviated names of the observatories.  For example, you can access information
+of the European Southern Observatory with
+
+``` julia
+julia> obs = AstroLib.observatories["eso"]
+Observatory: European Southern Observatory
+latitude:    -29.256666666666668°N
+longitude:   -70.73°E
+altitude:    2347.0 m
+time zone:   UTC-4
+
+julia> obs.longitude
+-70.73
+```
+
+You can list all keys of the dictionary with
+
+``` julia
+keys(AstroLib.observatories)
+```
+
+Feel free to contribute new sites or adjust information of already present ones.
+
 Documentation
 -------------
 
@@ -68,6 +118,13 @@ Full documentation of all functions can be accessed at
 https://astrolibjl.readthedocs.io/.  There you can find the complete list of
 all functions provided by this library.  You can also download the manual in PDF
 format from https://media.readthedocs.org/pdf/astrolibjl/latest/astrolibjl.pdf.
+
+How Can I Help?
+---------------
+
+You can contribute to the project in number of ways.  You can translate more
+routines from IDL Astronomy User's Library or provide brand-new functions and
+improve existing ones.  Also bug reports are encouraged.
 
 Related Projects
 ----------------
