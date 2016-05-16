@@ -269,6 +269,30 @@ end
     jdcnv([Date(2016, 07, 31), DateTime(1969, 07, 20)]) ==
     jdcnv(["2016-07-31", Date(1969, 07, 20)])
 
+# Test jprecess
+let
+    local ra, dec
+    ra, dec = jprecess([ten(13, 39, 44.526)*15], [ten(8, 38, 28.63)],
+                       reshape(100*[-15*0.0259, -0.093], 2, 1))
+    @test_approx_eq ra  205.5530845731372
+    @test_approx_eq dec 8.388247441904628
+    ra, dec = jprecess(82, 19)
+    @test_approx_eq ra  82.73568745151148
+    @test_approx_eq dec 19.036972917272056
+    ra, dec = jprecess([57], [23], 2024)
+    @test_approx_eq ra  57.74049975335702
+    @test_approx_eq dec 23.150053754297726
+    ra, dec = jprecess([57], [23], reshape([9, 86], 2, 1), parallax=[1], radvel=[4])
+    @test_approx_eq ra  57.74180294549785
+    @test_approx_eq dec 23.16200582079095
+    ra, dec = jprecess((-57, -23), 2024)
+    @test_approx_eq ra  303.73910971499015
+    @test_approx_eq dec -22.846895476784482
+    ra, dec = jprecess((-57, -23), [9, 86], parallax=1, radvel=4)
+    @test_approx_eq ra  303.7402950607101
+    @test_approx_eq dec -22.834931625610313
+end
+
 # Test juldate with Gregorian Calendar in force.  This also makes sure precision
 # of the result is high enough.  Note that "juldate(dt::DateTime) =
 # Dates.datetime2julian(dt)-2.4e6" would not be precise.

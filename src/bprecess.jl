@@ -1,19 +1,19 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-const Mbprec = reshape([+0.9999256795,      -0.0111814828,      -0.0048590040,
-                        -0.000551,          -0.238560,          +0.435730,
-                        +0.0111814828,      +0.9999374849,      -0.0000271557,
-                        +0.238509,          -0.002667,          -0.008541,
-                        +0.0048590039,      -0.0000271771,      +0.9999881946,
-                        -0.435614,          +0.012254,          +0.002117,
-                        -0.00000242389840,  +0.00000002710544,  +0.00000001177742,
-                        +0.99990432,        -0.01118145,        -0.00485852,
-                        -0.00000002710544,  -0.00000242392702,  +0.00000000006585,
-                        +0.01118145,        +0.99991613,        -0.00002716,
-                        -0.00000001177742,  +0.00000000006585,  -0.00000242404995,
-                        +0.00485852,        -0.00002717,        +0.99996684], 6, 6)
-const A_dot_bprec = 0.001*[1.244 , -1.579, -0.660] # In arc seconds per century
+const Mbprec =
+    reshape([+0.9999256795,      -0.0111814828,      -0.0048590040,
+             -0.000551,          -0.238560,          +0.435730,
+             +0.0111814828,      +0.9999374849,      -0.0000271557,
+             +0.238509,          -0.002667,          -0.008541,
+             +0.0048590039,      -0.0000271771,      +0.9999881946,
+             -0.435614,          +0.012254,          +0.002117,
+             -0.00000242389840,  +0.00000002710544,  +0.00000001177742,
+             +0.99990432,        -0.01118145,        -0.00485852,
+             -0.00000002710544,  -0.00000242392702,  +0.00000000006585,
+             +0.01118145,        +0.99991613,        -0.00002716,
+             -0.00000001177742,  +0.00000000006585,  -0.00000242404995,
+             +0.00485852,        -0.00002717,        +0.99996684], 6, 6)
 
 # Note: IDL version of `bprecess' changes in-place "muradec", "parallax" and
 # "radvel".  We don't do anything like this, but calculations are below,
@@ -28,7 +28,7 @@ function bprecess{T<:AbstractFloat}(ra::AbstractFloat, dec::AbstractFloat,
     cosdec = cosd(dec)
     sindec = sind(dec)
     ra1950 = dec1950 = zero(T)
-    A  = 1e-6*[-1.62557, -0.31919, -0.13843]
+    A  = copy(A_precess)
     r0 = [cosra*cosdec,  sinra*cosdec,  sindec]
     r0_dot = [-muradec[1]*sinra*cosdec - muradec[2]*cosra*sindec,
                muradec[1]*cosra*cosdec - muradec[2]*sinra*sindec,
@@ -39,7 +39,7 @@ function bprecess{T<:AbstractFloat}(ra::AbstractFloat, dec::AbstractFloat,
     r1_dot = R_1[4:6]
     if isfinite(epoch)
         r1 += deg2rad(r1_dot*(epoch - 1950.0)*inv(360000.0))
-        A  += deg2rad(A_dot_bprec*(epoch - 1950.0)*inv(360000.0))
+        A  += deg2rad(A_dot_precess*(epoch - 1950.0)*inv(360000.0))
     end
     rmag = vecnorm(r1)
     s1 = r1*inv(rmag)
@@ -51,7 +51,7 @@ function bprecess{T<:AbstractFloat}(ra::AbstractFloat, dec::AbstractFloat,
         s = r*inv(rmag)
     end
     rmag = vecnorm(r)
-    # r_dot = s1_dot + A_dot_bprec - sum(s.*A_dot_bprec)*s
+    # r_dot = s1_dot + A_dot_precess - sum(s.*A_dot_precess)*s
     x = r[1]
     y = r[2]
     z = r[3]
@@ -205,6 +205,14 @@ adstring(bprecess(ra, decl, muradec), precision=2)
 ```
 
 ### Notes ###
+
+"When transferring individual observations, as opposed to catalog mean place,
+the safest method is to tranform the observations back to the epoch of the
+observation, on the FK4 system (or in the system that was used to to produce the
+observed mean place), convert to the FK5 system, and transform to the the epoch
+and equinox of J2000.0" -- from the Explanatory Supplement (1992), p. 180
+
+`jprecess` performs the precession to J2000 coordinates.
 
 Code of this function is based on IDL Astronomy User's Library.
 """

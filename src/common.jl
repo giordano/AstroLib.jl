@@ -21,6 +21,10 @@ end
 # Astronomical unit in meters
 const AU = 1.495978707e11
 
+# Used in "bprecess" and "jprecess".
+const A_precess  = 1e-6*[-1.62557, -0.31919, -0.13843] # In radians
+const A_dot_precess = 0.001*[1.244 , -1.579, -0.660] # In arc seconds per century
+
 """
 List of observing sites.  The observatories have `Observatory` type.
 """

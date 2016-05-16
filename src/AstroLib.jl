@@ -6,9 +6,12 @@ using Compat
 using Base.Dates
 import Compat.String
 
+# Core functions
 include("misc.jl")
 include("utils.jl")
+# New types
 include("types.jl")
+# Common constants
 include("common.jl")
 
 end # module

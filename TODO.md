@@ -263,7 +263,6 @@ Missing in AstroLib.jl
 * `isarray`
 * `is_ieee_big`
 * `ismeuv`
-* `jprecess`
 * `ksone`
 * `kstwo`
 * `kuiperone`
