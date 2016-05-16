@@ -1960,18 +1960,6 @@ orbit. Usually the eccentricity is given and one wants to find the
 eccentric anomaly :math:`E(t)` at a specific time :math:`t`, so that
 also the mean anomaly :math:`M(t)` is known.
 
-Once that the Kepler's equation is solved and :math:`E(t)` is
-determined, the polar coordinates :math:`(r(t), \theta(t))` of the body
-at time :math:`t` in the elliptic orbit are given by
-
-.. math::  \theta(t) = 2\arctan \left(\sqrt{\frac{1 + e}{1 - e}} \tan\frac{E(t)}{2} \right)
-
-.. math::  r(t) = \frac{a(1 - e^{2})}{1 + e\cos(\theta(t) - \theta_{0})}
-
-in which :math:`a` is the semi-major axis of the orbit, and
-:math:`\theta_0` the value of angular coordinate at time
-:math:`t = t_{0}`.
-
 Arguments
 '''''''''
 
@@ -2000,16 +1988,14 @@ entire range of elliptic motion :math:`0 \leq e \leq 1`.
 Example
 '''''''
 
-(1) Find the angular polar coordinate :math:`\theta(t)` for an orbit
-    with eccentricity :math:`e = 0.7` and for :math:`M(t) = 8\pi/3`.
+(1) Find the eccentric anomaly for an orbit with eccentricity
+    :math:`e = 0.7` and for :math:`M(t) = 8\pi/3`.
 
 .. code-block:: julia
 
     ecc = 0.7;
     E = kepler_solver(8pi/3, ecc)
     # => 2.5085279492864223
-    θ = 2*atan(sqrt((1.0 + ecc)/(1.0 - ecc))*tan(E/2.0))
-    # => 2.8681167800611607
 
 (2) Plot the eccentric anomaly as a function of mean anomaly for
     eccentricity :math:`e = 0`, :math:`0.5`, :math:`0.9`. Recall that
@@ -2023,18 +2009,10 @@ Example
     M=linspace(0, 2pi, 1001)[1:end-1];
     for ecc in (0, 0.5, 0.9); plot(M, cirrange(kepler_solver(M, ecc), 2pi)); end
 
-Plot also the polar coordinate :math:`\theta` as a function of mean
-anomaly for different values of eccentricity.
+Notes
+'''''
 
-.. code-block:: julia
-
-    using PyPlot
-    M=linspace(0, 2pi, 1001)[1:end-1];
-    for ecc in (0, 0.5, 0.9)
-        E = kepler_solver(M, ecc);
-        θ = 2*atan(sqrt((1.0 + ecc)/(1.0 - ecc))*tan(E/2.0));
-        plot(M, cirrange(θ, 2pi))
-    end
+The true anomaly can be calculated with ``trueanom`` function.
 
 --------------
 
@@ -3432,6 +3410,70 @@ numeric input. If it is important to give sense to negative zero, you
 can either make sure to pass a floating point negative zero ``-0.0``
 (this is the best option), or use negative minutes and seconds, or
 non-integer negative degrees and minutes.
+
+--------------
+
+trueanom
+~~~~~~~~
+
+.. function:: trueanom(E, e) -> true anomaly
+
+Purpose
+'''''''
+
+Calculate true anomaly for a particle in elliptic orbit with eccentric
+anomaly :math:`E` and eccentricity :math:`e`.
+
+Explanation
+'''''''''''
+
+In the two-body problem, once that the `Kepler's
+equation <https://en.wikipedia.org/wiki/Kepler%27s_equation>`__ is
+solved and :math:`E(t)` is determined, the polar coordinates
+:math:`(r(t), \theta(t))` of the body at time :math:`t` in the elliptic
+orbit are given by
+
+.. math::  \theta(t) = 2\arctan \left(\sqrt{\frac{1 + e}{1 - e}} \tan\frac{E(t)}{2} \right)
+
+.. math::  r(t) = \frac{a(1 - e^{2})}{1 + e\cos(\theta(t) - \theta_{0})}
+
+in which :math:`a` is the semi-major axis of the orbit, and
+:math:`\theta_0` the value of angular coordinate at time
+:math:`t = t_{0}`.
+
+Arguments
+'''''''''
+
+-  ``E``: eccentric anomaly. This can be either a scalar or an array
+-  ``e``: eccentricity, in the elliptic motion regime
+   (:math:`0 \leq e \leq 1`)
+
+Output
+''''''
+
+The true anomaly. If an array of eccentric anomalies is provided in
+input, an array of the same length as ``E`` is returned.
+
+Example
+'''''''
+
+Plot the true anomaly as a function of mean anomaly for eccentricity
+:math:`e = 0`, :math:`0.5`, :math:`0.9`. Use
+`PyPlot.jl <https://github.com/stevengj/PyPlot.jl>`__ for plotting.
+
+.. code-block:: julia
+
+    using PyPlot
+    M=linspace(0, 2pi, 1001)[1:end-1];
+    for ecc in (0, 0.5, 0.9)
+        E = kepler_solver(M, ecc);
+        plot(M, cirrange(trueanom(E, ecc), 2pi))
+    end
+
+Notes
+'''''
+
+The eccentric anomaly can be calculated with ``kepler_solver`` function.
 
 --------------
 

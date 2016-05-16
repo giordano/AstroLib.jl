@@ -56,9 +56,9 @@ function rhotheta{T<:AbstractFloat}(period::T, periastron::T, eccentricity::T,
     # See chapter 55.
     n = 360.0/period
     M = deg2rad(n*(epoch - periastron))
-    e0 = kepler_solver(M, eccentricity)
-    r  = semimajor_axis*(1.0 - eccentricity*cos(e0))
-    nu = 2.0*atan(sqrt((1.0 + eccentricity)/(1.0 - eccentricity))*tan(e0/2.0))
+    E = kepler_solver(M, eccentricity)
+    r  = semimajor_axis*(1.0 - eccentricity*cos(E))
+    nu = trueanom(E, eccentricity)
     # Convert variables in radians.
     omega2      = deg2rad(omega2)
     inclination = deg2rad(inclination)

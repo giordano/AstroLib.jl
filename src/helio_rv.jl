@@ -70,7 +70,7 @@ Code of this function is based on IDL Astronomy User's Library.
 """
 function helio_rv{T<:AbstractFloat}(jd::T, t::T, P::T, V0::T, K::T, ecc::T, ω::T)
     E = kepler_solver(2.0*pi*(jd - t)/P, ecc)
-    ν = 2*atan(sqrt((1.0 + ecc)/(1.0 - ecc))*tan(E/2.0))
+    ν = trueanom(E, ecc)
     ω = deg2rad(ω)
     return K*(cos(ν + ω) + (ecc*cos(ω))) + V0
 end

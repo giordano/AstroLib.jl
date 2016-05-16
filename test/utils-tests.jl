@@ -545,6 +545,14 @@ end
     [-0.37388888888888894, -1.0, -3.0]
 @test tenv([12.0, -0.0], [24, 30]) == tenv([" 12::24", " -0:30: "]) == [12.4, -0.5]
 
+# Test kepler_solver
+@test_approx_eq trueanom(8pi/3, 0.7) 2.6657104039293764
+@test_approx_eq trueanom([pi/4, pi/6, 8pi/3], 0) [pi/4, pi/6, 2pi/3]
+@test_approx_eq trueanom(3pi/2, 0.8) -2.498091544796509
+@test_approx_eq trueanom(0.1, 1) pi
+@test_throws ErrorException trueanom(pi, -0.5)
+@test_throws DomainError trueanom(pi,  1.5)
+
 # Test vactoair and that airtovac is its inverse (it isn't true only around
 # 2000, just avoid those values)
 @test_approx_eq vactoair([2000]) [1999.3526230448367]

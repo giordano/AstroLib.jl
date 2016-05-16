@@ -148,6 +148,9 @@ export sunpos
 include("ten.jl")
 export ten, tenv
 
+include("trueanom.jl")
+export trueanom
+
 include("vactoair.jl")
 export vactoair
 

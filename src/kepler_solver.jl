@@ -23,16 +23,6 @@ passage, and \$P\$ is the period of the orbit.  Usually the eccentricity is
 given and one wants to find the eccentric anomaly \$E(t)\$ at a specific time
 \$t\$, so that also the mean anomaly \$M(t)\$ is known.
 
-Once that the Kepler's equation is solved and \$E(t)\$ is determined, the polar
-coordinates \$(r(t), \\theta(t))\$ of the body at time \$t\$ in the elliptic
-orbit are given by
-
-\$\$ \\theta(t) = 2\\arctan \\left(\\sqrt{\\frac{1 + e}{1 - e}} \\tan\\frac{E(t)}{2} \\right)\$\$
-\$\$ r(t) = \\frac{a(1 - e^{2})}{1 + e\\cos(\\theta(t) - \\theta_{0})}\$\$
-
-in which \$a\$ is the semi-major axis of the orbit, and \$\\theta_0\$ the value
-of angular coordinate at time \$t = t_{0}\$.
-
 ### Arguments ###
 
 * `M`: mean anomaly.  This can be either a scalar or an array
@@ -56,15 +46,13 @@ motion \$0 \\leq e \\leq 1\$.
 
 ### Example ###
 
-(1) Find the angular polar coordinate \$\\theta(t)\$ for an orbit with
-eccentricity \$e = 0.7\$ and for \$M(t) = 8\\pi/3\$.
+(1) Find the eccentric anomaly for an orbit with eccentricity \$e = 0.7\$ and
+for \$M(t) = 8\\pi/3\$.
 
 ``` julia
 ecc = 0.7;
 E = kepler_solver(8pi/3, ecc)
 # => 2.5085279492864223
-θ = 2*atan(sqrt((1.0 + ecc)/(1.0 - ecc))*tan(E/2.0))
-# => 2.8681167800611607
 ```
 
 (2) Plot the eccentric anomaly as a function of mean anomaly for eccentricity
@@ -78,18 +66,9 @@ M=linspace(0, 2pi, 1001)[1:end-1];
 for ecc in (0, 0.5, 0.9); plot(M, cirrange(kepler_solver(M, ecc), 2pi)); end
 ```
 
-Plot also the polar coordinate \$\\theta\$ as a function of mean anomaly for
-different values of eccentricity.
-``` julia
-using PyPlot
-M=linspace(0, 2pi, 1001)[1:end-1];
-for ecc in (0, 0.5, 0.9)
-    E = kepler_solver(M, ecc);
-    θ = 2*atan(sqrt((1.0 + ecc)/(1.0 - ecc))*tan(E/2.0));
-    plot(M, cirrange(θ, 2pi))
-end
-```
+### Notes ###
 
+The true anomaly can be calculated with `trueanom` function.
 """
 function kepler_solver{T<:AbstractFloat}(M::T, e::T)
     if 0 <= e <= 1
