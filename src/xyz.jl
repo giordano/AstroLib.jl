@@ -74,7 +74,7 @@ NOTE: Velocities in AA are for Earth/Moon barycenter
 Code of this function is based on IDL Astronomy User's Library.
 """
 function xyz{T<:AbstractFloat}(jd::T, equinox::T=NaN)
-    t = (float(jd) - 15020.0)/36525.0  # Relative Julian century from 1900
+    t = (float(jd) - 15020.0)*inv(JULIANYEAR*100) # Reduced Julian century from 1900
 
     # NOTE: longitude arguments below are given in *equinox* of date.  Precess
     # these to equinox 1950 to give everything an even footing.  Compute

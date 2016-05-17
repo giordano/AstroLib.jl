@@ -18,8 +18,12 @@ let
     end
 end
 
-# Astronomical unit in meters
-const AU = 1.495978707e11
+const AU = 1.495978707e11 # Astronomical unit in meters
+const J2000 = jdcnv(2000, 01, 01, 12) # 2451545
+const JULIANYEAR = 365.25 # days in Julian year
+
+# Constant used in ct2lst function, see Meeus, p.84.
+const ct2lst_c  = (280.46061837, 360.98564736629, 0.000387933, 38710000.0)
 
 # Used in "bprecess" and "jprecess".
 const A_precess  = 1e-6*[-1.62557, -0.31919, -0.13843] # In radians

@@ -86,14 +86,11 @@ sixty(lst)
 Code of this function is based on IDL Astronomy User's Library.
 """
 function ct2lst{T<:AbstractFloat}(long::T, jd::T)
-    # Useful constants, see Meeus, p.84.
-    c  = [280.46061837, 360.98564736629, 0.000387933, 38710000.0]
-    jd2000 = 2451545.0
-    t0 = jd - jd2000
-    t  = t0/36525.0
+    t0 = jd - J2000
+    t  = t0*inv(JULIANYEAR*100)
     # Compute GST in seconds.
-    theta = c[1] + (c[2]*t0) + t^2*(c[3] - t/c[4])
-    return cirrange((theta + long)/15.0, 24.0)
+    θ = ct2lst_c[1] + (ct2lst_c[2]*t0) + t*t*(ct2lst_c[3] - t*inv(ct2lst_c[4]))
+    return cirrange((θ + long)/15.0, 24.0)
 end
 
 ct2lst(long::Real, jd::Real) = ct2lst(promote(float(long), float(jd))...)

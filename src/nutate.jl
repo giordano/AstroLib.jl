@@ -95,7 +95,7 @@ Code of this function is based on IDL Astronomy User's Library.
 """
 function nutate{T<:AbstractFloat}(jd::T)
     # Number of Julian centuries since 2000-01-01T12:00:00
-    t = (jd - 2451545.0)/36525.0
+    t = (jd - J2000)*inv(JULIANYEAR*100)
     # Mean elongation of the Moon
     d = deg2rad(cirrange(@evalpoly(t, 297.85036, 445267.111480, -0.0019142, inv(189474))))
     # Sun's mean anomaly
