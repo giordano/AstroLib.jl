@@ -7,16 +7,28 @@ List of locations of North Magnetic Pole since 1590.
 This is provided by World Magnetic Model
 (https://www.ngdc.noaa.gov/geomag/data/poles/NP.xy).
 """
-POLELATLONG = Dict{AbstractFloat,Tuple{AbstractFloat,AbstractFloat}}()
-let
-    local polelatlong, rows
-    polelatlong = readdlm(joinpath(dirname(@__FILE__), "..", "deps", "NP.xy"))
-    rows = size(polelatlong, 1)
-    for i = 1:rows
-        merge!(POLELATLONG, Dict(polelatlong[2rows + i]=>
-                                 (polelatlong[rows + i], polelatlong[i])))
+const POLELATLONG =
+    try
+        let
+            local polelatlong, rows, floattype, temp
+            polelatlong = readdlm(joinpath(dirname(@__FILE__),
+                                           "..", "deps", "NP.xy"))
+            rows = size(polelatlong, 1)
+            floattype = typeof(polelatlong[1])
+            temp = Dict{floattype, Tuple{floattype, floattype}}()
+            for i = 1:rows
+                merge!(temp, Dict(polelatlong[2rows + i]=>
+                                  (polelatlong[rows + i],
+                                   polelatlong[i])))
+            end
+            temp
+        end
+    catch
+        warn("""Could not find file NP.xy, you will not be able to use
+"geo2mag" and "mag2geo" functions.  Build again the package with
+    Pkg.build("AstroLib")
+then restart Julia session in order to fix this problem.""")
     end
-end
 
 const AU = 1.495978707e11 # Astronomical unit in meters
 const J2000 = jdcnv(2000, 01, 01, 12) # 2451545

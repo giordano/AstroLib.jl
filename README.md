@@ -38,6 +38,15 @@ julia> Pkg.add("AstroLib")
 You may need to update your package list with `Pkg.update()` in order to get the
 latest version of `AstroLib.jl`.
 
+Note that, in order to work, a few functions require external files, which are
+automatically downloaded when building the package.  Should these files be
+missing for some reason, you will be able to load the package but some functions
+may not work properly.  You can manually build the package with
+
+```julia
+julia> Pkg.build("AstroLib")
+```
+
 Usage
 -----
 

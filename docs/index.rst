@@ -30,19 +30,28 @@ be installed with `Julia built-in package
 manager <http://docs.julialang.org/en/stable/manual/packages/>`__. In a
 Julia session run the command
 
-.. code:: julia
+.. code-block:: julia
 
     julia> Pkg.add("AstroLib")
 
 You may need to update your package list with ``Pkg.update()`` in order
 to get the latest version of ``AstroLib.jl``.
 
+Note that, in order to work, a few functions require external files, which are
+automatically downloaded when building the package.  Should these files be
+missing for some reason, you will be able to load the package but some functions
+may not work properly.  You can manually build the package with
+
+.. code-block:: julia
+
+    julia> Pkg.build("AstroLib")
+
 Usage
 -----
 
 After installing the package, you can start using ``AstroLib.jl`` with
 
-.. code:: julia
+.. code-block:: julia
 
     using AstroLib
 
@@ -66,7 +75,7 @@ fields are
 The type constructor ``Observatory`` can be used to create a new
 ``Observatory`` object. Its syntax is
 
-.. code:: julia
+.. code-block:: julia
 
     Observatory(name, lat, long, alt, tz)
 
@@ -79,7 +88,7 @@ A predefined list of some observing sites is provided with
 abbreviated names of the observatories. For example, you can access information
 of the European Southern Observatory with
 
-.. code:: julia
+.. code-block:: julia
 
     julia> obs = AstroLib.observatories["eso"]
     Observatory: European Southern Observatory
@@ -93,7 +102,7 @@ of the European Southern Observatory with
 
 You can list all keys of the dictionary with
 
-.. code:: julia
+.. code-block:: julia
 
     keys(AstroLib.observatories)
 
@@ -125,7 +134,7 @@ System planets. Its fields are
 
 The constructor has this syntax:
 
-.. code:: julia
+.. code-block:: julia
 
     Planet(name, radius, eqradius, polradius, mass, ecc, axis, period)
 
@@ -133,7 +142,7 @@ The list of Solar System planets, from Mercury to Pluto, is available
 with ``AstroLib.planets`` dictionary. The keys of this dictionary are the
 lowercase names of the planets. For example:
 
-.. code:: julia
+.. code-block:: julia
 
     julia> AstroLib.planets["mercury"]
     Planet:            Mercury
@@ -182,13 +191,13 @@ Every function provided has detailed documentation that can be
 `accessed <http://docs.julialang.org/en/stable/manual/documentation/#accessing-documentation>`__
 at Julia REPL with
 
-.. code:: julia
+.. code-block:: julia
 
     julia> ?FunctionName
 
 or with
 
-.. code:: julia
+.. code-block:: julia
 
     julia> @doc FunctionName
 
