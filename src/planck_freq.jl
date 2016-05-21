@@ -1,6 +1,12 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _planck_freq{T<:Real}(frequency::T, temperature::T)
+    c1  = 1.47449944028424e-50 # = 2*h/c*c
+    c2  = 4.79924466221135e-11 # = h/k
+    return c1*frequency^3/expm1(c2*frequency/temperature)
+end
+
 """
     planck_freq(frequency, temperature) -> black_body_flux
 
@@ -43,12 +49,6 @@ plot(frequency, flux)
 
 `planck_wave` calculates the flux of a black body per unit wavelength.
 """
-function planck_freq{T<:AbstractFloat}(frequency::T, temperature::T)
-    c1  = 1.47449944028424e-50 # = 2*h/c*c
-    c2  = 4.79924466221135e-11 # = h/k
-    return c1*frequency^3/expm1(c2*frequency/temperature)
-end
-
-planck_freq(f::Real, t::Real) = planck_freq(promote(float(f), float(t))...)
+planck_freq(f::Real, t::Real) = _planck_freq(promote(float(f), float(t))...)
 
 @vectorize_2arg Real planck_freq

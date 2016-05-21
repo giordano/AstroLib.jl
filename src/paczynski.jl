@@ -1,6 +1,24 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _paczynski(u::Real)
+    absu = abs(u)
+    if absu >= 1e5
+        # You can verify that:
+        #   u=1e5; (u*u + 2)/(u*sqrt(u*u + 4)) === 1.0
+        return copysign(1.0, u)
+    elseif absu <= 1e-8
+        # You can verify that:
+        #   u = 1e-8; (u*u + 2)/(u*sqrt(u*u + 4)) === inv(u)
+        inv(u)
+    else
+        u2 = u*u
+        # Using `hypot' in place of the square root would be an overkill since
+        #   1e-8 < |u| < 1e5
+        return (u2 + 2)/(u*sqrt(u2 + 4))
+    end
+end
+
 """
     paczynski(u) -> amplification
 
@@ -74,24 +92,6 @@ earlier:
   DOI:[10.1126/science.84.2188.506](http://dx.doi.org/10.1126/science.84.2188.506),
   Bibcode:[1936Sci....84..506E](http://adsabs.harvard.edu/abs/1936Sci....84..506E)
 """
-function paczynski{T<:AbstractFloat}(u::T)
-    absu = abs(u)
-    if absu >= 1e5
-        # You can verify that:
-        #   u=1e5; (u*u + 2)/(u*sqrt(u*u + 4)) === 1.0
-        return copysign(1.0, u)
-    elseif absu <= 1e-8
-        # You can verify that:
-        #   u = 1e-8; (u*u + 2)/(u*sqrt(u*u + 4)) === inv(u)
-        inv(u)
-    else
-        u2 = u*u
-        # Using `hypot' in place of the square root would be an overkill since
-        #   1e-8 < |u| < 1e5
-        return (u2 + 2)/(u*sqrt(u2 + 4))
-    end
-end
-
-paczynski(u::Real) = paczynski(float(u))
+paczynski(u::Real) = _paczynski(float(u))
 
 @vectorize_1arg Real paczynski

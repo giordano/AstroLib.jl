@@ -39,6 +39,26 @@ const cdelt = [8.9, -3.1, -0.5, 0.5, -0.1, 0.0, -0.6, 0.0, -0.1, 0.3, 0.0, 0.0,
                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
+function _nutate(jd::Real)
+    # Number of Julian centuries since 2000-01-01T12:00:00
+    t = (jd - J2000)*inv(JULIANYEAR*100)
+    # Mean elongation of the Moon
+    d = deg2rad(cirrange(@evalpoly(t, 297.85036, 445267.111480, -0.0019142, inv(189474))))
+    # Sun's mean anomaly
+    M = deg2rad(cirrange(@evalpoly(t, 357.52772, 35999.050340, -0.0001603, -inv(3e5))))
+    # Moon's mean anomaly
+    Mprime = deg2rad(cirrange(@evalpoly(t, 134.96298, 477198.867398, 0.0086972, inv(5.625e4))))
+    # Moon's argument of latitude
+    F = deg2rad(cirrange(@evalpoly(t, 93.27191, 483202.017538, -0.0036825, -inv(3.27270e5))))
+    # Longitude of the ascending node of the Moon's mean orbit on the ecliptic,
+    # measured from the mean equinox of the date
+    ω = deg2rad(cirrange(@evalpoly(t, 125.04452, -1934.136261, 0.0020708, inv(4.5e5))))
+    arg = d_lng*d + M_lng*M + Mprime_lng*Mprime + F_lng*F + ω_lng*ω
+    long  = 0.0001*sum((sdelt*t + sin_lng).*sin(arg))
+    obliq = 0.0001*sum((cdelt*t + cos_lng).*cos(arg))
+    return long, obliq
+end
+
 """
     nutate(jd) -> long, obliq
 
@@ -93,27 +113,7 @@ smaller oscillations with shorter periods.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function nutate{T<:AbstractFloat}(jd::T)
-    # Number of Julian centuries since 2000-01-01T12:00:00
-    t = (jd - J2000)*inv(JULIANYEAR*100)
-    # Mean elongation of the Moon
-    d = deg2rad(cirrange(@evalpoly(t, 297.85036, 445267.111480, -0.0019142, inv(189474))))
-    # Sun's mean anomaly
-    M = deg2rad(cirrange(@evalpoly(t, 357.52772, 35999.050340, -0.0001603, -inv(3e5))))
-    # Moon's mean anomaly
-    Mprime = deg2rad(cirrange(@evalpoly(t, 134.96298, 477198.867398, 0.0086972, inv(5.625e4))))
-    # Moon's argument of latitude
-    F = deg2rad(cirrange(@evalpoly(t, 93.27191, 483202.017538, -0.0036825, -inv(3.27270e5))))
-    # Longitude of the ascending node of the Moon's mean orbit on the ecliptic,
-    # measured from the mean equinox of the date
-    ω = deg2rad(cirrange(@evalpoly(t, 125.04452, -1934.136261, 0.0020708, inv(4.5e5))))
-    arg = d_lng*d + M_lng*M + Mprime_lng*Mprime + F_lng*F + ω_lng*ω
-    long  = 0.0001*sum((sdelt*t + sin_lng).*sin(arg))
-    obliq = 0.0001*sum((cdelt*t + cos_lng).*cos(arg))
-    return long, obliq
-end
-
-nutate(jd::Real) = nutate(float(jd))
+nutate(jd::Real) = _nutate(float(jd))
 
 function nutate{J<:Real}(jd::AbstractArray{J})
     typej = float(J)

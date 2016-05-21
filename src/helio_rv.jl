@@ -1,6 +1,13 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _helio_rv{T<:Real}(jd::T, t::T, P::T, V0::T, K::T, ecc::T, ω::T)
+    E = kepler_solver(2.0*pi*(jd - t)/P, ecc)
+    ν = trueanom(E, ecc)
+    ω = deg2rad(ω)
+    return K*(cos(ν + ω) + (ecc*cos(ω))) + V0
+end
+
 """
     helio_rv(jd, T, P, V_0, K[, e, ω]) -> rv
 
@@ -68,17 +75,10 @@ must be used throughtout.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function helio_rv{T<:AbstractFloat}(jd::T, t::T, P::T, V0::T, K::T, ecc::T, ω::T)
-    E = kepler_solver(2.0*pi*(jd - t)/P, ecc)
-    ν = trueanom(E, ecc)
-    ω = deg2rad(ω)
-    return K*(cos(ν + ω) + (ecc*cos(ω))) + V0
-end
-
 helio_rv(jd::Real, t::Real, P::Real, V0::Real,
          K::Real, ecc::Real=0.0, ω::Real=0.0) =
-             helio_rv(promote(float(jd), float(t), float(P),
-                              float(V0), float(K), float(ecc), float(ω))...)
+             _helio_rv(promote(float(jd), float(t), float(P),
+                               float(V0), float(K), float(ecc), float(ω))...)
 
 function helio_rv{R1<:Real,R2<:Real,R3<:Real,R4<:Real,R5<:Real,R6<:Real,
                   R7<:Real}(jd::AbstractArray{R1}, t::R2, P::R3,

@@ -1,6 +1,14 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _recpol{T<:Real}(x::T, y::T, degrees::Bool)
+    if degrees
+        return hypot(x, y), rad2deg(atan2(y, x))
+    else
+        return return hypot(x, y), atan2(y, x)
+    end
+end
+
 """
     recpol(x, y[, degrees=true]) -> radius, angle
 
@@ -45,16 +53,8 @@ r, phi = recpol(2.24, -1.87)
 Angle \$\\varphi\$ is given in radians.
 
 """
-function recpol{T<:AbstractFloat}(x::T, y::T, degrees::Bool)
-    if degrees
-        return hypot(x, y), rad2deg(atan2(y, x))
-    else
-        return return hypot(x, y), atan2(y, x)
-    end
-end
-
 recpol(x::Real, y::Real; degrees::Bool=false) =
-    recpol(promote(float(x), float(y))..., degrees)
+    _recpol(promote(float(x), float(y))..., degrees)
 
 recpol(xy::Tuple{Real, Real}; degrees::Bool=false) =
     recpol(xy..., degrees=degrees)

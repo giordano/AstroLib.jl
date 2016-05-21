@@ -1,6 +1,14 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _ct2lst{T<:Real}(long::T, jd::T)
+    t0 = jd - J2000
+    t  = t0*inv(JULIANYEAR*100)
+    # Compute GST in seconds.
+    θ = ct2lst_c[1] + (ct2lst_c[2]*t0) + t*t*(ct2lst_c[3] - t*inv(ct2lst_c[4]))
+    return cirrange((θ + long)/15.0, 24.0)
+end
+
 """
     ct2lst(longitude, jd) -> local_sidereal_time
     ct2lst(longitude, tz, date) -> local_sidereal_time
@@ -85,15 +93,7 @@ sixty(lst)
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function ct2lst{T<:AbstractFloat}(long::T, jd::T)
-    t0 = jd - J2000
-    t  = t0*inv(JULIANYEAR*100)
-    # Compute GST in seconds.
-    θ = ct2lst_c[1] + (ct2lst_c[2]*t0) + t*t*(ct2lst_c[3] - t*inv(ct2lst_c[4]))
-    return cirrange((θ + long)/15.0, 24.0)
-end
-
-ct2lst(long::Real, jd::Real) = ct2lst(promote(float(long), float(jd))...)
+ct2lst(long::Real, jd::Real) = _ct2lst(promote(float(long), float(jd))...)
 
 function ct2lst{T<:AbstractFloat}(long::T, tz::T,
                                   date::DateTime)

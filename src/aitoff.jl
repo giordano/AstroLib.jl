@@ -1,6 +1,17 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _aitoff{R<:Real}(l::R, b::R)
+    l > 180.0 && (l -= 360.0)
+    alpha2 = deg2rad(l/2.0)
+    delta = deg2rad(b)
+    r2 = sqrt(2.0)
+    f = 2.0*r2/pi
+    cdec = cos(delta)
+    denom = sqrt(1.0 + cdec*cos(alpha2))
+    return rad2deg(cdec*sin(alpha2)*2.0*r2/denom/f), rad2deg(sin(delta)*r2/denom/f)
+end
+
 """
     aitoff(l, b) -> x, y
 
@@ -49,18 +60,7 @@ centered at b=0 degrees.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function aitoff(l::AbstractFloat, b::AbstractFloat)
-    l > 180.0 && (l -= 360.0)
-    alpha2 = deg2rad(l/2.0)
-    delta = deg2rad(b)
-    r2 = sqrt(2.0)
-    f = 2.0*r2/pi
-    cdec = cos(delta)
-    denom = sqrt(1.0 + cdec*cos(alpha2))
-    return rad2deg(cdec*sin(alpha2)*2.0*r2/denom/f), rad2deg(sin(delta)*r2/denom/f)
-end
-
-aitoff(l::Real, b::Real) = aitoff(promote(float(l), float(b))...)
+aitoff(l::Real, b::Real) = _aitoff(promote(float(l), float(b))...)
 
 aitoff(lb::Tuple{Real, Real}) = aitoff(lb...)
 

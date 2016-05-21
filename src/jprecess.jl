@@ -18,10 +18,8 @@ const Mjprec =
 # Note: IDL version of `jprecess' changes in-place "muradec", "parallax" and
 # "radvel".  We don't do anything like this, but calculations are below,
 # commented, in case someone is interested.
-function jprecess{T<:AbstractFloat}(ra::AbstractFloat, dec::AbstractFloat,
-                                    parallax::AbstractFloat,
-                                    radvel::AbstractFloat,
-                                    epoch::AbstractFloat, muradec::Vector{T})
+function _jprecess{T<:Real}(ra::T, dec::T, parallax::T,
+                            radvel::T, epoch::T, muradec::Vector{T})
     @assert length(muradec) == 2
     cosra  = cosd(ra)
     sinra  = sind(ra)
@@ -77,13 +75,13 @@ end
 # Main interface.
 jprecess{R<:Real}(ra::Real, dec::Real, muradec::Vector{R};
                   parallax::Real=0.0, radvel::Real=0.0) =
-                      jprecess(promote(float(ra), float(dec), float(parallax),
-                                       float(radvel), NaN)...,
-                               float(muradec))
+                      _jprecess(promote(float(ra), float(dec), float(parallax),
+                                        float(radvel), NaN)...,
+                                float(muradec))
 
 jprecess(ra::Real, dec::Real, epoch::Real=1950.0) =
-    jprecess(promote(float(ra), float(dec), 0.0, 0.0, float(epoch))...,
-             zeros(typeof(float(ra)), 2))
+    _jprecess(promote(float(ra), float(dec), 0.0, 0.0, float(epoch))...,
+              zeros(typeof(float(ra)), 2))
 
 # Tuple arguments.
 jprecess{R1<:Real,R2<:Real,R3<:Real}(radec::Tuple{R1,R2}, muradec::Vector{R3};

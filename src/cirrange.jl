@@ -1,6 +1,13 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _cirrange{T<:Real}(number::T, max::T)
+    # Deal with the lower limit.
+    result = mod(number, max)
+    # Deal with negative values, if any
+    return result < 0.0 ? (result + max) : result
+end
+
 """
     cirrange(number[, max]) -> restricted_number
 
@@ -38,15 +45,8 @@ Use `2.0*pi` as second argument to restrict a number to the same interval.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function cirrange{T<:AbstractFloat}(number::T, max::T=360.0)
-    # Deal with the lower limit.
-    result = mod(number, max)
-    # Deal with negative values, if any
-    return result < 0.0 ? (result + max) : result
-end
-
 cirrange(number::Real, max::Real=360.0) =
-    cirrange(promote(float(number), float(max))...)
+    _cirrange(promote(float(number), float(max))...)
 
 function cirrange{N<:Real}(numbers::AbstractArray{N}, max::Real=360.0)
     result = similar(numbers, typeof(float(one(N))))

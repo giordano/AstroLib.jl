@@ -1,6 +1,25 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _sphdist{T<:Real}(long1::T, lat1::T, long2::T, lat2::T,
+                           degrees::Bool)
+    # Convert both points to rectangular coordinates.
+    rxy, z1 = polrec(1.0, lat1,  degrees=degrees)
+    x1, y1  = polrec(rxy, long1, degrees=degrees)
+    rxy, z2 = polrec(1.0, lat2,  degrees=degrees)
+    x2, y2  = polrec(rxy, long2, degrees=degrees)
+    # Compute vector dot product for both points.
+    cs = x1*x2 + y1*y2 + z1*z2
+    # Compute the vector cross product for both points.
+    xc = y1*z2 - z1*y2
+    yc = z1*x2 - x1*z2
+    zc = x1*y2 - y1*x2
+    sn = vecnorm((xc, yc, zc))
+    # Convert to polar coordinates.
+    radius, angle = recpol(cs, sn)
+    return degrees ? rad2deg(angle) : angle
+end
+
 """
     sphdist(long1, lat1, long2, lat2[, degrees=true]) -> angular_distance
 
@@ -44,29 +63,10 @@ sphdist(120, -43, 175, +22)
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function sphdist{T<:AbstractFloat}(long1::T, lat1::T, long2::T, lat2::T,
-                                   degrees::Bool)
-    # Convert both points to rectangular coordinates.
-    rxy, z1 = polrec(1.0, lat1,  degrees=degrees)
-    x1, y1  = polrec(rxy, long1, degrees=degrees)
-    rxy, z2 = polrec(1.0, lat2,  degrees=degrees)
-    x2, y2  = polrec(rxy, long2, degrees=degrees)
-    # Compute vector dot product for both points.
-    cs = x1*x2 + y1*y2 + z1*z2
-    # Compute the vector cross product for both points.
-    xc = y1*z2 - z1*y2
-    yc = z1*x2 - x1*z2
-    zc = x1*y2 - y1*x2
-    sn = vecnorm((xc, yc, zc))
-    # Convert to polar coordinates.
-    radius, angle = recpol(cs, sn)
-    return degrees ? rad2deg(angle) : angle
-end
-
 sphdist(long1::Real, lat1::Real,
         long2::Real, lat2::Real; degrees::Bool=false) =
-            sphdist(promote(float(long1), float(lat1),
-                            float(long2), float(lat2))... , degrees)
+            _sphdist(promote(float(long1), float(lat1),
+                             float(long2), float(lat2))... , degrees)
 
 function sphdist{LO1<:Real, LA1<:Real}(long1::AbstractArray{LO1},
                                        lat1::AbstractArray{LA1},

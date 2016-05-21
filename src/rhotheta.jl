@@ -1,6 +1,27 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _rhotheta{T<:Real}(period::T, periastron::T, eccentricity::T,
+                            semimajor_axis::T, inclination::T,
+                            omega::T, omega2::T, epoch::T)
+    rho = theta = -one(period)
+    # See chapter 55.
+    n = 360.0/period
+    M = deg2rad(n*(epoch - periastron))
+    E = kepler_solver(M, eccentricity)
+    r  = semimajor_axis*(1.0 - eccentricity*cos(E))
+    nu = trueanom(E, eccentricity)
+    # Convert variables in radians.
+    omega2      = deg2rad(omega2)
+    inclination = deg2rad(inclination)
+    omega       = deg2rad(omega)
+    theta = omega + atan2(sin(nu + omega2)*cos(inclination), cos(nu + omega2))
+    rho   = r*cos(nu + omega2)/cos(theta - omega)
+    # Convert theta to degrees and for it to be in [0, 360) range.
+    theta = cirrange(rad2deg(theta))
+    return rho, theta
+end
+
 """
     rhotheta(period, periastron, eccentricity, semimajor_axis, inclination, omega, omega2, epoch) -> rho, theta
 
@@ -49,31 +70,10 @@ Find the position of Eta Coronae Borealis at the epoch 2016
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function rhotheta{T<:AbstractFloat}(period::T, periastron::T, eccentricity::T,
-                                    semimajor_axis::T, inclination::T,
-                                    omega::T, omega2::T, epoch::T)
-    rho = theta = -one(period)
-    # See chapter 55.
-    n = 360.0/period
-    M = deg2rad(n*(epoch - periastron))
-    E = kepler_solver(M, eccentricity)
-    r  = semimajor_axis*(1.0 - eccentricity*cos(E))
-    nu = trueanom(E, eccentricity)
-    # Convert variables in radians.
-    omega2      = deg2rad(omega2)
-    inclination = deg2rad(inclination)
-    omega       = deg2rad(omega)
-    theta = omega + atan2(sin(nu + omega2)*cos(inclination), cos(nu + omega2))
-    rho   = r*cos(nu + omega2)/cos(theta - omega)
-    # Convert theta to degrees and for it to be in [0, 360) range.
-    theta = cirrange(rad2deg(theta))
-    return rho, theta
-end
-
 rhotheta(period::Real, periastron::Real, eccentricity::Real,
          semimajor_axis::Real, inclination::Real,
          omega::Real, omega2::Real, epoch::Real) =
-             rhotheta(promote(float(period), float(periastron),
-                              float(eccentricity), float(semimajor_axis),
-                              float(inclination), float(omega),
-                              float(omega2), float(epoch))...)
+             _rhotheta(promote(float(period), float(periastron),
+                               float(eccentricity), float(semimajor_axis),
+                               float(inclination), float(omega),
+                               float(omega2), float(epoch))...)

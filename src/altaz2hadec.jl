@@ -1,6 +1,24 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _altaz2hadec{T<:Real}(alt::T, az::T, lat::T)
+    # Convert to radians.
+    alt_r = deg2rad(alt)
+    az_r = deg2rad(az)
+    lat_r = deg2rad(lat)
+    # Find local hour angle (in degrees, from 0. to 360.).
+    ha = rad2deg(atan2(-sin(az_r)*cos(alt_r),
+                       -cos(az_r)*sin(lat_r)*cos(alt_r) +
+                       sin(alt_r)*cos(lat_r)))
+    ha < 0.0 && (ha += 360.0)
+    ha = ha.%360.0
+    # Find declination (positive if north of Celestial Equator, negative if
+    # south)
+    sindec = sin(lat_r)*sin(alt_r) + cos(lat_r)*cos(alt_r)*cos(az_r)
+    dec = rad2deg(asin(sindec))  # convert dec to degrees
+    return ha, dec
+end
+
 """
     altaz2hadec(alt, az, lat) -> ha, dec
 
@@ -59,26 +77,8 @@ coordinates.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function altaz2hadec{T<:AbstractFloat}(alt::T, az::T, lat::T)
-    # Convert to radians.
-    alt_r = deg2rad(alt)
-    az_r = deg2rad(az)
-    lat_r = deg2rad(lat)
-    # Find local hour angle (in degrees, from 0. to 360.).
-    ha = rad2deg(atan2(-sin(az_r)*cos(alt_r),
-                       -cos(az_r)*sin(lat_r)*cos(alt_r) +
-                       sin(alt_r)*cos(lat_r)))
-    ha < 0.0 && (ha += 360.0)
-    ha = ha.%360.0
-    # Find declination (positive if north of Celestial Equator, negative if
-    # south)
-    sindec = sin(lat_r)*sin(alt_r) + cos(lat_r)*cos(alt_r)*cos(az_r)
-    dec = rad2deg(asin(sindec))  # convert dec to degrees
-    return ha, dec
-end
-
 altaz2hadec(alt::Real, az::Real, lat::Real) =
-    altaz2hadec(promote(float(alt), float(az), float(lat))...)
+    _altaz2hadec(promote(float(alt), float(az), float(lat))...)
 
 altaz2hadec(altaz::Tuple{Real, Real}, lat::Real) = altaz2hadec(altaz..., lat)
 

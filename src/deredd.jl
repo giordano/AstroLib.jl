@@ -1,6 +1,14 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _deredd{T<:Real}(Eby::T, by::T, m1::T, c1::T, ub::T)
+    Rm1 = -0.33
+    Rc1 = 0.19
+    Rub = 1.53
+    Eby0 = Eby > 0.0 ? Eby : 0.0
+    return by - Eby0, m1 - Rm1*Eby0, c1 - Rc1*Eby0, ub - Rub*Eby0
+end
+
 """
     deredd(Eby, by, m1, c1, ub) -> by0, m0, c0, ub0
 
@@ -40,16 +48,8 @@ deredd(0.5, 0.2, 1.0, 1.0, 0.1)
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function deredd{T<:AbstractFloat}(Eby::T, by::T, m1::T, c1::T, ub::T)
-    Rm1 = -0.33
-    Rc1 = 0.19
-    Rub = 1.53
-    Eby0 = Eby > 0.0 ? Eby : 0.0
-    return by - Eby0, m1 - Rm1*Eby0, c1 - Rc1*Eby0, ub - Rub*Eby0
-end
-
 deredd(Eby::Real, by::Real, m1::Real, c1::Real, ub::Real) =
-    deredd(promote(float(Eby), float(by), float(m1), float(c1), float(ub))...)
+    _deredd(promote(float(Eby), float(by), float(m1), float(c1), float(ub))...)
 
 function deredd{E<:Real, B<:Real, M<:Real, C<:Real, U<:Real}(Eby::AbstractArray{E},
                                                              by::AbstractArray{B},

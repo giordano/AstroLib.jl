@@ -1,6 +1,29 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _precess{T<:Real}(ra::T, dec::T, equinox1::T, equinox2::T,
+                           FK4::Bool, radians::Bool)
+    if radians
+        ra_rad  = ra
+        dec_rad = dec
+    else
+        # Convert to radians.
+        ra_rad  = deg2rad(ra)
+        dec_rad = deg2rad(dec)
+    end
+    a = cos(dec_rad)
+    x = [a*cos(ra_rad), a*sin(ra_rad), sin(dec_rad)]
+    r = premat(equinox1, equinox2, FK4=FK4)
+    x2 = r*x
+    ra_rad  = atan2(x2[2], x2[1])
+    dec_rad = asin(x2[3])
+    if radians
+        return cirrange(ra_rad, 2.0*pi), dec_rad
+    else
+        return cirrange(rad2deg(ra_rad)), rad2deg(dec_rad)
+    end
+end
+
 """
     precess(ra, dec, equinox1, equinox2[, FK4=true, radians=true]) -> prec_ra, prec_dec
 
@@ -70,34 +93,11 @@ Accuracy of precession decreases for declination values near 90 degrees.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function precess{T<:AbstractFloat}(ra::T, dec::T, equinox1::T, equinox2::T,
-                                   FK4::Bool, radians::Bool)
-    if radians
-        ra_rad  = ra
-        dec_rad = dec
-    else
-        # Convert to radians.
-        ra_rad  = deg2rad(ra)
-        dec_rad = deg2rad(dec)
-    end
-    a = cos(dec_rad)
-    x = [a*cos(ra_rad), a*sin(ra_rad), sin(dec_rad)]
-    r = premat(equinox1, equinox2, FK4=FK4)
-    x2 = r*x
-    ra_rad  = atan2(x2[2], x2[1])
-    dec_rad = asin(x2[3])
-    if radians
-        return cirrange(ra_rad, 2.0*pi), dec_rad
-    else
-        return cirrange(rad2deg(ra_rad)), rad2deg(dec_rad)
-    end
-end
-
 precess(ra::Real, dec::Real, equinox1::Real, equinox2::Real;
         FK4::Bool=false, radians::Bool=false) =
-            precess(promote(float(ra), float(dec),
-                            float(equinox1), float(equinox2))...,
-                    FK4, radians)
+            _precess(promote(float(ra), float(dec),
+                             float(equinox1), float(equinox2))...,
+                     FK4, radians)
 
 precess(radec::Tuple{Real, Real}, equinox1::Real, equinox2::Real;
         FK4::Bool=false,

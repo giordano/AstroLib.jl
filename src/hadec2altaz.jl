@@ -1,6 +1,29 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _hadec2altaz{T<:Real}(ha::T, dec::T, lat::T, ws::Bool)
+    sh = sind(ha)
+    ch = cosd(ha)
+    sd = sind(dec)
+    cd = cosd(dec)
+    sl = sind(lat)
+    cl = cosd(lat)
+
+    x = -ch*cd*sl + sd*cl
+    y = -sh*cd
+    z = ch*cd*cl + sd*sl
+    r = hypot(x, y)
+
+    # Now get altitude, azimuth
+    az  = cirrange(rad2deg(atan2(y, x)))
+    alt = rad2deg(atan2(z, r))
+    # Convert azimuth to West from South, if desired
+    if ws
+        az = cirrange(az + 180.0)
+    end
+    return alt, az
+end
+
 """
     hadec2altaz(ha, dec, lat[, ws=true]) -> alt, az
 
@@ -55,31 +78,8 @@ Declination.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function hadec2altaz{T<:AbstractFloat}(ha::T, dec::T, lat::T, ws::Bool)
-    sh = sind(ha)
-    ch = cosd(ha)
-    sd = sind(dec)
-    cd = cosd(dec)
-    sl = sind(lat)
-    cl = cosd(lat)
-
-    x = -ch*cd*sl + sd*cl
-    y = -sh*cd
-    z = ch*cd*cl + sd*sl
-    r = hypot(x, y)
-
-    # Now get altitude, azimuth
-    az  = cirrange(rad2deg(atan2(y, x)))
-    alt = rad2deg(atan2(z, r))
-    # Convert azimuth to West from South, if desired
-    if ws
-        az = cirrange(az + 180.0)
-    end
-    return alt, az
-end
-
 hadec2altaz(ha::Real, dec::Real, lat::Real; ws::Bool=false) =
-    hadec2altaz(promote(float(ha), float(dec), float(lat))..., ws)
+    _hadec2altaz(promote(float(ha), float(dec), float(lat))..., ws)
 
 hadec2altaz(hadec::Tuple{Real, Real}, lat::Real; ws::Bool=false) =
     hadec2altaz(hadec..., lat, ws=ws)

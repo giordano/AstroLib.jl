@@ -528,6 +528,11 @@ let
     @test_approx_eq dec 0.3085047454107549
     @test_approx_eq lon 49.77773359512005
     @test_approx_eq obl 23.434647165246304
+    ra, dec, lon, obl = sunpos([2457531])
+    @test_approx_eq ra  59.71655864208797
+    @test_approx_eq dec 20.52127006818727
+    @test_approx_eq lon 3542.279299068626
+    @test_approx_eq obl 1342.7064622183311
 end
 
 # Test "ten" and "tenv".  Always make sure string and numerical inputs are

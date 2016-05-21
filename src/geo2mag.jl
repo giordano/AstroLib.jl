@@ -1,6 +1,40 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _geo2mag{T<:Real}(lat::T, long::T, pole_lat::T, pole_long::T)
+    r       = 1.0 # Distance from planet center.  Value unimportant -- just need
+                  # a length for conversion to rectangular coordinates
+    lat  = deg2rad(lat)
+    long = deg2rad(long)
+    alt  = lat*0.0 + r
+    x = alt*cos(lat)*cos(long)
+    y = alt*cos(lat)*sin(long)
+    z = alt*sin(lat)
+
+    # Compute first rotation matrix: rotation around plane of the equator, from
+    # the Greenwich meridian to the meridian containing the magnetic dipole
+    # pole.
+    geolong2maglong = Array(T, 3, 3)
+    geolong2maglong[:,1] = [cos(pole_long), -sin(pole_long), 0.0]
+    geolong2maglong[:,2] = [sin(pole_long),  cos(pole_long), 0.0]
+    geolong2maglong[:,3] = [           0.0,             0.0, 1.0]
+    out = geolong2maglong * [x, y, z]
+
+    # Second rotation: in the plane of the current meridian from geographic pole
+    # to magnetic dipole pole.
+    tomaglat = Array(T, 3, 3)
+    tomaglat[:,1] = [ cos(pi/2 - pole_lat), 0.0, sin(pi/2 - pole_lat)]
+    tomaglat[:,2] = [                  0.0, 1.0,                  0.0]
+    tomaglat[:,3] = [-sin(pi/2 - pole_lat), 0.0, cos(pi/2 - pole_lat)]
+    out = tomaglat * out
+
+    maglat  = rad2deg(atan2(out[3], hypot(out[1], out[2])))
+    maglong = rad2deg(atan2(out[2], out[1]))
+    # I don't care about that one...just put it there for completeness' sake
+    # magalt  = vecnorm(out) - r
+    return maglat, maglong
+end
+
 """
     geo2mag(latitude, longitude[, year]) -> geomagnetic_latitude, geomagnetic_longitude
 
@@ -48,44 +82,10 @@ Magnetic Model (https://www.ngdc.noaa.gov/geomag/data/poles/NP.xy).
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function geo2mag{T<:AbstractFloat}(lat::T, long::T, pole_lat::T, pole_long::T)
-    r       = 1.0 # Distance from planet center.  Value unimportant -- just need
-                  # a length for conversion to rectangular coordinates
-    lat  = deg2rad(lat)
-    long = deg2rad(long)
-    alt  = lat*0.0 + r
-    x = alt*cos(lat)*cos(long)
-    y = alt*cos(lat)*sin(long)
-    z = alt*sin(lat)
-
-    # Compute first rotation matrix: rotation around plane of the equator, from
-    # the Greenwich meridian to the meridian containing the magnetic dipole
-    # pole.
-    geolong2maglong = Array(T, 3, 3)
-    geolong2maglong[:,1] = [cos(pole_long), -sin(pole_long), 0.0]
-    geolong2maglong[:,2] = [sin(pole_long),  cos(pole_long), 0.0]
-    geolong2maglong[:,3] = [           0.0,             0.0, 1.0]
-    out = geolong2maglong * [x, y, z]
-
-    # Second rotation: in the plane of the current meridian from geographic pole
-    # to magnetic dipole pole.
-    tomaglat = Array(T, 3, 3)
-    tomaglat[:,1] = [ cos(pi/2 - pole_lat), 0.0, sin(pi/2 - pole_lat)]
-    tomaglat[:,2] = [                  0.0, 1.0,                  0.0]
-    tomaglat[:,3] = [-sin(pi/2 - pole_lat), 0.0, cos(pi/2 - pole_lat)]
-    out = tomaglat * out
-
-    maglat  = rad2deg(atan2(out[3], hypot(out[1], out[2])))
-    maglong = rad2deg(atan2(out[2], out[1]))
-    # I don't care about that one...just put it there for completeness' sake
-    # magalt  = vecnorm(out) - r
-    return maglat, maglong
-end
-
 geo2mag(lat::Real, long::Real, year::Real=Dates.year(Dates.now())) =
-    geo2mag(promote(float(lat), float(long),
-                    deg2rad(POLELATLONG[year][1]::AbstractFloat),
-                    deg2rad(POLELATLONG[year][2]::AbstractFloat))...)
+    _geo2mag(promote(float(lat), float(long),
+                     deg2rad(POLELATLONG[year][1]::AbstractFloat),
+                     deg2rad(POLELATLONG[year][2]::AbstractFloat))...)
 
 function geo2mag{LA<:Real, LO<:Real}(lat::AbstractArray{LA},
                                      long::AbstractArray{LO},
@@ -98,8 +98,8 @@ function geo2mag{LA<:Real, LO<:Real}(lat::AbstractArray{LA},
     polelong = deg2rad(POLELATLONG[year][2])
     for i in eachindex(lat)
         maglat[i], maglong[i] =
-            geo2mag(promote(float(lat[i]), float(long[i]),
-                            polelat, polelong)...)
+            _geo2mag(promote(float(lat[i]), float(long[i]),
+                             polelat, polelong)...)
     end
     return maglat, maglong
 end

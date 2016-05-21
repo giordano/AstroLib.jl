@@ -1,6 +1,17 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _lsf_rotate{T<:Real}(Δ::T, vsini::T, ɛ::T)
+    n_2 = floor(ceil(2*vsini/Δ)/2)
+    vel = collect(-n_2:n_2)*Δ
+    e1 = 2*(1.0 - ɛ)
+    e2 = pi*ɛ/2.0
+    e3 = pi*(1.0 - ɛ/3.0)
+    x = vel/vsini
+    x1 = abs(1.0 - x.^2)
+    return vel, (e1*sqrt(x1) + e2*x1)/e3
+end
+
 """
     lsf_rotate(delta_v, v_sin_i[, epsilon = 0.3]) -> velocity_grid, lsf
 
@@ -54,16 +65,5 @@ plot(lsf_rotate(3, 90)...)
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function lsf_rotate{T<:AbstractFloat}(Δ::T, vsini::T, ɛ::T)
-    n_2 = floor(ceil(2*vsini/Δ)/2)
-    vel = collect(-n_2:n_2)*Δ
-    e1 = 2*(1.0 - ɛ)
-    e2 = pi*ɛ/2.0
-    e3 = pi*(1.0 - ɛ/3.0)
-    x = vel/vsini
-    x1 = abs(1.0 - x.^2)
-    return vel, (e1*sqrt(x1) + e2*x1)/e3
-end
-
 lsf_rotate(Δ::Real, v::Real, ɛ::Real=0.6) =
-    lsf_rotate(promote(float(Δ), float(v), float(ɛ))...)
+    _lsf_rotate(promote(float(Δ), float(v), float(ɛ))...)

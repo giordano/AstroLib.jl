@@ -1,6 +1,22 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _airtovac(wave_air::Real)
+    if wave_air >= 2000.0
+        wave_vac = wave_air
+        for iter= 1:2
+            sigma2 = (1e4/wave_vac)^2.0 # Convert to wavenumber squared
+            # Computer conversion factor.
+            fact = 1.0 + 5.792105e-2/(238.0185e0 - sigma2) +
+                1.67917e-3/(57.362e0 - sigma2)
+            wave_vac = wave_air*fact # Convert Wavelength
+        end
+        return wave_vac
+    else
+        return wave_air
+    end
+end
+
 """
     airtovac(wave_air) -> wave_vacuum
 
@@ -40,22 +56,6 @@ yields a vacuum wavelength of `6057.8019`.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function airtovac(wave_air::AbstractFloat)
-    if wave_air >= 2000.0
-        wave_vac = wave_air
-        for iter= 1:2
-            sigma2 = (1e4/wave_vac)^2.0 # Convert to wavenumber squared
-            # Computer conversion factor.
-            fact = 1.0 + 5.792105e-2/(238.0185e0 - sigma2) +
-                1.67917e-3/(57.362e0 - sigma2)
-            wave_vac = wave_air*fact # Convert Wavelength
-        end
-        return wave_vac
-    else
-        return wave_air
-    end
-end
-
-airtovac(wave_air::Real) = airtovac(float(wave_air))
+airtovac(wave_air::Real) = _airtovac(float(wave_air))
 
 @vectorize_1arg Real airtovac

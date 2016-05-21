@@ -1,6 +1,35 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _gal_uvw{T<:Real}(ra::T, dec::T, pmra::T, pmdec::T,
+                           vrad::T, plx::T, lsr::Bool)
+    cosdec = cosd(dec)
+    sindec = sind(dec)
+    cosra  = cosd(ra)
+    sinra  = sind(ra)
+    k = 4.740470463533348 # = 149597870.7/(86400*365.25) = 1 AU/year in km/s
+    A_G = [[ 0.0548755604, +0.4941094279, -0.8676661490];
+           [ 0.8734370902, -0.4448296300, -0.1980763734];
+           [ 0.4838350155,  0.7469822445, +0.4559837762]]
+    vec2 = k*pmra/plx
+    vec3 = k*pmdec/plx
+    u = ( A_G[1]*cosra*cosdec + A_G[4]*sinra*cosdec + A_G[7]*sindec)*vrad +
+        (-A_G[1]*sinra        + A_G[4]*cosra                       )*vec2 +
+        (-A_G[1]*cosra*sindec - A_G[4]*sinra*sindec + A_G[7]*cosdec)*vec3
+    v = ( A_G[2]*cosra*cosdec + A_G[5]*sinra*cosdec + A_G[8]*sindec)*vrad +
+        (-A_G[2]*sinra        + A_G[5]*cosra                       )*vec2 +
+        (-A_G[2]*cosra*sindec - A_G[5]*sinra*sindec + A_G[8]*cosdec)*vec3
+    w = ( A_G[3]*cosra*cosdec + A_G[6]*sinra*cosdec + A_G[9]*sindec)*vrad +
+        (-A_G[3]*sinra        + A_G[6]*cosra                       )*vec2 +
+        (-A_G[3]*cosra*sindec - A_G[6]*sinra*sindec + A_G[9]*cosdec)*vec3
+    if lsr
+        u += -8.5
+        v += 13.38
+        w +=  6.49
+    end
+    return u, v, w
+end
+
 """
     gal_uvw(ra, dec, pmra, pmdec, vrad, plx[, lsr=true]) -> u, v, w
 
@@ -88,41 +117,10 @@ for how to provide it using parallax argument.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function gal_uvw{T<:AbstractFloat}(ra::T, dec::T, pmra::T, pmdec::T,
-                                   vrad::T, plx::T, lsr::Bool)
-    cosdec = cosd(dec)
-    sindec = sind(dec)
-    cosra  = cosd(ra)
-    sinra  = sind(ra)
-    k = 4.740470463533348 # = 149597870.7/(86400*365.25) = 1 AU/year in km/s
-    A_G = [[ 0.0548755604, +0.4941094279, -0.8676661490];
-           [ 0.8734370902, -0.4448296300, -0.1980763734];
-           [ 0.4838350155,  0.7469822445, +0.4559837762]]
-    vec2 = k*pmra/plx
-    vec3 = k*pmdec/plx
-    u = ( A_G[1]*cosra*cosdec + A_G[4]*sinra*cosdec + A_G[7]*sindec)*vrad +
-        (-A_G[1]*sinra        + A_G[4]*cosra                       )*vec2 +
-        (-A_G[1]*cosra*sindec - A_G[4]*sinra*sindec + A_G[7]*cosdec)*vec3
-    v = ( A_G[2]*cosra*cosdec + A_G[5]*sinra*cosdec + A_G[8]*sindec)*vrad +
-        (-A_G[2]*sinra        + A_G[5]*cosra                       )*vec2 +
-        (-A_G[2]*cosra*sindec - A_G[5]*sinra*sindec + A_G[8]*cosdec)*vec3
-    w = ( A_G[3]*cosra*cosdec + A_G[6]*sinra*cosdec + A_G[9]*sindec)*vrad +
-        (-A_G[3]*sinra        + A_G[6]*cosra                       )*vec2 +
-        (-A_G[3]*cosra*sindec - A_G[6]*sinra*sindec + A_G[9]*cosdec)*vec3
-    if lsr
-        u += -8.5
-        v += 13.38
-        w +=  6.49
-    end
-    return u, v, w
-end
-
-# TODO: @code_warntype says that output type is any when at least one of the
-# input argument is integer.
 gal_uvw(ra::Real, dec::Real, pmra::Real, pmdec::Real,
         vrad::Real, plx::Real; lsr::Bool=false) =
-            gal_uvw(promote(float(ra), float(dec), float(pmra), float(pmdec),
-                            float(vrad), float(plx))..., lsr)
+            _gal_uvw(promote(float(ra), float(dec), float(pmra), float(pmdec),
+                             float(vrad), float(plx))..., lsr)
 
 function gal_uvw{R<:Real,
                  D<:Real,

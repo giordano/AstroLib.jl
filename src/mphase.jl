@@ -1,6 +1,17 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _mphase(jd::Real)
+    ram, decm, dism = moonpos(jd, radians=true)
+    ras, decs = sunpos(jd, radians=true)
+    # phi: geocentric elongation of the Moon from the Sun
+    # inc: selenocentric (Moon centered) elongation of the Earth from the Sun
+    phi = acos(sin(decs)*sin(decm) + cos(decs)*cos(decm)*cos(ras - ram))
+    # "dism" is in kilometers, AU in meters
+    inc = atan2(AU*sin(phi), dism*1e3 - AU*cos(phi))
+    return (1.0 + cos(inc))/2.0
+end
+
 """
     mphase(jd) -> k
 
@@ -45,18 +56,7 @@ Note that in this calendar month there are two full moons, this event is called
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function mphase(jd::AbstractFloat)
-    ram, decm, dism = moonpos(jd, radians=true)
-    ras, decs = sunpos(jd, radians=true)
-    # phi: geocentric elongation of the Moon from the Sun
-    # inc: selenocentric (Moon centered) elongation of the Earth from the Sun
-    phi = acos(sin(decs)*sin(decm) + cos(decs)*cos(decm)*cos(ras - ram))
-    # "dism" is in kilometers, AU in meters
-    inc = atan2(AU*sin(phi), dism*1e3 - AU*cos(phi))
-    return (1.0 + cos(inc))/2.0
-end
-
-mphase(jd::Real) = mphase(float(jd))
+mphase(jd::Real) = _mphase(float(jd))
 
 function mphase{J<:Real}(jd::AbstractArray{J})
     k = similar(jd, float(J))

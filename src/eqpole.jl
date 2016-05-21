@@ -1,6 +1,16 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _eqpole{T<:Real}(l::T, b::T, southpole::Bool)
+    sgn = southpole ? -1.0 : 1.0
+    l = deg2rad(sgn*l)
+    b = deg2rad(sgn*b)
+    sq = 2.0*(1.0 - sin(b))
+    sq = sq >= 0.0 ? sq : 0.0
+    r = 18.0*3.53553391*sqrt(sq)
+    return r*sin(l), r*cos(l)
+end
+
 """
     eqpole(l, b) -> x, y
 
@@ -45,20 +55,8 @@ eqpole(80, 19)
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function eqpole{T<:AbstractFloat}(l::T, b::T, southpole::Bool)
-    sgn = southpole ? -1.0 : 1.0
-    l = deg2rad(sgn*l)
-    b = deg2rad(sgn*b)
-    sq = 2.0*(1.0 - sin(b))
-    sq = sq >= 0.0 ? sq : 0.0
-    r = 18.0*3.53553391*sqrt(sq)
-    # TODO: output is of type Any when input l and b are integer scalars (but
-    # not when are integer arrays).
-    return r*sin(l), r*cos(l)
-end
-
 eqpole(l::Real, b::Real; southpole::Bool=false) =
-    eqpole(promote(float(l), float(b))..., southpole)
+    _eqpole(promote(float(l), float(b))..., southpole)
 
 function eqpole{L<:Real, B<:Real}(l::AbstractArray{L},
                                   b::AbstractArray{B};

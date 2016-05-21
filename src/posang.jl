@@ -1,6 +1,40 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _posang{T<:Real}(units::Integer, ra1::T, dec1::T, ra2::T, dec2::T)
+    # Convert all quantities to radians.
+    if units == 0
+        # All radians
+        ra1_rad  = ra1
+        ra2_rad  = ra2
+        dec1_rad = dec1
+        dec2_rad = dec2
+    elseif units == 1
+        # Right ascensions are in hours, declinations in degrees.
+        ra1_rad  = ra1*pi/12.0
+        ra2_rad  = ra2*pi/12.0
+        dec1_rad = deg2rad(dec1)
+        dec2_rad = deg2rad(dec2)
+    elseif units == 2
+        # Right ascensions and declinations are in degrees.
+        ra1_rad  = deg2rad(ra1)
+        ra2_rad  = deg2rad(ra2)
+        dec1_rad = deg2rad(dec1)
+        dec2_rad = deg2rad(dec2)
+    else
+        # In any other case throw an error.
+        error("units must be 0 (radians), 1 (hours, degrees) or 2 (degrees)")
+    end
+    radif = ra2_rad - ra1_rad
+    angle = atan2(sin(radif), cos(dec1_rad)*tan(dec2_rad) -
+                  sin(dec1_rad)*cos(radif))
+    if units == 0
+        return angle
+    else
+        return rad2deg(angle)
+    end
+end
+
 """
     posang(units, ra1, dec1, ra2, dec2) -> angular_distance
 
@@ -71,43 +105,8 @@ posang(1, ten(13, 25, 13.5), ten(54, 59, 17), ten(13, 23, 55.5), ten(54, 55, 31)
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function posang(units::Integer, ra1::AbstractFloat, dec1::AbstractFloat,
-               ra2::AbstractFloat, dec2::AbstractFloat)
-    # Convert all quantities to radians.
-    if units == 0
-        # All radians
-        ra1_rad  = ra1
-        ra2_rad  = ra2
-        dec1_rad = dec1
-        dec2_rad = dec2
-    elseif units == 1
-        # Right ascensions are in hours, declinations in degrees.
-        ra1_rad  = ra1*pi/12.0
-        ra2_rad  = ra2*pi/12.0
-        dec1_rad = deg2rad(dec1)
-        dec2_rad = deg2rad(dec2)
-    elseif units == 2
-        # Right ascensions and declinations are in degrees.
-        ra1_rad  = deg2rad(ra1)
-        ra2_rad  = deg2rad(ra2)
-        dec1_rad = deg2rad(dec1)
-        dec2_rad = deg2rad(dec2)
-    else
-        # In any other case throw an error.
-        error("units must be 0 (radians), 1 (hours, degrees) or 2 (degrees)")
-    end
-    radif = ra2_rad - ra1_rad
-    angle = atan2(sin(radif), cos(dec1_rad)*tan(dec2_rad) -
-                  sin(dec1_rad)*cos(radif))
-    if units == 0
-        return angle
-    else
-        return rad2deg(angle)
-    end
-end
-
 posang(units::Integer, ra1::Real, dec1::Real, ra2::Real, dec2::Real) =
-    posang(units, promote(float(ra1), float(dec1), float(ra2), float(dec2))...)
+    _posang(units, promote(float(ra1), float(dec1), float(ra2), float(dec2))...)
 
 function posang{R1<:Real, D1<:Real}(units::Integer,
                                    ra1::AbstractArray{R1},

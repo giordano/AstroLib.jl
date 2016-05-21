@@ -1,6 +1,19 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _eci2geo{T<:Real}(x::T, y::T, z::T, jd::T)
+    Re    = planets["earth"].eqradius*1e-3
+    theta = atan2(y, x) # Azimuth.
+    gst   = ct2lst(0.0, jd)
+    sid_angle = gst*pi/12.0 # Sidereal angle.
+    long  = cirrange(rad2deg(theta - sid_angle)) # Longitude.
+    r     = hypot(x, y)
+    lat   = atan2(z, r) # Latitude.
+    alt   = r/cos(lat) - Re # Altitude.
+    lat   = rad2deg(lat)
+    return lat, long, alt
+end
+
 """
     eci2geo(x, y, z, jd) -> latitude, longitude, altitude
 
@@ -61,22 +74,8 @@ coordinates.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function eci2geo{T<:AbstractFloat}(x::T, y::T, z::T, jd::T)
-    Re    = planets["earth"].eqradius*1e-3
-    theta = atan2(y, x) # Azimuth.
-    gst   = ct2lst(0.0, jd)
-    sid_angle = gst*pi/12.0 # Sidereal angle.
-    long  = cirrange(rad2deg(theta - sid_angle)) # Longitude.
-    r     = hypot(x, y)
-    lat   = atan2(z, r) # Latitude.
-    alt   = r/cos(lat) - Re # Altitude.
-    lat   = rad2deg(lat)
-    return lat, long, alt
-end
-
 eci2geo(x::Real, y::Real, z::Real, jd::Real) =
-    eci2geo(promote(float(x), float(y), float(z),
-                    float(jd))...)
+    _eci2geo(promote(float(x), float(y), float(z), float(jd))...)
 
 eci2geo(xyz::Tuple{Real, Real, Real}, jd::Real) =
     eci2geo(xyz..., jd)

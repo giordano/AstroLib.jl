@@ -1,6 +1,18 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _geo2eci{T<:Real}(lat::T, long::T, alt::T, jd::T)
+    Re    = planets["earth"].eqradius*1e-3
+    lat   = deg2rad(lat)
+    long  = deg2rad(long)
+    gst   = ct2lst(0.0, jd)
+    sid_angle = gst*pi/12.0 # Sidereal angle.
+    theta = long + sid_angle # Azimuth
+    altRe = alt + Re
+    r     = altRe*cos(lat)
+    return r*cos(theta), r*sin(theta), altRe*sin(lat)
+end
+
 """
     geo2eci(latitude, longitude, altitude, jd) -> x, y, z
 
@@ -54,21 +66,8 @@ coordinates.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function geo2eci{T<:AbstractFloat}(lat::T, long::T, alt::T, jd::T)
-    Re    = planets["earth"].eqradius*1e-3
-    lat   = deg2rad(lat)
-    long  = deg2rad(long)
-    gst   = ct2lst(0.0, jd)
-    sid_angle = gst*pi/12.0 # Sidereal angle.
-    theta = long + sid_angle # Azimuth
-    altRe = alt + Re
-    r     = altRe*cos(lat)
-    return r*cos(theta), r*sin(theta), altRe*sin(lat)
-end
-
 geo2eci(lat::Real, long::Real, alt::Real, jd::Real) =
-    geo2eci(promote(float(lat), float(long), float(alt),
-                    float(jd))...)
+    _geo2eci(promote(float(lat), float(long), float(alt), float(jd))...)
 
 geo2eci(lla::Tuple{Real, Real, Real}, jd::Real) =
     geo2eci(lla..., jd)

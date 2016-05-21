@@ -1,8 +1,20 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _radec{T<:Real}(ra::T, dec::T, hours::Bool)
+    # Compute right ascension.
+    if hours
+        ra_hr, ra_min, ra_sec = sixty(cirrange(ra, 24.0))
+    else
+        ra_hr, ra_min, ra_sec = sixty(cirrange(ra)/15.0)
+    end
+    # Compute declination.
+    dec_deg, dec_min, dec_sec = sixty(dec)
+    return ra_hr, ra_min, ra_sec, dec_deg, dec_min, dec_sec
+end
+
 """
-    radec(ra::Number, dec::Number[, hours=true]) -> ra_hours, ra_minutes, ra_seconds, dec_degrees, dec_minutes, dec_seconds
+    radec(ra::Real, dec::Real[, hours=true]) -> ra_hours, ra_minutes, ra_seconds, dec_degrees, dec_minutes, dec_seconds
 
 ### Purpose ###
 
@@ -41,20 +53,8 @@ radec(6.7525, -16.7161, hours=true)
 # => (6.0,45.0,9.0,-16.0,42.0,57.9600000000064)
 ```
 """
-function radec{T<:AbstractFloat}(ra::T, dec::T, hours::Bool)
-    # Compute right ascension.
-    if hours
-        ra_hr, ra_min, ra_sec = sixty(cirrange(ra, 24.0))
-    else
-        ra_hr, ra_min, ra_sec = sixty(cirrange(ra)/15.0)
-    end
-    # Compute declination.
-    dec_deg, dec_min, dec_sec = sixty(dec)
-    return ra_hr, ra_min, ra_sec, dec_deg, dec_min, dec_sec
-end
-
 radec(ra::Real, dec::Real; hours::Bool=false) =
-    radec(promote(float(ra), float(dec))..., hours)
+    _radec(promote(float(ra), float(dec))..., hours)
 
 function radec{R<:Real, D<:Real}(ra::AbstractArray{R}, dec::AbstractArray{D};
                                  hours::Bool=false)

@@ -1,6 +1,36 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _premat{T<:Real}(equinox1::T, equinox2::T, FK4::Bool)
+    # Helper function to convert from seconds to radians.
+    sec2rad(sec::Real) = deg2rad(sec/3600.0)
+    t = 0.001*(equinox2 - equinox1)
+    if FK4
+        st = 0.001*(equinox1 - 1900.0)
+        #  Compute 3 rotation angles
+        a = sec2rad(t*(23042.53 + st*(139.75 + 0.06*st)
+                       + t*(30.23 - 0.27*st + 18.0*t)))
+        b = sec2rad(t*t*(79.27 + 0.66*st + 0.32*t)) + a
+        c = sec2rad(t*(20046.85 - st*(85.33 + 0.37*st)
+                       + t*(-42.67 - 0.37*st -41.8*t)))
+    else
+        st = 0.001*(equinox1 - 2000.0)
+        # Compute 3 rotation angles
+        a = sec2rad(t *(23062.181 + st*(139.656 + 0.0139*st)
+                        + t*(30.188 - 0.344*st + 17.998*t)))
+        b = sec2rad(t*t*(79.280 + 0.410*st + 0.205*t)) + a
+        c = sec2rad(t*(20043.109 - st*(85.33 + 0.217*st)
+                       + t*(-42.665 - 0.217*st - 41.833*t)))
+    end
+    sina = sin(a); sinb = sin(b); sinc = sin(c)
+    cosa = cos(a); cosb = cos(b); cosc = cos(c)
+    r = Array(T, 3, 3)
+    r[:,1] = [ cosa*cosb*cosc - sina*sinb,  sina*cosb + cosa*sinb*cosc,  cosa*sinc]
+    r[:,2] = [-cosa*sinb - sina*cosb*cosc,  cosa*cosb - sina*sinb*cosc, -sina*sinc]
+    r[:,3] = [                 -cosb*sinc,                  -sinb*sinc,       cosc]
+    return r
+end
+
 """
     premat(equinox1, equinox2[, FK4=true]) -> precession_matrix
 
@@ -49,35 +79,5 @@ Almanac" 1992, page 104 Table 3.211.1
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function premat{T<:AbstractFloat}(equinox1::T, equinox2::T, FK4::Bool)
-    # Helper function to convert from seconds to radians.
-    sec2rad(sec::AbstractFloat) = deg2rad(sec/3600.0)
-    t = 0.001*(equinox2 - equinox1)
-    if FK4
-        st = 0.001*(equinox1 - 1900.0)
-        #  Compute 3 rotation angles
-        a = sec2rad(t*(23042.53 + st*(139.75 + 0.06*st)
-                       + t*(30.23 - 0.27*st + 18.0*t)))
-        b = sec2rad(t*t*(79.27 + 0.66*st + 0.32*t)) + a
-        c = sec2rad(t*(20046.85 - st*(85.33 + 0.37*st)
-                       + t*(-42.67 - 0.37*st -41.8*t)))
-    else
-        st = 0.001*(equinox1 - 2000.0)
-        # Compute 3 rotation angles
-        a = sec2rad(t *(23062.181 + st*(139.656 + 0.0139*st)
-                        + t*(30.188 - 0.344*st + 17.998*t)))
-        b = sec2rad(t*t*(79.280 + 0.410*st + 0.205*t)) + a
-        c = sec2rad(t*(20043.109 - st*(85.33 + 0.217*st)
-                       + t*(-42.665 - 0.217*st - 41.833*t)))
-    end
-    sina = sin(a); sinb = sin(b); sinc = sin(c)
-    cosa = cos(a); cosb = cos(b); cosc = cos(c)
-    r = Array(T, 3, 3)
-    r[:,1] = [ cosa*cosb*cosc - sina*sinb,  sina*cosb + cosa*sinb*cosc,  cosa*sinc]
-    r[:,2] = [-cosa*sinb - sina*cosb*cosc,  cosa*cosb - sina*sinb*cosc, -sina*sinc]
-    r[:,3] = [                 -cosb*sinc,                  -sinb*sinc,       cosc]
-    return r
-end
-
 premat(eq1::Real, eq2::Real; FK4::Bool=false) =
-    premat(promote(float(eq1), float(eq2))..., FK4)
+    _premat(promote(float(eq1), float(eq2))..., FK4)

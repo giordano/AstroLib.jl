@@ -18,10 +18,8 @@ const Mbprec =
 # Note: IDL version of `bprecess' changes in-place "muradec", "parallax" and
 # "radvel".  We don't do anything like this, but calculations are below,
 # commented, in case someone is interested.
-function bprecess{T<:AbstractFloat}(ra::AbstractFloat, dec::AbstractFloat,
-                                    parallax::AbstractFloat,
-                                    radvel::AbstractFloat,
-                                    epoch::AbstractFloat, muradec::Vector{T})
+function _bprecess{T<:Real}(ra::T, dec::T, parallax::T,
+                            radvel::T, epoch::T, muradec::Vector{T})
     @assert length(muradec) == 2
     cosra  = cosd(ra)
     sinra  = sind(ra)
@@ -77,13 +75,13 @@ end
 # Main interface.
 bprecess{R<:Real}(ra::Real, dec::Real, muradec::Vector{R};
                   parallax::Real=0.0, radvel::Real=0.0) =
-                      bprecess(promote(float(ra), float(dec), float(parallax),
-                                       float(radvel), NaN)...,
-                               float(muradec))
+                      _bprecess(promote(float(ra), float(dec), float(parallax),
+                                        float(radvel), NaN)...,
+                                float(muradec))
 
 bprecess(ra::Real, dec::Real, epoch::Real=2000.0) =
-    bprecess(promote(float(ra), float(dec), 0.0, 0.0, float(epoch))...,
-             zeros(typeof(float(ra)), 2))
+    _bprecess(promote(float(ra), float(dec), 0.0, 0.0, float(epoch))...,
+              zeros(typeof(float(ra)), 2))
 
 # Tuple arguments.
 bprecess{R1<:Real,R2<:Real,R3<:Real}(radec::Tuple{R1,R2}, muradec::Vector{R3};

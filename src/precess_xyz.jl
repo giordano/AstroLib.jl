@@ -1,6 +1,19 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _precess_xyz{T<:Real}(x::T, y::T, z::T, equinox1::T, equinox2::T)
+    ra  = atan2(y, x)
+    del = vecnorm((x, y, z)) #  Magnitude of distance to Sun
+    dec = asin(z/del)
+    # precess the ra and dec
+    ra, dec = precess(ra, dec, equinox1, equinox2, radians=true)
+    # convert back to x, y, z
+    xunit = cos(ra)*cos(dec)
+    yunit = sin(ra)*cos(dec)
+    zunit = sin(dec)
+    return xunit*del, yunit*del, zunit*del
+end
+
 """
     precess_xyz(x, y, z, equinox1, equinox2) -> prec_x, prec_y, prec_z
 
@@ -39,24 +52,10 @@ ascension and declination, precessed in the normal way, then changed back to
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-function precess_xyz{T<:AbstractFloat}(x::T, y::T, z::T,
-                                       equinox1::T, equinox2::T)
-    ra  = atan2(y, x)
-    del = vecnorm((x, y, z)) #  Magnitude of distance to Sun
-    dec = asin(z/del)
-    # precess the ra and dec
-    ra, dec = precess(ra, dec, equinox1, equinox2, radians=true)
-    # convert back to x, y, z
-    xunit = cos(ra)*cos(dec)
-    yunit = sin(ra)*cos(dec)
-    zunit = sin(dec)
-    return xunit*del, yunit*del, zunit*del
-end
-
 precess_xyz(x::Real, y::Real, z::Real,
             equinox1::Real, equinox2::Real) =
-                precess_xyz(promote(float(x), float(y), float(z),
-                                    float(equinox1), float(equinox2))...)
+                _precess_xyz(promote(float(x), float(y), float(z),
+                                     float(equinox1), float(equinox2))...)
 
 precess_xyz(xyz::Tuple{Real, Real, Real}, equinox1::Real, equinox2::Real) =
     precess_xyz(xyz..., equinox1, equinox2)

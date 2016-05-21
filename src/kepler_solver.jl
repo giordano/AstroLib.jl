@@ -1,6 +1,50 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+function _kepler_solver{T<:Real}(M::T, e::T)
+    if 0 <= e <= 1
+        # M is assumed to be in the range [-pi, pi], see Markley (1995), page 2.
+        # First restrict it to [0, 2pi], then move values above pi to [-pi, 0].
+        M = cirrange(M, 2.0*pi)
+        M > pi && (M -= 2.0*pi)
+        if M == 0
+            return 0.0
+        else
+            # equation (20)
+            α = (3.0*pi*pi + 1.6*pi*(pi - abs(M))/(1.0 + e))/(pi*pi - 6.0)
+            # equation (5)
+            d = 3.0*(1.0 - e) + α*e
+            # equation (9)
+            q = 2.0*α*d*(1.0 - e) - M*M
+            # equation (10)
+            r = 3.0*α*d*(d - 1.0 + e)*M + M*M*M
+            # equation (14)
+            w = (abs(r) + sqrt(q*q*q + r*r))^(2.0/3.0)
+            # equation (15)
+            E1 = (2.0*r*w/(w*w + w*q + q*q) + M)/d
+            # equation (21)
+            f0 = E1 - e*sin(E1) - M
+            # equation (25)
+            f1 = 1.0 - e*cos(E1)
+            # equation (26)
+            f2 = e*sin(E1)
+            # equation (27)
+            f3 = 1.0 - f1
+            # equation (28)
+            f4 = -f2
+            # equation (22)
+            δ3 = -f0/(f1 - f0*f2/(2.0*f1))
+            # equation (23)
+            δ4 = -f0/(f1 + δ3*f2/2.0 + δ3*δ3*f3/6.0)
+            # equation (24)
+            δ5 = -f0/(f1 + δ4*f2/2.0 + δ4*δ4*f3/6.0 + δ4*δ4*δ4*f4/24.0)
+            return E1 + δ5 # equation 29
+        end
+    else
+        error("eccentricity must be in the range [0, 1]")
+    end
+end
+
 """
     kepler_solver(M, e) -> E
 
@@ -70,52 +114,8 @@ for ecc in (0, 0.5, 0.9); plot(M, cirrange(kepler_solver(M, ecc), 2pi)); end
 
 The true anomaly can be calculated with `trueanom` function.
 """
-function kepler_solver{T<:AbstractFloat}(M::T, e::T)
-    if 0 <= e <= 1
-        # M is assumed to be in the range [-pi, pi], see Markley (1995), page 2.
-        # First restrict it to [0, 2pi], then move values above pi to [-pi, 0].
-        M = cirrange(M, 2.0*pi)
-        M > pi && (M -= 2.0*pi)
-        if M == 0
-            return 0.0
-        else
-            # equation (20)
-            α = (3.0*pi*pi + 1.6*pi*(pi - abs(M))/(1.0 + e))/(pi*pi - 6.0)
-            # equation (5)
-            d = 3.0*(1.0 - e) + α*e
-            # equation (9)
-            q = 2.0*α*d*(1.0 - e) - M*M
-            # equation (10)
-            r = 3.0*α*d*(d - 1.0 + e)*M + M*M*M
-            # equation (14)
-            w = (abs(r) + sqrt(q*q*q + r*r))^(2.0/3.0)
-            # equation (15)
-            E1 = (2.0*r*w/(w*w + w*q + q*q) + M)/d
-            # equation (21)
-            f0 = E1 - e*sin(E1) - M
-            # equation (25)
-            f1 = 1.0 - e*cos(E1)
-            # equation (26)
-            f2 = e*sin(E1)
-            # equation (27)
-            f3 = 1.0 - f1
-            # equation (28)
-            f4 = -f2
-            # equation (22)
-            δ3 = -f0/(f1 - f0*f2/(2.0*f1))
-            # equation (23)
-            δ4 = -f0/(f1 + δ3*f2/2.0 + δ3*δ3*f3/6.0)
-            # equation (24)
-            δ5 = -f0/(f1 + δ4*f2/2.0 + δ4*δ4*f3/6.0 + δ4*δ4*δ4*f4/24.0)
-            return E1 + δ5 # equation 29
-        end
-    else
-        error("eccentricity must be in the range [0, 1]")
-    end
-end
-
 kepler_solver(M::Real, e::Real) =
-    kepler_solver(promote(float(M), float(e))...)
+    _kepler_solver(promote(float(M), float(e))...)
 
 function kepler_solver{R1<:Real,R2<:Real}(M::AbstractArray{R1}, e::R2)
     typee = promote_type(float(R1), float(R2))

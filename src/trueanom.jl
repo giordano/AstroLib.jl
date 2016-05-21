@@ -1,6 +1,14 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+_trueanom{T<:Real}(E::T, e::T) =
+    if e < 0
+        # We don't need to check e > 1, because a DomainError is raised anyway.
+        error("eccentricity must be in the range [0, 1]")
+    else
+        2.0*atan(sqrt((1.0 + e)/(1.0 - e))*tan(E/2.0))
+    end
+
 """
     trueanom(E, e) -> true anomaly
 
@@ -51,15 +59,7 @@ end
 
 The eccentric anomaly can be calculated with `kepler_solver` function.
 """
-trueanom{T<:AbstractFloat}(E::T, e::T) =
-    if e < 0
-        # We don't need to check e > 1, because a DomainError is raised anyway.
-        error("eccentricity must be in the range [0, 1]")
-    else
-        2.0*atan(sqrt((1.0 + e)/(1.0 - e))*tan(E/2.0))
-    end
-
-trueanom(E::Real, e::Real) = trueanom(promote(float(E), float(e))...)
+trueanom(E::Real, e::Real) = _trueanom(promote(float(E), float(e))...)
 
 function trueanom{R1<:Real,R2<:Real}(E::AbstractArray{R1}, e::R2)
     typeν = promote_type(float(R1), float(R2))
