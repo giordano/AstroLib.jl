@@ -2,8 +2,6 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 function _premat{T<:Real}(equinox1::T, equinox2::T, FK4::Bool)
-    # Helper function to convert from seconds to radians.
-    sec2rad(sec::Real) = deg2rad(sec/3600.0)
     t = 0.001*(equinox2 - equinox1)
     if FK4
         st = 0.001*(equinox1 - 1900.0)

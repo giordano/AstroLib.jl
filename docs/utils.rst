@@ -2998,7 +2998,7 @@ Code of this function is based on IDL Astronomy User's Library.
 radec
 ~~~~~
 
-.. function:: radec(ra::Number, dec::Number[, hours=true]) -> ra_hours, ra_minutes, ra_seconds, dec_degrees, dec_minutes, dec_seconds
+.. function:: radec(ra::Real, dec::Real[, hours=true]) -> ra_hours, ra_minutes, ra_seconds, dec_degrees, dec_minutes, dec_seconds
 
 Purpose
 '''''''

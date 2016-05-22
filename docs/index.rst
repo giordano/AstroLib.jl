@@ -55,6 +55,13 @@ After installing the package, you can start using ``AstroLib.jl`` with
 
     using AstroLib
 
+Many functions in ``AstroLib.jl`` are compatible with `Measurements.jl
+<https://github.com/giordano/Measurements.jl>`__ package, which allows you to
+define quantities with uncertainty and propagate the error when performing
+calculations according to `propagation of uncertainty rules
+<https://en.wikipedia.org/wiki/Propagation_of_uncertainty>`__.
+
+
 New Types
 ---------
 

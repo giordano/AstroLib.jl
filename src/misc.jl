@@ -3,3 +3,9 @@
 
 include("cirrange.jl")
 export cirrange
+
+include("rad2sec.jl")
+export rad2sec
+
+include("sec2rad.jl")
+export sec2rad
