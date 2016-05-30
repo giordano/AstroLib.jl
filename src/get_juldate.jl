@@ -23,4 +23,4 @@ daycnv(get_juldate())
 ### Notes ###
 Use `jdcnv` to get the number of Julian days for a different date.
 """
-get_juldate() = jdcnv(Dates.now())
+get_juldate() = jdcnv(now(Dates.UTC))

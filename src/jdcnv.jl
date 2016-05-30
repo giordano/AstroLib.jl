@@ -43,7 +43,7 @@ jdcnv("2016-08-23T03:39:06")
 This is the inverse of `daycnv`.
 
 `get_juldate` returns the number of Julian days for current time.  It is
-equivalent to `jdcnv(Dates.now())`.
+equivalent to `jdcnv(now(Dates.UTC))`.
 
 For the conversion of Julian date to number of Julian days, use `juldate`.
 """
