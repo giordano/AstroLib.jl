@@ -1,6 +1,6 @@
 # AstroLib
 
-[![Travis Build Status on GNU/Linux and OS X](https://travis-ci.org/giordano/AstroLib.jl.svg?branch=master)](https://travis-ci.org/giordano/AstroLib.jl) [![Appveyor Build Status on Windows](https://ci.appveyor.com/api/projects/status/jfa9e54lv92rqd3m?svg=true)](https://ci.appveyor.com/project/giordano/astrolib-jl) [![Coverage Status](https://coveralls.io/repos/github/giordano/AstroLib.jl/badge.svg?branch=master)](https://coveralls.io/github/giordano/AstroLib.jl?branch=master) [![codecov.io](https://codecov.io/github/giordano/AstroLib.jl/coverage.svg?branch=master)](https://codecov.io/github/giordano/AstroLib.jl?branch=master) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.4.svg)](http://pkg.julialang.org/?pkg=AstroLib) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.5.svg)](http://pkg.julialang.org/?pkg=AstroLib)
+[![Travis Build Status on GNU/Linux and OS X](https://travis-ci.org/JuliaAstro/AstroLib.jl.svg?branch=master)](https://travis-ci.org/JuliaAstro/AstroLib.jl) [![Appveyor Build Status on Windows](https://ci.appveyor.com/api/projects/status/y76vj3hhhg79frvm/branch/master?svg=true)](https://ci.appveyor.com/project/giordano/astrolib-jl-mtrjh/branch/master) [![Coverage Status](https://coveralls.io/repos/github/JuliaAstro/AstroLib.jl/badge.svg?branch=master)](https://coveralls.io/github/JuliaAstro/AstroLib.jl?branch=master) [![codecov.io](https://codecov.io/gh/JuliaAstro/AstroLib.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaAstro/AstroLib.jl?branch=master) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.4.svg)](http://pkg.julialang.org/?pkg=AstroLib) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.5.svg)](http://pkg.julialang.org/?pkg=AstroLib)
 
 Goal
 ----
@@ -20,7 +20,7 @@ documentation of the functions for details.
 
 **Note:** this project is a work-in-progress, only few procedures have been
 translated so far.  In addition, function syntax may change from time to time.
-Check [TODO.md](https://github.com/giordano/AstroLib.jl/blob/master/TODO.md) out
+Check [TODO.md](https://github.com/JuliaAstro/AstroLib.jl/blob/master/TODO.md) out
 to see how you can help.  Volunteers are welcome!
 
 Installation
