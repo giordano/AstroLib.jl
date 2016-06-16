@@ -39,7 +39,7 @@ const cdelt = [8.9, -3.1, -0.5, 0.5, -0.1, 0.0, -0.6, 0.0, -0.1, 0.3, 0.0, 0.0,
                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
-function _nutate(jd::Real)
+function _nutate{T<:AbstractFloat}(jd::T)
     # Number of Julian centuries since 2000-01-01T12:00:00
     t = (jd - J2000)*inv(JULIANYEAR*100)
     # Mean elongation of the Moon

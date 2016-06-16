@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _eci2geo{T<:Real}(x::T, y::T, z::T, jd::T)
+function _eci2geo{T<:AbstractFloat}(x::T, y::T, z::T, jd::T)
     Re    = planets["earth"].eqradius*1e-3
     theta = atan2(y, x) # Azimuth.
     gst   = ct2lst(0.0, jd)

@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _calz_unred{T<:Real}(wave::T, flux::T, ebv::T, r_v::T)
+function _calz_unred{T<:AbstractFloat}(wave::T, flux::T, ebv::T, r_v::T)
     x  = 10000.0/wave # Wavelength in inverse microns
     if 6300.0 <= wave <= 22000.0
         klam = 2.659*(-1.857 + 1.040*x) + r_v

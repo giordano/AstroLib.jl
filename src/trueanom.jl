@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-_trueanom{T<:Real}(E::T, e::T) =
+_trueanom{T<:AbstractFloat}(E::T, e::T) =
     if e < 0
         # We don't need to check e > 1, because a DomainError is raised anyway.
         error("eccentricity must be in the range [0, 1]")

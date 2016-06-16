@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _eqpole{T<:Real}(l::T, b::T, southpole::Bool)
+function _eqpole{T<:AbstractFloat}(l::T, b::T, southpole::Bool)
     sgn = southpole ? -1.0 : 1.0
     l = deg2rad(sgn*l)
     b = deg2rad(sgn*b)

@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _geo2mag{T<:Real}(lat::T, long::T, pole_lat::T, pole_long::T)
+function _geo2mag{T<:AbstractFloat}(lat::T, long::T, pole_lat::T, pole_long::T)
     r       = 1.0 # Distance from planet center.  Value unimportant -- just need
                   # a length for conversion to rectangular coordinates
     lat  = deg2rad(lat)

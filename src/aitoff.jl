@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _aitoff{R<:Real}(l::R, b::R)
+function _aitoff{T<:AbstractFloat}(l::T, b::T)
     l > 180.0 && (l -= 360.0)
     alpha2 = deg2rad(l/2.0)
     delta = deg2rad(b)

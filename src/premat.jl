@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _premat{T<:Real}(equinox1::T, equinox2::T, FK4::Bool)
+function _premat{T<:AbstractFloat}(equinox1::T, equinox2::T, FK4::Bool)
     t = 0.001*(equinox2 - equinox1)
     if FK4
         st = 0.001*(equinox1 - 1900.0)

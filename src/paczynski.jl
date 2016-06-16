@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _paczynski(u::Real)
+function _paczynski{T<:AbstractFloat}(u::T)
     absu = abs(u)
     if absu >= 1e5
         # You can verify that:

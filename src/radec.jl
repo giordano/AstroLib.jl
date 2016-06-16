@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _radec{T<:Real}(ra::T, dec::T, hours::Bool)
+function _radec{T<:AbstractFloat}(ra::T, dec::T, hours::Bool)
     # Compute right ascension.
     if hours
         ra_hr, ra_min, ra_sec = sixty(cirrange(ra, 24.0))

@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _geo2geodetic{T<:Real}(lat::T, long::T, alt::T, eqrad::T, polrad::T)
+function _geo2geodetic{T<:AbstractFloat}(lat::T, long::T, alt::T, eqrad::T, polrad::T)
     e = sqrt(eqrad^2 - polrad^2)/eqrad
     lat = deg2rad(lat)
     long_rad = deg2rad(long)

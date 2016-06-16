@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _geo2eci{T<:Real}(lat::T, long::T, alt::T, jd::T)
+function _geo2eci{T<:AbstractFloat}(lat::T, long::T, alt::T, jd::T)
     Re    = planets["earth"].eqradius*1e-3
     lat   = deg2rad(lat)
     long  = deg2rad(long)

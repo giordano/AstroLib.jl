@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _hadec2altaz{T<:Real}(ha::T, dec::T, lat::T, ws::Bool)
+function _hadec2altaz{T<:AbstractFloat}(ha::T, dec::T, lat::T, ws::Bool)
     sh = sind(ha)
     ch = cosd(ha)
     sd = sind(dec)

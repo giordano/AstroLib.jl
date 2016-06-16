@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _precess_xyz{T<:Real}(x::T, y::T, z::T, equinox1::T, equinox2::T)
+function _precess_xyz{T<:AbstractFloat}(x::T, y::T, z::T, equinox1::T, equinox2::T)
     ra  = atan2(y, x)
     del = vecnorm((x, y, z)) #  Magnitude of distance to Sun
     dec = asin(z/del)

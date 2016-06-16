@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _vactoair(wave_vac::Real)
+function _vactoair{T<:AbstractFloat}(wave_vac::T)
     if wave_vac >= 2000.0
         sigma2 = (1e4/wave_vac)^2  # Convert to wavenumber squared
         # Computer conversion factor.

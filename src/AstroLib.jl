@@ -9,7 +9,7 @@ import Compat.String
 # Note on function definitions in this package.  Most functions are defined as
 # follows:
 #
-#     _funcname{T<:Real}(x::T, y::T) = ...
+#     _funcname{T<:AbstractFloat}(x::T, y::T) = ...
 #     funcname(x::Real, y::Real) = _funcname(promote(float(x), float(y))...)
 #
 # "_funcname" is the function with the implementation of the full algorithm.
@@ -17,11 +17,9 @@ import Compat.String
 # is the function exposed to the user which ensures all input arguments are
 # converted to the same floating point type, in order to improve both
 # type-stability and precision of calculations.  "funcname" may have optional
-# arguments or keywords.
-#
-# "_funcname" takes Real arguments instead of AbstractFloat in order to make it
-# possible to use AstroLib.jl with Measurements.jl package, which defines a new
-# type Measurement{T<:Real} <: Real.
+# arguments or keywords.  In addition, the use of AbstractFloat type in
+# "_funcname" enables compatibility with Measurements.jl package, which defines
+# a new type Measurement{T<:AbstractFloat} <: AbstractFloat.
 
 # Core functions
 include("misc.jl")

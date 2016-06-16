@@ -18,8 +18,8 @@ const Mbprec =
 # Note: IDL version of `bprecess' changes in-place "muradec", "parallax" and
 # "radvel".  We don't do anything like this, but calculations are below,
 # commented, in case someone is interested.
-function _bprecess{T<:Real}(ra::T, dec::T, parallax::T,
-                            radvel::T, epoch::T, muradec::Vector{T})
+function _bprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
+                                     radvel::T, epoch::T, muradec::Vector{T})
     @assert length(muradec) == 2
     cosra  = cosd(ra)
     sinra  = sind(ra)

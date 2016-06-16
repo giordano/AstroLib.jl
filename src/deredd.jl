@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _deredd{T<:Real}(Eby::T, by::T, m1::T, c1::T, ub::T)
+function _deredd{T<:AbstractFloat}(Eby::T, by::T, m1::T, c1::T, ub::T)
     Rm1 = -0.33
     Rc1 = 0.19
     Rub = 1.53

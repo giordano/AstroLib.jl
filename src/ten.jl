@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 # TODO: give sense to "-0" ("-0" is bitwise equal to "0").
-_ten{T<:Real}(degrees::T, minutes::T, seconds::T) =
+_ten{T<:AbstractFloat}(degrees::T, minutes::T, seconds::T) =
     copysign(1, degrees)*(abs(degrees) + minutes/60.0 + seconds/3600.0)
 
 ten(d::Real, m::Real=0.0, s::Real=0.0) =

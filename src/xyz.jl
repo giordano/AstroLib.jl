@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _xyz{T<:Real}(jd::T, equinox::T)
+function _xyz{T<:AbstractFloat}(jd::T, equinox::T)
     t = (float(jd) - 15020.0)*inv(JULIANYEAR*100) # Reduced Julian century from 1900
 
     # NOTE: longitude arguments below are given in *equinox* of date.  Precess

@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _sunpos(jd::Real, radians::Bool)
+function _sunpos{T<:AbstractFloat}(jd::T, radians::Bool)
     # Number of Julian centuries since 1899-12-31T12:00:00
     t = (jd - 2415020.0)*inv(JULIANYEAR*100)
     # Sun's mean longitude

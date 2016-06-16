@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _ct2lst{T<:Real}(long::T, jd::T)
+function _ct2lst{T<:AbstractFloat}(long::T, jd::T)
     t0 = jd - J2000
     t  = t0*inv(JULIANYEAR*100)
     # Compute GST in seconds.

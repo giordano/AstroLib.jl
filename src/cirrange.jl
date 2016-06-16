@@ -35,8 +35,6 @@ cirrange([4pi, 10, -5.23], 2.0*pi)
 
 This function does not support the `radians` keyword like IDL implementation.
 Use `2.0*pi` as second argument to restrict a number to the same interval.
-
-Code of this function is based on IDL Astronomy User's Library.
 """
 cirrange(number::Real, max::Real=360.0) =
     mod(promote(float(number), float(max))...)

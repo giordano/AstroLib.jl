@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _recpol{T<:Real}(x::T, y::T, degrees::Bool)
+function _recpol{T<:AbstractFloat}(x::T, y::T, degrees::Bool)
     if degrees
         return hypot(x, y), rad2deg(atan2(y, x))
     else

@@ -1,8 +1,8 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _gal_uvw{T<:Real}(ra::T, dec::T, pmra::T, pmdec::T,
-                           vrad::T, plx::T, lsr::Bool)
+function _gal_uvw{T<:AbstractFloat}(ra::T, dec::T, pmra::T, pmdec::T,
+                                    vrad::T, plx::T, lsr::Bool)
     cosdec = cosd(dec)
     sindec = sind(dec)
     cosra  = cosd(ra)

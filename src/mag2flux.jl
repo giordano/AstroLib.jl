@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _mag2flux{T<:Real}(mag::T, zero_point::T, ABwave::T)
+function _mag2flux{T<:AbstractFloat}(mag::T, zero_point::T, ABwave::T)
     if isnan(ABwave)
         return exp10(-0.4*(mag + zero_point))
     else

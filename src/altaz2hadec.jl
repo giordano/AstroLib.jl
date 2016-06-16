@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _altaz2hadec{T<:Real}(alt::T, az::T, lat::T)
+function _altaz2hadec{T<:AbstractFloat}(alt::T, az::T, lat::T)
     # Convert to radians.
     alt_r = deg2rad(alt)
     az_r = deg2rad(az)

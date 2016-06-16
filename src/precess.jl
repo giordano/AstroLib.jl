@@ -1,8 +1,8 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _precess{T<:Real}(ra::T, dec::T, equinox1::T, equinox2::T,
-                           FK4::Bool, radians::Bool)
+function _precess{T<:AbstractFloat}(ra::T, dec::T, equinox1::T, equinox2::T,
+                                    FK4::Bool, radians::Bool)
     if radians
         ra_rad  = ra
         dec_rad = dec

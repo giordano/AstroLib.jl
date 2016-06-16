@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-_sec2rad{T<:Real}(sec::T) = deg2rad(sec/3600.0)
+_sec2rad{T<:AbstractFloat}(sec::T) = deg2rad(sec/3600.0)
 
 """
     sec2rad(sec) -> radians

@@ -18,8 +18,8 @@ const Mjprec =
 # Note: IDL version of `jprecess' changes in-place "muradec", "parallax" and
 # "radvel".  We don't do anything like this, but calculations are below,
 # commented, in case someone is interested.
-function _jprecess{T<:Real}(ra::T, dec::T, parallax::T,
-                            radvel::T, epoch::T, muradec::Vector{T})
+function _jprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
+                                     radvel::T, epoch::T, muradec::Vector{T})
     @assert length(muradec) == 2
     cosra  = cosd(ra)
     sinra  = sind(ra)

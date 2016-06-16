@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _polrec{T<:Real}(radius::T, angle::T, degrees::Bool)
+function _polrec{T<:AbstractFloat}(radius::T, angle::T, degrees::Bool)
     if degrees
         return radius*cos(deg2rad(angle)), radius*sin(deg2rad(angle))
     else

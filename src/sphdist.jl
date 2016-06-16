@@ -1,8 +1,8 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _sphdist{T<:Real}(long1::T, lat1::T, long2::T, lat2::T,
-                           degrees::Bool)
+function _sphdist{T<:AbstractFloat}(long1::T, lat1::T, long2::T, lat2::T,
+                                    degrees::Bool)
     # Convert both points to rectangular coordinates.
     rxy, z1 = polrec(1.0, lat1,  degrees=degrees)
     x1, y1  = polrec(rxy, long1, degrees=degrees)

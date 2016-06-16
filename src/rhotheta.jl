@@ -1,9 +1,9 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _rhotheta{T<:Real}(period::T, periastron::T, eccentricity::T,
-                            semimajor_axis::T, inclination::T,
-                            omega::T, omega2::T, epoch::T)
+function _rhotheta{T<:AbstractFloat}(period::T, periastron::T, eccentricity::T,
+                                     semimajor_axis::T, inclination::T,
+                                     omega::T, omega2::T, epoch::T)
     rho = theta = -one(period)
     # See chapter 55.
     n = 360.0/period

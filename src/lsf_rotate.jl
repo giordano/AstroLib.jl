@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _lsf_rotate{T<:Real}(Δ::T, vsini::T, ɛ::T)
+function _lsf_rotate{T<:AbstractFloat}(Δ::T, vsini::T, ɛ::T)
     n_2 = floor(ceil(2*vsini/Δ)/2)
     vel = collect(-n_2:n_2)*Δ
     e1 = 2*(1.0 - ɛ)

@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _kepler_solver{T<:Real}(M::T, e::T)
+function _kepler_solver{T<:AbstractFloat}(M::T, e::T)
     if 0 <= e <= 1
         # M is assumed to be in the range [-pi, pi], see Markley (1995), page 2.
         # First restrict it to [0, 2pi], then move values above pi to [-pi, 0].
