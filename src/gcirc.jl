@@ -5,34 +5,33 @@ function _gcirc{T<:AbstractFloat}(units::Integer, ra1::T, dec1::T, ra2::T, dec2:
     # Convert all quantities to radians.
     if units == 0
         # All radians
-        ra1_rad  = ra1
-        ra2_rad  = ra2
-        dec1_rad = dec1
-        dec2_rad = dec2
+        λ_1 = ra1
+        λ_2 = ra2
+        φ_1 = dec1
+        φ_2 = dec2
     elseif units == 1
         # Right ascensions are in hours, declinations in degrees.
-        ra1_rad  = ra1*pi/12.0
-        ra2_rad  = ra2*pi/12.0
-        dec1_rad = deg2rad(dec1)
-        dec2_rad = deg2rad(dec2)
+        λ_1 = ra1*pi/12.0
+        λ_2 = ra2*pi/12.0
+        φ_1 = deg2rad(dec1)
+        φ_2 = deg2rad(dec2)
     elseif units == 2
         # Right ascensions and declinations are in degrees.
-        ra1_rad  = deg2rad(ra1)
-        ra2_rad  = deg2rad(ra2)
-        dec1_rad = deg2rad(dec1)
-        dec2_rad = deg2rad(dec2)
+        λ_1 = deg2rad(ra1)
+        λ_2 = deg2rad(ra2)
+        φ_1 = deg2rad(dec1)
+        φ_2 = deg2rad(dec2)
     else
         # In any other case throw an error.
         error("units must be 0 (radians), 1 (hours, degrees) or 2 (degrees)")
     end
-    deldec2 = (dec2_rad - dec1_rad)/2.0
-    delra2  = (ra2_rad - ra1_rad)/2.0
-    sindist = sqrt(sin(deldec2)*sin(deldec2) +
-                   cos(dec1_rad)*cos(dec2_rad)*sin(delra2)*sin(delra2))
+    Δφ_2 = (φ_2 - φ_1) * 0.5
+    Δλ_2 = (λ_2 - λ_1) * 0.5
+    Δσ = 2asin(sqrt(abs2(sin(Δφ_2)) + cos(φ_1) * cos(φ_2) * abs2(sin(Δλ_2))))
     if units == 0
-        return 2.0*asin(sindist)
+        return Δσ
     else
-        return 2.0*asin(sindist)*648000.0/pi
+        return rad2sec(Δσ)
     end
 end
 
