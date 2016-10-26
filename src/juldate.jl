@@ -57,7 +57,9 @@ Code of this function is based on IDL Astronomy User's Library.
 # For all these reasons, we use here the same algorithm as AstroLib's juldate.
 function juldate(dt::DateTime)
     year, month, day = Dates.yearmonthday(dt)
-    hours, minutes, seconds = Dates.hour(dt), Dates.minute(dt), Dates.second(dt)
+    hours, minutes, seconds, milliseconds =
+        Dates.hour(dt), Dates.minute(dt),
+        Dates.second(dt), Dates.millisecond(dt)
 
     if year < 0
         year += 1
@@ -65,7 +67,7 @@ function juldate(dt::DateTime)
         year == 0 && error("There is no year zero in Julian Calendar")
     end
 
-    day = day + (hours + minutes/60.0 + seconds/3600.0)/24.0
+    day += hours/24 + minutes/1440 + seconds/86400 + milliseconds/86400000
 
     # Do not include leap year in January and February.
     if month < 3
@@ -73,13 +75,13 @@ function juldate(dt::DateTime)
         month += 12
     end
 
-    jd = fld(year, 4.0) + 365.0*(year - 1860.0) + floor(30.6001*(month + 1.0)) +
-         day - 105.5
+    jd = fld(year, 4) + 365*(year - 1860) + floor(306001//10000*(month + 1)) +
+         day - 1055//10
 
     # Adjust for Gregorian Calendar, started on 1582-10-15 (= RJD -100830.5).
     if jd > -100830.5
         a = div(year, 100)
-        jd += 2.0 - a + fld(a, 4.0)
+        jd += 2 - a + fld(a, 4)
     end
     return jd
 end

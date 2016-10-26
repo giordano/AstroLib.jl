@@ -296,18 +296,20 @@ end
 # Test juldate with Gregorian Calendar in force.  This also makes sure precision
 # of the result is high enough.  Note that "juldate(dt::DateTime) =
 # Dates.datetime2julian(dt)-2.4e6" would not be precise.
-@test_approx_eq juldate([DateTime(2016, 1, 1, 8)]) (57388.5 + 1.0/3.0)
+@test_approx_eq juldate([DateTime(2016, 1, 1, 8)]) (57388.5 + 1//3)
 
 # Test juldate with Julian Calendar in force, for different centuries.  This
 # also makes sure precision of the result is high enough.
-@test_approx_eq juldate(1582, 10, 1, 20) (-100843.0 + 1.0/3.0)
-@test_approx_eq juldate(["1000-01-01T20"]) (-313692.0 + 1.0/3.0)
-@test_approx_eq juldate("100-10-25T20") (-642119.0 + 1.0/3.0)
+@test_approx_eq juldate(1582, 10, 1, 20) (-100843 + 1//3)
+@test_approx_eq juldate(["1000-01-01T20"]) (-313692 + 1//3)
+@test_approx_eq juldate("100-10-25T20") (-642119 + 1//3)
 @test_approx_eq juldate(-4713, 1, 1, 12) -2.4e6
+@test juldate(2016, 06, 30, 00, 05, 53, 120) ≈
+    jdcnv(2016, 06, 30, 00, 05, 53, 120) - 2.4e6
 # Test daycnv and juldate together, with Gregorian Calendar in force.  Note that
 # they are not expected to be one the inverse of the other during Julian
 # Calendar.
-@test (dt=DateTime(2016, 1, 1, 20);
+@test (dt=DateTime(2016, 1, 1, 20, 45, 33, 457);
        daycnv(juldate(dt) + 2.4e6) == dt)
 
 # Test kepler_solver

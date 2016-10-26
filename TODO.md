@@ -15,6 +15,7 @@ Already Present in Julia
 
 * `asinh`
 * `minmax`.  It is called `extrema` in Julia.
+* `permute`.  It is called `randperm` in Julia.
 * `to_hex`.  It is called `hex` in Julia.
 
 Present in Other Libraries
@@ -309,7 +310,6 @@ Missing in AstroLib.jl
 * `partvelvec`
 * `pca`
 * `pent`
-* `permute`
 * `pixcolor`
 * `pixwt`
 * `pkfit`
