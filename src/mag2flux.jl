@@ -61,12 +61,3 @@ Code of this function is based on IDL Astronomy User's Library.
 """
 mag2flux(mag::Real, zero_point::Real=21.1; ABwave::Real=NaN) =
     _mag2flux(promote(float(mag), float(zero_point), float(ABwave))...,)
-
-function mag2flux{N<:Real}(mag::AbstractArray{N}, zero_point::Real=21.1;
-                           ABwave::Real=NaN)
-    flux = similar(mag, typeof(float(one(N))))
-    for i in eachindex(mag)
-        flux[i] = mag2flux(mag[i], zero_point, ABwave=ABwave)
-    end
-    return flux
-end

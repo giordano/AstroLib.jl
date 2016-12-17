@@ -25,17 +25,10 @@ end
 
 ten(itr) = ten(itr...)
 
-tenv{D<:Real,M<:Real,S<:Real}(deg::AbstractArray{D},
-                              min::AbstractArray{M}=zeros(typeof(float(zero(D))), length(deg)),
-                              sec::AbstractArray{S}=zeros(typeof(float(zero(D))), length(deg))) =
-                                  map(ten, deg, min, sec)
-tenv{T<:Any}(any::AbstractArray{T}) = map(ten, any)
 
 """
     ten(deg[, min, sec]) -> decimal
     ten("deg:min:sec") -> decimal
-    tenv([deg], [min], [sec]) -> decimal
-    tenv(["deg:min:sec"]) -> decimal
 
 ### Purpose ###
 
@@ -43,7 +36,7 @@ Converts a sexagesimal number or string to decimal.
 
 ### Explanation ###
 
-`ten` is the inverse of the `sixty` function.  `tenv` is the vectorial version
+`ten` is the inverse of the `sixty` function.
 of `ten`.
 
 ### Arguments ###
@@ -53,9 +46,6 @@ The string should have the form `"deg:min:sec"` or `"deg min sec"`.  Also any
 iterable like `(deg, min, sec)` or `[deg, min, sec]` is accepted as argument.
 
 If minutes and seconds are not specified they default to zero.
-
-`tenv` takes as input three numerical arrays of numbers (minutes and seconds
-arrays default to null arrays if omitted) or one array of strings or iterables.
 
 ### Output ###
 
@@ -88,4 +78,4 @@ If it is important to give sense to negative zero, you can either make sure to
 pass a floating point negative zero `-0.0` (this is the best option), or use
 negative minutes and seconds, or non-integer negative degrees and minutes.
 """
-ten, tenv
+ten

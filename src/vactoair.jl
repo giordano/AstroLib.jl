@@ -54,5 +54,3 @@ wavelength of `1999.353`.
 Code of this function is based on IDL Astronomy User's Library.
 """
 vactoair(wave_vac::Real) = _vactoair(float(wave_vac))
-
-@vectorize_1arg Real vactoair

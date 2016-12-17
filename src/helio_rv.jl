@@ -79,15 +79,3 @@ helio_rv(jd::Real, t::Real, P::Real, V0::Real,
          K::Real, ecc::Real=0.0, ω::Real=0.0) =
              _helio_rv(promote(float(jd), float(t), float(P),
                                float(V0), float(K), float(ecc), float(ω))...)
-
-function helio_rv{R1<:Real,R2<:Real,R3<:Real,R4<:Real,R5<:Real,R6<:Real,
-                  R7<:Real}(jd::AbstractArray{R1}, t::R2, P::R3,
-                            V0::R4, K::R5, ecc::R6=0.0, ω::R7=0.0)
-    typerv = promote_type(float(R1), float(R2), float(R3), float(R4),
-                          float(R5), float(R6), float(R7))
-    rv = similar(jd, typerv)
-    for i in eachindex(jd)
-        rv[i] = helio_rv(jd[i], t, P, V0, K, ecc, ω)
-    end
-    return rv
-end

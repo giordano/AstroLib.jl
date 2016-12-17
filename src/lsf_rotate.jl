@@ -8,8 +8,8 @@ function _lsf_rotate{T<:AbstractFloat}(Δ::T, vsini::T, ɛ::T)
     e2 = pi*ɛ/2.0
     e3 = pi*(1.0 - ɛ/3.0)
     x = vel/vsini
-    x1 = abs(1.0 - x.^2)
-    return vel, (e1*sqrt(x1) + e2*x1)/e3
+    x1 = abs.(1.0 - x.^2)
+    return vel, (e1*sqrt.(x1) .+ e2*x1)/e3
 end
 
 """

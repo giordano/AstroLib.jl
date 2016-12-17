@@ -31,5 +31,3 @@ sec2rad(3600*30)
 Use `rad2sec` to convert radians to seconds.
 """
 sec2rad(sec::Real) = _sec2rad(float(sec))
-
-@vectorize_1arg Real sec2rad

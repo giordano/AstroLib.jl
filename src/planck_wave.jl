@@ -52,5 +52,3 @@ plot(wavelength, flux)
 Code of this function is based on IDL Astronomy User's Library.
 """
 planck_wave(w::Real, t::Real) = _planck_wave(promote(float(w), float(t))...)
-
-@vectorize_2arg Real planck_wave

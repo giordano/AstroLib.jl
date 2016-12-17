@@ -57,5 +57,3 @@ yields a vacuum wavelength of `6057.8019`.
 Code of this function is based on IDL Astronomy User's Library.
 """
 airtovac(wave_air::Real) = _airtovac(float(wave_air))
-
-@vectorize_1arg Real airtovac

@@ -105,10 +105,10 @@ function _moonpos{T<:AbstractFloat}(jd::T, radians::Bool)
         end
     end
     arg = moon_d_lng*d + moon_M_lng*M + moon_Mprime_lng*Mprime + moon_F_lng*F
-    geolong = Lprimed + (sum(sinlng.*sin(arg)) + suml_add)/1e6
-    dis = 385000.56 + sum(coslng.*cos(arg))/1e3
+    geolong = Lprimed + (sum(sinlng.*sin.(arg)) + suml_add)/1e6
+    dis = 385000.56 + sum(coslng.*cos.(arg))/1e3
     arg = moon_d_lat*d + moon_M_lat*M + moon_Mprime_lat*Mprime + moon_F_lat*F
-    geolat = (sum(sinlat.*sin(arg)) + sumb_add)/1e6
+    geolat = (sum(sinlat.*sin.(arg)) + sumb_add)/1e6
     nlong, elong = nutate(jd)
     geolong = cirrange(geolong + nlong/3.6e3)
     λ = deg2rad(geolong)

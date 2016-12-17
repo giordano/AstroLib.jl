@@ -107,20 +107,3 @@ end
 
 ct2lst(long::Real, tz::Real, date::DateTime) =
     ct2lst(promote(float(long), float(tz))..., date)
-
-# Vectorial versions
-function ct2lst{D<:DateTime}(long::Real, tz::Real, date::AbstractArray{D})
-    lst = similar(date, typeof(float(long)))
-    for i in eachindex(date)
-        lst[i] = ct2lst(long, tz, date[i])
-    end
-    return lst
-end
-
-function ct2lst{JD<:Real}(long::Real, jd::AbstractArray{JD})
-    lst = similar(jd, typeof(float(long)))
-    for i in eachindex(jd)
-        lst[i] = ct2lst(long, jd[i])
-    end
-    return lst
-end

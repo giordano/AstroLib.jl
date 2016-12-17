@@ -41,11 +41,3 @@ ydn2md(2016, [60, 234])
 function ydn2md(year::Integer, day::Integer)
     return Dates.firstdayofyear(Date(year)) + Dates.Day(day - 1)
 end
-
-function ydn2md{D<:Integer}(year::Integer, days::AbstractArray{D})
-    dates = similar(days, Date)
-    for d in eachindex(days)
-        dates[d] = ydn2md(year, days[d])
-    end
-    return dates
-end

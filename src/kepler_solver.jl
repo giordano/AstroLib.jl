@@ -116,12 +116,3 @@ The true anomaly can be calculated with `trueanom` function.
 """
 kepler_solver(M::Real, e::Real) =
     _kepler_solver(promote(float(M), float(e))...)
-
-function kepler_solver{R1<:Real,R2<:Real}(M::AbstractArray{R1}, e::R2)
-    typee = promote_type(float(R1), float(R2))
-    E = similar(M, typee)
-    for i in eachindex(M)
-        E[i] = kepler_solver(M[i], e)
-    end
-    return E
-end

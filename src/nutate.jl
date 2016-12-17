@@ -54,8 +54,8 @@ function _nutate{T<:AbstractFloat}(jd::T)
     # measured from the mean equinox of the date
     ω = deg2rad(cirrange(@evalpoly(t, 125.04452, -1934.136261, 0.0020708, inv(4.5e5))))
     arg = d_lng*d + M_lng*M + Mprime_lng*Mprime + F_lng*F + ω_lng*ω
-    long  = 0.0001*sum((sdelt*t + sin_lng).*sin(arg))
-    obliq = 0.0001*sum((cdelt*t + cos_lng).*cos(arg))
+    long  = 0.0001*sum((sdelt*t + sin_lng).*sin.(arg))
+    obliq = 0.0001*sum((cdelt*t + cos_lng).*cos.(arg))
     return long, obliq
 end
 

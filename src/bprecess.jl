@@ -36,8 +36,8 @@ function _bprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
     r1 = R_1[1:3]
     r1_dot = R_1[4:6]
     if isfinite(epoch)
-        r1 += deg2rad(r1_dot*(epoch - 1950.0)*inv(360000.0))
-        A  += deg2rad(A_dot_precess*(epoch - 1950.0)*inv(360000.0))
+        r1 += deg2rad.(r1_dot*(epoch - 1950.0)*inv(360000.0))
+        A  += deg2rad.(A_dot_precess*(epoch - 1950.0)*inv(360000.0))
     end
     rmag = vecnorm(r1)
     s1 = r1*inv(rmag)

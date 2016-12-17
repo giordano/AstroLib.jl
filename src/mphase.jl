@@ -57,11 +57,3 @@ Note that in this calendar month there are two full moons, this event is called
 Code of this function is based on IDL Astronomy User's Library.
 """
 mphase(jd::Real) = _mphase(float(jd))
-
-function mphase{J<:Real}(jd::AbstractArray{J})
-    k = similar(jd, float(J))
-    for i in eachindex(jd)
-        k[i] = mphase(jd[i])
-    end
-    return k
-end

@@ -50,5 +50,3 @@ plot(frequency, flux)
 `planck_wave` calculates the flux of a black body per unit wavelength.
 """
 planck_freq(f::Real, t::Real) = _planck_freq(promote(float(f), float(t))...)
-
-@vectorize_2arg Real planck_freq

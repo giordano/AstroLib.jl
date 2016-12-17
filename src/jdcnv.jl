@@ -49,11 +49,3 @@ For the conversion of Julian date to number of Julian days, use `juldate`.
 """
 const jdcnv = Dates.datetime2julian
 jdcnv(date...) = jdcnv(DateTime(date...))
-
-function jdcnv{T<:Any}(dt::AbstractArray{T})
-    jd = similar(dt, Float64)
-    for i in eachindex(dt)
-        jd[i] = jdcnv(dt[i])
-    end
-    return jd
-end

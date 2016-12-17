@@ -97,12 +97,3 @@ helio_jd(date::Real, ra::Real, dec::Real;
          B1950::Bool=false, diff::Bool=false) =
              _helio_jd(promote(float(date), float(ra), float(dec))...,
                        B1950, diff)
-
-function helio_jd{D<:Real}(date::AbstractArray{D}, ra::Real, dec::Real;
-                           B1950::Bool=false, diff::Bool=false)
-    output = similar(date, float(D))
-    for i in eachindex(date)
-        output[i] = helio_jd(date[i], ra, dec, B1950=B1950, diff=diff)
-    end
-    return output
-end

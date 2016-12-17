@@ -88,13 +88,3 @@ get_date(dt::DateTime=Dates.unix2datetime(Libc.time());
 
 get_date(dt...; old::Bool=false, timetag::Bool=false) =
     get_date(DateTime(dt...), old, timetag)
-
-# Vectorial function
-function get_date{D<:Any}(dt::AbstractArray{D};
-                               old::Bool=false, timetag::Bool=false)
-    dates = similar(dt, String)
-    for i in eachindex(dt)
-        dates[i] = get_date(dt[i], old=old, timetag=timetag)
-    end
-    return dates
-end

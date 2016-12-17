@@ -93,5 +93,3 @@ earlier:
   Bibcode:[1936Sci....84..506E](http://adsabs.harvard.edu/abs/1936Sci....84..506E)
 """
 paczynski(u::Real) = _paczynski(float(u))
-
-@vectorize_1arg Real paczynski

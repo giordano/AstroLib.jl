@@ -12,7 +12,7 @@
 @test adstring([(-58, 724)]) == [" 20 08 00.0  +724 00 00"]
 
 # Test airtovac
-@test_approx_eq airtovac([1234 6056.125]) [1234.0 6057.801930991426]
+@test_approx_eq airtovac.([1234 6056.125]) [1234.0 6057.801930991426]
 @test_approx_eq airtovac(2100) 2100.666421596007
 
 # Test aitoff
@@ -58,15 +58,15 @@ let
 end
 
 # Test calz_unred
-@test_approx_eq calz_unred(reshape(900:1000:9900, 10, 1), ones(Float64, 10), -0.1) [1.0,                0.43189326452379095,
-                                                                                    0.5203675483533704, 0.594996469192435,
-                                                                                    0.6569506252451913, 0.7080829505773865,
-                                                                                    0.7502392743978797, 0.7861262388745882,
-                                                                                    0.8151258710444882, 0.8390325371659836]
+@test_approx_eq calz_unred.(collect(900:1000:9900), ones(Float64, 10), -0.1) [1.0,                0.43189326452379095,
+                                                                              0.5203675483533704, 0.594996469192435,
+                                                                              0.6569506252451913, 0.7080829505773865,
+                                                                              0.7502392743978797, 0.7861262388745882,
+                                                                              0.8151258710444882, 0.8390325371659836]
 
 #test ct2lst
-@test_approx_eq ct2lst(-76.72, -4, [DateTime(2008, 7, 30, 15, 53)]) [11.356505172312609]
-@test_approx_eq ct2lst(9, [jdcnv(2015, 11, 24, 12, 21)]) [17.159574059885927]
+@test_approx_eq ct2lst.(-76.72, -4, [DateTime(2008, 7, 30, 15, 53)]) [11.356505172312609]
+@test_approx_eq ct2lst.(9, [jdcnv(2015, 11, 24, 12, 21)]) [17.159574059885927]
 
 # Test daycnv with Gregorian Calendar in force.
 @test daycnv(2440000.0) == DateTime(1968, 05, 23, 12)
@@ -117,9 +117,9 @@ let
 end
 
 # Test flux2mag
-@test_approx_eq flux2mag([1.5e-12, 8.7e-15, 4.4e-10]) [8.459771852360795,
-                                                       14.051201868453454,
-                                                       2.291368308784527]
+@test_approx_eq flux2mag.([1.5e-12, 8.7e-15, 4.4e-10]) [8.459771852360795,
+                                                        14.051201868453454,
+                                                        2.291368308784527]
 @test_approx_eq flux2mag(1) -21.1
 @test_approx_eq flux2mag(5.2e-15) 14.609991640913002
 @test_approx_eq flux2mag(5.2e-15, 15) 20.709991640913003
@@ -220,20 +220,20 @@ end
 @test get_date(DateTime(2001,09,25,14,56,14)) ==
     get_date(2001,09,25,14,56,14) == get_date("2001-09-25T14:56:14") ==
     "2001-09-25"
-@test get_date([DateTime(2024), Date(2016, 3, 14)]) ==
-    get_date([Date(2024), "2016-03-14"]) ==
-    get_date(["2024-01", DateTime(2016, 3, 14)]) == ["2024-01-01", "2016-03-14"]
+@test get_date.([DateTime(2024), Date(2016, 3, 14)]) ==
+    get_date.([Date(2024), "2016-03-14"]) ==
+    get_date.(["2024-01", DateTime(2016, 3, 14)]) == ["2024-01-01", "2016-03-14"]
 
 # Test gcirc.
-@test_approx_eq gcirc(0, [0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.222450611061632,
-                                                              2.500353926443337,
-                                                              1.5892569925227757]
+@test_approx_eq gcirc.(0, [0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.222450611061632,
+                                                               2.500353926443337,
+                                                               1.5892569925227757]
 @test_approx_eq gcirc(0,  120, -43,   175, +22)  1.590442261600714
 @test_approx_eq gcirc(1, (120, -43),  175, +22)  415908.56615322345
 @test_approx_eq gcirc(2,  120, -43,  (175, +22)) 296389.3666794745
 @test_approx_eq gcirc(0, (120, -43), (175, +22)) 1.590442261600714
-@test_approx_eq gcirc(1, [120], [-43],  175, +22)  [415908.56615322345]
-@test_approx_eq gcirc(2,  120, -43,  [175], [+22]) [296389.3666794745]
+@test_approx_eq gcirc.(1, [120], [-43],  175, +22)  [415908.56615322345]
+@test_approx_eq gcirc.(2,  120, -43,  [175], [+22]) [296389.3666794745]
 @test_throws ErrorException gcirc(3, 0, 0, 0, 0)
 
 # Test hadec2altaz
@@ -250,7 +250,7 @@ let
 end
 
 # Test helio_jd
-@test_approx_eq helio_jd([juldate(2016, 6, 15, 11, 40)], ten(20, 9, 7.8)*15, ten(37, 9, 7)) 57554.98808289718
+@test_approx_eq helio_jd.([juldate(2016, 6, 15, 11, 40)], ten(20, 9, 7.8)*15, ten(37, 9, 7)) 57554.98808289718
 @test_approx_eq helio_jd(1000, 23, 67, B1950=true) 999.9997659545342
 @test_approx_eq helio_jd(2000, 12, 88, diff=true) -167.24845957792076
 
@@ -258,16 +258,16 @@ end
 @test_approx_eq helio_rv(helio_jd(juldate(94, 10, 25, 17, 30),
                                   ten(04, 38, 16)*15, ten(20, 41, 05)),
                          46487.5303, 2.0563056, -6, 59.3) -62.965570109145034
-@test_approx_eq helio_rv([0.1, 0.9], 0, 1, 0, 100, 0.6, 45) [-45.64994926111004,
-                                                             89.7820347358485]
+@test_approx_eq helio_rv.([0.1, 0.9], 0, 1, 0, 100, 0.6, 45) [-45.64994926111004,
+                                                              89.7820347358485]
 
 # Test jdcnv.
 @test_approx_eq jdcnv(-4713, 11, 24, 12) 0.0
 @test jdcnv(763, 09, 18, 12) == jdcnv("763-09-18T12") == 2000000.0
 @test (jd=1234567.89; jdcnv(daycnv(jd)) == jd)
-@test jdcnv([DateTime(2016, 07, 31), "1969-07-20"]) ==
-    jdcnv([Date(2016, 07, 31), DateTime(1969, 07, 20)]) ==
-    jdcnv(["2016-07-31", Date(1969, 07, 20)])
+@test jdcnv.([DateTime(2016, 07, 31), "1969-07-20"]) ==
+    jdcnv.([Date(2016, 07, 31), DateTime(1969, 07, 20)]) ==
+    jdcnv.(["2016-07-31", Date(1969, 07, 20)])
 
 # Test jprecess
 let
@@ -296,12 +296,12 @@ end
 # Test juldate with Gregorian Calendar in force.  This also makes sure precision
 # of the result is high enough.  Note that "juldate(dt::DateTime) =
 # Dates.datetime2julian(dt)-2.4e6" would not be precise.
-@test_approx_eq juldate([DateTime(2016, 1, 1, 8)]) (57388.5 + 1//3)
+@test_approx_eq juldate.([DateTime(2016, 1, 1, 8)]) (57388.5 + 1//3)
 
 # Test juldate with Julian Calendar in force, for different centuries.  This
 # also makes sure precision of the result is high enough.
 @test_approx_eq juldate(1582, 10, 1, 20) (-100843 + 1//3)
-@test_approx_eq juldate(["1000-01-01T20"]) (-313692 + 1//3)
+@test_approx_eq juldate.(["1000-01-01T20"]) (-313692 + 1//3)
 @test_approx_eq juldate("100-10-25T20") (-642119 + 1//3)
 @test_approx_eq juldate(-4713, 1, 1, 12) -2.4e6
 @test juldate(2016, 06, 30, 00, 05, 53, 120) ≈
@@ -314,13 +314,13 @@ end
 
 # Test kepler_solver
 @test_approx_eq kepler_solver(8pi/3, 0.7) 2.5085279492864223
-@test_approx_eq kepler_solver([pi/4, pi/6, 8pi/3], 0) [pi/4, pi/6, 2pi/3]
+@test_approx_eq kepler_solver.([pi/4, pi/6, 8pi/3], 0) [pi/4, pi/6, 2pi/3]
 @test_approx_eq kepler_solver(3pi/2, 0.8) -2.2119306096084457
 @test_approx_eq kepler_solver(0, 1) 0.0
 @test_throws ErrorException kepler_solver(pi, -0.5)
 @test_throws ErrorException kepler_solver(pi,  1.5)
 
-# Test mag2flux
+# Test lsf_rotate
 let
     local vel, lsf
     vel, lsf = lsf_rotate(3, 90)
@@ -332,7 +332,7 @@ end
 
 # Test mag2flux
 @test_approx_eq mag2flux(4.83, 21.12) 4.1686938347033296e-11
-@test_approx_eq mag2flux([4.83], 21.12) 4.1686938347033296e-11
+@test_approx_eq mag2flux.([4.83], 21.12) 4.1686938347033296e-11
 @test_approx_eq flux2mag(mag2flux(15, ABwave=12.), ABwave=12) 15.0
 @test_approx_eq mag2flux(8.3) 1.7378008287493692e-12
 @test_approx_eq mag2flux(8.3, 12) 7.58577575029182e-9
@@ -353,12 +353,12 @@ let
     @test_approx_eq long 56.78
 end
 
-# Test month_conv
-@test month_cnv([" januavv  ", "SEPPES ", " aUgUsT", "la"]) == [1, 9, 8, -1]
-@test month_cnv([2, 12, 6], short=true, low=true) == ["feb", "dec", "jun"]
+# Test month_cnv
+@test month_cnv.([" januavv  ", "SEPPES ", " aUgUsT", "la"]) == [1, 9, 8, -1]
+@test month_cnv.([2, 12, 6], short=true, low=true) == ["feb", "dec", "jun"]
 @test month_cnv(5, up=true) == "MAY"
-@test (list=[1, 2, 3]; month_cnv(month_cnv(list)) == list)
-@test (list=["July", "March", "November"]; month_cnv(month_cnv(list)) == list)
+@test (list=[1, 2, 3]; month_cnv.(month_cnv.(list)) == list)
+@test (list=["July", "March", "November"]; month_cnv.(month_cnv.(list)) == list)
 
 # Test moonpos
 let
@@ -380,9 +380,9 @@ let
 end
 
 # Test mphase
-@test_approx_eq mphase([2457520, 2457530, 2457650]) [0.2781695910737857,
-                                                     0.9969808583803166,
-                                                     0.9580708477591693]
+@test_approx_eq mphase.([2457520, 2457530, 2457650]) [0.2781695910737857,
+                                                      0.9969808583803166,
+                                                      0.9580708477591693]
 
 # Test nutate
 let
@@ -408,10 +408,10 @@ end
 @test_approx_eq paczynski(-1e10)   -1
 
 # Test planck_freq
-@test_approx_eq planck_freq([2000], [5000]) [6.1447146126144004e-30]
+@test_approx_eq planck_freq.([2000], [5000]) [6.1447146126144004e-30]
 
 # Test planck_wave
-@test_approx_eq planck_wave([2000], [5000]) [8.127064833530511e-24]
+@test_approx_eq planck_wave.([2000], [5000]) [8.127064833530511e-24]
 
 # Test polrec
 let
@@ -427,15 +427,15 @@ end
 # Test posang.
 @test_approx_eq posang(1, ten(13, 25, 13.5), ten(54, 59, 17),
                        ten(13, 23, 55.5), ten(54, 55, 31)) -108.46011246802047
-@test_approx_eq posang(0, [0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.27896824717634,
-                                                               1.6840484573313608,
-                                                               0.2609280020139511]
+@test_approx_eq posang.(0, [0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.27896824717634,
+                                                                1.6840484573313608,
+                                                                0.2609280020139511]
 @test_approx_eq posang(0,  120, -43,   175, +22)  -1.5842896165356724
 @test_approx_eq posang(1, (120, -43),  175, +22)  82.97831348792039
 @test_approx_eq posang(2,  120, -43,  (175, +22)) 50.02816530382374
 @test_approx_eq posang(0, (120, -43), (175, +22)) -1.5842896165356724
-@test_approx_eq posang(1, [120], [-43],  175, +22)  [82.97831348792039]
-@test_approx_eq posang(2,  120, -43,  [175], [+22]) [50.02816530382374]
+@test_approx_eq posang.(1, [120], [-43],  175, +22)  [82.97831348792039]
+@test_approx_eq posang.(2,  120, -43,  [175], [+22]) [50.02816530382374]
 @test_throws ErrorException posang(3, 0, 0, 0, 0)
 
 # Test precess
@@ -510,12 +510,12 @@ end
 @test_approx_eq sixty(1) [1.0, 0.0, 0.0]
 
 # Test sphdist.
-@test_approx_eq sphdist([0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.222450611061632,
-                                                             2.500353926443337,
-                                                             1.5892569925227762]
+@test_approx_eq sphdist.([0,1,2], [1,2,3], [2,3,4], [3,4,5]) [1.222450611061632,
+                                                              2.500353926443337,
+                                                              1.5892569925227762]
 @test_approx_eq sphdist(120, -43, 175, +22) 1.5904422616007134
-@test_approx_eq sphdist([120], [-43], 175, +22) 1.5904422616007134
-@test_approx_eq sphdist(120, -43, [175], [+22]) 1.5904422616007134
+@test_approx_eq sphdist.([120], [-43], 175, +22) 1.5904422616007134
+@test_approx_eq sphdist.(120, -43, [175], [+22]) 1.5904422616007134
 
 # Test sunpos
 let
@@ -525,7 +525,7 @@ let
     @test_approx_eq dec 14.909699471099517
     @test_approx_eq lon 2309.6312912217463
     @test_approx_eq obl 1343.0612563977593
-    ra, dec, lon, obl = sunpos(jdcnv([DateTime(2016, 5, 10)]), radians=true)
+    ra, dec, lon, obl = sunpos(jdcnv.([DateTime(2016, 5, 10)]), radians=true)
     @test_approx_eq ra  0.8259691339090751
     @test_approx_eq dec 0.3085047454107549
     @test_approx_eq lon 49.77773359512005
@@ -546,15 +546,15 @@ end
 @test ten(-5, -60, -3600) == ten((-5, -60, -3600)) ==
     ten([-5, -60, -3600]) == ten("  -5: :-60: -3600") == -3.0
 @test ten("") == 0.0
-@test tenv([0, -0.0, -5], [-23, 60, -60], [34, 0, -3600]) ==
-    tenv([(0, -23,34), ":-0.0:60", (-5, -60, -3600)]) ==
-    tenv(["0   -23 :: 34", (-0.0, 60), " -5:-60: -3600"]) ==
+@test ten.([0, -0.0, -5], [-23, 60, -60], [34, 0, -3600]) ==
+    ten.([(0, -23,34), ":-0.0:60", (-5, -60, -3600)]) ==
+    ten.(["0   -23 :: 34", (-0.0, 60), " -5:-60: -3600"]) ==
     [-0.37388888888888894, -1.0, -3.0]
-@test tenv([12.0, -0.0], [24, 30]) == tenv([" 12::24", " -0:30: "]) == [12.4, -0.5]
+@test ten.([12.0, -0.0], [24, 30]) == ten.([" 12::24", " -0:30: "]) == [12.4, -0.5]
 
 # Test kepler_solver
 @test_approx_eq trueanom(8pi/3, 0.7) 2.6657104039293764
-@test_approx_eq trueanom([pi/4, pi/6, 8pi/3], 0) [pi/4, pi/6, 2pi/3]
+@test_approx_eq trueanom.([pi/4, pi/6, 8pi/3], 0) [pi/4, pi/6, 2pi/3]
 @test_approx_eq trueanom(3pi/2, 0.8) -2.498091544796509
 @test_approx_eq trueanom(0.1, 1) pi
 @test_throws ErrorException trueanom(pi, -0.5)
@@ -562,8 +562,8 @@ end
 
 # Test vactoair and that airtovac is its inverse (it isn't true only around
 # 2000, just avoid those values)
-@test_approx_eq vactoair([2000]) [1999.3526230448367]
-@test_approx_eq airtovac(vactoair(collect(1000:300:4000))) collect(1000:300:4000)
+@test_approx_eq vactoair.([2000]) [1999.3526230448367]
+@test_approx_eq airtovac.(vactoair.(collect(1000:300:4000))) collect(1000:300:4000)
 
 # Test xyz
 let
@@ -578,9 +578,9 @@ let
 end
 
 # Test ydn2md.
-@test ydn2md(2016, [60, 234]) == [Date(2016, 02, 29), Date(2016, 08, 21)]
+@test ydn2md.(2016, [60, 234]) == [Date(2016, 02, 29), Date(2016, 08, 21)]
 @test ymd2dn(ydn2md(2016, 60)) == 60
 
 # Test ymd2dn
-@test ymd2dn([Date(2015,3,5), Date(2016,3,5)]) == [64, 65]
+@test ymd2dn.([Date(2015,3,5), Date(2016,3,5)]) == [64, 65]
 @test ydn2md(2016, ymd2dn(Date(2016, 09, 16))) == Date(2016, 09, 16)

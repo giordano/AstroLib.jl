@@ -60,12 +60,3 @@ end
 The eccentric anomaly can be calculated with `kepler_solver` function.
 """
 trueanom(E::Real, e::Real) = _trueanom(promote(float(E), float(e))...)
-
-function trueanom{R1<:Real,R2<:Real}(E::AbstractArray{R1}, e::R2)
-    typeν = promote_type(float(R1), float(R2))
-    ν = similar(E, typeν)
-    for i in eachindex(E)
-        ν[i] = trueanom(E[i], e)
-    end
-    return ν
-end

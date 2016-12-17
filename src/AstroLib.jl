@@ -1,10 +1,10 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+__precompile__
+
 module AstroLib
-using Compat
 using Base.Dates
-import Compat.String
 
 # Note on function definitions in this package.  Most functions are defined as
 # follows:

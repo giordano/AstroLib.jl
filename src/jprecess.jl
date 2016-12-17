@@ -28,7 +28,7 @@ function _jprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
     ra2000 = dec2000 = zero(T)
     A  = copy(A_precess)
     if isfinite(epoch) && epoch != 1950
-        A  += deg2rad(A_dot_precess*(epoch - 1950.0)*inv(360000.0))
+        A  += deg2rad.(A_dot_precess*(epoch - 1950.0)*inv(360000.0))
     end
     r0 = [cosra*cosdec,  sinra*cosdec,  sindec]
     r0_dot = [-muradec[1]*sinra*cosdec - muradec[2]*cosra*sindec,
@@ -40,7 +40,7 @@ function _jprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
     R  = Mjprec*R_1
     if isfinite(epoch)
         t  = ((epoch - 1950.0) - 50.00021)*0.01
-        rr1 = R[1:3] + deg2rad(R[4:6].*t*inv(3600.0))
+        rr1 = R[1:3] + deg2rad.(R[4:6].*t*inv(3600.0))
         x = rr1[1]
         y = rr1[2]
         z = rr1[3]

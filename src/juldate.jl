@@ -87,11 +87,3 @@ function juldate(dt::DateTime)
 end
 
 juldate(dt...) = juldate(DateTime(dt...))
-
-function juldate{T<:Any}(dt::AbstractArray{T})
-    jd = similar(dt, Float64)
-    for i in eachindex(dt)
-        jd[i] = juldate(dt[i])
-    end
-    return jd
-end

@@ -55,7 +55,7 @@ Estimate how a flat galaxy spectrum (in wavelength) between \$1200 Å\$ and
 ``` julia
 wave = collect(1200:50:3150);
 flux = ones(wave);
-flux_new = calz_unred(wave, flux, -0.1);
+flux_new = calz_unred.(wave, flux, -0.1);
 ```
 
 Using a plotting tool you can visualize the unreddend flux.  For example, with
@@ -72,14 +72,3 @@ Code of this function is based on IDL Astronomy User's Library.
 """
 calz_unred(wave::Real, flux::Real, ebv::Real, r_v::Real=4.05) =
     _calz_unred(promote(float(wave), float(flux), float(ebv), float(r_v))...)
-
-function calz_unred{W<:Real, F<:Real}(wave::AbstractArray{W},
-                                      flux::AbstractArray{F},
-                                      ebv::Real, r_v::Real=4.05)
-    @assert length(wave) == length(flux)
-    flux_unred  = similar(flux, typeof(float(one(W))))
-    for i in eachindex(flux)
-        flux_unred[i] = calz_unred(wave[i], flux[i], ebv, r_v)
-    end
-    return flux_unred
-end
