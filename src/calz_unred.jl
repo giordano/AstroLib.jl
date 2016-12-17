@@ -53,7 +53,7 @@ Estimate how a flat galaxy spectrum (in wavelength) between \$1200 Å\$ and
 \$3200 Å\$ is altered by a reddening of E(B-V) = 0.1.
 
 ``` julia
-wave = reshape(1200:50:3150,40);
+wave = collect(1200:50:3150);
 flux = ones(wave);
 flux_new = calz_unred(wave, flux, -0.1);
 ```

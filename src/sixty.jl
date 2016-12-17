@@ -9,7 +9,7 @@ function _sixty{T<:AbstractFloat}(number::T)
     dd = trunc(abs(number))
     mm = abs(60.0*number)
     ss = abs(3600.0*number)
-    result = zeros(typeof(number), 3)
+    result = zeros(T, 3)
     result[1] = trunc(number)
     result[2] = trunc(mm - 60.0*dd)
     result[3] = ss - 3600.0*dd - 60.0*result[2]
