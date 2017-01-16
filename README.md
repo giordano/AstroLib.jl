@@ -1,6 +1,6 @@
 # AstroLib
 
-[![Travis Build Status on GNU/Linux and OS X](https://travis-ci.org/JuliaAstro/AstroLib.jl.svg?branch=master)](https://travis-ci.org/JuliaAstro/AstroLib.jl) [![Appveyor Build Status on Windows](https://ci.appveyor.com/api/projects/status/y76vj3hhhg79frvm/branch/master?svg=true)](https://ci.appveyor.com/project/giordano/astrolib-jl-mtrjh/branch/master) [![Coverage Status](https://coveralls.io/repos/github/JuliaAstro/AstroLib.jl/badge.svg?branch=master)](https://coveralls.io/github/JuliaAstro/AstroLib.jl?branch=master) [![codecov.io](https://codecov.io/gh/JuliaAstro/AstroLib.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaAstro/AstroLib.jl?branch=master) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.4.svg)](http://pkg.julialang.org/?pkg=AstroLib) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.5.svg)](http://pkg.julialang.org/?pkg=AstroLib)
+[![Travis Build Status on GNU/Linux and OS X](https://travis-ci.org/JuliaAstro/AstroLib.jl.svg?branch=master)](https://travis-ci.org/JuliaAstro/AstroLib.jl) [![Appveyor Build Status on Windows](https://ci.appveyor.com/api/projects/status/y76vj3hhhg79frvm/branch/master?svg=true)](https://ci.appveyor.com/project/giordano/astrolib-jl-mtrjh/branch/master) [![Coverage Status](https://coveralls.io/repos/github/JuliaAstro/AstroLib.jl/badge.svg?branch=master)](https://coveralls.io/github/JuliaAstro/AstroLib.jl?branch=master) [![codecov.io](https://codecov.io/gh/JuliaAstro/AstroLib.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaAstro/AstroLib.jl?branch=master) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.4.svg)](http://pkg.julialang.org/?pkg=AstroLib) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.5.svg)](http://pkg.julialang.org/?pkg=AstroLib) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.6.svg)](http://pkg.julialang.org/?pkg=AstroLib)
 
 Goal
 ----
@@ -26,7 +26,7 @@ to see how you can help.  Volunteers are welcome!
 Installation
 ------------
 
-`AstroLib.jl` is available for Julia 0.4 and later versions, and can be
+`AstroLib.jl` is available for Julia 0.6 and later versions, and can be
 installed with
 [Julia built-in package manager](http://docs.julialang.org/en/stable/manual/packages/).
 In a Julia session run the command
