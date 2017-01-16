@@ -22,7 +22,7 @@ function _premat{T<:AbstractFloat}(equinox1::T, equinox2::T, FK4::Bool)
     end
     sina = sin(a); sinb = sin(b); sinc = sin(c)
     cosa = cos(a); cosb = cos(b); cosc = cos(c)
-    r = Array(T, 3, 3)
+    r = Array{T}(3, 3)
     r[:,1] = [ cosa*cosb*cosc - sina*sinb,  sina*cosb + cosa*sinb*cosc,  cosa*sinc]
     r[:,2] = [-cosa*sinb - sina*cosb*cosc,  cosa*cosb - sina*sinb*cosc, -sina*sinc]
     r[:,3] = [                 -cosb*sinc,                  -sinb*sinc,       cosc]

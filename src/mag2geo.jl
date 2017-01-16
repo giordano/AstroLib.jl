@@ -19,7 +19,7 @@ function _mag2geo{T<:AbstractFloat}(lat::T, long::T, pole_lat::T, pole_long::T)
 
     # First rotation: in the plane of the current meridian from magnetic pole to
     # geographic pole.
-    togeolat = Array(T, 3, 3)
+    togeolat = Array{T}(3, 3)
     togeolat[:,1] = [cos(pi/2 - pole_lat), 0.0, -sin(pi/2 - pole_lat)]
     togeolat[:,2] = [                 0.0, 1.0,                   0.0]
     togeolat[:,3] = [sin(pi/2 - pole_lat), 0.0,  cos(pi/2 - pole_lat)]
@@ -27,7 +27,7 @@ function _mag2geo{T<:AbstractFloat}(lat::T, long::T, pole_lat::T, pole_long::T)
 
     # Second rotation matrix: rotation around plane of the equator, from the
     # meridian containing the magnetic poles to the Greenwich meridian.
-    maglong2geolong = Array(T, 3, 3)
+    maglong2geolong = Array{T}(3, 3)
     maglong2geolong[:,1] = [ cos(pole_long), sin(pole_long), 0.0]
     maglong2geolong[:,2] = [-sin(pole_long), cos(pole_long), 0.0]
     maglong2geolong[:,3] = [            0.0,            0.0, 1.0]

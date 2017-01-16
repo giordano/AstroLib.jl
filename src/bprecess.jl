@@ -42,7 +42,7 @@ function _bprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
     rmag = vecnorm(r1)
     s1 = r1*inv(rmag)
     s1_dot = r1_dot*inv(rmag)
-    r = Array(T, 3)
+    r = Array{T}(3)
     s = s1
     for j = 0:2
         r = s1 + A - sum(s.*A)*s
