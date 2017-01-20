@@ -1,5 +1,11 @@
 # AstroLib
 
+| **Documentation**                       | [**Package Evaluator**][pkgeval-link] | **Build Status**                          | **Code Coverage**               |
+|:---------------------------------------:|:-------------------------------------:|:-----------------------------------------:|:-------------------------------:|
+| [![][docs-stable-img]][docs-stable-url] | [![][pkg-0.5-img]][pkg-0.5-url]       | [![Build Status][travis-img]][travis-url] | [![][coveral-img]][coveral-url] |
+| [![][docs-latest-img]][docs-latest-url] | [![][pkg-0.6-img]][pkg-0.6-url]       | [![Build Status][appvey-img]][appvey-url] | [![][codecov-img]][codecov-url] |
+
+
 [![Travis Build Status on GNU/Linux and OS X](https://travis-ci.org/JuliaAstro/AstroLib.jl.svg?branch=master)](https://travis-ci.org/JuliaAstro/AstroLib.jl) [![Appveyor Build Status on Windows](https://ci.appveyor.com/api/projects/status/y76vj3hhhg79frvm/branch/master?svg=true)](https://ci.appveyor.com/project/giordano/astrolib-jl-mtrjh/branch/master) [![Coverage Status](https://coveralls.io/repos/github/JuliaAstro/AstroLib.jl/badge.svg?branch=master)](https://coveralls.io/github/JuliaAstro/AstroLib.jl?branch=master) [![codecov.io](https://codecov.io/gh/JuliaAstro/AstroLib.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaAstro/AstroLib.jl?branch=master) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.4.svg)](http://pkg.julialang.org/?pkg=AstroLib) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.5.svg)](http://pkg.julialang.org/?pkg=AstroLib) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.6.svg)](http://pkg.julialang.org/?pkg=AstroLib)
 
 Goal
@@ -32,11 +38,11 @@ installed with
 In a Julia session run the command
 
 ```julia
+julia> Pkg.update()
 julia> Pkg.add("AstroLib")
 ```
 
-You may need to update your package list with `Pkg.update()` in order to get the
-latest version of `AstroLib.jl`.
+Older versions are also available for Julia 0.4 and 0.5.
 
 Note that, in order to work, a few functions require external files, which are
 automatically downloaded when building the package.  Should these files be
@@ -217,3 +223,30 @@ License
 
 The AstroLib.jl package is licensed under the MIT "Expat" License.  The original
 author is Mosè Giordano.
+
+
+[docs-latest-img]: https://img.shields.io/badge/docs-latest-blue.svg
+[docs-latest-url]: https://astrolibjl.readthedocs.io/en/latest/
+
+[docs-stable-img]: https://img.shields.io/badge/docs-stable-blue.svg
+[docs-stable-url]: https://astrolibjl.readthedocs.io/en/stable/
+
+[pkgeval-link]: http://pkg.julialang.org/?pkg=AstroLib
+
+[pkg-0.5-img]: http://pkg.julialang.org/badges/AstroLib_0.5.svg
+[pkg-0.5-url]: http://pkg.julialang.org/detail/AstroLib.html
+
+[pkg-0.6-img]: http://pkg.julialang.org/badges/AstroLib_0.6.svg
+[pkg-0.6-url]: http://pkg.julialang.org/detail/AstroLib.html
+
+[travis-img]: https://travis-ci.org/giordano/AstroLib.jl.svg?branch=master
+[travis-url]: https://travis-ci.org/giordano/AstroLib.jl
+
+[appvey-img]: https://ci.appveyor.com/api/projects/status/jfa9e54lv92rqd3m?svg=true
+[appvey-url]: https://ci.appveyor.com/project/giordano/astrolib-jl
+
+[coveral-img]: https://coveralls.io/repos/github/JuliaAstro/AstroLib.jl/badge.svg?branch=master
+[coveral-url]: https://coveralls.io/github/JuliaAstro/AstroLib.jl?branch=master
+
+[codecov-img]: https://codecov.io/gh/JuliaAstro/AstroLib.jl/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/JuliaAstro/AstroLib.jl

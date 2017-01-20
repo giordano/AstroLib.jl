@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 AstroLib.jl
-=======================================
+===========
 
 `AstroLib.jl <https://github.com/giordano/AstroLib.jl>`__ is a
 package of small generic routines useful above all in astronomical and
@@ -32,10 +32,10 @@ Julia session run the command
 
 .. code-block:: julia
 
+    julia> Pkg.update()
     julia> Pkg.add("AstroLib")
 
-You may need to update your package list with ``Pkg.update()`` in order
-to get the latest version of ``AstroLib.jl``.
+Older versions are also available for Julia 0.4 and 0.5.
 
 Note that, in order to work, a few functions require external files, which are
 automatically downloaded when building the package.  Should these files be
