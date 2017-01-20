@@ -5,9 +5,6 @@
 | [![][docs-stable-img]][docs-stable-url] | [![][pkg-0.5-img]][pkg-0.5-url]       | [![Build Status][travis-img]][travis-url] | [![][coveral-img]][coveral-url] |
 | [![][docs-latest-img]][docs-latest-url] | [![][pkg-0.6-img]][pkg-0.6-url]       | [![Build Status][appvey-img]][appvey-url] | [![][codecov-img]][codecov-url] |
 
-
-[![Travis Build Status on GNU/Linux and OS X](https://travis-ci.org/JuliaAstro/AstroLib.jl.svg?branch=master)](https://travis-ci.org/JuliaAstro/AstroLib.jl) [![Appveyor Build Status on Windows](https://ci.appveyor.com/api/projects/status/y76vj3hhhg79frvm/branch/master?svg=true)](https://ci.appveyor.com/project/giordano/astrolib-jl-mtrjh/branch/master) [![Coverage Status](https://coveralls.io/repos/github/JuliaAstro/AstroLib.jl/badge.svg?branch=master)](https://coveralls.io/github/JuliaAstro/AstroLib.jl?branch=master) [![codecov.io](https://codecov.io/gh/JuliaAstro/AstroLib.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaAstro/AstroLib.jl?branch=master) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.4.svg)](http://pkg.julialang.org/?pkg=AstroLib) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.5.svg)](http://pkg.julialang.org/?pkg=AstroLib) [![AstroLib](http://pkg.julialang.org/badges/AstroLib_0.6.svg)](http://pkg.julialang.org/?pkg=AstroLib)
-
 Goal
 ----
 
