@@ -236,8 +236,8 @@ author is Mosè Giordano.
 [pkg-0.6-img]: http://pkg.julialang.org/badges/AstroLib_0.6.svg
 [pkg-0.6-url]: http://pkg.julialang.org/detail/AstroLib.html
 
-[travis-img]: https://travis-ci.org/giordano/AstroLib.jl.svg?branch=master
-[travis-url]: https://travis-ci.org/giordano/AstroLib.jl
+[travis-img]: https://travis-ci.org/JuliaAstro/AstroLib.jl.svg?branch=master
+[travis-url]: https://travis-ci.org/JuliaAstro/AstroLib.jl
 
 [appvey-img]: https://ci.appveyor.com/api/projects/status/jfa9e54lv92rqd3m?svg=true
 [appvey-url]: https://ci.appveyor.com/project/giordano/astrolib-jl
