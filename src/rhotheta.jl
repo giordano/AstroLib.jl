@@ -54,8 +54,8 @@ All input parameters have to be scalars.
 
 The 2-tuple \$(\\rho, \\theta)\$, where
 
-* \$\\rho\$: separation [arc second]
-* \$\\theta\$: position angle [degree]
+* ``\\rho`` is separation [arc second], and
+* ``\\theta`` is position angle (degree).
 
 ### Example ###
 

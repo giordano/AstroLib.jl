@@ -143,13 +143,13 @@ dates.
 
 ### Output ###
 
-The 6-tuple \$(x, y, z, v_x, v_y, v_z)\$, where
+The 6-tuple ``(x, y, z, v_x, v_y, v_z)``, where
 
-* \$x\$, \$y\$, \$z\$: scalars or vectors giving heliocentric rectangular
-  coordinates (in AU) for each date supplied.  Note that \$\\sqrt{x^2 + y^2 + z^2}\$
+* ``x, y, z``: scalars or vectors giving heliocentric rectangular
+  coordinates (in AU) for each date supplied.  Note that ``\\sqrt{x^2 + y^2 + z^2}``
   gives the Earth-Sun distance for the given date.
-* \$v_x\$, \$v_y\$, \$v_z\$: velocity vectors corresponding to \$x\$, \$y\$, and
-  \$z\$.
+* ``v_x, v_y, v_z``: velocity vectors corresponding to ``x, y``, and
+  ``z``.
 
 ### Example ###
 
@@ -171,7 +171,7 @@ Compare to Astronomical Almanac (1999 page C20)
     AA:       0.51453130   -0.7697110   -0.3337152
     abs(err): 0.00003739    0.00007839   0.00005360
     abs(err)
-        (km):   5609          11759         8040 
+        (km):   5609          11759         8040
 
 NOTE: Velocities in AA are for Earth/Moon barycenter
       (a very minor offset) see AA 1999 page E3
@@ -198,7 +198,7 @@ function xyz{J<:Real}(jd::AbstractArray{J}, equinox::Real=NaN)
     z     = similar(jd, typej)
     xvel  = similar(jd, typej)
     yvel  = similar(jd, typej)
-    zvel  = similar(jd, typej)    
+    zvel  = similar(jd, typej)
     for i in eachindex(jd)
         x[i], y[i], z[i], xvel[i], yvel[i], zvel[i] = xyz(jd[i], equinox)
     end

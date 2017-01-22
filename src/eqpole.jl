@@ -37,10 +37,10 @@ centered on the north pole or south pole.
 
 The 2-tuple \$(x, y)\$:
 
-* \$x\$ coordinate, same number of elements as right ascension, normalized to be
-  in the range \$[-90, 90]\$.
-* \$y\$ coordinate, same number of elements as declination, normalized to be
-  in the range \$[-90, 90]\$.
+* ``x`` coordinate, same number of elements as right ascension, normalized to be
+  in the range ``[-90, 90]``.
+* ``y`` coordinate, same number of elements as declination, normalized to be
+  in the range ``[-90, 90]``.
 
 ### Example ###
 

@@ -59,7 +59,7 @@ In order to find the position of a body in elliptic motion (e.g., in the
 two-body problem) at a given time \$t\$, one has to solve the [Kepler's
 equation](https://en.wikipedia.org/wiki/Kepler%27s_equation)
 
-\$\$ M(t) = E(t) - e\\sin E(t)\$\$
+``M(t) = E(t) - e\\sin E(t)``
 
 where \$M(t) = (t - t_{0})/P\$ is the mean anomaly, \$E(t)\$ the eccentric
 anomaly, \$e\$ the eccentricity of the orbit, \$t_0\$ is the time of periapsis

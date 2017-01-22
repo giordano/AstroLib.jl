@@ -24,8 +24,9 @@ equation](https://en.wikipedia.org/wiki/Kepler%27s_equation) is solved and
 \$E(t)\$ is determined, the polar coordinates \$(r(t), \\theta(t))\$ of the body
 at time \$t\$ in the elliptic orbit are given by
 
-\$\$ \\theta(t) = 2\\arctan \\left(\\sqrt{\\frac{1 + e}{1 - e}} \\tan\\frac{E(t)}{2} \\right)\$\$
-\$\$ r(t) = \\frac{a(1 - e^{2})}{1 + e\\cos(\\theta(t) - \\theta_{0})}\$\$
+`` \\theta(t) = 2\\arctan \\left(\\sqrt{\\frac{1 + e}{1 - e}} \\tan\\frac{E(t)}{2} \\right)``
+
+`` r(t) = \\frac{a(1 - e^{2})}{1 + e\\cos(\\theta(t) - \\theta_{0})}``
 
 in which \$a\$ is the semi-major axis of the orbit, and \$\\theta_0\$ the value
 of angular coordinate at time \$t = t_{0}\$.

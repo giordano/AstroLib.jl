@@ -35,7 +35,7 @@ across the disk.
   lines.  The specific intensity \$I\$ at any angle \$\\theta\$ from the
   specific intensity \$I_{\\text{cen}}\$ at the center of the disk is given by:
 
-\$\$ I = I_{\\text{cen}}\\cdot(1 - \\varepsilon\\cdot(1 - \\cos(\\theta))) \$\$
+  `` I = I_{\\text{cen}}\\cdot(1 - \\varepsilon\\cdot(1 - \\cos(\\theta)))``
 
 ### Output ###
 
