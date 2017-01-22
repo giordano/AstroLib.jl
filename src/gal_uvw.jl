@@ -85,9 +85,9 @@ There is an additional optional keyword:
 
 The 3-tuple \$(u, v, w)\$
 
-* \$u\$: velocity (km/s) positive toward the Galactic *anti*center
-* \$v\$: velocity (km/s) positive in the direction of Galactic rotation
-* \$w\$: velocity (km/s) positive toward the North Galactic Pole
+* ``u``: velocity (km/s) positive toward the Galactic *anti*center
+* ``v``: velocity (km/s) positive in the direction of Galactic rotation
+* ``w``: velocity (km/s) positive toward the North Galactic Pole
 
 ### Method ###
 

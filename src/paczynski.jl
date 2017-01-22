@@ -34,7 +34,9 @@ microlensing](https://en.wikipedia.org/wiki/Gravitational_microlensing)
 amplification of a point-like source by a single point-like lens, using
 Paczyński formula
 
-\$\$ A(u) = \\frac{u^2 + 2}{u\\sqrt{u^2 + 4}} \$\$
+```math
+A(u) = \\frac{u^2 + 2}{u\\sqrt{u^2 + 4}}
+```
 
 where \$u\$ is the projected distance between the lens and the source in units
 of [Einstein radii](https://en.wikipedia.org/wiki/Einstein_radius).
@@ -42,12 +44,13 @@ of [Einstein radii](https://en.wikipedia.org/wiki/Einstein_radius).
 In order to speed up calculations for extreme values of \$u\$, the following
 asyntotic expressions for \$A(u)\$ are used:
 
-\$\$ A(u) =
+```math
+A(u) =
 \\begin{cases}
  1/u & |u| \\ll 1 \\\\
  \\text{sgn}(u) & |u| \\gg 1
 \\end{cases}
-\$\$
+```
 
 ### Arguments ###
 
