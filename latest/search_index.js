@@ -149,7 +149,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "Utilities",
     "category": "section",
-    "text": "airtovac(), calz_unred(), cirrange(), deredd(), flux2mag(), gal_uvw(), kepler_solver(), lsf_rotate(), mag2flux(), paczynski(), planck_freq(), planck_wave(), rad2sec(), rhotheta(), sec2rad(), sixty(), sphdist(), ten(), tenv(), trueanom(), vactoair()"
+    "text": "airtovac(), calz_unred(), cirrange(), deredd(), flux2mag(), gal_uvw(), kepler_solver(), lsf_rotate(), mag2flux(), paczynski(), planck_freq(), planck_wave(), rad2sec(), rhotheta(), sec2rad(), sixty(), sphdist(), ten(), trueanom(), vactoair()"
 },
 
 {
