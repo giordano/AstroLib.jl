@@ -192,9 +192,8 @@ julia> @doc FunctionName
 ```
 
 Full documentation of all functions can be accessed at
-https://astrolibjl.readthedocs.io/.  There you can find the complete list of
-all functions provided by this library.  You can also download the manual in PDF
-format from https://media.readthedocs.org/pdf/astrolibjl/latest/astrolibjl.pdf.
+http://juliaastro.github.io/AstroLib.jl/latest/.  There you can find the
+complete list of all functions provided by this library.
 
 How Can I Help?
 ---------------
@@ -223,7 +222,7 @@ author is Mosè Giordano.
 
 
 [docs-latest-img]: https://img.shields.io/badge/docs-latest-blue.svg
-[docs-latest-url]: http://juliaastro.github.io/AstroLib.jl/latest/intro.html
+[docs-latest-url]: http://juliaastro.github.io/AstroLib.jl/latest/
 
 [docs-stable-img]: https://img.shields.io/badge/docs-stable-blue.svg
 [docs-stable-url]: https://astrolibjl.readthedocs.io/en/stable/
