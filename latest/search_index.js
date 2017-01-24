@@ -1,7 +1,7 @@
 var documenterSearchIndex = {"docs": [
 
 {
-    "location": "intro.html#",
+    "location": "index.html#",
     "page": "Introduction",
     "title": "Introduction",
     "category": "page",
@@ -9,7 +9,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "intro.html#AstroLib.jl-1",
+    "location": "index.html#AstroLib.jl-1",
     "page": "Introduction",
     "title": "AstroLib.jl",
     "category": "section",
@@ -17,7 +17,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "intro.html#Installation-1",
+    "location": "index.html#Installation-1",
     "page": "Introduction",
     "title": "Installation",
     "category": "section",
@@ -25,7 +25,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "intro.html#Usage-1",
+    "location": "index.html#Usage-1",
     "page": "Introduction",
     "title": "Usage",
     "category": "section",
@@ -33,7 +33,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "intro.html#How-Can-I-Help?-1",
+    "location": "index.html#How-Can-I-Help?-1",
     "page": "Introduction",
     "title": "How Can I Help?",
     "category": "section",
@@ -41,7 +41,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "intro.html#License-1",
+    "location": "index.html#License-1",
     "page": "Introduction",
     "title": "License",
     "category": "section",
@@ -49,7 +49,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "intro.html#Notes-1",
+    "location": "index.html#Notes-1",
     "page": "Introduction",
     "title": "Notes",
     "category": "section",
@@ -57,7 +57,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "intro.html#Documentation-1",
+    "location": "index.html#Documentation-1",
     "page": "Introduction",
     "title": "Documentation",
     "category": "section",
@@ -65,7 +65,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "intro.html#Related-Projects-1",
+    "location": "index.html#Related-Projects-1",
     "page": "Introduction",
     "title": "Related Projects",
     "category": "section",
