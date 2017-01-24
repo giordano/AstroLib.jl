@@ -5,5 +5,7 @@
 _build
 *.elc
 *~
-docs/*.md
+/docs-rst/*.md
+/docs/build/
+/docs/site/
 /deps/NP.xy
