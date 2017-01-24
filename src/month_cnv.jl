@@ -43,16 +43,17 @@ format of the month name is influenced by the optional keywords.
 ### Example ###
 
 ``` julia
-month_cnv(["janua", "SEP", "aUgUsT"])
-# => 3-element Array{Integer,1}:
-#     1
-#     9
-#     8
-month_cnv([2, 12, 6], short=true, low=true)
-# => 3-element Array{UTF8String,1}:
-#     "feb"
-#     "dec"
-#     "jun"
+julia> month_cnv.(["janua", "SEP", "aUgUsT"])
+3-element Array{Int64,1}:
+ 1
+ 9
+ 8
+
+julia> month_cnv.([2, 12, 6], short=true, low=true)
+3-element Array{String,1}:
+ "feb"
+ "dec"
+ "jun"
 ```
 
 """
@@ -76,7 +77,7 @@ end
 function month_cnv(name::AbstractString)
     name = strip(name)
     if length(name) >= 3
-        output::Integer = eval(parse("Dates.$(ucfirst(lowercase(name[1:3])))"))
+        output::Integer = getfield(Dates, Symbol(ucfirst(lowercase(name[1:3]))))
         return output
     else
         # Do the same as original AstroLib: return -1 for input string shorter
