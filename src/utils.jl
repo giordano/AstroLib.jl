@@ -146,7 +146,7 @@ include("sunpos.jl")
 export sunpos
 
 include("ten.jl")
-export ten, tenv
+export ten
 
 include("trueanom.jl")
 export trueanom

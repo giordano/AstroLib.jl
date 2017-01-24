@@ -152,7 +152,6 @@ julia> AstroLib.planets["saturn"].mass
 [`sixty()`](@ref),
 [`sphdist()`](@ref),
 [`ten()`](@ref),
-[`tenv()`](@ref),
 [`trueanom()`](@ref),
 [`vactoair()`](@ref)
 
