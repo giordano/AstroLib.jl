@@ -60,9 +60,9 @@ month_cnv([2, 12, 6], short=true, low=true)
 function month_cnv(number::Integer; short::Bool=false,
                    up::Bool=false, low::Bool=false)
     if short
-        name = Dates.VALUETOMONTHABBR["english"][number]
+        name = Dates.ENGLISH.months_abbr[number]
     else
-        name = Dates.VALUETOMONTH["english"][number]
+        name = Dates.ENGLISH.months[number]
     end
     if up
         name = uppercase(name)
