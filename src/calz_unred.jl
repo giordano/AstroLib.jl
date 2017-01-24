@@ -38,8 +38,8 @@ between \$0.12\$ and \$0.0912\$ microns.)
   related to the reddening derived from the gas, EBV(gas), via the Balmer
   decrement by EBV(stars) = 0.44*EBV(gas).
 * `r_v` (optional): scalar ratio of total to selective extinction, default is
- 4.05.  Calzetti et al. (2000) estimate \$r_v = 4.05 \pm 0.80\$ from optical-IR
- observations of 4 starbursts.
+  4.05.  Calzetti et al. (2000) estimate ``r_v = 4.05 \\pm 0.80`` from optical-IR
+  observations of 4 starbursts.
 
 ### Output ###
 

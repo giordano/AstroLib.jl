@@ -6,11 +6,11 @@
 
 `AstroLib.jl` defines a new `Observatory` type. This can be used to define a new object holding information about an observing site. It is a [composite type] whose fields are
 
--   `name` (`AbstractString` type): the name of the site
--   `latitude` (`Real` type): North-ward latitude of the site in degrees
--   `longitude` (`Real` type): East-ward longitude of the site in degrees
--   `altitude` (`Real` type): altitude of the site in meters
--   `tz` (`Real` type): the number of hours of offset from UTC
+-   `name` (`String` type): the name of the site
+-   `latitude` (`Float64` type): North-ward latitude of the site in degrees
+-   `longitude` (`Float64` type): East-ward longitude of the site in degrees
+-   `altitude` (`Float64` type): altitude of the site in meters
+-   `tz` (`Float64` type): the number of hours of offset from UTC
 
 The type constructor `Observatory` can be used to create a new `Observatory` object. Its syntax is
 

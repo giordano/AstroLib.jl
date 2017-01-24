@@ -14,15 +14,16 @@ Type holding information about an observing site.  Its fields are:
 * `tz`: the number of hours of offset from UTC
 """
 immutable Observatory
-    name::AbstractString
-    latitude::Real
-    longitude::Real
-    altitude::Real
-    tz::Real # There are non-integer time zones
+    name::String
+    latitude::Float64
+    longitude::Float64
+    altitude::Float64
+    tz::Float64 # There are non-integer time zones
     # Define constructor that automatically converts longitude and latitude with
     # "ten", for convenience.
     Observatory(name, lat, long, alt, tz) =
-        new(name, ten(lat), ten(long), float(alt), ten(tz))
+        new(String(name), Float64(ten(lat)), Float64(ten(long)),
+            Float64(float(alt)), Float64(ten(tz)))
 end
 
 # New type representation
@@ -58,18 +59,17 @@ Orbital characteristics (epoch J2000):
 * `period`: sidereal orbital period in seconds
 """
 immutable Planet
-    name::AbstractString
-    radius::Real
-    eqradius::Real
-    polradius::Real
-    mass::Real
-    ecc::Real
-    axis::Real
-    period::Real
+    name::String
+    radius::Float64
+    eqradius::Float64
+    polradius::Float64
+    mass::Float64
+    ecc::Float64
+    axis::Float64
+    period::Float64
     Planet(name, radius, eqradius, polradius, mass, ecc, axis, period) =
-        new(name, float(radius), float(eqradius),
-            float(polradius), float(mass), float(ecc),
-            float(axis), float(period))
+        new(String(name), Float64(radius), Float64(eqradius), Float64(polradius),
+            Float64(mass), Float64(ecc), Float64(axis), Float64(period))
 end
 
 # New type representation

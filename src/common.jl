@@ -11,7 +11,7 @@ const POLELATLONG =
     try
         let
             local polelatlong, rows, floattype, temp
-            polelatlong = readdlm(joinpath(dirname(@__FILE__),
+            polelatlong = readdlm(joinpath(@__DIR__,
                                            "..", "deps", "NP.xy"))
             rows = size(polelatlong, 1)
             floattype = typeof(polelatlong[1])
