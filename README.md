@@ -223,7 +223,7 @@ author is Mosè Giordano.
 
 
 [docs-latest-img]: https://img.shields.io/badge/docs-latest-blue.svg
-[docs-latest-url]: https://astrolibjl.readthedocs.io/en/latest/
+[docs-latest-url]: http://juliaastro.github.io/AstroLib.jl/latest/intro.html
 
 [docs-stable-img]: https://img.shields.io/badge/docs-stable-blue.svg
 [docs-stable-url]: https://astrolibjl.readthedocs.io/en/stable/
