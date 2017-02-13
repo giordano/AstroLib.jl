@@ -313,8 +313,8 @@ end
 @test kepler_solver.([pi/4, pi/6, 8pi/3], 0) ≈ [pi/4, pi/6, 2pi/3]
 @test kepler_solver(3pi/2, 0.8)              ≈ -2.2119306096084457
 @test kepler_solver(0, 1)                    ≈ 0.0
-@test_throws ErrorException kepler_solver(pi, -0.5)
-@test_throws ErrorException kepler_solver(pi,  1.5)
+@test_throws AssertionError kepler_solver(pi, -0.5)
+@test_throws AssertionError kepler_solver(pi,  1.5)
 
 # Test lsf_rotate
 let
@@ -549,7 +549,7 @@ end
 @test trueanom.([pi/4, pi/6, 8pi/3], 0) ≈ [pi/4, pi/6, 2pi/3]
 @test trueanom(3pi/2, 0.8)              ≈ -2.498091544796509
 @test trueanom(0.1, 1)                  ≈ pi
-@test_throws ErrorException trueanom(pi, -0.5)
+@test_throws AssertionError trueanom(pi, -0.5)
 @test_throws DomainError trueanom(pi,  1.5)
 
 # Test vactoair and that airtovac is its inverse (it isn't true only around

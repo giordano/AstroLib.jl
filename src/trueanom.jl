@@ -1,13 +1,10 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-_trueanom{T<:AbstractFloat}(E::T, e::T) =
-    if e < 0
-        # We don't need to check e > 1, because a DomainError is raised anyway.
-        error("eccentricity must be in the range [0, 1]")
-    else
-        2.0*atan(sqrt((1.0 + e)/(1.0 - e))*tan(E/2.0))
-    end
+function trueanom{T<:AbstractFloat}(E::T, e::T)
+    @assert e >= 0 "eccentricity must be in the range [0, 1]"
+    return 2 * atan(sqrt((1 + e) / (1 - e)) * tan(E / 2))
+end
 
 """
     trueanom(E, e) -> true anomaly
@@ -49,15 +46,14 @@ plotting.
 
 ``` julia
 using PyPlot
-M=linspace(0, 2pi, 1001)[1:end-1];
+M = linspace(0, 2pi, 1001)[1:end-1];
 for ecc in (0, 0.5, 0.9)
-    E = kepler_solver(M, ecc);
-    plot(M, cirrange(trueanom(E, ecc), 2pi))
+    plot(M, cirrange.(trueanom.(kepler_solver.(M, ecc), ecc), 2pi))
 end
 ```
 
 ### Notes ###
 
-The eccentric anomaly can be calculated with `kepler_solver` function.
+The eccentric anomaly can be calculated with [`kepler_solver`](@ref) function.
 """
-trueanom(E::Real, e::Real) = _trueanom(promote(float(E), float(e))...)
+trueanom(E::Real, e::Real) = trueanom(promote(float(E), float(e))...)
