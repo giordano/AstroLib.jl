@@ -27,6 +27,7 @@ const POLELATLONG =
         warn("""Could not find file NP.xy, you will not be able to use
 "geo2mag" and "mag2geo" functions.  Build again the package with
     Pkg.build("AstroLib")
+    Base.compilecache("AstroLib")
 then restart Julia session in order to fix this problem.""")
     end
 
