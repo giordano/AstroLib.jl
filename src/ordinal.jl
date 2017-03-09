@@ -30,7 +30,7 @@ ordinal(2)
 This function does not support float arguments, unlike the IDL implementation.
 Code of this function is based on IDL Astronomy User's Library.
 """
-function ordinal(num::Int)
+function ordinal(num::Integer)
     a = num % 100
     if a== 11 || a == 12 || a == 13
         suffix = "th"
