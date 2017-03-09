@@ -393,6 +393,13 @@ let
     @test obl  ≈ [-9.507794266102866, -6.970768250588256]
 end
 
+# Test ordinal
+@test ordinal(3) == "3rd"
+@test ordinal(32) == "32nd"
+@test ordinal(391) == "391st"
+@test ordinal(2412) == "2412th"
+@test ordinal(1000000) == "1000000th"
+
 # Test paczynski
 @test paczynski(-1e-10) ≈  -1e10
 @test paczynski(1e-1)   ≈  10.037461005722337

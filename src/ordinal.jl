@@ -10,33 +10,30 @@ Convert an integer to a correct English ordinal string:
 ### Explanation ###
 The first four ordinal strings are "1st", "2nd", "3rd", "4th" ....
 
-### Arguements ###
+### Arguments ###
 
-* 'num': number to be made ordinal. If float, will be rounded to 
-   largest integer smaller than that float value.
+* `num`: number to be made ordinal. It should be of type int.
 
 ### Output ###
 
-* 'result': ordinal string, such as '1st' '3rd '164th' '87th' etc
+* `result`: ordinal string, such as '1st' '3rd '164th' '87th' etc
 
 ### Example ###
 
 ``` julia
 ordinal(2)
 # => "2nd"
-ordinal(23.4)
-3 => "23rd"
 ```
 
 ### Notes ###
 
+This function does not support float arguments, unlike the IDL implementation.
 Code of this function is based on IDL Astronomy User's Library.
 """
-function ordinal(num::Real)
-    num = convert(Int, floor(num))
+function ordinal(num::Int)
     a = num % 100
     if a== 11 || a == 12 || a == 13
-        suffix = "th"       
+        suffix = "th"
     else
         a = num % 10
         if a == 1
@@ -49,6 +46,5 @@ function ordinal(num::Real)
             suffix = "th"
         end
     end
-    return "$num$suffix"      
+    return string(num) * suffix
 end
-
