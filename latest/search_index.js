@@ -153,6 +153,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "ref.html#Miscellaneous-(non-astronomy)-functions-1",
+    "page": "Reference",
+    "title": "Miscellaneous (non-astronomy) functions",
+    "category": "section",
+    "text": "ordinal()"
+},
+
+{
     "location": "ref.html#AstroLib.Observatory",
     "page": "Reference",
     "title": "AstroLib.Observatory",
@@ -446,6 +454,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.nutate",
     "category": "Method",
     "text": "nutate(jd) -> long, obliq\n\nPurpose\n\nReturn the nutation in longitude and obliquity for a given Julian date.\n\nArguments\n\njd: Julian ephemeris date, it can be either a scalar or a vector\n\nOutput\n\nThe 2-tuple (long, obliq), where\n\nlong: the nutation in longitude\nobl: the nutation in latitude\n\nIf jd is an array, long and obl are arrays of the same length.\n\nMethod\n\nUses the formula in Chapter 22 of ``Astronomical Algorithms'' by Jean Meeus (1998, 2nd ed.) which is based on the 1980 IAU Theory of Nutation and includes all terms larger than 0.0003\".\n\nExample\n\n(1) Find the nutation in longitude and obliquity 1987 on Apr 10 at Oh.  This is example 22.a from Meeus\n\njd = jdcnv(1987, 4, 10);\nnutate(jd)\n# => (-3.787931077110755,9.442520698644401)\n\n(2) Plot the daily nutation in longitude and obliquity during the 21st century. Use PyPlot.jl for plotting.\n\nusing PyPlot\nyears = DateTime(2000):DateTime(2100);\nlong, obl = nutate(jdcnv(years));\nplot(years, long); plot(years, obl)\n\nYou can see both the dominant large scale period of nutation, of 18.6 years, and smaller oscillations with shorter periods.\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.ordinal-Tuple{Integer}",
+    "page": "Reference",
+    "title": "AstroLib.ordinal",
+    "category": "Method",
+    "text": "ordinal(num) -> result\n\nPurpose\n\nConvert an integer to a correct English ordinal string.\n\nExplanation\n\nThe first four ordinal strings are \"1st\", \"2nd\", \"3rd\", \"4th\" ....\n\nArguments\n\nnum: number to be made ordinal. It should be of type int.\n\nOutput\n\nresult: ordinal string, such as '1st' '3rd '164th' '87th' etc\n\nExample\n\njulia> ordinal.(1:5)\n5-element Array{String,1}:\n \"1st\"\n \"2nd\"\n \"3rd\"\n \"4th\"\n \"5th\"\n\nNotes\n\nThis function does not support float arguments, unlike the IDL implementation. Code of this function is based on IDL Astronomy User's Library.\n\n\n\n"
 },
 
 {
