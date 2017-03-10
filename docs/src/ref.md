@@ -155,6 +155,10 @@ julia> AstroLib.planets["saturn"].mass
 [`trueanom()`](@ref),
 [`vactoair()`](@ref)
 
+### Miscellaneous (non-astronomy) functions
+
+[`ordinal()`](@ref)
+
 ## Types and functions organized alphabetically
 
 ```@autodocs
