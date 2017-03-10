@@ -306,7 +306,6 @@ Missing in AstroLib.jl
 * `one_arrow`
 * `one_ray`
 * `oploterror`
-* `ordinal`
 * `partvelvec`
 * `pca`
 * `pent`

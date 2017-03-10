@@ -5,7 +5,7 @@
 
 ### Purpose ###
 
-Convert an integer to a correct English ordinal string:
+Convert an integer to a correct English ordinal string.
 
 ### Explanation ###
 The first four ordinal strings are "1st", "2nd", "3rd", "4th" ....
@@ -21,8 +21,13 @@ The first four ordinal strings are "1st", "2nd", "3rd", "4th" ....
 ### Example ###
 
 ``` julia
-ordinal(2)
-# => "2nd"
+julia> ordinal.(1:5)
+5-element Array{String,1}:
+ "1st"
+ "2nd"
+ "3rd"
+ "4th"
+ "5th"
 ```
 
 ### Notes ###

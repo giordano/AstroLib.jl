@@ -4,6 +4,9 @@
 include("cirrange.jl")
 export cirrange
 
+include("ordinal.jl")
+export ordinal
+
 include("rad2sec.jl")
 export rad2sec
 

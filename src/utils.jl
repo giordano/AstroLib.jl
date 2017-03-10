@@ -103,9 +103,6 @@ export mphase
 include("nutate.jl")
 export nutate
 
-include("ordinal.jl")
-export ordinal
-
 include("paczynski.jl")
 export paczynski
 
