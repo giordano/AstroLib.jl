@@ -544,6 +544,17 @@ end
     [-0.37388888888888894, -1.0, -3.0]
 @test ten.([12.0, -0.0], [24, 30]) == ten.([" 12::24", " -0:30: "]) == [12.4, -0.5]
 
+#Test tics
+@test tics(55, 60, 100.0, 1/2) == (0.66,2.0)
+@test tics.([30,50],[70,60], [6,12], [3,0.5], [true, false]) ==
+            [(3.75,120.0), (0.55,30.0)]
+let
+    local ticsize, incr
+    ticsize, incr = tics(pi/3, pi/2, 60.0, 7.5, true)
+    @test ticsize ≈ 14.085212463632736
+    @test incr ≈ 0.5
+end
+
 # Test kepler_solver
 @test trueanom(8pi/3, 0.7)              ≈ 2.6657104039293764
 @test trueanom.([pi/4, pi/6, 8pi/3], 0) ≈ [pi/4, pi/6, 2pi/3]
