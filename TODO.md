@@ -418,7 +418,6 @@ Missing in AstroLib.jl
 * `ticlabels`
 * `tic_one`
 * `ticpos`
-* `tics`
 * `t_nstar`
 * `tnx_eval`
 * `tpv_eval`

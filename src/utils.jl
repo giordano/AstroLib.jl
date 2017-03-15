@@ -148,6 +148,9 @@ export sunpos
 include("ten.jl")
 export ten
 
+include("tics.jl")
+export tics
+
 include("trueanom.jl")
 export trueanom
 
