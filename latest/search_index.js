@@ -149,7 +149,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "Utilities",
     "category": "section",
-    "text": "airtovac(), calz_unred(), cirrange(), deredd(), flux2mag(), gal_uvw(), kepler_solver(), lsf_rotate(), mag2flux(), paczynski(), planck_freq(), planck_wave(), rad2sec(), rhotheta(), sec2rad(), sixty(), sphdist(), ten(), trueanom(), vactoair()"
+    "text": "airtovac(), calz_unred(), cirrange(), deredd(), flux2mag(), gal_uvw(), kepler_solver(), lsf_rotate(), mag2flux(), paczynski(), planck_freq(), planck_wave(), rad2sec(), rhotheta(), sec2rad(), sixty(), sphdist(), ten(), tics(). trueanom(), vactoair()"
 },
 
 {
@@ -598,6 +598,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.ten",
     "category": "Function",
     "text": "ten(deg[, min, sec]) -> decimal\nten(\"deg:min:sec\") -> decimal\n\nPurpose\n\nConverts a sexagesimal number or string to decimal.\n\nExplanation\n\nten is the inverse of the sixty function. of ten.\n\nArguments\n\nten takes as argument either three scalars (deg, min, sec) or a string. The string should have the form \"deg:min:sec\" or \"deg min sec\".  Also any iterable like (deg, min, sec) or [deg, min, sec] is accepted as argument.\n\nIf minutes and seconds are not specified they default to zero.\n\nOutput\n\nThe decimal conversion of the sexagesimal numbers provided is returned.  The output has the same dimension as the input.\n\nMethod\n\nThe formula used for the conversion is\n\nmathrmsign(mathrmdeg)left(mathrmdeg + fracmathrmmin60 + fracmathrmsec3600right)\n\nExample\n\nten(-0.0, 19, 47)\n# => -0.3297222222222222\nten(\"+5:14:58\")\n# => 5.249444444444444\nten(\"-10 26\")\n# => -10.433333333333334\nten((-10, 26))\n# => -10.433333333333334\n\nNotes\n\nThese functions cannot deal with -0 (negative integer zero) in numeric input. If it is important to give sense to negative zero, you can either make sure to pass a floating point negative zero -0.0 (this is the best option), or use negative minutes and seconds, or non-integer negative degrees and minutes.\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.tics",
+    "page": "Reference",
+    "title": "AstroLib.tics",
+    "category": "Function",
+    "text": "tics(radec_min, radec_max, numx, ticsize[, ra=true]) -> ticsize, incr\n\nPurpose\n\nCompute a nice increment between tic marks for astronomical images.\n\nExplanation\n\nFor use in labelling a displayed image with right ascension or declination axes.  An approximate distance between tic marks is input, and a new value is computed such that the distance between tic marks is in simple increments of the tic label values.\n\nArguements\n\nradec_min : minimum axis value (degrees).\nradec_min : maximum axis value (degrees).\nnumx : number of pixels in x direction.\nticsize : distance between tic marks (pixels).\nra (optional boolean keyword): if true, incremental value would be in minutes of time. Default is false.\n\nOutput\n\nA 2-tuple (ticsize, incr):\n\nticsize : distance between tic marks (pixels).\nincr : incremental value for tic labels.  The format is dependent on the optional keyword. If true (i.e for right ascension), it's in minutes of time, else it's in minutes of arc (for declination).\n\nExample\n\njulia> tics(55, 60, 100.0, 1/2)\n(0.66, 2)\n\njulia> tics(30, 60, 12, 2, true)\n(2.75, 30)\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
 },
 
 {
