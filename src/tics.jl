@@ -2,62 +2,62 @@ function _tics{T<:AbstractFloat}(radec_min::T, radec_max::T, numx::T, ticsize::T
 
     numtics = numx/ticsize
     if ra
-        mul = 4
+        mul = T(4)
     else
-        mul = 60
+        mul = T(60)
     end
     mins = abs(radec_min - radec_max)*mul
     rapix = (numx - 1)/mins
     incr = mins/numtics
 
     if incr >= 120
-        incr = 480
+        incr = T(480)
     elseif incr >= 60
-        incr = 120
+        incr = T(120)
     elseif incr >= 30
-        incr = 60
+        incr = T(60)
     elseif incr >= 15
-        incr = 30
+        incr = T(30)
     elseif incr >= 10
-        incr = 15
+        incr = T(15)
     elseif incr >= 5
-        incr = 10
+        incr = T(10)
     elseif incr >= 2
-        incr = 5
+        incr = T(5)
     elseif incr >= 1
-        incr = 2
+        incr = T(2)
     elseif incr >= 1//2
-        incr = 1
+        incr = T(1)
     elseif incr >= 1//4
-        incr = 1//2
+        incr = T(1//2)
     elseif incr >= 10//60
-        incr = 1//4
+        incr = T(1//4)
     elseif incr >= 5//60
-        incr = 10//60
+        incr = T(10//60)
     elseif incr >= 2//60
-        incr = 5//60
+        incr = T(5//60)
     elseif incr >= 1//60
-        incr = 2//60
+        incr = T(2//60)
     elseif incr >= 5//600
-        incr = 1//60
+        incr = T(1//60)
     elseif incr >= 2//600
-        incr = 5//600
+        incr = T(5//600)
     elseif incr >= 1//600
-        incr = 2//600
+        incr = T(2//600)
     elseif incr >= 5//6000
-        incr = 1//600
+        incr = T(1//600)
     elseif incr >= 2//6000
-        incr = 5//6000
+        incr = T(5//6000)
     elseif incr >= 1//6000
-        incr = 2//6000
+        incr = T(2//6000)
     else incr >= 0
-        incr = 1//6000
+        incr = T(1//6000)
     end
 
     ticsize = rapix * incr
 
     if ra && incr == 480
-        incr = 240
+        incr = T(240)
     end
     if radec_min > radec_max
         incr = -incr
