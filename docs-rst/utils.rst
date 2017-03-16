@@ -42,7 +42,7 @@ The function can be called in different ways:
 Optional keywords affecting the output format are always available:
 
 -  ``precision`` (optional integer keyword): specifies the number of
-   digits of declination seconds. The number of digits for righ
+   digits of declination seconds. The number of digits for right
    ascension seconds is always assumed to be one more ``precision``. If
    the function is called with only ``dec`` as input, ``precision``
    default to 1, in any other case defaults to 0.
@@ -353,7 +353,7 @@ Notes
 '''''
 
 "When transferring individual observations, as opposed to catalog mean
-place, the safest method is to tranform the observations back to the
+place, the safest method is to transform the observations back to the
 epoch of the observation, on the FK4 system (or in the system that was
 used to to produce the observed mean place), convert to the FK5 system,
 and transform to the the epoch and equinox of J2000.0" -- from the

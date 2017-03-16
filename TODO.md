@@ -1,7 +1,7 @@
 TODO List
 =========
 
-Here is the list of proedures and function provided by IDL AstroLib.  Not all
+Here is the list of procedures and function provided by IDL AstroLib.  Not all
 utilities listed under "Missing" need to be translated, they can be of no or
 little utility or deprecated in original AstroLib.
 
