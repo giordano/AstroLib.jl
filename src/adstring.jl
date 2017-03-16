@@ -54,7 +54,7 @@ The function can be called in different ways:
 Optional keywords affecting the output format are always available:
 
 * `precision` (optional integer keyword): specifies the number of digits of
-  declination seconds.  The number of digits for righ ascension seconds is
+  declination seconds.  The number of digits for right ascension seconds is
   always assumed to be one more `precision`.  If the function is called with
   only `dec` as input, `precision` default to 1, in any other case defaults to 0.
 * `truncate` (optional boolean keyword): if true, then the last displayed digit

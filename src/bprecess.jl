@@ -205,7 +205,7 @@ adstring(bprecess(ra, decl, muradec), precision=2)
 ### Notes ###
 
 "When transferring individual observations, as opposed to catalog mean place,
-the safest method is to tranform the observations back to the epoch of the
+the safest method is to transform the observations back to the epoch of the
 observation, on the FK4 system (or in the system that was used to to produce the
 observed mean place), convert to the FK5 system, and transform to the the epoch
 and equinox of J2000.0" -- from the Explanatory Supplement (1992), p. 180
