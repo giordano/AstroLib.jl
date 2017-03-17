@@ -2,9 +2,9 @@
 
 function _tic_one{T<:AbstractFloat}(zmin::T, pixx::T, incr::T, ra::Bool)
     if ra
-        mul = T(4)
+        mul = 4
     else
-        mul = T(60)
+        mul = 60
     end
     min1 = zmin*mul
     incra = abs(incr)
@@ -37,9 +37,9 @@ This routine determines the position in pixels of the first tic.
 
 * `zmin`: astronomical coordinate value at axis zero point (degrees
    or hours).
-* `pixx`: distance in pixels between tic marks (usually obtained from TICS).
+* `pixx`: distance in pixels between tic marks (usually obtained from [tics](@ref)).
 * `incr` - increment in minutes for labels (usually an even number obtained
-   from the procedure TICS).
+   from the procedure [tics](@ref)).
 * `ra` (optional boolean keyword): if true, incremental value being entered
    is in minutes of time, else it is assumed that value is in else it's in minutes of arc.
    Default is false.
