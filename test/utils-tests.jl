@@ -552,7 +552,7 @@ end
     min2, tic1 = tic_one(45, 50, 4, true)
     @test min2 ≈ 46.0
     @test tic1 ≈ 50.0
-    min2, tic1 = tic_one(pi\8, tics(90, 45, 1000, 10)[1], tics(90, 45, 1000, 10)[2])
+    min2, tic1 = tic_one(pi\8, tics(90, 45, 1000, 10)...)
     @test min2 ≈ 2.5
     @test tic1 ≈ 1.0318357862412286
 end
