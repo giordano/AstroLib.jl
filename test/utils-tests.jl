@@ -544,6 +544,19 @@ end
     [-0.37388888888888894, -1.0, -3.0]
 @test ten.([12.0, -0.0], [24, 30]) == ten.([" 12::24", " -0:30: "]) == [12.4, -0.5]
 
+#Test tic_one
+@testset "tic_one" begin
+    min2, tic1 = tic_one(30.2345, 12.74, 10)
+    @test min2 ≈ 30.333333333333332
+    @test tic1 ≈ 7.554820000000081
+    min2, tic1 = tic_one(45, 50, 4, true)
+    @test min2 ≈ 46.0
+    @test tic1 ≈ 50.0
+    min2, tic1 = tic_one(pi\8, tics(90, 45, 1000, 10)...)
+    @test min2 ≈ 2.5
+    @test tic1 ≈ 1.0318357862412286
+end
+
 #Test tics
 @test tics(30, 90, 30, 1) == (3.8666666666666667, 480)
 @test tics(30, 90, 3, 3, true) == (4.0, 240)

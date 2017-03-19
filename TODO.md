@@ -416,7 +416,6 @@ Missing in AstroLib.jl
 * `t_getpsf`
 * `t_group`
 * `ticlabels`
-* `tic_one`
 * `ticpos`
 * `t_nstar`
 * `tnx_eval`
