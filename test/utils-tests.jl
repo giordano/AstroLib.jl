@@ -544,7 +544,7 @@ end
     [-0.37388888888888894, -1.0, -3.0]
 @test ten.([12.0, -0.0], [24, 30]) == ten.([" 12::24", " -0:30: "]) == [12.4, -0.5]
 
-#Test tic_one
+# Test tic_one
 @testset "tic_one" begin
     min2, tic1 = tic_one(30.2345, 12.74, 10)
     @test min2 ≈ 30.333333333333332
@@ -557,7 +557,26 @@ end
     @test tic1 ≈ 1.0318357862412286
 end
 
-#Test tics
+# Test ticpos
+@testset "ticpos" begin
+    @test ticpos.([16,8,4],[1024,512,256], [150,75,37.5]) ==
+                  [(256.0, 4, "Degrees"), (128.0, 2, "Degrees"), (64.0, 1, "Degrees")]
+    @test ticpos(2, 512, 75) == (128.0, 30, "Arc Minutes")
+    @test ticpos(1.5, 512, 75) == (85.33333333333333, 15, "Arc Minutes")
+    @test ticpos(1.5, 512, 50) == (56.888888888888886, 10, "Arc Minutes")
+    @test ticpos(1.6, 1024, 50) == (53.333333333333336, 5, "Arc Minutes")
+    @test ticpos(0.2, 512, 75) == (85.33333333333333, 2, "Arc Minutes")
+    @test ticpos(0.5, 512, 10) == (17.066666666666666, 1, "Arc Minutes")
+    @test ticpos(0.1, 1024, 50) == (85.33333333333333, 30, "Arc Seconds")
+    @test ticpos(0.08, 1024, 40) == (53.333333333333336, 15, "Arc Seconds")
+    @test ticpos(0.025, 512, 50) == (56.888888888888886, 10, "Arc Seconds")
+    @test ticpos(pi/100, 1024, 40) == (45.27073936836133, 5, "Arc Seconds")
+    @test ticpos(0.06, 2048, 20) == (18.962962962962965, 2, "Arc Seconds")
+    @test ticpos(0.016, 1024, 20) == (17.77777777777778, 1, "Arc Seconds")
+    @test ticpos(-0.5, 128, 70) == (128.0, -30, "Arc Minutes")
+end
+
+# Test tics
 @test tics(30, 90, 30, 1) == (3.8666666666666667, 480)
 @test tics(30, 90, 3, 3, true) == (4.0, 240)
 @test tics(30, 70, 3, 1, true) == (0.75, 60)
