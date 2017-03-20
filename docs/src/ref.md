@@ -153,6 +153,7 @@ julia> AstroLib.planets["saturn"].mass
 [`sphdist()`](@ref),
 [`ten()`](@ref),
 [`tic_one()`](@ref),
+[`ticpos()`](@ref),
 [`tics()`](@ref),
 [`trueanom()`](@ref),
 [`vactoair()`](@ref)

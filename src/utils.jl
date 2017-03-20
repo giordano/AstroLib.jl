@@ -151,6 +151,9 @@ export ten
 include("tic_one.jl")
 export tic_one
 
+include("ticpos.jl")
+export ticpos
+
 include("tics.jl")
 export tics
 
