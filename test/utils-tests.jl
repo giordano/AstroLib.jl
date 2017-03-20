@@ -573,7 +573,6 @@ end
     @test ticpos(pi/100, 1024, 40) == (45.27073936836133, 5, "Arc Seconds")
     @test ticpos(0.06, 2048, 20) == (18.962962962962965, 2, "Arc Seconds")
     @test ticpos(0.016, 1024, 20) == (17.77777777777778, 1, "Arc Seconds")
-    @test ticpos(-0.5, 128, 70) == (128.0, -30, "Arc Minutes")
 end
 
 # Test tics

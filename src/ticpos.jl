@@ -4,14 +4,6 @@ function _ticpos{T<:AbstractFloat}(deglen::T, pixlen::T, ticsize::T)
     minpix = deglen*60/pixlen
     incr = minpix*ticsize
 
-    if incr < 0
-        sgn = -1
-    else
-        sgn = 1
-    end
-
-    incr = abs(incr)
-
     if incr >= 30
         units = "Degrees"
     elseif incr > 0.5
@@ -21,35 +13,35 @@ function _ticpos{T<:AbstractFloat}(deglen::T, pixlen::T, ticsize::T)
     end
 
     if incr >= 120
-        incr = 4
+        incr = T(4)
     elseif incr >= 60
-        incr = 2
+        incr = T(2)
     elseif incr >= 30
-        incr = 1
+        incr = T(1)
     elseif incr > 15
-        incr = 30
+        incr = T(30)
     elseif incr >= 10
-        incr = 15
+        incr = T(15)
     elseif incr >= 5
-        incr = 10
+        incr = T(10)
     elseif incr >= 2
-        incr = 5
+        incr = T(5)
     elseif incr >= 1
-        incr = 2
+        incr = T(2)
     elseif incr > 0.5
-        incr = 1
+        incr = T(1)
     elseif incr >= 0.25
-        incr = 30
+        incr = T(30)
     elseif incr >= 0.16
-        incr = 15
+        incr = T(15)
     elseif incr >= 0.08
-        incr = 10
+        incr = T(10)
     elseif incr >= 0.04
-        incr = 5
+        incr = T(5)
     elseif incr >= 0.02
-        incr = 2
+        incr = T(2)
     else
-        incr = 1
+        incr = T(1)
     end
 
     if units == "Degrees"
@@ -58,8 +50,7 @@ function _ticpos{T<:AbstractFloat}(deglen::T, pixlen::T, ticsize::T)
         minpix = minpix*60
     end
 
-    ticsize = incr/abs(minpix)
-    incr = incr*sgn
+    ticsize = incr/minpix
     return ticsize, incr, units
 end
 
@@ -68,7 +59,7 @@ end
 
 ### Purpose ###
 
-Specify distance between tic marks for astronomical coordinate overlays
+Specify distance between tic marks for astronomical coordinate overlays.
 
 ### Explanation ###
 
@@ -79,8 +70,8 @@ in arc seconds, arc minutes, or degrees.
 
 ### Arguments ###
 
-* `deglen`: length of axis in DEGREES
-* `pixlen`: length of axis in plotting units (pixels)
+* `deglen`: length of axis in degrees, positive scalar
+* `pixlen`: length of axis in plotting units (pixels), postive scalar
 * `ticsize`: distance between tic marks (pixels).  This value will be
    adjusted by `ticpos` such that the distance corresponds to a round
    multiple in the astronomical coordinate.
@@ -110,6 +101,8 @@ i.e. a good tic mark spacing is every 2 arc minutes, corresponding
 to 85.333 pixels.
 
 ### Notes ###
+
+All the arguments taken as input are assumed to be positive in nature.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
