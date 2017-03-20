@@ -11,6 +11,10 @@ Our priority is to port the "Astronomical utilities", and we should avoid
 overlap with other JuliaAstro projects (e.g., don't port cosmology or
 FITS-related functions, they're already part of `Cosmology.jl` and `FITSIO.jl`).
 
+You can also help reporting functions in IDL AstroLib already present elsewhere
+in Julia ecosystem (like in Julia standar library or third-party packages), so
+that we don’t duplicate our efforts.
+
 Deprecated or Not Needed
 ------------------------
 
