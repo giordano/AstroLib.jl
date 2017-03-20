@@ -149,7 +149,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "Utilities",
     "category": "section",
-    "text": "airtovac(), calz_unred(), cirrange(), deredd(), flux2mag(), gal_uvw(), kepler_solver(), lsf_rotate(), mag2flux(), paczynski(), planck_freq(), planck_wave(), rad2sec(), rhotheta(), sec2rad(), sixty(), sphdist(), ten(), tic_one(), tics(), trueanom(), vactoair()"
+    "text": "airtovac(), calz_unred(), cirrange(), deredd(), flux2mag(), gal_uvw(), kepler_solver(), lsf_rotate(), mag2flux(), paczynski(), planck_freq(), planck_wave(), rad2sec(), rhotheta(), sec2rad(), sixty(), sphdist(), ten(), tic_one(), ticpos(), tics(), trueanom(), vactoair()"
 },
 
 {
@@ -606,6 +606,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.tic_one",
     "category": "Function",
     "text": "tic_one(zmin, pixx, incr[, ra=true]) -> min2, tic1\n\nPurpose\n\nDetermine the position of the first tic mark for astronomical images.\n\nExplanation\n\nFor use in labelling images with right ascension and declination axes. This routine determines the position in pixels of the first tic.\n\nArguments\n\nzmin: astronomical coordinate value at axis zero point (degrees  or hours).\npixx: distance in pixels between tic marks (usually obtained from tics).\nincr - increment in minutes for labels (usually an even number obtained  from the procedure tics).\nra (optional boolean keyword): if true, incremental value being entered  is in minutes of time, else it is assumed that value is in else it's in minutes of arc.  Default is false.\n\nOutput\n\nThe 2 tuple (min2, tic1):\n\nmin2: astronomical coordinate value at first tic mark\ntic1: position in pixels of first tic mark\n\nExample\n\nSuppose a declination axis has a value of 30.2345 degrees at its zero point.  A tic mark is desired every 10 arc minutes, which corresponds to 12.74 pixels, with increment for labels being 10 minutes. Then\n\njulia> tic_one(30.2345, 12.74, 10)\n(30.333333333333332, 7.554820000000081)\n\nyields values of min2 ≈ 30.333 and tic1 ≈ 7.55482, i.e. the first tic mark should be labeled 30 deg 20 minutes and be placed at pixel value 7.55482.\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.ticpos-Tuple{Real,Real,Real}",
+    "page": "Reference",
+    "title": "AstroLib.ticpos",
+    "category": "Method",
+    "text": "ticpos(deglen, pixlen, ticsize) -> ticsize, incr, units\n\nPurpose\n\nSpecify distance between tic marks for astronomical coordinate overlays.\n\nExplanation\n\nUser inputs number an approximate distance between tic marks, and the axis length in degrees. ticpos will return a distance between tic marks such that the separation is a round multiple in arc seconds, arc minutes, or degrees.\n\nArguments\n\ndeglen: length of axis in degrees, positive scalar\npixlen: length of axis in plotting units (pixels), postive scalar\nticsize: distance between tic marks (pixels).  This value will be  adjusted by ticpos such that the distance corresponds to a round  multiple in the astronomical coordinate.\n\nOutput\n\nThe 3-tuple (ticsize, incr, units):\n\nticsize: distance between tic marks (pixels), positive scalar\nincr: incremental value for tic marks in round units given  by the units parameter\nunits: string giving units of ticsize, either 'Arc Seconds', 'Arc Minutes', or 'Degrees'\n\nExample\n\nSuppose a 512 x 512 image array corresponds to 0.2 x 0.2 degrees on the sky. A tic mark is desired in round angular units, approximately every 75 pixels. Then\n\njulia> ticpos(0.2, 512, 75)\n(85.33333333333333, 2, \"Arc Minutes\")\n\ni.e. a good tic mark spacing is every 2 arc minutes, corresponding to 85.333 pixels.\n\nNotes\n\nAll the arguments taken as input are assumed to be positive in nature.\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
 },
 
 {
