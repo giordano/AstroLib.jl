@@ -642,13 +642,13 @@ end
 
 # Test zenpos
 @testset "zenpos" begin
-    ra, dec = zenpos(2.457514070138889e6, 45, 45)
+    ra, dec = zenpos(45, 45, 2.457514070138889e6)
     @test ra ≈ 1.9915758420649625
     @test dec ≈ 0.7853981633974483
     ra, dec = zenpos(DateTime(2015, 11, 24, 13, 21), 43.16, -24.32, 4)
     @test ra ≈ 3.1232737646297757
     @test dec ≈ 0.7532841051607526
-    ra, dec = zenpos(jdcnv(2017, 01, 30, 04, 30), ten(35,0,42), ten(135,46,6))
+    ra, dec = zenpos(ten(35,0,42), ten(135,46,6), jdcnv(2017, 01, 30, 04, 30))
     @test ra ≈ 5.809762417608341
     @test dec ≈ 0.6110688599440813
 end

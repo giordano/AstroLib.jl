@@ -1,15 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
-function _zenpos{T<:AbstractFloat}(jd::T, latitude::T, longitude::T)
-
-    lst = ct2lst(longitude, jd)
-    ra = lst*pi/12
-    dec = ra*0.0 + deg2rad(latitude)
-    return ra, dec
-end
-
 """
-    zenpos(jd, latitude, longitude) -> zenith_right_ascension, declination
+    zenpos(latitude, longitude, jd) -> zenith_right_ascension, declination
     zenpos(date, latitude, longitude, tz) -> zenith_right_ascension, declination
 
 ### Purpose ###
@@ -25,7 +17,7 @@ are converted to radians and returned as the zenith direction.
 
 ### Arguements ###
 
-The function can be called in two different ways.  The arguments common to
+The function can be called in two different ways. The arguments common to
 both methods are `latitude` and `longitude`:
 
 * `latitude` : latitude of the desired location.
@@ -55,24 +47,19 @@ A 2-tuple `(ra, dec)`:
 julia> zenpos(DateTime(2017, 04, 25, 18, 59), 43.16, -24.32, 4)
 (0.946790432684706, 0.7532841051607526)
 
-julia> zenpos(jdcnv(2016, 05, 05, 13, 41), ten(35,0,42), ten(135,46,6))
-(3.575782115277954, 0.6110688599440813)
+julia> zenpos(ten(35,0,42), ten(135,46,6), jdcnv(2016, 05, 05, 13, 41))
+(3.5757821152779536, 0.6110688599440813)
 ```
 
 ### Notes ###
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-zenpos(jd::Real, latitude::Real, longitude::Real) =
-    _zenpos(promote(float(jd), float(latitude), float(longitude))...)
+_zenpos{T<:AbstractFloat}(latitude::T, longitude::T, rest...) =
+    (ct2lst(longitude, rest...) / 12 * pi, deg2rad(latitude))
 
-function zenpos{T<:AbstractFloat}(date::DateTime, latitude::T, longitude::T, tz::T)
-
-    lst = ct2lst(longitude, tz, date)
-    ra = lst*pi/12
-    dec = ra*0.0 + deg2rad(latitude)
-    return ra, dec
-end
+zenpos(latitude::Real, longitude::Real, jd::Real) =
+    _zenpos(promote(float(latitude), float(longitude), float(jd))...)
 
 zenpos(date::DateTime, latitude::Real, longitude::Real, tz::Real) =
-    zenpos(date, promote(float(latitude), float(longitude), float(tz))...)
+    _zenpos(promote(float(latitude), float(longitude), float(tz))..., date)
