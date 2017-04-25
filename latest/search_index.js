@@ -177,7 +177,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "ref.html#AstroLib.adstring-Tuple{T,T} where T<:AbstractFloat",
+    "location": "ref.html#AstroLib.adstring-Union{Tuple{T,T}, Tuple{T}} where T<:AbstractFloat",
     "page": "Reference",
     "title": "AstroLib.adstring",
     "category": "Method",
