@@ -171,3 +171,6 @@ export ydn2md
 
 include("ymd2dn.jl")
 export ymd2dn
+
+include("zenpos.jl")
+export zenpos

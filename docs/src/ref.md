@@ -110,6 +110,7 @@ julia> AstroLib.planets["saturn"].mass
 [`premat()`](@ref),
 [`radec()`](@ref),
 [`recpol()`](@ref)
+[`zenpos()`](@ref)
 
 ### Time and date
 
