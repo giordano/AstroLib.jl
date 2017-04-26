@@ -84,7 +84,6 @@ Missing in AstroLib.jl
 * `ticlabels`
 * `uvbybeta`
 * `zang`
-* `zenpos`
 
 ### DAOPHOT-Type Photometry Procedures
 
