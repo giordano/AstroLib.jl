@@ -2,14 +2,13 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 function _geo2mag{T<:AbstractFloat}(lat::T, long::T, pole_lat::T, pole_long::T)
-    r       = 1.0 # Distance from planet center.  Value unimportant -- just need
-                  # a length for conversion to rectangular coordinates
+    r    = 1 # Distance from planet center.  Value unimportant -- just need a length for
+             # conversion to rectangular coordinates
     lat  = deg2rad(lat)
     long = deg2rad(long)
-    alt  = lat*0.0 + r
-    x = alt*cos(lat)*cos(long)
-    y = alt*cos(lat)*sin(long)
-    z = alt*sin(lat)
+    x    = r * cos(lat) * cos(long)
+    y    = r * cos(lat) * sin(long)
+    z    = r * sin(lat)
 
     # Compute first rotation matrix: rotation around plane of the equator, from
     # the Greenwich meridian to the meridian containing the magnetic dipole

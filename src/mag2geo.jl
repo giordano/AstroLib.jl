@@ -2,20 +2,19 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 function _mag2geo{T<:AbstractFloat}(lat::T, long::T, pole_lat::T, pole_long::T)
-    r       = 1.0 # Distance from planet center.  Value unimportant -- just need
-                  # a length for conversion to rectangular coordinates
+    r    = 1 # Distance from planet center.  Value unimportant -- just need
+             # a length for conversion to rectangular coordinates
     lat  = deg2rad(lat)
     long = deg2rad(long)
-    alt  = lat*0.0 + r
 
     # convert to rectangular coordinates
     #   x-axis: defined by the vector going from Earth's center towards
     #        the intersection of the equator and Greenwich's meridian.
     #   z-axis: axis of the geographic poles
     #   y-axis: defined by y=z^x
-    x = alt*cos(lat)*cos(long)
-    y = alt*cos(lat)*sin(long)
-    z = alt*sin(lat)
+    x = r * cos(lat) * cos(long)
+    y = r * cos(lat) * sin(long)
+    z = r * sin(lat)
 
     # First rotation: in the plane of the current meridian from magnetic pole to
     # geographic pole.
