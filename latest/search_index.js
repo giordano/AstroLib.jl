@@ -125,7 +125,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "Coordinates and positions",
     "category": "section",
-    "text": "adstring(), aitoff(), altaz2hadec(), bprecess() eci2geo() eqpole() gcirc() geo2eci() geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), jprecess(), mag2geo(), polrec(), posang(), precess(), precess_xyz(), premat(), radec(), recpol()"
+    "text": "adstring(), aitoff(), altaz2hadec(), bprecess() eci2geo() eqpole() gcirc() geo2eci() geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), jprecess(), mag2geo(), polrec(), posang(), precess(), precess_xyz(), premat(), radec(), recpol() zenpos()"
 },
 
 {
@@ -662,6 +662,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.ymd2dn",
     "category": "Function",
     "text": "ymd2dn(date) -> number_of_days\n\nPurpose\n\nConvert from a date to day of the year.\n\nExplanation\n\nReturns the day of the year for date with January 1st being day 1.\n\nArguments\n\ndate: the date with Date type.  Can be a single date or an array of dates.\n\nOutput\n\nThe day of the year for the given date.  If date is an array, returns an array of days.\n\nExample\n\nFind the days of the year for March 5 in the years 2015 and 2016 (this is a leap year).\n\nymd2dn([Date(2015, 3, 5), Date(2016, 3, 5)])\n# => 2-element Array{Int64,1}:\n#     64\n#     65\n\nNote\n\nydn2md converts from year and day number of year to a date.\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.zenpos",
+    "page": "Reference",
+    "title": "AstroLib.zenpos",
+    "category": "Function",
+    "text": "zenpos(jd, latitude, longitude) -> zenith_right_ascension, declination\nzenpos(date, latitude, longitude, tz) -> zenith_right_ascension, declination\n\nPurpose\n\nReturn the zenith right ascension and declination in radians for a given Julian date or a local civil time and timezone.\n\nExplanation\n\nThe local sidereal time is computed with the help of ct2lst, which is the right ascension of the zenith. This and the observatories latitude (corresponding to the declination) are converted to radians and returned as the zenith direction.\n\nArguments\n\nThe function can be called in two different ways. The arguments common to both methods are latitude and longitude:\n\nlatitude : latitude of the desired location.\nlongitude : longitude of the desired location.\n\nThe zenith direction can be computed either by providing the Julian date:\n\njd : the Julian date of the date and time for which the zenith position is desired.\n\nor the time zone and the date:\n\ntz: the time zone (in hours) of the desired location (e.g. 4 = EDT, 5 = EST)\ndate: the local civil time with type DateTime. It can be a scalar or an array.\n\nOutput\n\nA 2-tuple (ra, dec):\n\nra : the right ascension (in radians) of the zenith.\ndec : the declination (in radians) of the zenith.\n\nExample\n\njulia> zenpos(DateTime(2017, 04, 25, 18, 59), 43.16, -24.32, 4)\n(0.946790432684706, 0.7532841051607526)\n\njulia> zenpos(jdcnv(2016, 05, 05, 13, 41), ten(35,0,42), ten(135,46,6))\n(3.5757821152779536, 0.6110688599440813)\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
 },
 
 {
