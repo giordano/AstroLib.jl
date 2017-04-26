@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
 """
-    zenpos(latitude, longitude, jd) -> zenith_right_ascension, declination
+    zenpos(jd, latitude, longitude) -> zenith_right_ascension, declination
     zenpos(date, latitude, longitude, tz) -> zenith_right_ascension, declination
 
 ### Purpose ###
@@ -15,7 +15,7 @@ The local sidereal time is computed with the help of [ct2lst](@ref), which is th
 ascension of the zenith. This and the observatories latitude (corresponding to the declination)
 are converted to radians and returned as the zenith direction.
 
-### Arguements ###
+### Arguments ###
 
 The function can be called in two different ways. The arguments common to
 both methods are `latitude` and `longitude`:
@@ -47,7 +47,7 @@ A 2-tuple `(ra, dec)`:
 julia> zenpos(DateTime(2017, 04, 25, 18, 59), 43.16, -24.32, 4)
 (0.946790432684706, 0.7532841051607526)
 
-julia> zenpos(ten(35,0,42), ten(135,46,6), jdcnv(2016, 05, 05, 13, 41))
+julia> zenpos(jdcnv(2016, 05, 05, 13, 41), ten(35,0,42), ten(135,46,6))
 (3.5757821152779536, 0.6110688599440813)
 ```
 
@@ -55,10 +55,12 @@ julia> zenpos(ten(35,0,42), ten(135,46,6), jdcnv(2016, 05, 05, 13, 41))
 
 Code of this function is based on IDL Astronomy User's Library.
 """
+zenpos
+
 _zenpos{T<:AbstractFloat}(latitude::T, longitude::T, rest...) =
     (ct2lst(longitude, rest...) / 12 * pi, deg2rad(latitude))
 
-zenpos(latitude::Real, longitude::Real, jd::Real) =
+zenpos(jd::Real, latitude::Real, longitude::Real) =
     _zenpos(promote(float(latitude), float(longitude), float(jd))...)
 
 zenpos(date::DateTime, latitude::Real, longitude::Real, tz::Real) =
