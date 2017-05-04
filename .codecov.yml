@@ -1,2 +1,2 @@
 # Disable comments in pull requests
-comment: off
+comment: false
