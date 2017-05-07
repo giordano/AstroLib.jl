@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function kepler_solver{T<:AbstractFloat}(M::T, e::T)
+function kepler_solver(M::T, e::T) where {T<:AbstractFloat}
     @assert 0 <= e <= 1 "eccentricity must be in the range [0, 1]"
     # M is assumed to be in the range [-pi, pi], see Markley (1995), page 2.
     # First restrict it to [0, 2pi], then move values above pi to [-pi, 0].
@@ -22,23 +22,21 @@ function kepler_solver{T<:AbstractFloat}(M::T, e::T)
         # equation (14)
         w = cbrt(abs2(abs(r) + sqrt(q * q * q + r * r)))
         # equation (15)
-        E1 = (2 * r * w/(w * w + w * q + q * q) + M)/d
+        E1 = (2 * r * w / @evalpoly(w, q * q, q, 1) + M)/d
         # equation (26).  TODO: here we can use sincos, when will be available.
         f2 = e * sin(E1)
         # equation (21)
         f0 = E1 - f2 - M
-        # equation (25)
-        f1 = 1 - e * cos(E1)
         # equation (27)
-        f3 = 1 - f1
-        # equation (28)
-        f4 = -f2
+        f3 = e * cos(E1)
+        # equation (25)
+        f1 = 1 - f3
         # equation (22)
         δ3 = -f0 / (f1 - f0 * f2 / (2 * f1))
         # equation (23)
-        δ4 = -f0 / (f1 + δ3 * f2 / 2 + δ3 * δ3 * f3 / 6)
-        # equation (24)
-        δ5 = -f0 / (f1 + δ4 * f2 / 2 + δ4 * δ4 * f3 / 6 + δ4 * δ4 * δ4 * f4 / 24)
+        δ4 = -f0 / @evalpoly(δ3, f1, f2 / 2, f3 / 6)
+        # equations (24) and (28)
+        δ5 = -f0 / @evalpoly(δ4, f1, f2 / 2, f3 / 6, - f2 / 24)
         return E1 + δ5 # equation 29
     end
 end
