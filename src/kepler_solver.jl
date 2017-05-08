@@ -98,13 +98,13 @@ julia> E = kepler_solver(8pi/3, ecc)
 
 (2) Plot the eccentric anomaly as a function of mean anomaly for eccentricity
 \$e = 0\$, \$0.5\$, \$0.9\$.  Recall that `kepler_solver` gives \$E \\in [-\\pi,
-\\pi]\$, use `cirrange` to have it in \$[0, 2\\pi]\$.  Use
+\\pi]\$, use `mod2pi` to have it in \$[0, 2\\pi]\$.  Use
 [PyPlot.jl](https://github.com/JuliaPlots/Plots.jl/) for plotting.
 
 ```julia
-using PyPlot
+using AstroLib, PyPlot
 M = linspace(0, 2pi, 1001)[1:end-1];
-for ecc in (0, 0.5, 0.9); plot(M, cirrange.(kepler_solver.(M, ecc), 2pi)); end
+for ecc in (0, 0.5, 0.9); plot(M, mod2pi.(kepler_solver.(M, ecc))); end
 ```
 
 ### Notes ###

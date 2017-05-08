@@ -64,7 +64,7 @@ function _bprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
     #     parallax = parallax / rmag
     # end
     if ra1950 < 0
-        ra1950 += 2pi
+        ra1950 += 2 * T(pi)
     end
     ra1950  = rad2deg(ra1950)
     dec1950 = rad2deg(dec1950)

@@ -59,22 +59,22 @@ function _moonpos{T<:AbstractFloat}(jd::T, radians::Bool)
     # Number of Julian centuries since 2000-01-01T12:00:00
     t = (jd - J2000) / JULIANCENTURY
     # Mean longitude of the moon referred to mean equinox of the date
-    Lprimed = cirrange(@evalpoly(t, 218.3164477, 481267.88123421,
-                                 -0.0015786, inv(538841), -inv(6.5194e7)))
+    Lprimed = mod(@evalpoly(t, 218.3164477, 481267.88123421,
+                            -0.0015786, inv(538841), -inv(6.5194e7)), 360)
     Lprime = deg2rad(Lprimed)
     # Mean elongation of the Moon
-    d = deg2rad(cirrange(@evalpoly(t, 297.8501921, 445267.1114034, -0.0018819,
-                                   inv(545868), -inv(1.13065e8))))
+    d = deg2rad(mod(@evalpoly(t, 297.8501921, 445267.1114034, -0.0018819,
+                              inv(545868), -inv(1.13065e8)), 360))
     # Sun's mean anomaly
-    M = deg2rad(cirrange(@evalpoly(t, 357.5291092, 35999.0502909, -0.0001536,
-                                   inv(2.449e7))))
+    M = deg2rad(mod(@evalpoly(t, 357.5291092, 35999.0502909, -0.0001536,
+                              inv(2.449e7)), 360))
     # Moon's mean anomaly
-    Mprime = deg2rad(cirrange(@evalpoly(t, 134.9633964, 477198.8675055,
-                                        0.0087414, inv(6.9699e4),
-                                        -inv(1.4712e7))))
+    Mprime = deg2rad(mod(@evalpoly(t, 134.9633964, 477198.8675055,
+                                   0.0087414, inv(6.9699e4),
+                                   -inv(1.4712e7)), 360))
     # Moon's argument of latitude
-    F = deg2rad(cirrange(@evalpoly(t, 93.2720950, 483202.0175233, -0.0036539,
-                                   -inv(3.526e7), inv(8.6331e8))))
+    F = deg2rad(mod(@evalpoly(t, 93.2720950, 483202.0175233, -0.0036539,
+                              -inv(3.526e7), inv(8.6331e8)), 360))
     # Eccentricity of Earth's orbit around the Sun
     E = @evalpoly t 1 -0.002516 -7.4e-6
     E2 = E*E
@@ -110,14 +110,14 @@ function _moonpos{T<:AbstractFloat}(jd::T, radians::Bool)
     arg = moon_d_lat*d + moon_M_lat*M + moon_Mprime_lat*Mprime + moon_F_lat*F
     geolat = (sum(sinlat.*sin.(arg)) + sumb_add)/1000000
     nlong, elong = nutate(jd)
-    geolong = cirrange(geolong + nlong/3600)
+    geolong = mod(geolong + nlong/3600, 360)
     λ = deg2rad(geolong)
     β = deg2rad(geolat)
     # Find mean obliquity and convert λ, β to right ascension and declination.
     ɛ = ten(23, 26) + @evalpoly(t/100, 21.448, -4680.93, -1.55, 1999.25, -51.38,
                                 -249.67, -39.05, 7.12, 27.87, 5.79, 2.45)/3600
     ɛ = deg2rad(ɛ + elong/3600)
-    ra = cirrange(atan2(sin(λ)*cos(ɛ) - tan(β)*sin(ɛ), cos(λ)), 2.*pi)
+    ra = mod2pi(atan2(sin(λ)*cos(ɛ) - tan(β)*sin(ɛ), cos(λ)))
     dec = asin(sin(β)*cos(ɛ) + cos(β)*sin(ɛ)*sin(λ))
     if radians
         return ra, dec, dis, λ, β

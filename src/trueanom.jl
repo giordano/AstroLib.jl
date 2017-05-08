@@ -48,7 +48,7 @@ plotting.
 using PyPlot
 M = linspace(0, 2pi, 1001)[1:end-1];
 for ecc in (0, 0.5, 0.9)
-    plot(M, cirrange.(trueanom.(kepler_solver.(M, ecc), ecc), 2pi))
+    plot(M, mod2pi.(trueanom.(kepler_solver.(M, ecc), ecc)))
 end
 ```
 

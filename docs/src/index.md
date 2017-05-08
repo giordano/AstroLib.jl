@@ -73,6 +73,9 @@ This is not the only effort to bundle astronomical functions written in Julia la
 Because of this, some of IDL AstroLib’s utilities are not provided in `AstroLib.jl` as they are already present in other Julia packages. Here is a list of such utilities:
 
 -   `aper`, see [AperturePhotometry.jl](https://github.com/kbarbary/AperturePhotometry.jl) package
+-   `asinh`, already present in Julia with the same name
+-   `cirrange`, it is equivalent to `mod(x, 360)`.  To restrict a number to the
+    range `[0, 2pi)` use `mod2pi(x)`
 -   `cosmo_param`, see [Cosmology.jl](https://github.com/JuliaAstro/Cosmology.jl) package
 -   `galage`, see [Cosmology.jl](https://github.com/JuliaAstro/Cosmology.jl) package
 -   `glactc_pm`, see [SkyCoords.jl](https://github.com/kbarbary/SkyCoords.jl) package
