@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-__precompile()__
+__precompile__()
 
 module AstroLib
 using Compat
