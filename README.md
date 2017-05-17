@@ -225,7 +225,7 @@ author is Mosè Giordano.
 [docs-latest-url]: http://juliaastro.github.io/AstroLib.jl/latest/
 
 [docs-stable-img]: https://img.shields.io/badge/docs-stable-blue.svg
-[docs-stable-url]: https://astrolibjl.readthedocs.io/en/stable/
+[docs-stable-url]: http://juliaastro.github.io/AstroLib.jl/stable/
 
 [pkgeval-link]: http://pkg.julialang.org/?pkg=AstroLib
 
