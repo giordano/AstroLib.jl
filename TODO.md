@@ -78,7 +78,6 @@ Missing in AstroLib.jl
 * `imf`
 * `ismeuv`
 * `planet_coords`
-* `precess_cd`
 * `qdcb_grid`
 * `tdb2tdt`
 * `ticlabels`
