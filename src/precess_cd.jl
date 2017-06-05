@@ -1,9 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
-function _precess_cd{T<:AbstractFloat}(cd::Matrix{T}, epoch1::T, epoch2::T, crval_old::Vector{T},
-                                       crval_new::Vector{T}, FK4::Bool)
-    crvalold = deg2rad.(crval_old)
-    crvalnew = deg2rad.(crval_new)
+function _precess_cd{T<:AbstractFloat}(cd::AbstractMatrix{T}, epoch1::T, epoch2::T, crval_old::AbstractVector{T},
+                                       crval_new::AbstractVector{T}, FK4::Bool)
     t = deg2rad((epoch2 - epoch1)*0.001)
 
     if FK4
@@ -13,22 +11,21 @@ function _precess_cd{T<:AbstractFloat}(cd::Matrix{T}, epoch1::T, epoch2::T, crva
         st = (epoch1 - 2000)*0.001
         c = t*(20043.109 - st*(85.33 + st*0.217) + t*(-42.665 - st*0.217 - t*41.8))/3600
     end
-    pole_ra = 0
-    pole_dec = 90
+    pole_ra = zero(T)
+    pole_dec = one(T)*90
 
     if (epoch1 == 2000 && epoch2 == 1950) || (epoch1 == 1950 && epoch2 == 2000)
         pole_ra, pole_dec = bprecess(pole_ra, pole_dec)
     else
         pole_ra, pole_dec = precess(pole_ra, pole_dec, epoch1, epoch2, FK4=FK4)
     end
-    sind1, sind2 = sin.([crvalold[2], crvalnew[2]])
-    cosd1, cosd2 = cos.([crvalold[2], crvalnew[2]])
-    sinra = sin(crvalnew[1] - deg2rad.(pole_ra))
+    sind1, sind2 = sind.([crval_old[2], crval_new[2]])
+    cosd1, cosd2 = cosd.([crval_old[2], crval_new[2]])
+    sinra = sind(crval_new[1] - pole_ra)
     cosfi = (cos(c) - sind1*sind2)/(cosd1*cosd2)
     sinfi = (abs(sin(c))* sinra)/cosd1
-    r = [[cosfi -sinfi]; [sinfi cosfi]]
-    cd = cd * r
-    return cd
+    r = [cosfi sinfi; -sinfi cosfi]
+    return cd * r
 end
 
 """
@@ -60,10 +57,10 @@ The coordinate matrix is precessed from epoch1 to epoch2.
 ### Example ###
 
 ```julia
-julia> precess_cd([[20 60]; [45 45]], 1950, 2000, [34, 58], [12, 83])
+julia> precess_cd([20 60; 45 45], 1950, 2000, [34, 58], [12, 83])
 2×2 Array{Float64,2}:
-  49.1292  146.996
- 110.365   110.188
+  48.8944  147.075
+ 110.188   110.365
 ```
 
 ### Notes ###
@@ -72,7 +69,7 @@ Code of this function is based on IDL Astronomy User's Library.
 This function should not be used for values more than 2.5 centuries from the year 1900.
 This function calls [precess](@ref) and [bprecess](@ref).
 """
-precess_cd{R<:Real}(cd::Matrix{R}, epoch1::Real, epoch2::Real, crval_old::Vector{R},
-                    crval_new::Vector{R}, FK4::Bool=false) =
-                        _precess_cd(float(cd), promote(float(epoch1), float(epoch2))...,
-                                    float(crval_old), float(crval_new), FK4)
+precess_cd(cd::AbstractMatrix{<:Real}, epoch1::Real, epoch2::Real, crval_old::AbstractVector{<:Real},
+           crval_new::AbstractVector{<:Real}, FK4::Bool=false) =
+               _precess_cd(float(cd), promote(float(epoch1), float(epoch2))...,
+                           float(crval_old), float(crval_new), FK4)
