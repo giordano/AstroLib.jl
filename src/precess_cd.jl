@@ -2,25 +2,27 @@
 
 function _precess_cd{T<:AbstractFloat}(cd::AbstractMatrix{T}, epoch1::T, epoch2::T, crval_old::AbstractVector{T},
                                        crval_new::AbstractVector{T}, FK4::Bool)
-    t = deg2rad((epoch2 - epoch1)*0.001)
+    t = (epoch2 - epoch1)*0.001
 
     if FK4
         st = (epoch1 - 1900)*0.001
-        c = t*(20046.85 - st*(85.33 + st*0.37) + t*(-42.67 - st*0.37 - t*41.8))/3600
+        c = sec2rad(t*(20046.85 - st*(85.33 + st*0.37) + t*(-42.67 - st*0.37 - t*41.8)))
     else
         st = (epoch1 - 2000)*0.001
-        c = t*(20043.109 - st*(85.33 + st*0.217) + t*(-42.665 - st*0.217 - t*41.8))/3600
+        c = sec2rad(t*(20043.109 - st*(85.33 + st*0.217) + t*(-42.665 - st*0.217 - t*41.8)))
     end
     pole_ra = zero(T)
-    pole_dec = one(T)*90
+    pole_dec = one(90)
 
     if (epoch1 == 2000 && epoch2 == 1950) || (epoch1 == 1950 && epoch2 == 2000)
         pole_ra, pole_dec = bprecess(pole_ra, pole_dec)
     else
         pole_ra, pole_dec = precess(pole_ra, pole_dec, epoch1, epoch2, FK4=FK4)
     end
-    sind1, sind2 = sind.([crval_old[2], crval_new[2]])
-    cosd1, cosd2 = cosd.([crval_old[2], crval_new[2]])
+    sind1 = sind(crval_old[2])
+    sind2 = sind(crval_new[2])
+    cosd1 = cosd(crval_old[2])
+    cosd2 = cosd(crval_new[2])
     sinra = sind(crval_new[1] - pole_ra)
     cosfi = (cos(c) - sind1*sind2)/(cosd1*cosd2)
     sinfi = (abs(sin(c))* sinra)/cosd1
@@ -41,7 +43,7 @@ The coordinate matrix is precessed from epoch1 to epoch2.
 
 ### Arguments ###
 
-* `cd`: 2 x 2 coordinate description matrix in degrees or radians
+* `cd`: 2 x 2 coordinate description matrix in degrees
 * `epoch1`: original equinox of coordinates, scalar
 * `epoch2`: equinox of precessed coordinates, scalar
 * `crval_old`: 2 element vector containing right ascension and declination
@@ -59,8 +61,8 @@ The coordinate matrix is precessed from epoch1 to epoch2.
 ```julia
 julia> precess_cd([20 60; 45 45], 1950, 2000, [34, 58], [12, 83])
 2×2 Array{Float64,2}:
-  48.8944  147.075
- 110.188   110.365
+  48.8914  147.076
+ 110.186   110.367
 ```
 
 ### Notes ###
