@@ -12,7 +12,7 @@ function _precess_cd{T<:AbstractFloat}(cd::AbstractMatrix{T}, epoch1::T, epoch2:
         c = sec2rad(t*(20043.109 - st*(85.33 + st*0.217) + t*(-42.665 - st*0.217 - t*41.8)))
     end
     pole_ra = zero(T)
-    pole_dec = one(90)
+    pole_dec = T(90)
 
     if (epoch1 == 2000 && epoch2 == 1950) || (epoch1 == 1950 && epoch2 == 2000)
         pole_ra, pole_dec = bprecess(pole_ra, pole_dec)
@@ -61,8 +61,8 @@ The coordinate matrix is precessed from epoch1 to epoch2.
 ```julia
 julia> precess_cd([20 60; 45 45], 1950, 2000, [34, 58], [12, 83])
 2×2 Array{Float64,2}:
-  48.8914  147.076
- 110.186   110.367
+  48.8944  147.075
+ 110.188   110.365
 ```
 
 ### Notes ###
