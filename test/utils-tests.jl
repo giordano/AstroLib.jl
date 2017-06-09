@@ -442,6 +442,9 @@ let
 end
 
 # Test precess_cd
+# The values used for the testset are from running the code. However they have been
+# correlated with the output from precess_cd routine of IDL AstroLib, with
+# differences only in the least significant digits.
 @testset "precess_cd" begin
     @test precess_cd([30 60; 60 90], 1950, 2000, [13, 8], [43, 23]) ≈
         [30.919029003435927 62.343060521017435;
