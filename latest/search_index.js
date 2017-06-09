@@ -125,7 +125,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "Coordinates and positions",
     "category": "section",
-    "text": "adstring(), aitoff(), altaz2hadec(), bprecess() eci2geo() eqpole() gcirc() geo2eci() geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), jprecess(), mag2geo(), polrec(), posang(), precess(), precess_xyz(), premat(), radec(), recpol() zenpos()"
+    "text": "adstring(), aitoff(), altaz2hadec(), bprecess() eci2geo() eqpole() gcirc() geo2eci() geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), jprecess(), mag2geo(), polrec(), posang(), precess(), precess_cd(), precess_xyz(), premat(), radec(), recpol() zenpos()"
 },
 
 {
@@ -510,6 +510,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.precess",
     "category": "Method",
     "text": "precess(ra, dec, equinox1, equinox2[, FK4=true, radians=true]) -> prec_ra, prec_dec\n\nPurpose\n\nPrecess coordinates from equinox1 to equinox2.\n\nExplanation\n\nThe default (ra, dec) system is FK5 based on epoch J2000.0 but FK4 based on B1950.0 is available via the FK4 boolean keyword.\n\nArguments\n\nra: input right ascension, scalar or vector, in degrees, unless the radians keyword is set to true\ndec: input declination, scalar or vector, in degrees, unless the radians keyword is set to true\nequinox1: original equinox of coordinates, numeric scalar.\nequinox2: equinox of precessed coordinates.\nFK4 (optional boolean keyword): if this keyword is set to true, the FK4 (B1950.0) system precession angles are used to compute the precession matrix. When it is false, the default, use FK5 (J2000.0) precession angles.\nradians (optional boolean keyword): if this keyword is set to true, then the input and output right ascension and declination vectors are in radians rather than degrees.\n\nOutput\n\nThe 2-tuple (ra, dec) of coordinates modified by precession.\n\nExample\n\nThe Pole Star has J2000.0 coordinates (2h, 31m, 46.3s, 89d 15' 50.6\"); compute its coordinates at J1985.0\n\nra, dec = ten(2,31,46.3)*15, ten(89,15,50.6)\n# => (37.94291666666666,89.26405555555556)\nadstring(precess(ra, dec, 2000, 1985), precision=1)\n# => \" 02 16 22.73  +89 11 47.3\"\n\nPrecess the B1950 coordinates of Eps Ind (RA = 21h 59m,33.053s, DEC = (-56d, 59', 33.053\") to equinox B1975.\n\nra, dec = ten(21, 59, 33.053)*15, ten(-56, 59, 33.053)\n# => (329.88772083333333,-56.992514722222225)\nadstring(precess(ra, dec, 1950, 1975, FK4=true), precision=1)\n# => \" 22 01 15.46  -56 52 18.7\"\n\nMethod\n\nAlgorithm from \"Computational Spherical Astronomy\" by Taff (1983), p. 24. (FK4). FK5 constants from \"Explanatory Supplement To The Astronomical Almanac\" 1992, page 104 Table 3.211.1 (https://archive.org/details/131123ExplanatorySupplementAstronomicalAlmanac).\n\nNotes\n\nAccuracy of precession decreases for declination values near 90 degrees. precess should not be used more than 2.5 centuries from 2000 on the FK5 system (1950.0 on the FK4 system).  If you need better accuracy, use bprecess or jprecess as needed.\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.precess_cd",
+    "page": "Reference",
+    "title": "AstroLib.precess_cd",
+    "category": "Function",
+    "text": "precess_cd(cd, epoch1, epoch2, crval_old, crval_new) -> cd\n\nPurpose\n\nPrecess the coordinate description matrix.\n\nExplanation\n\nThe coordinate matrix is precessed from epoch1 to epoch2.\n\nArguments\n\ncd: 2 x 2 coordinate description matrix in degrees\nepoch1: original equinox of coordinates, scalar\nepoch2: equinox of precessed coordinates, scalar\ncrval_old: 2 element vector containing right ascension and declination in degrees of the reference pixel in the original equinox\ncrval_new: 2 element vector giving crval in the new equinox\nFK4 (optional boolean keyword): if this keyword is set, then the precession constants are taken in the FK4 reference frame. The default is the FK5 frame\n\nOutput\n\ncd: coordinate description containing precessed values\n\nExample\n\njulia> precess_cd([20 60; 45 45], 1950, 2000, [34, 58], [12, 83])\n2×2 Array{Float64,2}:\n  48.8944  147.075\n 110.188   110.365\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library. This function should not be used for values more than 2.5 centuries from the year 1900. This function calls sec2rad, precess and bprecess.\n\n\n\n"
 },
 
 {
