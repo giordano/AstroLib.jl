@@ -121,6 +121,9 @@ export posang
 include("precess.jl")
 export precess
 
+include("precess_cd.jl")
+export precess_cd
+
 include("precess_xyz.jl")
 export precess_xyz
 

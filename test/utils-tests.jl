@@ -441,6 +441,25 @@ let
     @test dec2 ≈ [-56.87186126487889]
 end
 
+# Test precess_cd
+# The values used for the testset are from running the code. However they have been
+# correlated with the output from precess_cd routine of IDL AstroLib, with
+# differences only in the least significant digits.
+@testset "precess_cd" begin
+    @test precess_cd([30 60; 60 90], 1950, 2000, [13, 8], [43, 23]) ≈
+        [30.919029003435927 62.343060521017435;
+         61.93905850970097 93.56509103294071  ]
+    @test precess_cd([30 60; 60 90], 2000, 1950, [13, 8], [43, 23]) ≈
+        [30.919029003435927 62.343060521017435;
+         61.93905850970097 93.56509103294071  ]
+    @test precess_cd([12.45 56.7; 66 89], 2000, 1985, [67.4589455, 0.345345], [37.94291666666666, 89.26405555555556]) ≈
+        [963.4252080520984 4387.890452343343  ;
+         5107.504395433958 6887.55936949333   ]
+    @test precess_cd([30.0 28.967; 60.45 90.65], 2000, 1975, [13, 10.658], [35.54, 67], true) ≈
+        [64.78429186351575 62.637156996728194 ;
+         130.49379143419722 195.9699513801844 ]
+end
+
 # Test precess_xyz
 let
     local x1 ,y1, z1, x2, y2, z2
