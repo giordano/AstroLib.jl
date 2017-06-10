@@ -9,14 +9,14 @@ function _ismeuv{T<:AbstractFloat}(wave::AbstractVector{T}, hcol::T, he1col::T, 
     if length(good) != 0
         r = ratio[good]
         z = sqrt.((1.0 - r).\r)
-        denom = ones(good)
+        denom = ones(Float64,length(good))
         y = -2*π*z
-        good1 = find(y.< minexp)
+        good1 = find(y.> minexp)
 
         if length(good1) != 0
-            denom[good1] = 1 - exp(y[good1])
+            denom[good1] = -expm1.(y[good1])
         end
-        tauH[good] = denom.\(hcol*(3.44e-16)*(r.^4).*exp.(-4.0*z.*atan.(z.\1)))
+        tauH[good] = denom.\(hcol.*(3.44e-16).*(r.^4).*exp.(-4.0.*z.*atan.(z.\1)))
     end
     tauHe2 = zeros(wave)
     ratio *= 4
@@ -25,14 +25,14 @@ function _ismeuv{T<:AbstractFloat}(wave::AbstractVector{T}, hcol::T, he1col::T, 
     if length(good) != 0
         r = ratio[good]
         z = sqrt.((1.0 - r).\r)
-        denom = 4*ones(good)
+        denom = 4*ones(Float64,length(good))
         y = -2*π*z
-        good1 = find(y.< minexp)
+        good1 = find(y.> minexp)
 
         if length(good1) != 0
-            denom[good1] = 1 - exp(y[good1])
+            denom[good1] .*= -expm1.(y[good1])
         end
-        tauH[good] = denom.\(he2col*(3.44e-16)*(r.^4).*exp.(-4.0*z.*atan.(z.\1)))
+        tauHe2[good] = denom.\(he2col.*(3.44e-16).*(r.^4).*exp.(-4.0.*z.*atan.(z.\1)))
     end
     q  = [2.81, 2.51, 2.45, 2.44]
     nu = [1.610, 2.795, 3.817, 4.824]
@@ -46,23 +46,27 @@ function _ismeuv{T<:AbstractFloat}(wave::AbstractVector{T}, hcol::T, he1col::T, 
         y = zeros(x)
         good1 = find(wave.< 46)
         if length(good1) != 0
-            y[good1] = @evalpoly x[good1] -2.465188e+01 4.354679 -3.553024 5.573040 -5.872938 3.720797 -1.226919 1.576657e-01
+            for i in good1
+                y[i] = @evalpoly x[i] -2.465188e+01 4.354679 -3.553024 5.573040 -5.872938 3.720797 -1.226919 1.576657e-01
+            end
         end
         good1 = find(wave.> 46)
 
         if length(good1) != 0
-            y[good1] = @evalpoly x[good1] -2.953607e+01 7.083061 8.678646e-01 -1.221932 4.052997e-02 1.317109e-01 -3.265795e-02 2.500933e-03
-        end
-        if fano
-            episilon = wave.\911.2671
-            for i = 1:4
-                x = 2*(episilon - esubi[i])/fano_gamma[i]
-                y = y + log10((1 + x.^2).\(x - q[i]).^2)
+            for i in good1
+                y[i] = @evalpoly x[i] -2.953607e+01 7.083061 8.678646e-01 -1.221932 4.052997e-02 1.317109e-01 -3.265795e-02 2.500933e-03
+            end
+            if fano
+                episilon = wave.\911.2671
+                for i = 1:4
+                    x = 2*(episilon - esubi[i])/fano_gamma[i]
+                    y = y + log10.((1 + x.^2).\(x - q[i]).^2)
+                end
             end
         end
     end
-    tauHe1[good] = he1col*(y.^10)
-    return tauH + tauHe1 + tauHe2
+    tauHe1[good] = he1col*exp10.(y)
+    return tauH + tauHe1+ tauHe2
 end
 
 """

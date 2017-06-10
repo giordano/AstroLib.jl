@@ -76,7 +76,6 @@ Missing in AstroLib.jl
 * `hor2eq`
 * `imcontour`
 * `imf`
-* `ismeuv`
 * `planet_coords`
 * `qdcb_grid`
 * `tdb2tdt`
