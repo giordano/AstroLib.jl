@@ -7,20 +7,19 @@ function _ismeuv{T<:AbstractFloat}(wave::T, hcol::T, he1col::T, he2col::T, fano:
     end
     # minexp = -708.39642  from alog((machar(double=double).xmin)) where double = 1b in IDL
     z = sqrt(r/(1 - r))
-    denom = -expm1(-2*z*π)
+    denom = -expm1(-2*T(π)*z)
     tauH = ((3.44e-16)*(r^4)*exp(-4*z*atan(1/z))*hcol)/denom
     r *= 4
     tauHe2 = zero(T)
     if r < 1
         z = sqrt(r/(1 - r))
         denom = T(4)
-        denom *= -expm1(-2*z*π)
+        denom = -4*expm1(-2*T(π)*z)
         tauHe2 = ((3.44e-16)*(r^4)*exp(-4*z*atan(1/z))*he2col)/denom
     end
-    q  = [2.81, 2.51, 2.45, 2.44]
-    nu = [1.610, 2.795, 3.817, 4.824]
-    fano_gamma = [2.64061e-03, 6.20116e-04, 2.56061e-04, 1.320159e-04]
-    esubi = 4.807317 - (nu.^2).\1
+    q  = (2.81, 2.51, 2.45, 2.44)
+    fano_gamma = (2.64061e-03, 6.20116e-04, 2.56061e-04, 1.320159e-04)
+    esubi = (4.421529414644497, 4.679309217126802, 4.738680412951545, 4.764345016358231)
     tauHe1 = zero(T)
     if wave < 503.97
         x = log10(wave)
@@ -39,7 +38,7 @@ function _ismeuv{T<:AbstractFloat}(wave::T, hcol::T, he1col::T, he2col::T, fano:
                 end
             end
         end
-    tauHe1 = exp10(y)*he1col
+        tauHe1 = exp10(y)*he1col
     end
     return tauH + tauHe1 + tauHe2
 end
