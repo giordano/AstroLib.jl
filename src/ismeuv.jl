@@ -50,7 +50,7 @@ function _ismeuv{T<:AbstractFloat}(wave::AbstractVector{T}, hcol::T, he1col::T, 
                 y[i] = @evalpoly x[i] -2.465188e+01 4.354679 -3.553024 5.573040 -5.872938 3.720797 -1.226919 1.576657e-01
             end
         end
-        good1 = find(wave.> 46)
+        good1 = find(wave[good].> 46)
 
         if length(good1) != 0
             for i in good1
@@ -64,8 +64,8 @@ function _ismeuv{T<:AbstractFloat}(wave::AbstractVector{T}, hcol::T, he1col::T, 
                 end
             end
         end
-    end
     tauHe1[good] = he1col*exp10.(y)
+    end
     return tauH + tauHe1+ tauHe2
 end
 
@@ -104,7 +104,13 @@ The EUV optical depth is computed from the photoionization of hydrogen and heliu
 ### Example ###
 
 ```julia
+One has a model EUV spectrum with wavelength, w (in Angstroms).
+Find the EUV optical depth by 1e18 cm-2 of HI, with N(HeI)/N(HI) = N(HeII)/N(HI) = 0.05.
 
+julia> ismeuv([670, 910], 1e19, 5e17, 5e17)
+2-element Array{Float64,1}:
+ 27.3539
+ 62.6838
 ```
 
 ### Notes ###
