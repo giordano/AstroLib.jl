@@ -13,7 +13,6 @@ function _ismeuv{T<:AbstractFloat}(wave::T, hcol::T, he1col::T, he2col::T, fano:
     tauHe2 = zero(T)
     if r < 1
         z = sqrt(r/(1 - r))
-        denom = T(4)
         denom = -4*expm1(-2*T(π)*z)
         tauHe2 = ((3.44e-16)*(r^4)*exp(-4*z*atan(1/z))*he2col)/denom
     end
