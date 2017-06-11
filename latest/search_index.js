@@ -149,7 +149,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "Utilities",
     "category": "section",
-    "text": "airtovac(), calz_unred(), cirrange(), deredd(), flux2mag(), gal_uvw(), kepler_solver(), lsf_rotate(), mag2flux(), paczynski(), planck_freq(), planck_wave(), rad2sec(), rhotheta(), sec2rad(), sixty(), sphdist(), ten(), tic_one(), ticpos(), tics(), trueanom(), vactoair()"
+    "text": "airtovac(), calz_unred(), cirrange(), deredd(), flux2mag(), gal_uvw(), ismeuv(), kepler_solver(), lsf_rotate(), mag2flux(), paczynski(), planck_freq(), planck_wave(), rad2sec(), rhotheta(), sec2rad(), sixty(), sphdist(), ten(), tic_one(), ticpos(), tics(), trueanom(), vactoair()"
 },
 
 {
@@ -366,6 +366,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.helio_rv",
     "category": "Function",
     "text": "helio_rv(jd, T, P, V_0, K[, e, ω]) -> rv\n\nPurpose\n\nReturn the heliocentric radial velocity of a spectroscopic binary.\n\nExplanation\n\nThis function will return the heliocentric radial velocity of a spectroscopic binary star at a given heliocentric date given its orbit.\n\nArguments\n\njd: time of observation, as number of Julian days.  It can be either a scalar or an array.\nT: time of periastron passage (max. +ve velocity for circular orbits), same time system as jd\nP: the orbital period in same units as jd\nV_0: systemic velocity\nK: velocity semi-amplitude in the same units as V_0\ne: eccentricity of the orbit.  It defaults to 0 if omitted\nω: longitude of periastron in degrees.  It defaults to 0 if omitted\n\nOutput\n\nThe predicted heliocentric radial velocity in the same units as Gamma for the date(s) specified by jd.  It is a scalar or an array depending on the type ofjd.\n\nExample\n\n(1) What was the heliocentric radial velocity of the primary component of HU Tau at 1730 UT 25 Oct 1994?\n\njd = juldate(94, 10, 25, 17, 30); # Obtain Geocentric Julian days\nhjd = helio_jd(jd, ten(04, 38, 16)*15, ten(20, 41, 05)); # Convert to HJD\nhelio_rv(hjd, 46487.5303, 2.0563056, -6, 59.3)\n# => -62.965570109145034\n\nNB: the functions juldate and helio_jd return a reduced HJD (HJD - 2400000) and so T and P must be specified in the same fashion.\n\n(2) Plot two cycles of an eccentric orbit, e=06, omega=45degree for both components of a binary star.  Use PyPlot.jl for plotting.\n\nusing PyPlot\nφ = linspace(0, 2, 1000); # Generate 1000 phase points\nplot(φ ,helio_rv(φ, 0, 1, 0, 100, 0.6, 45)) # Plot 1st component\nplot(φ ,helio_rv(φ, 0, 1, 0, 100, 0.6, 45+180)) # Plot 2nd component\n\nNotes\n\nThe user should ensure consistency with all time systems being used (i.e. jd and t should be in the same units and time system).  Generally, users should reduce large time values by subtracting a large constant offset, which may improve numerical accuracy.\n\nIf using the the function juldate and helio_jd, the reduced HJD time system must be used throughtout.\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.ismeuv",
+    "page": "Reference",
+    "title": "AstroLib.ismeuv",
+    "category": "Function",
+    "text": "ismeuv(wave, hcol[, he1col=hcol*0.1, he2col=0, fano=false]) -> tau\n\nPurpose\n\nCompute the continuum interstellar EUV optical depth\n\nExplanation\n\nThe EUV optical depth is computed from the photoionization of hydrogen and helium.\n\nArguments\n\nwave: scalar of wavelength value (in Angstroms). Useful range is 40 - 912 A; at shorter wavelength metal opacity should be considered, at longer wavelengths there is no photoionization.\nhcol: scalar specifying interstellar hydrogen column density in cm-2.\nhe1col (optional): scalar specifying neutral helium column density in cm-2. Default is 0.1*hcol (10% of hydrogen column)\nhe2col (optional): scalar specifying ionized helium column density in cm-2 Default is 0.\nfano (optional boolean keyword): If this keyword is true, then the 4 strongest auto-ionizing resonances of He I are included. The shape of these resonances is given by a Fano profile - see Rumph, Bowyer, & Vennes 1994, AJ, 107, 2108. If these resonances are included then the input wavelength vector should have a fine (>~0.01 A) grid between 190 A and 210 A, since the resonances are very narrow.\n\nOutput\n\ntau: Vector giving resulting optical depth, same number of elements as wave, non-negative values.\n\nExample\n\nOne has a model EUV spectrum with wavelength, w (in Angstroms).\nFind the EUV optical depth by 1e18 cm-2 of HI, with N(HeI)/N(HI) = N(HeII)/N(HI) = 0.05.\n\njulia> ismeuv.([670, 910], 1e19, 5e17, 5e17)\n2-element Array{Float64,1}:\n 27.3539\n 62.6838\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
 },
 
 {
