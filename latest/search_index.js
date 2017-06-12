@@ -149,7 +149,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "Utilities",
     "category": "section",
-    "text": "airtovac(), calz_unred(), cirrange(), deredd(), flux2mag(), gal_uvw(), ismeuv(), kepler_solver(), lsf_rotate(), mag2flux(), paczynski(), planck_freq(), planck_wave(), rad2sec(), rhotheta(), sec2rad(), sixty(), sphdist(), ten(), tic_one(), ticpos(), tics(), trueanom(), vactoair()"
+    "text": "airtovac(), calz_unred(), cirrange(), deredd(), flux2mag(), gal_uvw(), imf(), ismeuv(), kepler_solver(), lsf_rotate(), mag2flux(), paczynski(), planck_freq(), planck_wave(), rad2sec(), rhotheta(), sec2rad(), sixty(), sphdist(), ten(), tic_one(), ticpos(), tics(), trueanom(), vactoair()"
 },
 
 {
@@ -366,6 +366,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.helio_rv",
     "category": "Function",
     "text": "helio_rv(jd, T, P, V_0, K[, e, ω]) -> rv\n\nPurpose\n\nReturn the heliocentric radial velocity of a spectroscopic binary.\n\nExplanation\n\nThis function will return the heliocentric radial velocity of a spectroscopic binary star at a given heliocentric date given its orbit.\n\nArguments\n\njd: time of observation, as number of Julian days.  It can be either a scalar or an array.\nT: time of periastron passage (max. +ve velocity for circular orbits), same time system as jd\nP: the orbital period in same units as jd\nV_0: systemic velocity\nK: velocity semi-amplitude in the same units as V_0\ne: eccentricity of the orbit.  It defaults to 0 if omitted\nω: longitude of periastron in degrees.  It defaults to 0 if omitted\n\nOutput\n\nThe predicted heliocentric radial velocity in the same units as Gamma for the date(s) specified by jd.  It is a scalar or an array depending on the type ofjd.\n\nExample\n\n(1) What was the heliocentric radial velocity of the primary component of HU Tau at 1730 UT 25 Oct 1994?\n\njd = juldate(94, 10, 25, 17, 30); # Obtain Geocentric Julian days\nhjd = helio_jd(jd, ten(04, 38, 16)*15, ten(20, 41, 05)); # Convert to HJD\nhelio_rv(hjd, 46487.5303, 2.0563056, -6, 59.3)\n# => -62.965570109145034\n\nNB: the functions juldate and helio_jd return a reduced HJD (HJD - 2400000) and so T and P must be specified in the same fashion.\n\n(2) Plot two cycles of an eccentric orbit, e=06, omega=45degree for both components of a binary star.  Use PyPlot.jl for plotting.\n\nusing PyPlot\nφ = linspace(0, 2, 1000); # Generate 1000 phase points\nplot(φ ,helio_rv(φ, 0, 1, 0, 100, 0.6, 45)) # Plot 1st component\nplot(φ ,helio_rv(φ, 0, 1, 0, 100, 0.6, 45+180)) # Plot 2nd component\n\nNotes\n\nThe user should ensure consistency with all time systems being used (i.e. jd and t should be in the same units and time system).  Generally, users should reduce large time values by subtracting a large constant offset, which may improve numerical accuracy.\n\nIf using the the function juldate and helio_jd, the reduced HJD time system must be used throughtout.\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.imf-Tuple{AbstractArray{#s49,1} where #s49<:Real,AbstractArray{#s48,1} where #s48<:Real,AbstractArray{#s47,1} where #s47<:Real}",
+    "page": "Reference",
+    "title": "AstroLib.imf",
+    "category": "Method",
+    "text": "imf(mass, expon, mass_range) -> psi\n\nPurpose\n\nCompute an N-component power-law logarithmic initial mass function (IMF).\n\nExplanation\n\nThe function is normalized so that the total mass distribution equals one solar mass.\n\nArguments\n\nmass: mass in units of solar mass, vector.\nexpon: power law exponent, vector. The number of values in expon equals the number of different power-law components in the IMF.\nmass_range: vector containing the mass upper and lower limits of the IMF and masses where the IMF exponent changes. The number of values in mass_range should be one more than in expon. The values in mass_range should be monotonically increasing and positive.\n\nOutput\n\npsi: mass function, number of stars per unit logarithmic mass interval evaluated for supplied masses.\n\nExample\n\nShow the number of stars per unit mass interval at 3 Msun for a Salpeter (expon = -1.35) IMF, with a mass range from 0.1 MSun to 110 Msun.\n\njulia> imf([3], [-1.35], [0.1, 110]) / 3\n1-element Array{Float64,1}:\n 0.0129414\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
 },
 
 {
