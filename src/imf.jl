@@ -4,12 +4,10 @@ function _imf{T<:AbstractFloat}(mass::AbstractVector{T}, expon::AbstractVector{T
                                 mass_range::AbstractVector{T})
     ne_comp = length(expon)
     if length(mass_range) != ne_comp + 1
-        println("Length of array mass_range is not one more than that of expon")
-        return zeros(mass)
+        error("Length of array mass_range is not one more than that of expon")
     end
-    integ = ones(T, ne_comp)
+    integ = Vector{T}(ne_comp)
     joint = ones(T, ne_comp)
-    norm = ones(T, ne_comp)
     for i = 1:ne_comp
         if expon[i] != -1
             integ[i] = (mass_range[i+1]^(1 + expon[i]) - mass_range[i]^(1 + expon[i]))/
@@ -21,7 +19,7 @@ function _imf{T<:AbstractFloat}(mass::AbstractVector{T}, expon::AbstractVector{T
             joint[i] = joint[i-1]*(mass_range[i]^(expon[i-1] - expon[i]))
         end
     end
-    norm = (1/sum_kbn(integ.*joint))*joint
+    norm = joint./(sum(integ.*joint))
     psi = zeros(mass)
     for i = 1:ne_comp
         test = find(mass_range[i].< mass.<mass_range[i+1])
@@ -61,10 +59,10 @@ one solar mass.
 
 ### Example ###
 
-```julia
 Show the number of stars per unit mass interval at 3 Msun for a Salpeter
 (expon = -1.35) IMF, with a mass range from 0.1 MSun to 110 Msun.
 
+```julia
 julia> imf([3], [-1.35], [0.1, 110]) / 3
 1-element Array{Float64,1}:
  0.0129414
