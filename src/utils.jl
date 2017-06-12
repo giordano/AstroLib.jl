@@ -70,6 +70,9 @@ export helio_jd
 include("helio_rv.jl")
 export helio_rv
 
+include("imf.jl")
+export imf
+
 include("ismeuv.jl")
 export ismeuv
 
