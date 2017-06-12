@@ -19,7 +19,7 @@ function _imf{T<:AbstractFloat}(mass::AbstractVector{T}, expon::AbstractVector{T
             joint[i] = joint[i-1]*(mass_range[i]^(expon[i-1] - expon[i]))
         end
     end
-    norm = joint./(sum(integ.*joint))
+    norm = joint./(dot(integ, joint))
     psi = zeros(mass)
     for i = 1:ne_comp
         test = find(mass_range[i].< mass.<mass_range[i+1])
