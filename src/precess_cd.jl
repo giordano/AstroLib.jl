@@ -31,7 +31,7 @@ function _precess_cd{T<:AbstractFloat}(cd::AbstractMatrix{T}, epoch1::T, epoch2:
 end
 
 """
-    precess_cd(cd, epoch1, epoch2, crval_old, crval_new) -> cd
+    precess_cd(cd, epoch1, epoch2, crval_old, crval_new[, FK4=true]) -> cd
 
 ### Purpose ###
 
@@ -49,8 +49,9 @@ The coordinate matrix is precessed from epoch1 to epoch2.
 * `crval_old`: 2 element vector containing right ascension and declination
   in degrees of the reference pixel in the original equinox
 * `crval_new`: 2 element vector giving crval in the new equinox
-* `FK4` (optional boolean keyword): if this keyword is set, then the precession constants
-  are taken in the FK4 reference frame. The default is the FK5 frame
+* `FK4` (optional boolean keyword): if this keyword is set to `true`,
+  then the precession constants are taken in the FK4 reference frame. When it
+  is `false`, the default is the FK5 frame
 
 ### Output ###
 
