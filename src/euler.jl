@@ -33,12 +33,7 @@ function _euler{T<:AbstractFloat}(ai::T, bi::T, select::Integer, FK4::Bool, radi
     end
     bo = ctheta[select]*x[3] - stheta[select]*x[1]
     ao = mod2pi(atan2(ctheta[select]*x[1] + stheta[select]*x[3], x[2]) + psi[select])
-
-    if bo < 1
-        bo = asin(bo)
-    else
-        bo = asin(T(1))
-    end
+    bo = asin(bo)
 
     if radian
         return (ao, bo)
