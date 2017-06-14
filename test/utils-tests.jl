@@ -140,6 +140,9 @@ end
     @test gal[2] ≈ 34.46136801388695
     @test euler(183/pi, pi/180, 2, FK4=false, radian=true) ==
                 (5.682517110086799, 0.947078051715398)
+    glong, glat = euler([0.45, 130], [16.28, 53.65], 5)
+    @test glong ≈ [96.9525940157568, 138.09922696730337]
+    @test glat ≈ [-43.90672396295434, 46.95527026543361]
     @test_throws ErrorException euler((45,45), 7)
 end
 
