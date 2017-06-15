@@ -114,6 +114,38 @@ let
     @test y ≈ [12.83458333897169]
 end
 
+# Test euler
+# The values used for the testset are from running the code. However they have been
+# correlated with the output from euler routine of IDL AstroLib, with
+# differences only in the least significant digits.
+@testset "euler" begin
+    glong, glat = euler(299.590315, 35.201604, 1)
+    @test glong ≈ 71.33498957116959
+    @test glat ≈ 3.0668335310640984
+    ra, dec = euler((71.33498957116959, 3.0668335310640984), 2)
+    @test ra ≈ 299.590315
+    @test dec ≈ 35.201604
+    elong, elat = euler(3.141592653589793, 0.6143838917832061, 3,
+                        FK4 = true, radian=true)
+    @test elong ≈ 2.8679433080257506
+    @test elat ≈ 0.557258307291505
+    ra, dec = euler((2.8679433080257506, 0.557258307291505), 4,
+                    FK4 = true, radian=true)
+    @test ra ≈ 3.141592653589793
+    @test dec ≈ 0.6143838917832061
+    ecl, gal = euler.(30.45, 76.54, [5,6])
+    @test ecl[1] ≈ 103.50477919192522
+    @test ecl[2] ≈ 18.01965967759107
+    @test gal[1] ≈ 194.96100731553986
+    @test gal[2] ≈ 34.46136801388695
+    @test euler(183/pi, pi/180, 2, FK4=false, radian=true) ==
+                (5.682517110086799, 0.947078051715398)
+    glong, glat = euler([0.45, 130], [16.28, 53.65], 5)
+    @test glong ≈ [96.9525940157568, 138.09922696730337]
+    @test glat ≈ [-43.90672396295434, 46.95527026543361]
+    @test_throws ErrorException euler((45,45), 7)
+end
+
 # Test flux2mag
 @test flux2mag.([1.5e-12, 8.7e-15, 4.4e-10]) ≈
     [8.459771852360795, 14.051201868453454, 2.291368308784527]
@@ -258,6 +290,9 @@ end
     [-45.64994926111004, 89.7820347358485]
 
 # Test imf
+# The values used for the testset are from running the code. However they have been
+# correlated with the output from imf routine of IDL AstroLib, with
+# differences only in the least significant digits.
 @testset "imf" begin
     @test_throws ErrorException imf([5], [-6.75], [0.9])
     @test imf([0.1, 0.01], [-0.6, -1], [ 0.007, 1.8, 110] ) ≈
@@ -267,6 +302,9 @@ end
 end
 
 # Test ismeuv
+# The values used for the testset are from running the code. However they have been
+# correlated with the output from ismeuv routine of IDL AstroLib, with
+# differences only in the least significant digits.
 @testset "ismeuv" begin
     @test ismeuv(304, 1e20) ≈ 58.30508020244554
     @test ismeuv.([50, 75, 343], 1e18) ≈

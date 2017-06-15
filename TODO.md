@@ -68,7 +68,6 @@ Missing in AstroLib.jl
 * `date_conv`
 * `eq2hor`
 * `eqpole_grid`
-* `euler`
 * `fm_unred`
 * `gal_flat`
 * `get_coords`
