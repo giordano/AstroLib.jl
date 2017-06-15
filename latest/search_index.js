@@ -125,7 +125,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "Coordinates and positions",
     "category": "section",
-    "text": "adstring(), aitoff(), altaz2hadec(), bprecess() eci2geo() eqpole() gcirc() geo2eci() geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), jprecess(), mag2geo(), polrec(), posang(), precess(), precess_cd(), precess_xyz(), premat(), radec(), recpol() zenpos()"
+    "text": "adstring(), aitoff(), altaz2hadec(), bprecess(), eci2geo(), eqpole(), euler(), gcirc(), geo2eci(). geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), jprecess(), mag2geo(), polrec(), posang(), precess(), precess_cd(), precess_xyz(), premat(), radec(), recpol() zenpos()"
 },
 
 {
@@ -270,6 +270,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.eqpole",
     "category": "Method",
     "text": "eqpole(l, b) -> x, y\n\nPurpose\n\nConvert right ascension l and declination b to coordinate (x y) using an equal-area polar projection.\n\nExplanation\n\nThe output x and y coordinates are scaled to be in the range -90 90 and to go from equator to pole to equator.  Output map points can be centered on the north pole or south pole.\n\nArguments\n\nl: longitude, scalar or vector, in degrees\nb: latitude, same number of elements as right ascension, in degrees\nsouthpole (optional boolean keyword): keyword to indicate that the plot is to be centered on the south pole instead of the north pole.  Default is false.\n\nOutput\n\nThe 2-tuple (x y):\n\nx coordinate, same number of elements as right ascension, normalized to be in the range -90 90.\ny coordinate, same number of elements as declination, normalized to be in the range -90 90.\n\nExample\n\neqpole(100, 35, southpole=true)\n# => (-111.18287262822456,-19.604540237028665)\neqpole(80, 19)\n# => (72.78853915267848,12.83458333897169)\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.euler-Tuple{Real,Real,Integer}",
+    "page": "Reference",
+    "title": "AstroLib.euler",
+    "category": "Method",
+    "text": "euler(ai, bi, select[, FK4=true, radian=true])\n\nPurpose\n\nTransform between Galactic, celestial, and ecliptic coordinates.\n\nExplanation\n\nThe function is used by the astro procedure.\n\nArguments\n\nai: input longitude, scalar or vector.\nbi: input latitude, scalar or vector.\nselect : integer input specifying type of coordinate transformation. SELECT   From          To     | SELECT   From       To    1   RA-Dec (2000) Galactic |   4    Ecliptic   RA-Dec    2   Galactic      RA-DEC   |   5    Ecliptic   Galactic    3   RA-Dec        Ecliptic |   6    Galactic   Ecliptic\nFK4 (optional boolean keyword) : if this keyword is set to true, then input and output celestial and ecliptic coordinates should be given in equinox B1950. When false, by default, they should be given in equinox J2000.\nradian (optional boolean keyword) : if this keyword is set to true, all input and output angles are in radian rather than degrees.\n\nOutput\n\na 2-tuple (ao, bo):\n\nao: output longitude in degrees.\nbo: output latitude in degrees.\n\nExample\n\nFind the Galactic coordinates of Cyg X-1 (ra=299.590315, dec=35.201604)\n\njulia> euler(299.590315, 35.201604, 1)\n(71.33498957116959, 3.0668335310640984)\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
 },
 
 {
