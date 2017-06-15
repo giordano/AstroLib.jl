@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
 function _co_aberration{T<:AbstractFloat}(jd::T, ra::T, dec::T, eps::T)
-    t = (jd - 2415020.0)*inv(JULIANYEAR*100)
+    t = (jd -2451545)/36525
     if isnan(eps)
         eps0 = ten(23,26,21.448)*3600 - 46.815*t - 0.00058*(t^2) +
                0.001813*(t^3)
@@ -22,7 +22,7 @@ function _co_aberration{T<:AbstractFloat}(jd::T, ra::T, dec::T, eps::T)
     sa = sind(ra)
     t1 = (cs*ce*(te*cd - sa*sd) + ca*sd*ss)
     t2 = (cp*ce*(te*cd - sa*sd) + ca*sd*sp)
-    d_ra = 20.49552*(e*(ca*cp*ce + sa*sp) - ca*cs*ce + sa*ss)/cd
+    d_ra = 20.49552*(e*(ca*cp*ce + sa*sp) - ca*cs*ce - sa*ss)/cd
     d_dec = 20.49552*(e*t2 - t1)
     return d_ra, d_dec
 end
@@ -56,8 +56,18 @@ The 2-tuple `(d_ra, d_dec)`:
 
 ### Example ###
 
-```julia
+Compute the change in RA and Dec of Theta Persei (RA = 2h46m,11.331s, Dec = 49d20',54.5'')
+due to aberration on 2028 Nov 13.19 TD
 
+```julia
+julia> jd = jdcnv(2028,11,13,4, 56)
+2.4620887055555554e6
+
+julia> co_aberration(jd,ten(2,46,11.331)*15,ten(49,20,54.54))
+(30.044044923858255, 6.699402837501943)
+
+d_ra = 30.044044923858255'' (≈ 2.003s)
+d_dec = 6.699402837501943''
 ```
 
 ### Notes ###

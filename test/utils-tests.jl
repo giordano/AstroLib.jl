@@ -66,7 +66,7 @@ end
 # Test co_aberration
 # The values used for the testset are from running the code. However they have been
 # correlated with the output from co_aberration routine of IDL AstroLib, with
-# differences only in the least significant digits.
+# very small differences.
 @testset "co_aberration" begin
     d_ra, d_dec = co_aberration(jdcnv(1987, 4, 10, 0), ten(2,46,11.331)*15, ten(49,20,54.54),
                                 eps=1)
