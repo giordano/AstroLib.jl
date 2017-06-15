@@ -94,6 +94,7 @@ julia> AstroLib.planets["saturn"].mass
 [`bprecess()`](@ref),
 [`eci2geo()`](@ref),
 [`eqpole()`](@ref),
+[`euler()`](@ref),
 [`gcirc()`](@ref),
 [`geo2eci()`](@ref).
 [`geo2geodetic()`](@ref),
