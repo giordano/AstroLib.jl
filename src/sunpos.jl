@@ -53,9 +53,9 @@ function _sunpos{T<:AbstractFloat}(jd::T, radians::Bool)
     ra = cirrange(atan2(sind(l)*cosd(oblt), cosd(l)), 2pi)
     dec = asin(sind(l)*sind(oblt))
     if radians
-        return ra, dec, longmed, oblt
+        return ra, dec, deg2rad(longmed), deg2rad(oblt)
     else
-        return rad2deg(ra), rad2deg(dec), rad2deg(longmed), rad2deg(oblt)
+        return rad2deg(ra), rad2deg(dec), longmed, oblt
     end
 end
 
