@@ -68,15 +68,14 @@ end
 # correlated with the output from co_aberration routine of IDL AstroLib, with
 # very small differences.
 @testset "co_aberration" begin
-    d_ra, d_dec = co_aberration(jdcnv(1987, 4, 10, 0), ten(2,46,11.331)*15, ten(49,20,54.54),
-                                eps=1)
+    d_ra, d_dec = co_aberration(jdcnv(1987, 4, 10, 0), ten(2,46,11.331)*15, ten(49,20,54.54), 1)
     @test d_ra ≈ -18.692441865574867
     @test d_dec ≈ -9.070782150537646
     ao, bo =  co_aberration([57555.0, -6.44311e5], [302.282, 69.5667], [37.1519, 20.6847])
     @test ao[1] ≈ 21.67305848435842
-    @test ao[2] ≈ 18.497092503678395
+    @test ao[2] ≈ 18.497093350858627
     @test bo[1] ≈ -6.773074833128152
-    @test bo[2] ≈ 2.9168653394094504
+    @test bo[2] ≈ 2.916859869619659
 end
 
 # Test ct2lst

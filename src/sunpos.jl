@@ -40,7 +40,7 @@ function _sunpos{T<:AbstractFloat}(jd::T, radians::Bool)
     longterm = 6.4*sind(231.19 + 20.20*t)
     l += longterm
     l  = mod(l + 2592000.0, 1296000.0)
-    longmed = l/3600.0
+    longmed = deg2rad(l/3600)
     # Allow for Aberration
     l -= 20.5
     # Allow for Nutation using the longitude of the Moons mean node OMEGA
@@ -52,10 +52,11 @@ function _sunpos{T<:AbstractFloat}(jd::T, radians::Bool)
     l /= 3600.0
     ra = cirrange(atan2(sind(l)*cosd(oblt), cosd(l)), 2pi)
     dec = asin(sind(l)*sind(oblt))
+    oblt = deg2rad(oblt)
     if radians
-        return ra, dec, deg2rad(longmed), deg2rad(oblt)
+        return ra, dec, longmed, oblt
     else
-        return rad2deg(ra), rad2deg(dec), longmed, oblt
+        return rad2deg(ra), rad2deg(dec), rad2deg(longmed), rad2deg(oblt)
     end
 end
 

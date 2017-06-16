@@ -1,15 +1,14 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
 function _co_aberration{T<:AbstractFloat}(jd::T, ra::T, dec::T, eps::T)
-    t = (jd -2451545)/36525
+    t = (jd - J2000)*inv(JULIANYEAR*100)
     if isnan(eps)
-        eps0 = ten(23,26,21.448)*3600 - 46.815*t - 0.00058*(t^2) +
-               0.001813*(t^3)
+        eps0 = @evalpoly t ten(23,26,21.448)*3600 -46.815 -0.00059 0.001813
         eps = sec2rad(eps0 + nutate(jd)[2])
     end
-    sunlong = T(sunpos(jd, radians=true)[3])
-    e = 0.016708634 - 0.000042037*t - 0.0000001267*(t^2)
-    pe = 102.93735 + 1.71946*t + 0.00046*(t^2)
+    sunlong = sunpos(jd, radians=true)[3]
+    e = @evalpoly t 0.016708634 -0.000042037 -0.0000001267
+    pe = @evalpoly t 102.93735 1.71946 0.00046
     cd = cosd(dec)
     sd = sind(dec)
     ce = cos(eps)
@@ -28,7 +27,7 @@ function _co_aberration{T<:AbstractFloat}(jd::T, ra::T, dec::T, eps::T)
 end
 
 """
-
+    co_aberration(jd, ra, dec[, eps=NaN]) -> d_ra, d_dec
 
 ### Purpose ###
 
@@ -83,17 +82,17 @@ Earth's velocity is perpendicular to the direction of the star.
 
 This function calls [nutate](@ref), [ten](@ref) and [sunpos](@ref).
 """
-co_aberration(jd::Real, ra::Real, dec::Real; eps::Real=NaN) =
+co_aberration(jd::Real, ra::Real, dec::Real, eps::Real=NaN) =
     _co_aberration(promote(float(jd), float(ra), float(dec), float(eps))...)
 
 function co_aberration{R<:Real}(jd::AbstractVector{R}, ra::AbstractVector{R},
-                                dec::AbstractVector{R}; eps::Real=NaN)
+                                dec::AbstractVector{R}, eps::Real=NaN)
     @assert length(jd) == length(ra) == length(dec) "jd, ra and dec vectors should be of the same length"
     typejd = typeof(float(one(R)))
     ra_out  = similar(ra,  typejd)
     dec_out = similar(dec, typejd)
     for i in eachindex(jd)
-        ra_out[i], dec_out[i] = co_aberration(jd[i], ra[i], dec[i], eps=eps)
+        ra_out[i], dec_out[i] = co_aberration(jd[i], ra[i], dec[i], eps)
     end
     return ra_out, dec_out
 end
