@@ -37,6 +37,9 @@ export eci2geo
 include("eqpole.jl")
 export eqpole
 
+include("euler.jl")
+export euler
+
 include("flux2mag.jl")
 export flux2mag
 
