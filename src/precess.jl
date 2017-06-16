@@ -18,7 +18,7 @@ function _precess{T<:AbstractFloat}(ra::T, dec::T, equinox1::T, equinox2::T,
     ra_rad  = atan2(x2[2], x2[1])
     dec_rad = asin(x2[3])
     if radians
-        return cirrange(ra_rad, 2.0*pi), dec_rad
+        return cirrange(ra_rad, 2 * T(pi)), dec_rad
     else
         return cirrange(rad2deg(ra_rad)), rad2deg(dec_rad)
     end

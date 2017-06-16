@@ -2,10 +2,10 @@
 
 function _precess_cd{T<:AbstractFloat}(cd::AbstractMatrix{T}, epoch1::T, epoch2::T, crval_old::AbstractVector{T},
                                        crval_new::AbstractVector{T}, FK4::Bool)
-    t = (epoch2 - epoch1)*0.001
+    t = (epoch2 - epoch1) / 1000
 
     if FK4
-        st = (epoch1 - 1900)*0.001
+        st = (epoch1 - 1900) / 1000
         c = sec2rad(t*(20046.85 - st*(85.33 + st*0.37) + t*(-42.67 - st*0.37 - t*41.8)))
     else
         st = (epoch1 - 2000)*0.001

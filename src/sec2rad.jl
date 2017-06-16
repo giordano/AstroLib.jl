@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-_sec2rad{T<:AbstractFloat}(sec::T) = deg2rad(sec/3600.0)
+sec2rad{T<:AbstractFloat}(sec::T) = deg2rad(sec/3600)
 
 """
     sec2rad(sec) -> radians
@@ -30,4 +30,4 @@ sec2rad(3600*30)
 
 Use `rad2sec` to convert radians to seconds.
 """
-sec2rad(sec::Real) = _sec2rad(float(sec))
+sec2rad(sec::Real) = sec2rad(float(sec))
