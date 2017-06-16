@@ -63,7 +63,22 @@ end
      0.7080829505773865, 0.7502392743978797, 0.7861262388745882, 0.8151258710444882,
      0.8390325371659836]
 
-#test ct2lst
+# Test co_aberration
+# The values used for the testset are from running the code. However they have been
+# correlated with the output from co_aberration routine of IDL AstroLib, with
+# very small differences.
+@testset "co_aberration" begin
+    d_ra, d_dec = co_aberration(jdcnv(1987, 4, 10, 0), ten(2,46,11.331)*15, ten(49,20,54.54), 1)
+    @test d_ra ≈ -18.692441865574867
+    @test d_dec ≈ -9.070782150537646
+    ao, bo =  co_aberration([57555.0, -6.44311e5], [302.282, 69.5667], [37.1519, 20.6847])
+    @test ao[1] ≈ 21.67305848435842
+    @test ao[2] ≈ 18.497093350858627
+    @test bo[1] ≈ -6.773074833128152
+    @test bo[2] ≈ 2.916859869619659
+end
+
+# Test ct2lst
 @test ct2lst.(-76.72, -4, [DateTime(2008, 7, 30, 15, 53)]) ≈ [11.356505172312609]
 @test ct2lst.(9, [jdcnv(2015, 11, 24, 12, 21)]) ≈ [17.159574059885927]
 
@@ -82,7 +97,6 @@ let
     @test c0  ≈ [0.905,1.0]
     @test ub0 ≈ [-0.665,0.3]
 end
-
 
 # Test eci2geo
 let
@@ -590,23 +604,22 @@ end
 @test sphdist.(120, -43, [175], [+22]) ≈ [1.5904422616007134]
 
 # Test sunpos
-let
-    local ra, dec, lon, obl
+@testset "sunpos" begin
     ra, dec, lon, obl = sunpos(jdcnv(1982, 5, 1))
     @test ra  ≈ 37.88589057369026
     @test dec ≈ 14.909699471099517
-    @test lon ≈ 2309.6312912217463
-    @test obl ≈ 1343.0612563977593
+    @test lon ≈ 40.31067053890748
+    @test obl ≈ 23.440840980112657
     ra, dec, lon, obl = sunpos(jdcnv.([DateTime(2016, 5, 10)]), radians=true)
     @test ra  ≈ [0.8259691339090751]
     @test dec ≈ [0.3085047454107549]
-    @test lon ≈ [49.77773359512005 ]
-    @test obl ≈ [23.434647165246304]
+    @test lon ≈ [0.8687853454154388]
+    @test obl ≈ [0.40901175207670365]
     ra, dec, lon, obl = sunpos([2457531])
     @test ra  ≈ [59.71655864208797]
     @test dec ≈ [20.52127006818727]
-    @test lon ≈ [3542.279299068626]
-    @test obl ≈ [1342.7064622183311]
+    @test lon ≈ [61.824436793991545]
+    @test obl ≈ [23.434648653514724]
 end
 
 # Test "ten" and "tenv".  Always make sure string and numerical inputs are

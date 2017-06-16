@@ -92,11 +92,12 @@ julia> AstroLib.planets["saturn"].mass
 [`aitoff()`](@ref),
 [`altaz2hadec()`](@ref),
 [`bprecess()`](@ref),
+[`co_aberration()`](@ref),
 [`eci2geo()`](@ref),
 [`eqpole()`](@ref),
 [`euler()`](@ref),
 [`gcirc()`](@ref),
-[`geo2eci()`](@ref).
+[`geo2eci()`](@ref),
 [`geo2geodetic()`](@ref),
 [`geo2mag()`](@ref),
 [`geodetic2geo()`](@ref),
@@ -111,7 +112,7 @@ julia> AstroLib.planets["saturn"].mass
 [`precess_xyz()`](@ref),
 [`premat()`](@ref),
 [`radec()`](@ref),
-[`recpol()`](@ref)
+[`recpol()`](@ref),
 [`zenpos()`](@ref)
 
 ### Time and date
