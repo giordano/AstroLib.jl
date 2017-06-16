@@ -110,7 +110,7 @@ function precess{R<:Real, D<:Real}(ra::AbstractArray{R},
                                    equinox2::Real; FK4::Bool=false,
                                    radians::Bool=false)
     @assert length(ra) == length(dec) "ra and dec arrays should be of the same length"
-    typera = typeof(float(one(R)))
+    typera = float(R)
     ra_out  = similar(ra,  typera)
     dec_out = similar(dec, typera)
     for i in eachindex(ra)

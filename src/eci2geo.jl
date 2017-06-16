@@ -85,7 +85,7 @@ function eci2geo{X<:Real, Y<:Real, Z<:Real, JD<:Real}(x::AbstractArray{X},
                                                       z::AbstractArray{Z},
                                                       jd::AbstractArray{JD})
     @assert length(x) == length(y) == length(z) == length(jd)
-    typex = typeof(float(one(X)))
+    typex = float(X)
     lat  = similar(x, typex)
     long = similar(x, typex)
     alt  = similar(x, typex)

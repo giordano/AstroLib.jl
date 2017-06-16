@@ -122,7 +122,7 @@ function geodetic2geo{LA<:Real, LO<:Real, AL<:Real}(lat::AbstractArray{LA},
                                                     alt::AbstractArray{AL},
                                                     eq::Real, pol::Real)
     @assert length(lat) == length(long) == length(alt)
-    typela  = typeof(float(one(LA)))
+    typela  = float(LA)
     outlat  = similar(lat, typela)
     outlong = similar(lat, typela)
     outalt  = similar(lat, typela)
@@ -147,7 +147,7 @@ function geodetic2geo{LA<:Real, LO<:Real, AL<:Real}(lat::AbstractArray{LA},
                                                     alt::AbstractArray{AL},
                                                     planet::AbstractString="earth")
     @assert length(lat) == length(long) == length(alt)
-    typela  = typeof(float(one(LA)))
+    typela  = float(LA)
     outlat  = similar(lat, typela)
     outlong = similar(lat, typela)
     outalt  = similar(lat, typela)

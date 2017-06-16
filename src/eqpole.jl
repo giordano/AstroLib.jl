@@ -62,7 +62,7 @@ function eqpole{L<:Real, B<:Real}(l::AbstractArray{L},
                                   b::AbstractArray{B};
                                   southpole::Bool=false)
     @assert length(l) == length(b)
-    typel = typeof(float(one(L)))
+    typel = float(L)
     x = similar(l, typel)
     y = similar(l, typel)
     for i in eachindex(l)

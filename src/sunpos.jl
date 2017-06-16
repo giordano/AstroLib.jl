@@ -3,7 +3,7 @@
 
 function _sunpos{T<:AbstractFloat}(jd::T, radians::Bool)
     # Number of Julian centuries since 1899-12-31T12:00:00
-    t = (jd - 2415020.0)*inv(JULIANYEAR*100)
+    t = (jd - 2415020) / (JULIANYEAR*100)
     # Sun's mean longitude
     l = (279.696678 + mod(36000.768925*t, 360.0))*3600.0
     # Allow for ellipticity of the orbit (equation of centre) using the Earth's

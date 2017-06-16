@@ -57,7 +57,7 @@ const moon_sin_lat = [5128122, 280602, 277693, 173237, 55413, 46271, 32573,
 
 function _moonpos{T<:AbstractFloat}(jd::T, radians::Bool)
     # Number of Julian centuries since 2000-01-01T12:00:00
-    t = (jd - J2000)*inv(JULIANYEAR*100)
+    t = (jd - J2000) / (JULIANYEAR*100)
     # Mean longitude of the moon referred to mean equinox of the date
     Lprimed = cirrange(@evalpoly(t, 218.3164477, 481267.88123421,
                                  -0.0015786, inv(538841), -inv(6.5194e7)))

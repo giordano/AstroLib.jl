@@ -59,7 +59,7 @@ radec(ra::Real, dec::Real; hours::Bool=false) =
 function radec{R<:Real, D<:Real}(ra::AbstractArray{R}, dec::AbstractArray{D};
                                  hours::Bool=false)
     @assert length(ra) == length(dec)
-    typera = typeof(float(one(R)))
+    typera = float(R)
     ra_hr   = similar(ra, typera)
     ra_min  = similar(ra, typera)
     ra_sec  = similar(ra, typera)

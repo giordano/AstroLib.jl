@@ -3,9 +3,9 @@
 
 function _ct2lst{T<:AbstractFloat}(long::T, jd::T)
     t0 = jd - J2000
-    t  = t0*inv(JULIANYEAR*100)
+    t  = t0 / (JULIANYEAR * 100)
     # Compute GST in seconds.
-    θ = ct2lst_c[1] + (ct2lst_c[2]*t0) + t*t*(ct2lst_c[3] - t*inv(ct2lst_c[4]))
+    θ = ct2lst_c[1] + (ct2lst_c[2]*t0) + t*t*(ct2lst_c[3] - t / ct2lst_c[4])
     return cirrange((θ + long)/15, 24)
 end
 

@@ -133,7 +133,7 @@ function gal_uvw{R<:Real,
                            lsr::Bool=false)
     @assert length(ra) == length(dec) == length(pmra) ==
         length(pmdec) == length(vrad) == length(plx)
-    typer = typeof(float(one(R)))
+    typer = float(R)
     u = similar(ra, typer)
     v = similar(ra, typer)
     w = similar(ra, typer)

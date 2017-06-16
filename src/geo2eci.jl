@@ -77,7 +77,7 @@ function geo2eci{LA<:Real, LO<:Real, AL<:Real, JD<:Real}(lat::AbstractArray{LA},
                                                          alt::AbstractArray{AL},
                                                          jd::AbstractArray{JD})
     @assert length(lat) == length(long) == length(alt) == length(jd)
-    typela = typeof(float(one(LA)))
+    typela = float(LA)
     x = similar(lat, typela)
     y = similar(lat, typela)
     z = similar(lat, typela)

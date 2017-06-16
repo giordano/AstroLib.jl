@@ -36,17 +36,17 @@ function _bprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
     r1 = R_1[1:3]
     r1_dot = R_1[4:6]
     if isfinite(epoch)
-        r1 += deg2rad.(r1_dot*(epoch - 1950.0)*inv(360000.0))
-        A  += deg2rad.(A_dot_precess*(epoch - 1950.0)*inv(360000.0))
+        r1 .+= deg2rad.(r1_dot .* (epoch .- 1950) ./ 360000)
+        A  .+= deg2rad.(A_dot_precess .* (epoch .- 1950) ./ 360000)
     end
     rmag = vecnorm(r1)
-    s1 = r1*inv(rmag)
-    s1_dot = r1_dot*inv(rmag)
+    s1 = r1 ./ rmag
+    s1_dot = r1_dot ./ rmag
     r = Array{T}(3)
     s = s1
     for j = 0:2
-        r = s1 + A - sum(s.*A)*s
-        s = r*inv(rmag)
+        r = s1 .+ A .- dot(s, A) .* s
+        s = r ./ rmag
     end
     rmag = vecnorm(r)
     # r_dot = s1_dot + A_dot_precess - sum(s.*A_dot_precess)*s
@@ -58,11 +58,11 @@ function _bprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
     # z_dot = r_dot[3]
     # muradec[1] = (x*y_dot - y*x_dot)/(x*x + y*y)
     # muradec[2] = (z_dot*(x*x + y*y) - z*(x*x_dot + y*y_dot))/(rmag*rmag*hypot(x, y))
-    dec1950 = asin(z*inv(rmag))
+    dec1950 = asin(z / rmag)
     ra1950  = atan2(y, x)
     # if parallax > 0
     #     radvel = (x*x_dot + y*y_dot + z*z_dot)/(21.095*parallax*rmag)
-    #     parallax = parallax*inv(rmag)
+    #     parallax = parallax / rmag
     # end
     if ra1950 < 0
         ra1950 += 2pi
@@ -100,7 +100,7 @@ function bprecess{R<:Real,D<:Real,M<:Real,P<:Real,V<:Real}(ra::AbstractArray{R},
                                                            parallax::AbstractArray{P}=zeros(R, length(ra)),
                                                            radvel::AbstractArray{V}=zeros(R, length(ra)))
     @assert length(ra) == length(dec) == size(muradec)[2] == length(parallax) == length(radvel)
-    typer = typeof(float(one(R)))
+    typer = float(R)
     ra1950  = similar(ra, typer)
     dec1950 = similar(dec, typer)
     for i in eachindex(ra)

@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
 function _co_aberration{T<:AbstractFloat}(jd::T, ra::T, dec::T, eps::T)
-    t = (jd - J2000)*inv(JULIANYEAR*100)
+    t = (jd - J2000) / (JULIANYEAR * 100)
     if isnan(eps)
         eps = obliquity(jd)
     end
@@ -87,7 +87,7 @@ co_aberration(jd::Real, ra::Real, dec::Real, eps::Real=NaN) =
 function co_aberration{R<:Real}(jd::AbstractVector{R}, ra::AbstractVector{R},
                                 dec::AbstractVector{R}, eps::Real=NaN)
     @assert length(jd) == length(ra) == length(dec) "jd, ra and dec vectors should be of the same length"
-    typejd = typeof(float(one(R)))
+    typejd = float(R)
     ra_out  = similar(ra,  typejd)
     dec_out = similar(dec, typejd)
     for i in eachindex(jd)

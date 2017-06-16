@@ -2,14 +2,14 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 function _aitoff{T<:AbstractFloat}(l::T, b::T)
-    l > 180.0 && (l -= 360.0)
-    alpha2 = deg2rad(l/2.0)
+    l > 180 && (l -= 360)
+    alpha2 = deg2rad(l/2)
     delta = deg2rad(b)
-    r2 = sqrt(2.0)
-    f = 2.0*r2/pi
+    r2 = sqrt(2)
+    f = 2*r2/pi
     cdec = cos(delta)
-    denom = sqrt(1.0 + cdec*cos(alpha2))
-    return rad2deg(cdec*sin(alpha2)*2.0*r2/denom/f), rad2deg(sin(delta)*r2/denom/f)
+    denom = sqrt(1 + cdec*cos(alpha2))
+    return rad2deg(cdec*sin(alpha2)*2*r2/denom/f), rad2deg(sin(delta)*r2/denom/f)
 end
 
 """
@@ -66,7 +66,7 @@ aitoff(lb::Tuple{Real, Real}) = aitoff(lb...)
 
 function aitoff{L<:Real,B<:Real}(l::AbstractArray{L}, b::AbstractArray{B})
     @assert length(l) == length(b)
-    typel = typeof(float(one(L)))
+    typel = float(L)
     x = similar(l, typel)
     y = similar(b, typel)
     for i in eachindex(l)
