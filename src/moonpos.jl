@@ -76,7 +76,7 @@ function _moonpos{T<:AbstractFloat}(jd::T, radians::Bool)
     F = deg2rad(cirrange(@evalpoly(t, 93.2720950, 483202.0175233, -0.0036539,
                                    -inv(3.526e7), inv(8.6331e8))))
     # Eccentricity of Earth's orbit around the Sun
-    E = 1.0 - 0.002516*t - 7.4e-6*t*t
+    E = @evalpoly t 1 -0.002516 -7.4e-6
     E2 = E*E
     # Additional arguments
     A1 = deg2rad(119.75 + 131.849*t)
@@ -114,8 +114,8 @@ function _moonpos{T<:AbstractFloat}(jd::T, radians::Bool)
     λ = deg2rad(geolong)
     β = deg2rad(geolat)
     # Find mean obliquity and convert λ, β to right ascension and declination.
-    ɛ = ten(23, 26) + @evalpoly(t/1e2, 21.448, -4680.93, -1.55, 1999.25, -51.38,
-                                -249.67, -39.05, 7.12, 27.87, 5.79, 2.45)/3.6e3
+    ɛ = ten(23, 26) + @evalpoly(t/100, 21.448, -4680.93, -1.55, 1999.25, -51.38,
+                                -249.67, -39.05, 7.12, 27.87, 5.79, 2.45)/3600
     ɛ = deg2rad(ɛ + elong/3.6e3)
     ra = cirrange(atan2(sin(λ)*cos(ɛ) - tan(β)*sin(ɛ), cos(λ)), 2.*pi)
     dec = asin(sin(β)*cos(ɛ) + cos(β)*sin(ɛ)*sin(λ))

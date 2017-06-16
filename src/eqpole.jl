@@ -2,17 +2,15 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 function _eqpole{T<:AbstractFloat}(l::T, b::T, southpole::Bool)
-    sgn = southpole ? -1.0 : 1.0
+    sgn = southpole ? -1 : 1
     l = deg2rad(sgn*l)
     b = deg2rad(sgn*b)
-    sq = 2.0*(1.0 - sin(b))
-    sq = sq >= 0.0 ? sq : 0.0
-    r = 18.0*3.53553391*sqrt(sq)
+    r = 18 * 3.53553391 * sqrt(2 * (1 - sin(b)))
     return r*sin(l), r*cos(l)
 end
 
 """
-    eqpole(l, b) -> x, y
+    eqpole(l, b[; southpole = false]) -> x, y
 
 ### Purpose ###
 

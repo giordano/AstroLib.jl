@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _mphase{T<:AbstractFloat}(jd::T)
+function mphase{T<:AbstractFloat}(jd::T)
     ram, decm, dism = moonpos(jd, radians=true)
     ras, decs = sunpos(jd, radians=true)
     # phi: geocentric elongation of the Moon from the Sun
@@ -9,7 +9,7 @@ function _mphase{T<:AbstractFloat}(jd::T)
     phi = acos(sin(decs)*sin(decm) + cos(decs)*cos(decm)*cos(ras - ram))
     # "dism" is in kilometers, AU in meters
     inc = atan2(AU*sin(phi), dism*1e3 - AU*cos(phi))
-    return (1.0 + cos(inc))/2.0
+    return (1 + cos(inc))/2
 end
 
 """
@@ -56,4 +56,4 @@ Note that in this calendar month there are two full moons, this event is called
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-mphase(jd::Real) = _mphase(float(jd))
+mphase(jd::Real) = mphase(float(jd))

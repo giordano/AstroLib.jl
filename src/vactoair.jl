@@ -1,11 +1,11 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _vactoair{T<:AbstractFloat}(wave_vac::T)
-    if wave_vac >= 2000.0
+function vactoair{T<:AbstractFloat}(wave_vac::T)
+    if wave_vac >= 2000
         sigma2 = (1e4/wave_vac)^2  # Convert to wavenumber squared
         # Computer conversion factor.
-        fact = 1.0 + 5.792105e-2/(238.0185 - sigma2) +
+        fact = 1 + 5.792105e-2/(238.0185 - sigma2) +
             1.67917e-3/(57.362 - sigma2)
         return wave_vac/fact # Convert wavelength
     else
@@ -53,4 +53,4 @@ wavelength of `1999.353`.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-vactoair(wave_vac::Real) = _vactoair(float(wave_vac))
+vactoair(wave_vac::Real) = vactoair(float(wave_vac))
