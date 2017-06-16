@@ -125,7 +125,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "Coordinates and positions",
     "category": "section",
-    "text": "adstring(), aitoff(), altaz2hadec(), bprecess(), eci2geo(), eqpole(), euler(), gcirc(), geo2eci(). geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), jprecess(), mag2geo(), polrec(), posang(), precess(), precess_cd(), precess_xyz(), premat(), radec(), recpol() zenpos()"
+    "text": "adstring(), aitoff(), altaz2hadec(), bprecess(), co_aberration(), eci2geo(), eqpole(), euler(), gcirc(), geo2eci(), geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), jprecess(), mag2geo(), polrec(), posang(), precess(), precess_cd(), precess_xyz(), premat(), radec(), recpol(), zenpos()"
 },
 
 {
@@ -230,6 +230,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.cirrange",
     "category": "Function",
     "text": "cirrange(number[, max]) -> restricted_number\n\nPurpose\n\nForce a number into a given range 0 textmax).\n\nArgument\n\nnumber: the number to modify.  Can be a scalar or an array.\nmax (optional numerical argument): specify the extremum of the range 0 textmax)\n\ninto which the number should be restricted.  If omitted, defaults to 360.0.\n\nOutput\n\nThe converted number or array of numbers, as AbstractFloat.\n\nExample\n\nRestrict an array of numbers in the range 0 2pi) as if they are angles expressed in radians:\n\ncirrange([4pi, 10, -5.23], 2.0*pi)\n# => 3-element Array{Float64,1}:\n#     0.0\n#     3.71681\n#     1.05319\n\nNotes\n\nThis function does not support the radians keyword like IDL implementation. Use 2.0*pi as second argument to restrict a number to the same interval.\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.co_aberration",
+    "page": "Reference",
+    "title": "AstroLib.co_aberration",
+    "category": "Function",
+    "text": "co_aberration(jd, ra, dec[, eps=NaN]) -> d_ra, d_dec\n\nPurpose\n\nCalculate changes to right ascension and declination due to the effect of annual aberration\n\nExplanation\n\nWith reference to Meeus, Chapter 23\n\nArguments\n\njd: julian date, scalar or vector\nra: right ascension in degrees, scalar or vector\ndec: declination in degrees, scalar or vector\neps (optional): true obliquity of the ecliptic (in radians). It will be calculated if no argument is specified.\n\nOutput\n\nThe 2-tuple (d_ra, d_dec):\n\nd_ra: correction to right ascension due to aberration, in arc seconds\nd_dec: correction to declination due to aberration, in arc seconds\n\nExample\n\nCompute the change in RA and Dec of Theta Persei (RA = 2h46m,11.331s, Dec = 49d20',54.5'') due to aberration on 2028 Nov 13.19 TD\n\njulia> jd = jdcnv(2028,11,13,4, 56)\n2.4620887055555554e6\n\njulia> co_aberration(jd,ten(2,46,11.331)*15,ten(49,20,54.54))\n(30.044044923858255, 6.699402837501943)\n\nd_ra = 30.044044923858255'' (≈ 2.003s)\nd_dec = 6.699402837501943''\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\nThe output d_ra is not multiplied by cos(dec), so that apparent_ra = ra + d_ra/3600.\n\nThese formula are from Meeus, Chapters 23.  Accuracy is much better than 1 arcsecond. The maximum deviation due to annual aberration is 20.49'' and occurs when the Earth's velocity is perpendicular to the direction of the star.\n\nThis function calls nutate, ten and sunpos.\n\n\n\n"
 },
 
 {
