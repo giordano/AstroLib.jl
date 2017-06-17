@@ -470,7 +470,7 @@ end
 
 # Test obliquity
 @testset "obliquity" begin
-    @test obliquity(J2000) ≈ 0.4090646078966446
+    @test obliquity(2.451545e6) ≈ 0.4090646078966446
     eps_out = obliquity.(jdcnv.([DateTime(2016, 08, 23, 03, 39, 06),
                              DateTime(763, 09, 18, 12)]))
     @test eps_out[1] ≈ 0.4090133706884935
