@@ -105,18 +105,18 @@ function _moonpos{T<:AbstractFloat}(jd::T, radians::Bool)
         end
     end
     arg = moon_d_lng*d + moon_M_lng*M + moon_Mprime_lng*Mprime + moon_F_lng*F
-    geolong = Lprimed + (sum(sinlng.*sin.(arg)) + suml_add)/1e6
-    dis = 385000.56 + sum(coslng.*cos.(arg))/1e3
+    geolong = Lprimed + (dot(sinlng, sin.(arg)) + suml_add)/1000000
+    dis = 385000.56 + dot(coslng, cos.(arg))/1000
     arg = moon_d_lat*d + moon_M_lat*M + moon_Mprime_lat*Mprime + moon_F_lat*F
-    geolat = (sum(sinlat.*sin.(arg)) + sumb_add)/1e6
+    geolat = (sum(sinlat.*sin.(arg)) + sumb_add)/1000000
     nlong, elong = nutate(jd)
-    geolong = cirrange(geolong + nlong/3.6e3)
+    geolong = cirrange(geolong + nlong/3600)
     λ = deg2rad(geolong)
     β = deg2rad(geolat)
     # Find mean obliquity and convert λ, β to right ascension and declination.
     ɛ = ten(23, 26) + @evalpoly(t/100, 21.448, -4680.93, -1.55, 1999.25, -51.38,
                                 -249.67, -39.05, 7.12, 27.87, 5.79, 2.45)/3600
-    ɛ = deg2rad(ɛ + elong/3.6e3)
+    ɛ = deg2rad(ɛ + elong/3600)
     ra = cirrange(atan2(sin(λ)*cos(ɛ) - tan(β)*sin(ɛ), cos(λ)), 2.*pi)
     dec = asin(sin(β)*cos(ɛ) + cos(β)*sin(ɛ)*sin(λ))
     if radians
