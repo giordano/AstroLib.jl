@@ -72,10 +72,10 @@ end
     @test d_ra ≈ -18.692441865574867
     @test d_dec ≈ -9.070782150537646
     ao, bo =  co_aberration([57555.0, -6.44311e5], [302.282, 69.5667], [37.1519, 20.6847])
-    @test ao[1] ≈ 21.67305848435842
-    @test ao[2] ≈ 18.497093350858627
-    @test bo[1] ≈ -6.773074833128152
-    @test bo[2] ≈ 2.916859869619659
+    @test ao[1] ≈ 21.673035533799613
+    @test ao[2] ≈ 18.500293942496885
+    @test bo[1] ≈ -6.773031389735542
+    @test bo[2] ≈ 2.896163926501647
 end
 
 # Test ct2lst
@@ -466,6 +466,15 @@ let
     long, obl = nutate([2457000, 2458000])
     @test long ≈ [ 4.327189321653877, -9.686089990639474]
     @test obl  ≈ [-9.507794266102866, -6.970768250588256]
+end
+
+# Test obliquity
+@testset "obliquity" begin
+    @test obliquity(J2000) ≈ 0.4090646078966446
+    eps_out = obliquity.(jdcnv.([DateTime(2016, 08, 23, 03, 39, 06),
+                             DateTime(763, 09, 18, 12)]))
+    @test eps_out[1] ≈ 0.4090133706884935
+    @test eps_out[2] ≈ 0.4118896668413038
 end
 
 # Test paczynski
