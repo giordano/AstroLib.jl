@@ -64,9 +64,9 @@ end
      0.8390325371659836]
 
 # Test co_aberration
-# The values used for the testset are from running the code. However they have been
-# correlated with the output from co_aberration routine of IDL AstroLib, with
-# very small differences.
+# The values used for the testset are from running the code. They are slightly
+# different from the output of the co_aberration routine of IDL AstroLib, as
+# the function here uses an updated method to find mean obliquity
 @testset "co_aberration" begin
     d_ra, d_dec = co_aberration(jdcnv(1987, 4, 10, 0), ten(2,46,11.331)*15, ten(49,20,54.54), 1)
     @test d_ra ≈ -18.692441865574867
