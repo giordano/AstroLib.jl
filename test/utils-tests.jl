@@ -72,10 +72,10 @@ end
     @test d_ra ≈ -18.692441865574867
     @test d_dec ≈ -9.070782150537646
     ao, bo =  co_aberration([57555.0, -6.44311e5], [302.282, 69.5667], [37.1519, 20.6847])
-    @test ao[1] ≈ 21.673035533799613
-    @test ao[2] ≈ 18.500293942496885
-    @test bo[1] ≈ -6.773031389735542
-    @test bo[2] ≈ 2.896163926501647
+    @test ao[1] ≈ 21.67241548688214
+    @test ao[2] ≈ 18.520938502562068
+    @test bo[1] ≈ -6.771829170675793
+    @test bo[2] ≈ 2.7611262063018374
 end
 
 # Test ct2lst
@@ -470,11 +470,10 @@ end
 
 # Test obliquity
 @testset "obliquity" begin
-    @test obliquity(2.451545e6) ≈ 0.4090646078966446
-    eps_out = obliquity.(jdcnv.([DateTime(2016, 08, 23, 03, 39, 06),
-                             DateTime(763, 09, 18, 12)]))
-    @test eps_out[1] ≈ 0.4090133706884935
-    @test eps_out[2] ≈ 0.4118896668413038
+    @test obliquity(AstroLib.J2000) ≈ 0.3964132956854047
+    @test obliquity.(jdcnv.([DateTime(2016, 08, 23, 03, 39, 06),
+                             DateTime(763, 09, 18, 12)])) ≈
+        [0.39637980390506966, 0.39813051535273697]
 end
 
 # Test paczynski
