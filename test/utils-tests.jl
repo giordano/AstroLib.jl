@@ -64,18 +64,18 @@ end
      0.8390325371659836]
 
 # Test co_aberration
-# The values used for the testset are from running the code. However they have been
-# correlated with the output from co_aberration routine of IDL AstroLib, with
-# very small differences.
+# The values used for the testset are from running the code. They are slightly
+# different from the output of the co_aberration routine of IDL AstroLib, as
+# the function here uses an updated method to find mean obliquity
 @testset "co_aberration" begin
     d_ra, d_dec = co_aberration(jdcnv(1987, 4, 10, 0), ten(2,46,11.331)*15, ten(49,20,54.54), 1)
     @test d_ra ≈ -18.692441865574867
     @test d_dec ≈ -9.070782150537646
     ao, bo =  co_aberration([57555.0, -6.44311e5], [302.282, 69.5667], [37.1519, 20.6847])
-    @test ao[1] ≈ 21.67305848435842
-    @test ao[2] ≈ 18.497093350858627
-    @test bo[1] ≈ -6.773074833128152
-    @test bo[2] ≈ 2.916859869619659
+    @test ao[1] ≈ 21.673056337579048
+    @test ao[2] ≈ 18.496516329468466
+    @test bo[1] ≈ -6.773070772568567
+    @test bo[2] ≈ 2.9205843718089457
 end
 
 # Test ct2lst
@@ -466,6 +466,14 @@ let
     long, obl = nutate([2457000, 2458000])
     @test long ≈ [ 4.327189321653877, -9.686089990639474]
     @test obl  ≈ [-9.507794266102866, -6.970768250588256]
+end
+
+# Test obliquity
+@testset "obliquity" begin
+    @test obliquity(AstroLib.J2000) ≈ 0.4090646078966446
+    @test obliquity.(jdcnv.([DateTime(2016, 08, 23, 03, 39, 06),
+                             DateTime(763, 09, 18, 12)])) ≈
+        [0.4090133706884892, 0.41188965892279295]
 end
 
 # Test paczynski
