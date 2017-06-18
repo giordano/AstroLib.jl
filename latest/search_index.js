@@ -125,7 +125,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "Coordinates and positions",
     "category": "section",
-    "text": "adstring(), aitoff(), altaz2hadec(), bprecess(), co_aberration(), eci2geo(), eqpole(), euler(), gcirc(), geo2eci(), geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), jprecess(), mag2geo(), polrec(), posang(), precess(), precess_cd(), precess_xyz(), premat(), radec(), recpol(), zenpos()"
+    "text": "adstring(), aitoff(), altaz2hadec(), bprecess(), co_aberration(), eci2geo(), eqpole(), euler(), gcirc(), geo2eci(), geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), jprecess(), mag2geo(), obliquity(), polrec(), posang(), precess(), precess_cd(), precess_xyz(), premat(), radec(), recpol(), zenpos()"
 },
 
 {
@@ -237,7 +237,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "AstroLib.co_aberration",
     "category": "Function",
-    "text": "co_aberration(jd, ra, dec[, eps=NaN]) -> d_ra, d_dec\n\nPurpose\n\nCalculate changes to right ascension and declination due to the effect of annual aberration\n\nExplanation\n\nWith reference to Meeus, Chapter 23\n\nArguments\n\njd: julian date, scalar or vector\nra: right ascension in degrees, scalar or vector\ndec: declination in degrees, scalar or vector\neps (optional): true obliquity of the ecliptic (in radians). It will be calculated if no argument is specified.\n\nOutput\n\nThe 2-tuple (d_ra, d_dec):\n\nd_ra: correction to right ascension due to aberration, in arc seconds\nd_dec: correction to declination due to aberration, in arc seconds\n\nExample\n\nCompute the change in RA and Dec of Theta Persei (RA = 2h46m,11.331s, Dec = 49d20',54.5'') due to aberration on 2028 Nov 13.19 TD\n\njulia> jd = jdcnv(2028,11,13,4, 56)\n2.4620887055555554e6\n\njulia> co_aberration(jd,ten(2,46,11.331)*15,ten(49,20,54.54))\n(30.044044923858255, 6.699402837501943)\n\nd_ra = 30.044044923858255'' (≈ 2.003s)\nd_dec = 6.699402837501943''\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\nThe output d_ra is not multiplied by cos(dec), so that apparent_ra = ra + d_ra/3600.\n\nThese formula are from Meeus, Chapters 23.  Accuracy is much better than 1 arcsecond. The maximum deviation due to annual aberration is 20.49'' and occurs when the Earth's velocity is perpendicular to the direction of the star.\n\nThis function calls nutate, ten and sunpos.\n\n\n\n"
+    "text": "co_aberration(jd, ra, dec[, eps=NaN]) -> d_ra, d_dec\n\nPurpose\n\nCalculate changes to right ascension and declination due to the effect of annual aberration\n\nExplanation\n\nWith reference to Meeus, Chapter 23\n\nArguments\n\njd: julian date, scalar or vector\nra: right ascension in degrees, scalar or vector\ndec: declination in degrees, scalar or vector\neps (optional): true obliquity of the ecliptic (in radians). It will be calculated if no argument is specified.\n\nOutput\n\nThe 2-tuple (d_ra, d_dec):\n\nd_ra: correction to right ascension due to aberration, in arc seconds\nd_dec: correction to declination due to aberration, in arc seconds\n\nExample\n\nCompute the change in RA and Dec of Theta Persei (RA = 2h46m,11.331s, Dec = 49d20',54.5'') due to aberration on 2028 Nov 13.19 TD\n\njulia> jd = jdcnv(2028,11,13,4, 56)\n2.4620887055555554e6\n\njulia> co_aberration(jd,ten(2,46,11.331)*15,ten(49,20,54.54))\n(30.04404628365103, 6.699400463118504)\n\nd_ra = 30.04404628365103'' (≈ 2.003s) d_dec = 6.699400463118504''\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\nThe output d_ra is not multiplied by cos(dec), so that apparent_ra = ra + d_ra/3600.\n\nThese formula are from Meeus, Chapters 23.  Accuracy is much better than 1 arcsecond. The maximum deviation due to annual aberration is 20.49'' and occurs when the Earth's velocity is perpendicular to the direction of the star.\n\nThis function calls obliquity and sunpos.\n\n\n\n"
 },
 
 {
@@ -486,6 +486,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.nutate",
     "category": "Method",
     "text": "nutate(jd) -> long, obliq\n\nPurpose\n\nReturn the nutation in longitude and obliquity for a given Julian date.\n\nArguments\n\njd: Julian ephemeris date, it can be either a scalar or a vector\n\nOutput\n\nThe 2-tuple (long, obliq), where\n\nlong: the nutation in longitude\nobl: the nutation in latitude\n\nIf jd is an array, long and obl are arrays of the same length.\n\nMethod\n\nUses the formula in Chapter 22 of ``Astronomical Algorithms'' by Jean Meeus (1998, 2nd ed.) which is based on the 1980 IAU Theory of Nutation and includes all terms larger than 0.0003\".\n\nExample\n\n(1) Find the nutation in longitude and obliquity 1987 on Apr 10 at Oh.  This is example 22.a from Meeus\n\njd = jdcnv(1987, 4, 10);\nnutate(jd)\n# => (-3.787931077110755,9.442520698644401)\n\n(2) Plot the daily nutation in longitude and obliquity during the 21st century. Use PyPlot.jl for plotting.\n\nusing PyPlot\nyears = DateTime(2000):DateTime(2100);\nlong, obl = nutate(jdcnv(years));\nplot(years, long); plot(years, obl)\n\nYou can see both the dominant large scale period of nutation, of 18.6 years, and smaller oscillations with shorter periods.\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.obliquity-Tuple{Real}",
+    "page": "Reference",
+    "title": "AstroLib.obliquity",
+    "category": "Method",
+    "text": "obliquity(jd) -> eps\n\nPurpose\n\nReturn the true obliquity of the ecliptic for a given Julian date\n\nExplanation\n\nThe function is used by the co_nutate and co_aberration procedures.\n\nArguments\n\njd: julian date, scalar\n\nOutput\n\neps: true obliquity of the ecliptic, in radians\n\nExample\n\njulia> obliquity(jdcnv(1978,01,7,11, 01))\n0.39642074387876974\n\nNotes\n\nThe algorithm used to find the mean obliquity(eps0) is mentioned in USNO Circular 179, but the canonical reference for the IAU adoption is apparently Hilton et al., 2006, Celest.Mech.Dyn.Astron. 94, 351. 2000\n\n\n\n"
 },
 
 {
