@@ -115,6 +115,9 @@ export mphase
 include("nutate.jl")
 export nutate
 
+include("obliquity.jl")
+export obliquity
+
 include("paczynski.jl")
 export paczynski
 

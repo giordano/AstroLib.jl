@@ -3,8 +3,7 @@
 function _co_aberration{T<:AbstractFloat}(jd::T, ra::T, dec::T, eps::T)
     t = (jd - J2000)*inv(JULIANYEAR*100)
     if isnan(eps)
-        eps0 = @evalpoly t ten(23,26,21.448)*3600 -46.815 -0.00059 0.001813
-        eps = sec2rad(eps0 + nutate(jd)[2])
+        eps = obliquity(jd)
     end
     sunlong = sunpos(jd, radians=true)[3]
     e = @evalpoly t 0.016708634 -0.000042037 -0.0000001267
@@ -63,11 +62,11 @@ julia> jd = jdcnv(2028,11,13,4, 56)
 2.4620887055555554e6
 
 julia> co_aberration(jd,ten(2,46,11.331)*15,ten(49,20,54.54))
-(30.044044923858255, 6.699402837501943)
-
-d_ra = 30.044044923858255'' (≈ 2.003s)
-d_dec = 6.699402837501943''
+(30.04404628365103, 6.699400463118504)
 ```
+
+d_ra = 30.04404628365103'' (≈ 2.003s)
+d_dec = 6.699400463118504''
 
 ### Notes ###
 
@@ -80,7 +79,7 @@ These formula are from Meeus, Chapters 23.  Accuracy is much better than 1
 arcsecond. The maximum deviation due to annual aberration is 20.49'' and occurs when the
 Earth's velocity is perpendicular to the direction of the star.
 
-This function calls [nutate](@ref), [ten](@ref) and [sunpos](@ref).
+This function calls [obliquity](@ref) and [sunpos](@ref).
 """
 co_aberration(jd::Real, ra::Real, dec::Real, eps::Real=NaN) =
     _co_aberration(promote(float(jd), float(ra), float(dec), float(eps))...)
