@@ -22,6 +22,9 @@ export calz_unred
 include("co_aberration.jl")
 export co_aberration
 
+include("co_nutate.jl")
+export co_nutate
+
 include("ct2lst.jl")
 export ct2lst
 

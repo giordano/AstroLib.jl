@@ -1,10 +1,8 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
 function _co_nutate(jd::T, ra::T, dec::T) where {T<:AbstractFloat}
-    t = (jd - J2000) / (JULIANYEAR*100)
     d_psi, d_eps = nutate(jd)
-    eps0 = @evalpoly t 84381.406 -46.836769 -0.0001831 0.0020034 -0.576e-6 -4.34e-8
-    eps = sec2rad(eps0 + d_eps)
+    eps = obliquity(jd)
     ce = cos(eps)
     se = sin(eps)
     x = cosd(ra) * cosd(dec)
@@ -77,16 +75,19 @@ julia> co_nutate(jd,ten(2,46,11.331)*15,ten(49,20,54.54))
 
 Code of this function is based on IDL Astronomy User's Library.
 
-This function calls [obliquity](@ref).
+The output of `d_ra` and `d_dec` in IDL AstroLib is in arcseconds,
+however it is in degrees here.
+
+This function calls [obliquity](@ref) and [nutate](@ref).
 """
 co_nutate(jd::Real, ra::Real, dec::Real) =
     _co_nutate(promote(float(jd), float(ra), float(dec))...)
 
-function co_nutate(jd::AbstractVector{R}, ra::AbstractVector{R},
-                   dec::AbstractVector{R}) where {R<:Real}
+function co_nutate(jd::AbstractVector{P}, ra::AbstractVector{Q},
+                   dec::AbstractVector{R}) where {P<:Real, Q<:Real, R<:Real}
     @assert length(jd) == length(ra) == length(dec) "jd, ra and dec vectors
                                                      should be of the same length"
-    typejd = float(R)
+    typejd = float(P)
     ra_out  = similar(jd,  typejd)
     dec_out = similar(dec, typejd)
     eps_out = similar(dec, typejd)
