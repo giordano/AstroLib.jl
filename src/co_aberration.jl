@@ -3,7 +3,7 @@
 function _co_aberration{T<:AbstractFloat}(jd::T, ra::T, dec::T, eps::T)
     t = (jd - J2000)*inv(JULIANYEAR*100)
     if isnan(eps)
-        eps = obliquity(jd)
+        eps = true_obliquity(jd)
     end
     sunlong = sunpos(jd, radians=true)[3]
     e = @evalpoly t 0.016708634 -0.000042037 -0.0000001267
@@ -79,7 +79,7 @@ These formula are from Meeus, Chapters 23.  Accuracy is much better than 1
 arcsecond. The maximum deviation due to annual aberration is 20.49'' and occurs when the
 Earth's velocity is perpendicular to the direction of the star.
 
-This function calls [obliquity](@ref) and [sunpos](@ref).
+This function calls [true_obliquity](@ref) and [sunpos](@ref).
 """
 co_aberration(jd::Real, ra::Real, dec::Real, eps::Real=NaN) =
     _co_aberration(promote(float(jd), float(ra), float(dec), float(eps))...)

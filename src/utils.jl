@@ -106,6 +106,9 @@ export mag2flux
 include("mag2geo.jl")
 export mag2geo
 
+include("mean_obliquity.jl")
+export mean_obliquity
+
 include("month_cnv.jl")
 export month_cnv
 
@@ -117,9 +120,6 @@ export mphase
 
 include("nutate.jl")
 export nutate
-
-include("obliquity.jl")
-export obliquity
 
 include("paczynski.jl")
 export paczynski
@@ -177,6 +177,9 @@ export ticpos
 
 include("tics.jl")
 export tics
+
+include("true_obliquity.jl")
+export true_obliquity
 
 include("trueanom.jl")
 export trueanom

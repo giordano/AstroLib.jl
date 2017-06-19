@@ -2,7 +2,7 @@
 
 function _co_nutate(jd::T, ra::T, dec::T) where {T<:AbstractFloat}
     d_psi, d_eps = nutate(jd)
-    eps = obliquity(jd)
+    eps = mean_obliquity(jd) + sec2rad(d_eps)
     ce = cos(eps)
     se = sin(eps)
     x = cosd(ra) * cosd(dec)
@@ -78,7 +78,7 @@ Code of this function is based on IDL Astronomy User's Library.
 The output of `d_ra` and `d_dec` in IDL AstroLib is in arcseconds,
 however it is in degrees here.
 
-This function calls [obliquity](@ref) and [nutate](@ref).
+This function calls [mean_obliquity](@ref) and [nutate](@ref).
 """
 co_nutate(jd::Real, ra::Real, dec::Real) =
     _co_nutate(promote(float(jd), float(ra), float(dec))...)
