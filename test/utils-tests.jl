@@ -78,6 +78,25 @@ end
     @test bo[2] ≈ 2.9205843718089457
 end
 
+# Test co_nutate
+# The values used for the testset are from running the code. They are slightly
+# different from the output of the co_aberration routine of IDL AstroLib, as
+# the function here uses an updated method to find mean obliquity
+@testset "co_nutate" begin
+    an,bn,cn,dn,en = co_nutate([jdcnv(2028,11,13,4,56), jdcnv(2013, 4, 16)],[10, 160],[80,30])
+    @test an ≈ [0.00332316985077874, 0.0028100303682379035  ]
+    @test bn ≈ [0.0037962761358869557, -0.002223911512604815]
+    @test cn ≈ [0.40904016038217567, 0.4090340058477726     ]
+    @test dn ≈ [14.8593894278967, 12.102640377483143        ]
+    @test en ≈ [2.7038090372351267, -5.86229256359996       ]
+    ra_out, dec_out, eps_out, d_psi_out, d_eps_out = co_nutate(2.451545e6,325, 0)
+    @test ra_out ≈ -0.0035484441576727477
+    @test dec_out ≈ -0.00034017946720967174
+    @test eps_out ≈ 0.4090646078966446
+    @test d_psi_out ≈ -13.923152677481191
+    @test d_eps_out ≈ -5.773909654153591
+end
+
 # Test ct2lst
 @test ct2lst.(-76.72, -4, [DateTime(2008, 7, 30, 15, 53)]) ≈ [11.356505172312609]
 @test ct2lst.(9, [jdcnv(2015, 11, 24, 12, 21)]) ≈ [17.159574059885927]
@@ -424,6 +443,13 @@ let
     @test long ≈ 56.78
 end
 
+@testset "mean_obliquity" begin
+    @test mean_obliquity(AstroLib.J2000) ≈ 0.4090926006005829
+    @test mean_obliquity.(jdcnv.([DateTime(1916, 09, 22, 03, 39),
+                             DateTime(2063, 10, 13, 09)])) ≈
+        [0.4092816887615259, 0.40894777540460037]
+end
+
 # Test month_cnv
 @test month_cnv.([" januavv  ", "SEPPES ", " aUgUsT", "la"]) == [1, 9, 8, -1]
 @test month_cnv.([2, 12, 6], short=true, low=true) == ["feb", "dec", "jun"]
@@ -466,14 +492,6 @@ let
     long, obl = nutate([2457000, 2458000])
     @test long ≈ [ 4.327189321653877, -9.686089990639474]
     @test obl  ≈ [-9.507794266102866, -6.970768250588256]
-end
-
-# Test obliquity
-@testset "obliquity" begin
-    @test obliquity(AstroLib.J2000) ≈ 0.4090646078966446
-    @test obliquity.(jdcnv.([DateTime(2016, 08, 23, 03, 39, 06),
-                             DateTime(763, 09, 18, 12)])) ≈
-        [0.4090133706884892, 0.41188965892279295]
 end
 
 # Test paczynski
@@ -706,6 +724,14 @@ let
     ticsize, incr = tics(pi/3, pi/2, 60.0, 7.5, true)
     @test ticsize ≈ 14.085212463632736
     @test incr ≈ 0.5
+end
+
+# Test true_obliquity
+@testset "true_obliquity" begin
+    @test true_obliquity(AstroLib.J2000) ≈ 0.4090646078966446
+    @test true_obliquity.(jdcnv.([DateTime(2016, 08, 23, 03, 39, 06),
+                             DateTime(763, 09, 18, 12)])) ≈
+        [0.4090133706884892, 0.41188965892279295]
 end
 
 # Test kepler_solver
