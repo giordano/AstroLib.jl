@@ -332,10 +332,10 @@ end
     @test hrad_out ≈ 0.7213669177850188
     @test hlong_out ≈ 3.462551577582993
     @test hlat_out ≈ 0.05039459174833563
-    hrad_out, hlong_out, hlat_out = helio.([AstroLib.J2000], [7])
-    @test hrad_out ≈ 19.92300804138732
-    @test hlong_out ≈ 316.45326872080676
-    @test hlat_out ≈ -0.6849368875544409
+    hrad_out, hlong_out, hlat_out = helio([AstroLib.J2000], [7])
+    @test hrad_out[1] ≈ 19.92300804138732
+    @test hlong_out[1] ≈ 316.45326872080676
+    @test hlat_out[1] ≈ -0.6849368875544409
 end
 
 # Test imf
