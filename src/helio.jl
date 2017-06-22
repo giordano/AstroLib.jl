@@ -44,10 +44,11 @@ function _helio(jd::T, num::Integer, radian::Bool) where {T<:AbstractFloat}
     hrad = a * (1 - eccen * cos(e))
     hlong = cirrange(nu + plong, 2 * pi)
     hlat = asin(sin(hlong - along) * sin(inc))
-    if radian
-        return hrad, hlong, hlat
+    if !radian
+        hlong = rad2deg(hlong)
+        hlat = rad2deg(hlat)
     end
-    return hrad, rad2deg(hlong), rad2deg(hlat)
+    return hrad, hlong, hlat
 end
 
 """
@@ -76,21 +77,33 @@ for Saturn.
 
 ### Output ###
 
-* `hrad`: the heliocentric radii in astronomical units,
-* `hlong`: the heliocentric (ecliptic) longitudes, in degrees
+* `hrad`: the heliocentric radii, in astronomical units.
+* `hlong`: the heliocentric (ecliptic) longitudes, in degrees.
 * `hlat`: the heliocentric latitudes in degrees.
 
 ### Example ###
 
-```julia
+(1) Find heliocentric position of Venus on August 23, 2000
 
+```julia
+julia> helio(jdcnv(2000,08,23,0), 2)
+(0.7213669177850188, 198.38959174187056, 2.8873974174644363)
 ```
 
+(2) Find the current heliocentric positions of all the planets
+
+```julia
+julia> helio.([jdcnv(Dates.today())], [1,2,3,4,5,6,7,8,9])
+```
 ### Notes ###
 
 This program is based on the two-body model and thus neglects
-interactions between the planets. This is why the worst results
-are for Saturn.
+interactions between the planets.
+
+Additionally, there's a significant difference in the output given
+for the heliocentric radii of Mars, as the mean orbital quantities
+of planet Mars (see [`common`](@ref)) are differnet than what
+is used in IDL AstroLib.
 
 The coordinates are given for equinox 2000 and *not* the equinox
 of the supplied date.

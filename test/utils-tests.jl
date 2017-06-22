@@ -322,6 +322,22 @@ end
 @test helio_rv.([0.1, 0.9], 0, 1, 0, 100, 0.6, 45) ≈
     [-45.64994926111004, 89.7820347358485]
 
+# Test helio
+# The values used for the testset are from running the code. However they have been
+# correlated with the output from helio routine of IDL AstroLib, with
+# differences only in the least significant digits (except for `hrad`` output of Mars)
+@testset "helio" begin
+    @test_throws ErrorException helio(jdcnv(2005,07,17,2,6,9), 10)
+    hrad_out, hlong_out, hlat_out = helio(jdcnv(2000,08,23,0), 2, true)
+    @test hrad_out ≈ 0.7213669177850188
+    @test hlong_out ≈ 3.462551577582993
+    @test hlat_out ≈ 0.05039459174833563
+    hrad_out, hlong_out, hlat_out = helio.([AstroLib.J2000], [7])
+    @test hrad_out ≈ 19.92300804138732
+    @test hlong_out ≈ 316.45326872080676
+    @test hlat_out ≈ -0.6849368875544409
+end
+
 # Test imf
 # The values used for the testset are from running the code. However they have been
 # correlated with the output from imf routine of IDL AstroLib, with
@@ -443,6 +459,7 @@ let
     @test long ≈ 56.78
 end
 
+# Test mean_obliquity
 @testset "mean_obliquity" begin
     @test mean_obliquity(AstroLib.J2000) ≈ 0.4090926006005829
     @test mean_obliquity.(jdcnv.([DateTime(1916, 09, 22, 03, 39),
