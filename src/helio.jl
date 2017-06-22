@@ -85,15 +85,25 @@ for Saturn.
 
 (1) Find heliocentric position of Venus on August 23, 2000
 
-```julia
+```jldoctest
 julia> helio(jdcnv(2000,08,23,0), 2)
 (0.7213669177850188, 198.38959174187056, 2.8873974174644363)
 ```
 
 (2) Find the current heliocentric positions of all the planets
 
-```julia
-julia> helio.([jdcnv(Dates.today())], [1,2,3,4,5,6,7,8,9])
+```jldoctest
+julia> helio.([jdcnv(1900)], [1,2,3,4,5,6,7,8,9])
+9-element Array{Tuple{Float64,Float64,Float64},1}:
+ (0.421663, 203.273, 2.97717)
+ (0.727449, 344.537, -3.39243)
+ (0.983246, 101.55, 0.0126693)
+ (0.360942, 288.126, -1.58013)
+ (5.38753, 235.849, 0.914218)
+ (10.0575, 268.058, 1.08448)
+ (18.9866, 250.014, 0.0535316)
+ (29.8764, 87.07, -1.24511)
+ (47.1407, 74.6294, -9.89928)
 ```
 ### Notes ###
 
