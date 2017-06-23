@@ -386,12 +386,12 @@ end
 # Test juldate with Gregorian Calendar in force.  This also makes sure precision
 # of the result is high enough.  Note that "juldate(dt::DateTime) =
 # Dates.datetime2julian(dt)-2.4e6" would not be precise.
-@test juldate.([DateTime(2016, 1, 1, 8)]) ≈ [(57388.5 + 1//3)]
+@test juldate(DateTime(2016, 1, 1, 8)) ≈ (57388.5 + 1//3)
 
 # Test juldate with Julian Calendar in force, for different centuries.  This
 # also makes sure precision of the result is high enough.
 @test juldate(1582, 10, 1, 20)    ≈ (-100843 + 1//3)
-@test juldate.(["1000-01-01T20"]) ≈ [(-313692 + 1//3)]
+@test juldate("1000-01-01T20")    ≈ (-313692 + 1//3)
 @test juldate("100-10-25T20")     ≈ (-642119 + 1//3)
 @test juldate(-4713, 1, 1, 12)    ≈ -2.4e6
 @test juldate(2016, 06, 30, 00, 05, 53, 120) ≈
@@ -402,13 +402,18 @@ end
 @test (dt=DateTime(2016, 1, 1, 20, 45, 33, 457);
        daycnv(juldate(dt) + 2.4e6) == dt)
 
-# Test kepler_solver
-@test kepler_solver(8pi/3, 0.7)              ≈ 2.5085279492864223
-@test kepler_solver.([pi/4, pi/6, 8pi/3], 0) ≈ [pi/4, pi/6, 2pi/3]
-@test kepler_solver(3pi/2, 0.8)              ≈ -2.2119306096084457
-@test kepler_solver(0, 1)                    ≈ 0.0
-@test_throws AssertionError kepler_solver(pi, -0.5)
-@test_throws AssertionError kepler_solver(pi,  1.5)
+@testset "kepler_solver" begin
+    for e in 0:0.1:1
+        M = collect(0:1e-3:2pi)
+        E = mod2pi.(kepler_solver.(M, e))
+        # Make sure E is the solution of the Kepler's Equation with high precision.
+        @test M ≈ E .- e .* sin.(E) rtol = 1e-15
+    end
+    @test kepler_solver.([pi/4, pi/6, 8pi/3], 0) ≈ [pi/4, pi/6, 2pi/3]
+    @test kepler_solver(0, 1) == 0.0
+    @test_throws AssertionError kepler_solver(pi, -0.5)
+    @test_throws AssertionError kepler_solver(pi,  1.5)
+end
 
 # Test lsf_rotate
 let
