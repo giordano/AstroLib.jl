@@ -1,6 +1,6 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
-function _euler{T<:AbstractFloat}(ai::T, bi::T, select::Integer, FK4::Bool, radian::Bool)
+function _euler{T<:AbstractFloat}(ai::T, bi::T, select::Integer, FK4::Bool, radians::Bool)
 
     if select>6 || select<1
         error("Input for coordinate transformation should be an integer in the range 1:6")
@@ -22,7 +22,7 @@ function _euler{T<:AbstractFloat}(ai::T, bi::T, select::Integer, FK4::Bool, radi
         phi = (4.9368292465, 0.574770433, 0.0, 0.0, 4.71279419371, 0.11142137093)
     end
 
-    if radian
+    if radians
         ao = ai - phi[select]
         cb = cos(bi)
         x = (cb*sin(ao), cb*cos(ao), sin(bi))
@@ -35,14 +35,14 @@ function _euler{T<:AbstractFloat}(ai::T, bi::T, select::Integer, FK4::Bool, radi
     ao = mod2pi(atan2(ctheta[select]*x[1] + stheta[select]*x[3], x[2]) + psi[select])
     bo = asin(bo)
 
-    if radian
+    if radians
         return (ao, bo)
     end
     return (rad2deg(ao), rad2deg(bo))
 end
 
 """
-    euler(ai, bi, select[, FK4=true, radian=true])
+    euler(ai, bi, select[, FK4=true, radians=true])
 
 ### Purpose ###
 
@@ -67,8 +67,8 @@ The function is used by the [astro](@ref) procedure.
   then input and output celestial and ecliptic coordinates should be
   given in equinox B1950. When `false`, by default, they should be given in
   equinox J2000.
-* `radian` (optional boolean keyword) : if this keyword is set to
-  `true`, all input and output angles are in radian rather than degrees.
+* `radians` (optional boolean keyword) : if this keyword is set to
+  `true`, all input and output angles are in radians rather than degrees.
 
 ### Output ###
 
@@ -81,7 +81,7 @@ a 2-tuple `(ao, bo)`:
 
 Find the Galactic coordinates of Cyg X-1 (ra=299.590315, dec=35.201604)
 
-```julia
+```jldoctest
 julia> euler(299.590315, 35.201604, 1)
 (71.33498957116959, 3.0668335310640984)
 ```
@@ -90,21 +90,21 @@ julia> euler(299.590315, 35.201604, 1)
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-euler(ai::Real, bi::Real, select::Integer; FK4::Bool=false, radian::Bool=false) =
-    _euler(promote(float(ai), float(bi))..., select, FK4, radian)
+euler(ai::Real, bi::Real, select::Integer; FK4::Bool=false, radians::Bool=false) =
+    _euler(promote(float(ai), float(bi))..., select, FK4, radians)
 
-euler(aibi::Tuple{Real, Real}, select::Integer; FK4::Bool=false, radian::Bool=false) =
-    euler(aibi[1], aibi[2], select, FK4=FK4, radian=radian)
+euler(aibi::Tuple{Real, Real}, select::Integer; FK4::Bool=false, radians::Bool=false) =
+    euler(aibi[1], aibi[2], select, FK4=FK4, radians=radians)
 
-function euler{R<:Real}(ai::AbstractVector{R}, bi::AbstractVector{R}, select::Integer;
-                         FK4::Bool=false, radian::Bool=false)
+function euler(ai::AbstractVector{R}, bi::AbstractVector{<:Real}, select::Integer;
+               FK4::Bool=false, radians::Bool=false) where {R<:Real}
     @assert length(ai) == length(bi) "ai and bi arrays should be of the same length"
     typeai = typeof(float(one(R)))
     ai_out  = similar(ai,  typeai)
     bi_out = similar(bi, typeai)
     for i in eachindex(ai)
         ai_out[i], bi_out[i] = euler(ai[i], bi[i], select,
-                                        FK4=FK4, radian=radian)
+                                        FK4=FK4, radians=radians)
     end
     return ai_out, bi_out
 end

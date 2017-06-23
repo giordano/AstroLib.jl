@@ -329,13 +329,13 @@ end
 @testset "helio" begin
     @test_throws ErrorException helio(jdcnv(2005,07,17,2,6,9), 10)
     hrad_out, hlong_out, hlat_out = helio(jdcnv(2000,08,23,0), 2, true)
-    @test hrad_out ≈ 0.7213669177850188
-    @test hlong_out ≈ 3.462551577582993
-    @test hlat_out ≈ 0.05039459174833563
+    @test hrad_out ≈ 0.7277924688617697
+    @test hlong_out ≈ 3.462568554700708
+    @test hlat_out ≈ 0.05039406265370573
     hrad_out, hlong_out, hlat_out = helio([AstroLib.J2000], [7])
-    @test hrad_out[1] ≈ 19.92300804138732
-    @test hlong_out[1] ≈ 316.45326872080676
-    @test hlat_out[1] ≈ -0.6849368875544409
+    @test hrad_out[1] ≈ 20.016572737628376
+    @test hlong_out[1] ≈ 316.39544963034945
+    @test hlat_out[1] ≈ -0.6845757329085267
 end
 
 # Test imf
