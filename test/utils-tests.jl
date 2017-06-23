@@ -159,11 +159,11 @@ end
     @test ra ≈ 299.590315
     @test dec ≈ 35.201604
     elong, elat = euler(3.141592653589793, 0.6143838917832061, 3,
-                        FK4 = true, radian=true)
+                        FK4 = true, radians=true)
     @test elong ≈ 2.8679433080257506
     @test elat ≈ 0.557258307291505
     ra, dec = euler((2.8679433080257506, 0.557258307291505), 4,
-                    FK4 = true, radian=true)
+                    FK4 = true, radians=true)
     @test ra ≈ 3.141592653589793
     @test dec ≈ 0.6143838917832061
     ecl, gal = euler.(30.45, 76.54, [5,6])
@@ -171,7 +171,7 @@ end
     @test ecl[2] ≈ 18.01965967759107
     @test gal[1] ≈ 194.96100731553986
     @test gal[2] ≈ 34.46136801388695
-    @test euler(183/pi, pi/180, 2, FK4=false, radian=true) ==
+    @test euler(183/pi, pi/180, 2, FK4=false, radians=true) ==
                 (5.682517110086799, 0.947078051715398)
     glong, glat = euler([0.45, 130], [16.28, 53.65], 5)
     @test glong ≈ [96.9525940157568, 138.09922696730337]
