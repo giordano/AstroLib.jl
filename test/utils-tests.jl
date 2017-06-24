@@ -159,11 +159,11 @@ end
     @test ra ≈ 299.590315
     @test dec ≈ 35.201604
     elong, elat = euler(3.141592653589793, 0.6143838917832061, 3,
-                        FK4 = true, radian=true)
+                        FK4 = true, radians=true)
     @test elong ≈ 2.8679433080257506
     @test elat ≈ 0.557258307291505
     ra, dec = euler((2.8679433080257506, 0.557258307291505), 4,
-                    FK4 = true, radian=true)
+                    FK4 = true, radians=true)
     @test ra ≈ 3.141592653589793
     @test dec ≈ 0.6143838917832061
     ecl, gal = euler.(30.45, 76.54, [5,6])
@@ -171,7 +171,7 @@ end
     @test ecl[2] ≈ 18.01965967759107
     @test gal[1] ≈ 194.96100731553986
     @test gal[2] ≈ 34.46136801388695
-    @test euler(183/pi, pi/180, 2, FK4=false, radian=true) ==
+    @test euler(183/pi, pi/180, 2, FK4=false, radians=true) ==
                 (5.682517110086799, 0.947078051715398)
     glong, glat = euler([0.45, 130], [16.28, 53.65], 5)
     @test glong ≈ [96.9525940157568, 138.09922696730337]
@@ -322,6 +322,22 @@ end
 @test helio_rv.([0.1, 0.9], 0, 1, 0, 100, 0.6, 45) ≈
     [-45.64994926111004, 89.7820347358485]
 
+# Test helio
+# The values used for the testset are from running the code. However they have been
+# correlated with the output from helio routine of IDL AstroLib, with
+# differences only in the least significant digits (except for `hrad`` output of Mars)
+@testset "helio" begin
+    @test_throws ErrorException helio(jdcnv(2005,07,17,2,6,9), 10)
+    hrad_out, hlong_out, hlat_out = helio(jdcnv(2000,08,23,0), 2, true)
+    @test hrad_out ≈ 0.7277924688617697
+    @test hlong_out ≈ 3.462568554700708
+    @test hlat_out ≈ 0.05039406265370573
+    hrad_out, hlong_out, hlat_out = helio([AstroLib.J2000], [7])
+    @test hrad_out[1] ≈ 20.016572737628376
+    @test hlong_out[1] ≈ 316.39544963034945
+    @test hlat_out[1] ≈ -0.6845757329085267
+end
+
 # Test imf
 # The values used for the testset are from running the code. However they have been
 # correlated with the output from imf routine of IDL AstroLib, with
@@ -448,6 +464,7 @@ let
     @test long ≈ 56.78
 end
 
+# Test mean_obliquity
 @testset "mean_obliquity" begin
     @test mean_obliquity(AstroLib.J2000) ≈ 0.4090926006005829
     @test mean_obliquity.(jdcnv.([DateTime(1916, 09, 22, 03, 39),

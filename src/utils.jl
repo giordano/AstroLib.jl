@@ -79,6 +79,9 @@ export helio_jd
 include("helio_rv.jl")
 export helio_rv
 
+include("helio.jl")
+export helio
+
 include("imf.jl")
 export imf
 

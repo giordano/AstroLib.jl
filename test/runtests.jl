@@ -10,3 +10,4 @@ include("misc-tests.jl")
 # Dummy calls to "show" for new data types, just to increase code coverage.
 show(DevNull, AstroLib.planets["mercury"])
 show(DevNull, AstroLib.observatories["ca"])
+show(DevNull, AstroLib.observatories["vbo"])
