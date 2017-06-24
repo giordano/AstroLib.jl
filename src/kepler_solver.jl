@@ -3,10 +3,8 @@
 
 function kepler_solver(M::T, e::T) where {T<:AbstractFloat}
     @assert 0 <= e <= 1 "eccentricity must be in the range [0, 1]"
-    # M is assumed to be in the range [-pi, pi], see Markley (1995), page 2.
-    # First restrict it to [0, 2pi], then move values above pi to [-pi, 0].
-    M = cirrange(M, 2pi)
-    M > pi && (M -= 2pi)
+    # M must be in the range [-pi, pi], see Markley (1995), page 2.
+    M = rem2pi(M, RoundNearest)
     if iszero(M) || iszero(e)
         return M
     else

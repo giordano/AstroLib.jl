@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 function aitoff(l::T, b::T) where {T<:AbstractFloat}
-    l > 180 && (l -= 360)
+    l = rem(l, T(360), RoundNearest)
     alpha2 = deg2rad(l/2)
     delta = deg2rad(b)
     r2 = sqrt(T(2))
