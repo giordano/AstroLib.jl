@@ -5,7 +5,7 @@ function _flux2mag{T<:AbstractFloat}(flux::T, zero_point::T, ABwave::T)
     if isnan(ABwave)
         return -2.5*log10(flux) - zero_point
     else
-        return -2.5*log10(flux) - 5.0*log10(float(ABwave)) - 2.406
+        return -2.5*log10(flux) - 5 * log10(float(ABwave)) - 2.406
     end
 end
 

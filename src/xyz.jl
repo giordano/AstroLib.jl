@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 function _xyz{T<:AbstractFloat}(jd::T, equinox::T)
-    t = (float(jd) - 15020.0)*inv(JULIANYEAR*100) # Reduced Julian century from 1900
+    t = (jd - 15020) / (JULIANYEAR * 100) # Reduced Julian century from 1900
 
     # NOTE: longitude arguments below are given in *equinox* of date.  Precess
     # these to equinox 1950 to give everything an even footing.  Compute
@@ -192,7 +192,7 @@ xyz(jd::Real, equinox::Real=NaN) = _xyz(promote(float(jd), float(equinox))...)
 
 # Can't use @vectorize_1arg because of the optional keyword.
 function xyz{J<:Real}(jd::AbstractArray{J}, equinox::Real=NaN)
-    typej = typeof(float(one(J)))
+    typej = float(J)
     x     = similar(jd, typej)
     y     = similar(jd, typej)
     z     = similar(jd, typej)

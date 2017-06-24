@@ -4,9 +4,9 @@
 function _radec{T<:AbstractFloat}(ra::T, dec::T, hours::Bool)
     # Compute right ascension.
     if hours
-        ra_hr, ra_min, ra_sec = sixty(cirrange(ra, 24.0))
+        ra_hr, ra_min, ra_sec = sixty(cirrange(ra, 24))
     else
-        ra_hr, ra_min, ra_sec = sixty(cirrange(ra)/15.0)
+        ra_hr, ra_min, ra_sec = sixty(cirrange(ra) / 15)
     end
     # Compute declination.
     dec_deg, dec_min, dec_sec = sixty(dec)
@@ -59,7 +59,7 @@ radec(ra::Real, dec::Real; hours::Bool=false) =
 function radec{R<:Real, D<:Real}(ra::AbstractArray{R}, dec::AbstractArray{D};
                                  hours::Bool=false)
     @assert length(ra) == length(dec)
-    typera = typeof(float(one(R)))
+    typera = float(R)
     ra_hr   = similar(ra, typera)
     ra_min  = similar(ra, typera)
     ra_sec  = similar(ra, typera)

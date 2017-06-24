@@ -4,9 +4,9 @@
 function _sphdist{T<:AbstractFloat}(long1::T, lat1::T, long2::T, lat2::T,
                                     degrees::Bool)
     # Convert both points to rectangular coordinates.
-    rxy, z1 = polrec(1.0, lat1,  degrees=degrees)
+    rxy, z1 = polrec(1,   lat1,  degrees=degrees)
     x1, y1  = polrec(rxy, long1, degrees=degrees)
-    rxy, z2 = polrec(1.0, lat2,  degrees=degrees)
+    rxy, z2 = polrec(1,   lat2,  degrees=degrees)
     x2, y2  = polrec(rxy, long2, degrees=degrees)
     # Compute vector dot product for both points.
     cs = x1*x2 + y1*y2 + z1*z2

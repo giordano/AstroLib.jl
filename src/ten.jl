@@ -2,11 +2,11 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 # TODO: give sense to "-0" ("-0" is bitwise equal to "0").
-_ten{T<:AbstractFloat}(degrees::T, minutes::T, seconds::T) =
-    copysign(1, degrees)*(abs(degrees) + minutes/60.0 + seconds/3600.0)
+ten{T<:AbstractFloat}(degrees::T, minutes::T, seconds::T) =
+    copysign(1, degrees)*(abs(degrees) + minutes/60 + seconds/3600)
 
-ten(d::Real, m::Real=0.0, s::Real=0.0) =
-    _ten(promote(float(d), float(m), float(s))...)
+ten(d::Real, m::Real=0, s::Real=0) =
+    ten(promote(float(d), float(m), float(s))...)
 
 # TODO: improve performance, if possible.  There are a couple of slow tests to
 # make parsing of the string work.

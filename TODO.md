@@ -69,7 +69,6 @@ Missing in AstroLib.jl
 * `fm_unred`
 * `gal_flat`
 * `get_coords`
-* `helio`
 * `hor2eq`
 * `imcontour`
 * `planet_coords`

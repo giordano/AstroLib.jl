@@ -28,19 +28,19 @@ function _jprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
     ra2000 = dec2000 = zero(T)
     A  = copy(A_precess)
     if isfinite(epoch) && epoch != 1950
-        A  += deg2rad.(A_dot_precess*(epoch - 1950.0)*inv(360000.0))
+        A  += deg2rad.(A_dot_precess .* (epoch .- 1950) ./ 360000)
     end
     r0 = [cosra*cosdec,  sinra*cosdec,  sindec]
     r0_dot = [-muradec[1]*sinra*cosdec - muradec[2]*cosra*sindec,
                muradec[1]*cosra*cosdec - muradec[2]*sinra*sindec,
                muradec[2]*cosdec] + 21.095*radvel*parallax*r0
-    r1 = r0 - A + sum(r0.*A)*r0
-    r1_dot = r0_dot - A_dot_precess + sum(r0.*A_dot_precess)*r0
+    r1 = r0 .- A .+ dot(r0, A) .* r0
+    r1_dot = r0_dot .- A_dot_precess .+ dot(r0, A_dot_precess) .* r0
     R_1 = vcat(r1, r1_dot)
     R  = Mjprec*R_1
     if isfinite(epoch)
-        t  = ((epoch - 1950.0) - 50.00021)*0.01
-        rr1 = R[1:3] + deg2rad.(R[4:6].*t*inv(3600.0))
+        t  = ((epoch - 1950) - 50.00021) / 100
+        rr1 = R[1:3] .+ deg2rad.(R[4:6] .* t ./ 3600)
         x = rr1[1]
         y = rr1[2]
         z = rr1[3]
@@ -54,7 +54,7 @@ function _jprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
     end
     rmag = vecnorm((x, y, z))
     r2 = rmag*rmag
-    dec2000 = asin(z*inv(rmag))
+    dec2000 = asin(z / rmag)
     ra2000  = atan2(y, x)
     # if isnan(epoch)
     #     muradec[1] = (x*y_dot - y*x_dot)/(x*x + y*y)
@@ -62,7 +62,7 @@ function _jprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
     # end
     # if parallax > 0
     #     radvel   = (x*x_dot + y*y_dot + z*z_dot)/(21.095*parallax*rmag)
-    #     parallax = parallax*inv(rmag)
+    #     parallax = parallax / rmag
     # end
     if ra2000 < 0
         ra2000 += 2pi
@@ -100,7 +100,7 @@ function jprecess{R<:Real,D<:Real,M<:Real,P<:Real,V<:Real}(ra::AbstractArray{R},
                                                            parallax::AbstractArray{P}=zeros(R, length(ra)),
                                                            radvel::AbstractArray{V}=zeros(R, length(ra)))
     @assert length(ra) == length(dec) == size(muradec)[2] == length(parallax) == length(radvel)
-    typer = typeof(float(one(R)))
+    typer = float(R)
     ra2000  = similar(ra, typer)
     dec2000 = similar(dec, typer)
     for i in eachindex(ra)

@@ -57,7 +57,7 @@ const moon_sin_lat = [5128122, 280602, 277693, 173237, 55413, 46271, 32573,
 
 function _moonpos{T<:AbstractFloat}(jd::T, radians::Bool)
     # Number of Julian centuries since 2000-01-01T12:00:00
-    t = (jd - J2000)*inv(JULIANYEAR*100)
+    t = (jd - J2000) / (JULIANYEAR*100)
     # Mean longitude of the moon referred to mean equinox of the date
     Lprimed = cirrange(@evalpoly(t, 218.3164477, 481267.88123421,
                                  -0.0015786, inv(538841), -inv(6.5194e7)))
@@ -76,7 +76,7 @@ function _moonpos{T<:AbstractFloat}(jd::T, radians::Bool)
     F = deg2rad(cirrange(@evalpoly(t, 93.2720950, 483202.0175233, -0.0036539,
                                    -inv(3.526e7), inv(8.6331e8))))
     # Eccentricity of Earth's orbit around the Sun
-    E = 1.0 - 0.002516*t - 7.4e-6*t*t
+    E = @evalpoly t 1 -0.002516 -7.4e-6
     E2 = E*E
     # Additional arguments
     A1 = deg2rad(119.75 + 131.849*t)
@@ -105,18 +105,18 @@ function _moonpos{T<:AbstractFloat}(jd::T, radians::Bool)
         end
     end
     arg = moon_d_lng*d + moon_M_lng*M + moon_Mprime_lng*Mprime + moon_F_lng*F
-    geolong = Lprimed + (sum(sinlng.*sin.(arg)) + suml_add)/1e6
-    dis = 385000.56 + sum(coslng.*cos.(arg))/1e3
+    geolong = Lprimed + (dot(sinlng, sin.(arg)) + suml_add)/1000000
+    dis = 385000.56 + dot(coslng, cos.(arg))/1000
     arg = moon_d_lat*d + moon_M_lat*M + moon_Mprime_lat*Mprime + moon_F_lat*F
-    geolat = (sum(sinlat.*sin.(arg)) + sumb_add)/1e6
+    geolat = (sum(sinlat.*sin.(arg)) + sumb_add)/1000000
     nlong, elong = nutate(jd)
-    geolong = cirrange(geolong + nlong/3.6e3)
+    geolong = cirrange(geolong + nlong/3600)
     λ = deg2rad(geolong)
     β = deg2rad(geolat)
     # Find mean obliquity and convert λ, β to right ascension and declination.
-    ɛ = ten(23, 26) + @evalpoly(t/1e2, 21.448, -4680.93, -1.55, 1999.25, -51.38,
-                                -249.67, -39.05, 7.12, 27.87, 5.79, 2.45)/3.6e3
-    ɛ = deg2rad(ɛ + elong/3.6e3)
+    ɛ = ten(23, 26) + @evalpoly(t/100, 21.448, -4680.93, -1.55, 1999.25, -51.38,
+                                -249.67, -39.05, 7.12, 27.87, 5.79, 2.45)/3600
+    ɛ = deg2rad(ɛ + elong/3600)
     ra = cirrange(atan2(sin(λ)*cos(ɛ) - tan(β)*sin(ɛ), cos(λ)), 2.*pi)
     dec = asin(sin(β)*cos(ɛ) + cos(β)*sin(ɛ)*sin(λ))
     if radians

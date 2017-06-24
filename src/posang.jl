@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _posang{T<:AbstractFloat}(units::Integer, ra1::T, dec1::T, ra2::T, dec2::T)
+function posang{T<:AbstractFloat}(units::Integer, ra1::T, dec1::T, ra2::T, dec2::T)
     # Convert all quantities to radians.
     if units == 0
         # All radians
@@ -11,8 +11,8 @@ function _posang{T<:AbstractFloat}(units::Integer, ra1::T, dec1::T, ra2::T, dec2
         dec2_rad = dec2
     elseif units == 1
         # Right ascensions are in hours, declinations in degrees.
-        ra1_rad  = ra1*pi/12.0
-        ra2_rad  = ra2*pi/12.0
+        ra1_rad  = ra1*pi/12
+        ra2_rad  = ra2*pi/12
         dec1_rad = deg2rad(dec1)
         dec2_rad = deg2rad(dec2)
     elseif units == 2
@@ -106,7 +106,7 @@ posang(1, ten(13, 25, 13.5), ten(54, 59, 17), ten(13, 23, 55.5), ten(54, 55, 31)
 Code of this function is based on IDL Astronomy User's Library.
 """
 posang(units::Integer, ra1::Real, dec1::Real, ra2::Real, dec2::Real) =
-    _posang(units, promote(float(ra1), float(dec1), float(ra2), float(dec2))...)
+    posang(units, promote(float(ra1), float(dec1), float(ra2), float(dec2))...)
 
 ### Tuples input
 posang(units::Integer, radec1::Tuple{Real, Real}, ra2::Real, dec2::Real) =

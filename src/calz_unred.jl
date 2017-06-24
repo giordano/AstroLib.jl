@@ -1,16 +1,16 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _calz_unred{T<:AbstractFloat}(wave::T, flux::T, ebv::T, r_v::T)
+function calz_unred(wave::T, flux::T, ebv::T, r_v::T) where {T<:AbstractFloat}
     x  = 10000.0/wave # Wavelength in inverse microns
-    if 6300.0 <= wave <= 22000.0
+    if 6300 <= wave <= 22000
         klam = 2.659*(-1.857 + 1.040*x) + r_v
-    elseif 912.0 <= wave < 6300.0
+    elseif 912 <= wave < 6300
         klam = 2.659*(@evalpoly(x, -2.156, 1.509, -0.198, 0.011)) + r_v
     else
         return flux
     end
-    return flux*10.0^(0.4*klam*ebv)
+    return flux * exp10(0.4 * klam * ebv)
 end
 
 """
@@ -71,4 +71,4 @@ plot(wave, flux_new)
 Code of this function is based on IDL Astronomy User's Library.
 """
 calz_unred(wave::Real, flux::Real, ebv::Real, r_v::Real=4.05) =
-    _calz_unred(promote(float(wave), float(flux), float(ebv), float(r_v))...)
+    calz_unred(promote(float(wave), float(flux), float(ebv), float(r_v))...)

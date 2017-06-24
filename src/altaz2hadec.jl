@@ -10,8 +10,7 @@ function _altaz2hadec{T<:AbstractFloat}(alt::T, az::T, lat::T)
     ha = rad2deg(atan2(-sin(az_r)*cos(alt_r),
                        -cos(az_r)*sin(lat_r)*cos(alt_r) +
                        sin(alt_r)*cos(lat_r)))
-    ha < 0.0 && (ha += 360.0)
-    ha = ha.%360.0
+    ha = mod(ha, 360)
     # Find declination (positive if north of Celestial Equator, negative if
     # south)
     sindec = sin(lat_r)*sin(alt_r) + cos(lat_r)*cos(alt_r)*cos(az_r)
@@ -86,7 +85,7 @@ function altaz2hadec{R1<:Real, R2<:Real, R3<:Real}(alt::AbstractArray{R1},
                                                    az::AbstractArray{R2},
                                                    lat::AbstractArray{R3})
     @assert length(alt) == length(az) == length(lat)
-    typealt = typeof(float(one(R1)))
+    typealt = float(R1)
     ha  = similar(alt, typealt)
     dec = similar(alt, typealt)
     for i in eachindex(alt)

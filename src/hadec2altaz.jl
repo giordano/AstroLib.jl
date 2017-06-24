@@ -89,7 +89,7 @@ function hadec2altaz{R1<:Real, R2<:Real, R3<:Real}(ha::AbstractArray{R1},
                                                    lat::AbstractArray{R3};
                                                    ws::Bool=false)
     @assert length(ha) == length(dec) == length(lat)
-    typeha = typeof(float(one(R1)))
+    typeha = float(R1)
     alt = similar(ha, typeha)
     az  = similar(ha, typeha)
     for i in eachindex(ha)
