@@ -5,7 +5,7 @@ function _deredd{T<:AbstractFloat}(Eby::T, by::T, m1::T, c1::T, ub::T)
     Rm1 = -0.33
     Rc1 = 0.19
     Rub = 1.53
-    Eby0 = Eby > 0.0 ? Eby : 0.0
+    Eby0 = Eby > 0 ? Eby : zero(T)
     return by - Eby0, m1 - Rm1*Eby0, c1 - Rc1*Eby0, ub - Rub*Eby0
 end
 
@@ -57,7 +57,7 @@ function deredd{E<:Real, B<:Real, M<:Real, C<:Real, U<:Real}(Eby::AbstractArray{
                                                              c1::AbstractArray{C},
                                                              ub::AbstractArray{U})
     @assert length(Eby) == length(by) == length(m1) == length(c1) == length(ub)
-    typeeby = typeof(float(one(E)))
+    typeeby = float(E)
     by0 = similar(Eby, typeeby)
     m0  = similar(Eby, typeeby)
     c0  = similar(Eby, typeeby)

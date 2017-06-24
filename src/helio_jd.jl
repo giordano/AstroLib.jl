@@ -7,9 +7,9 @@ function _helio_jd{T<:AbstractFloat}(date::T, ra::T, dec::T, B1950::Bool, diff::
     if ! B1950
         ra, dec = bprecess(ra, dec)
     end
-    delta_t = (date - 33282.42345905)*inv(JULIANYEAR*100)
+    delta_t = (date - 33282.42345905) / (JULIANYEAR * 100)
     epsilon_sec = @evalpoly(delta_t, 44.836, -46.8495, -0.00429, 0.00181)
-    epsilon = deg2rad(23.433333 + epsilon_sec/3600.0)
+    epsilon = deg2rad(23.433333 + epsilon_sec/3600)
     ra = deg2rad(ra)
     dec = deg2rad(dec)
     x, y, z = xyz(date)
@@ -18,7 +18,7 @@ function _helio_jd{T<:AbstractFloat}(date::T, ra::T, dec::T, B1950::Bool, diff::
     if diff
         return time
     else
-        return date + time/86400.0
+        return date + time / 86400
     end
 end
 

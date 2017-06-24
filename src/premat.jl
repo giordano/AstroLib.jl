@@ -4,7 +4,7 @@
 function _premat{T<:AbstractFloat}(equinox1::T, equinox2::T, FK4::Bool)
     t = 0.001*(equinox2 - equinox1)
     if FK4
-        st = 0.001*(equinox1 - 1900.0)
+        st = (equinox1 - 1900) / 1000
         #  Compute 3 rotation angles
         a = sec2rad(t*(23042.53 + st*(139.75 + 0.06*st)
                        + t*(30.23 - 0.27*st + 18.0*t)))
@@ -12,7 +12,7 @@ function _premat{T<:AbstractFloat}(equinox1::T, equinox2::T, FK4::Bool)
         c = sec2rad(t*(20046.85 - st*(85.33 + 0.37*st)
                        + t*(-42.67 - 0.37*st -41.8*t)))
     else
-        st = 0.001*(equinox1 - 2000.0)
+        st = (equinox1 / 1000) - 2
         # Compute 3 rotation angles
         a = sec2rad(t *(23062.181 + st*(139.656 + 0.0139*st)
                         + t*(30.188 - 0.344*st + 17.998*t)))

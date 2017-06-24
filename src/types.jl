@@ -13,7 +13,7 @@ Type holding information about an observing site.  Its fields are:
 * `altitude`: altitude of the site in meters
 * `tz`: the number of hours of offset from UTC
 """
-immutable Observatory
+struct Observatory
     name::String
     latitude::Float64
     longitude::Float64
@@ -65,7 +65,7 @@ Position characteristics (epoch J2000):
 * `per_long`: longitude of perihelion in degrees
 * `mean_long`: mean longitude in degrees
 """
-immutable Planet
+struct Planet
     name::String
     radius::Float64
     eqradius::Float64

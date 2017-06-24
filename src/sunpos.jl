@@ -3,53 +3,53 @@
 
 function _sunpos{T<:AbstractFloat}(jd::T, radians::Bool)
     # Number of Julian centuries since 1899-12-31T12:00:00
-    t = (jd - 2415020.0)*inv(JULIANYEAR*100)
+    t = (jd - 2415020) / (JULIANYEAR*100)
     # Sun's mean longitude
-    l = (279.696678 + mod(36000.768925*t, 360.0))*3600.0
+    l = (279.696678 + mod(36000.768925*t, 360)) * 3600
     # Allow for ellipticity of the orbit (equation of centre) using the Earth's
     # mean anomaly ME
-    me = 358.475844 + mod(35999.049750*t, 360.0)
-    ellcor = (6910.1 - 17.2*t)*sind(me) + 72.3*sind(2.0*me)
+    me = 358.475844 + mod(35999.049750*t, 360)
+    ellcor = (6910.1 - 17.2 * t) * sind(me) + 72.3 * sind(2 * me)
     l += ellcor
     # Allow for the Venus perturbations using the mean anomaly of Venus MV
-    mv = 212.603219 + mod(58517.803875*t, 360.0)
+    mv = 212.603219 + mod(58517.803875*t, 360)
     vencorr = 4.8*cosd(299.1017 + mv - me) +
-        5.5*cosd(148.3133 +  2.0*mv - 2.0*me) +
-        2.5*cosd(315.9433 +  2.0*mv - 3.0*me) +
-        1.6*cosd(345.2533 +  3.0*mv - 4.0*me) +
-        1.0*cosd(318.15   +  3.0*mv - 5.0*me)
+        5.5*cosd(148.3133 +  2 * mv - 2 * me) +
+        2.5*cosd(315.9433 +  2 * mv - 3 * me) +
+        1.6*cosd(345.2533 +  3 * mv - 4 * me) +
+        1.0*cosd(318.15   +  3 * mv - 5 * me)
     l += vencorr
     # Allow for the Mars perturbations using the mean anomaly of Mars MM.
-    mm = 319.529425  +  mod(19139.858500*t, 360.0)
-    marscorr = 2.0*cosd(343.8883 - 2.0*mm + 2.0*me) +
-        1.8*cosd(200.4017 - 2.0*mm + me)
+    mm = 319.529425  +  mod(19139.858500*t, 360)
+    marscorr = 2 * cosd(343.8883 - 2 * mm + 2 * me) +
+        1.8 * cosd(200.4017 - 2 * mm + me)
     l += marscorr
     # Allow for the Jupiter perturbations using the mean anomaly of Jupiter MJ
-    mj = 225.328328 + mod(3034.6920239*t, 360.0)
+    mj = 225.328328 + mod(3034.6920239 * t, 360)
     jupcorr = 7.2*cosd(179.5317 - mj + me) +
         2.6*cosd(263.2167 - mj) +
-        2.7*cosd( 87.1450 - 2.0*mj + 2.0*me) +
-        1.6*cosd(109.4933 - 2.0*mj + me)
+        2.7*cosd( 87.1450 - 2 * mj + 2 * me) +
+        1.6*cosd(109.4933 - 2 * mj + me)
     l += jupcorr
     # Allow for the Moons perturbations using the mean elongation of the Moon
     # from the Sun D
-    d = 350.7376814 + mod(445267.11422*t, 360.0)
+    d = 350.7376814 + mod(445267.11422 * t, 360)
     mooncorr  = 6.5*sind(d)
     l += mooncorr
     # Allow for long period terms
     longterm = 6.4*sind(231.19 + 20.20*t)
     l += longterm
-    l  = mod(l + 2592000.0, 1296000.0)
-    longmed = deg2rad(l/3600)
+    l  = mod(l + 2592000, 1296000)
+    longmed = sec2rad(l)
     # Allow for Aberration
     l -= 20.5
     # Allow for Nutation using the longitude of the Moons mean node OMEGA
-    omega = 259.183275 - mod(1934.142008*t, 360.0)
+    omega = 259.183275 - mod(1934.142008 * t, 360)
     l -= 17.2 * sind(omega)
     # True Obliquity
-    oblt = 23.452294 - 0.0130125*t + 9.2*cosd(omega)/3600.0
+    oblt = 23.452294 - 0.0130125 * t + 9.2 * cosd(omega) / 3600
     # Right Ascension and Declination
-    l /= 3600.0
+    l /= 3600
     ra = cirrange(atan2(sind(l)*cosd(oblt), cosd(l)), 2pi)
     dec = asin(sind(l)*sind(oblt))
     oblt = deg2rad(oblt)

@@ -39,9 +39,9 @@ const cdelt = [8.9, -3.1, -0.5, 0.5, -0.1, 0.0, -0.6, 0.0, -0.1, 0.3, 0.0, 0.0,
                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
-function _nutate{T<:AbstractFloat}(jd::T)
+function nutate(jd::AbstractFloat)
     # Number of Julian centuries since 2000-01-01T12:00:00
-    t = (jd - J2000)*inv(JULIANYEAR*100)
+    t = (jd - J2000) / (JULIANYEAR * 100)
     # Mean elongation of the Moon
     d = deg2rad(cirrange(@evalpoly(t, 297.85036, 445267.111480, -0.0019142, inv(189474))))
     # Sun's mean anomaly
@@ -53,9 +53,9 @@ function _nutate{T<:AbstractFloat}(jd::T)
     # Longitude of the ascending node of the Moon's mean orbit on the ecliptic,
     # measured from the mean equinox of the date
     ω = deg2rad(cirrange(@evalpoly(t, 125.04452, -1934.136261, 0.0020708, inv(4.5e5))))
-    arg = d_lng*d + M_lng*M + Mprime_lng*Mprime + F_lng*F + ω_lng*ω
-    long  = 0.0001*sum((sdelt*t + sin_lng).*sin.(arg))
-    obliq = 0.0001*sum((cdelt*t + cos_lng).*cos.(arg))
+    arg = d_lng .* d .+ M_lng .* M .+ Mprime_lng .* Mprime .+ F_lng .* F .+ ω_lng .* ω
+    long  = sum((sdelt .* t .+ sin_lng) .* sin.(arg)) / 10000
+    obliq = sum((cdelt .* t .+ cos_lng) .* cos.(arg)) / 10000
     return long, obliq
 end
 
@@ -113,9 +113,9 @@ smaller oscillations with shorter periods.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-nutate(jd::Real) = _nutate(float(jd))
+nutate(jd::Real) = nutate(float(jd))
 
-function nutate{J<:Real}(jd::AbstractArray{J})
+function nutate(jd::AbstractArray{J}) where {J<:Real}
     typej = float(J)
     long = similar(jd, typej)
     obliq = similar(jd, typej)

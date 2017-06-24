@@ -66,7 +66,7 @@ function precess_xyz{X<:Real, Y<:Real, Z<:Real}(x::AbstractArray{X},
                                                 equinox1::Real,
                                                 equinox2::Real)
     @assert length(x) == length(y) == length(z) "x, y, z arrays should be of the same length"
-    typex = typeof(float(one(X)))
+    typex = float(X)
     x_out = similar(x, typex)
     y_out = similar(x, typex)
     z_out = similar(x, typex)

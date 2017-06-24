@@ -18,7 +18,7 @@ function _precess{T<:AbstractFloat}(ra::T, dec::T, equinox1::T, equinox2::T,
     ra_rad  = atan2(x2[2], x2[1])
     dec_rad = asin(x2[3])
     if radians
-        return cirrange(ra_rad, 2.0*pi), dec_rad
+        return cirrange(ra_rad, 2 * T(pi)), dec_rad
     else
         return cirrange(rad2deg(ra_rad)), rad2deg(dec_rad)
     end
@@ -110,7 +110,7 @@ function precess{R<:Real, D<:Real}(ra::AbstractArray{R},
                                    equinox2::Real; FK4::Bool=false,
                                    radians::Bool=false)
     @assert length(ra) == length(dec) "ra and dec arrays should be of the same length"
-    typera = typeof(float(one(R)))
+    typera = float(R)
     ra_out  = similar(ra,  typera)
     dec_out = similar(dec, typera)
     for i in eachindex(ra)

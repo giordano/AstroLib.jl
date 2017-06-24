@@ -4,8 +4,8 @@
 function _eci2geo{T<:AbstractFloat}(x::T, y::T, z::T, jd::T)
     Re    = planets["earth"].eqradius*1e-3
     theta = atan2(y, x) # Azimuth.
-    gst   = ct2lst(0.0, jd)
-    sid_angle = gst*pi/12.0 # Sidereal angle.
+    gst   = ct2lst(zero(T), jd)
+    sid_angle = gst*pi/12 # Sidereal angle.
     long  = cirrange(rad2deg(theta - sid_angle)) # Longitude.
     r     = hypot(x, y)
     lat   = atan2(z, r) # Latitude.
@@ -85,7 +85,7 @@ function eci2geo{X<:Real, Y<:Real, Z<:Real, JD<:Real}(x::AbstractArray{X},
                                                       z::AbstractArray{Z},
                                                       jd::AbstractArray{JD})
     @assert length(x) == length(y) == length(z) == length(jd)
-    typex = typeof(float(one(X)))
+    typex = float(X)
     lat  = similar(x, typex)
     long = similar(x, typex)
     alt  = similar(x, typex)

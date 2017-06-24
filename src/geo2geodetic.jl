@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _geo2geodetic{T<:AbstractFloat}(lat::T, long::T, alt::T, eqrad::T, polrad::T)
+function geo2geodetic{T<:AbstractFloat}(lat::T, long::T, alt::T, eqrad::T, polrad::T)
     e = sqrt(eqrad^2 - polrad^2)/eqrad
     lat = deg2rad(lat)
     long_rad = deg2rad(long)
@@ -9,16 +9,16 @@ function _geo2geodetic{T<:AbstractFloat}(lat::T, long::T, alt::T, eqrad::T, polr
     y = (eqrad + alt)*cos(lat)*sin(long_rad)
     z = (eqrad + alt)*sin(lat)
     r = hypot(x, y)
-    s    = hypot(r, z)*(1.0 - eqrad*sqrt((1.0 - e^2)/((1.0 - e^2)*r^2 + z^2)))
-    t0   = 1.0 + s*sqrt(1.0 - (e*z)^2/(r^2 + z^2))/eqrad
+    s    = hypot(r, z)*(1 - eqrad*sqrt((1 - e^2)/((1 - e^2)*r^2 + z^2)))
+    t0   = 1 + s*sqrt(1 - (e*z)^2/(r^2 + z^2))/eqrad
     dzeta1 = z*t0
     xi1  = r*(t0 - e^2)
     rho1 = hypot(xi1, dzeta1)
     c1   = xi1/rho1
     s1   = dzeta1/rho1
-    b1   = eqrad/sqrt(1.0 - (e*s1)^2)
+    b1   = eqrad/sqrt(1 - (e*s1)^2)
     u1   = b1*c1
-    w1   = b1*s1*(1.0 - e^2)
+    w1   = b1*s1*(1 - e^2)
     return rad2deg(atan2(s1, c1)), long, hypot(r - u1, z - w1)
 end
 
@@ -142,7 +142,7 @@ collect(geodetic2geo(geo2geodetic(67.2, 13.4, 1.2))) - [67.2, 13.4, 1.2]
 Code of this function is based on IDL Astronomy User's Library.
 """
 geo2geodetic(lat::Real, long::Real, alt::Real, eq::Real, pol::Real) =
-    _geo2geodetic(promote(float(lat), float(long), float(alt),
+    geo2geodetic(promote(float(lat), float(long), float(alt),
                           float(eq), float(pol))...)
 
 geo2geodetic(lla::Tuple{Real, Real, Real}, eq::Real, pol::Real) =
@@ -153,7 +153,7 @@ function geo2geodetic{LA<:Real, LO<:Real, AL<:Real}(lat::AbstractArray{LA},
                                                     alt::AbstractArray{AL},
                                                     eq::Real, pol::Real)
     @assert length(lat) == length(long) == length(alt)
-    typela  = typeof(float(one(LA)))
+    typela  = float(LA)
     outlat  = similar(lat, typela)
     outlong = similar(lat, typela)
     outalt  = similar(lat, typela)
@@ -178,7 +178,7 @@ function geo2geodetic{LA<:Real, LO<:Real, AL<:Real}(lat::AbstractArray{LA},
                                                     alt::AbstractArray{AL},
                                                     planet::AbstractString="earth")
     @assert length(lat) == length(long) == length(alt)
-    typela  = typeof(float(one(LA)))
+    typela  = float(LA)
     outlat  = similar(lat, typela)
     outlong = similar(lat, typela)
     outalt  = similar(lat, typela)

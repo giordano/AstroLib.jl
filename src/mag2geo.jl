@@ -94,7 +94,7 @@ function mag2geo{LA<:Real, LO<:Real}(lat::AbstractArray{LA},
                                      long::AbstractArray{LO},
                                      year::Real=Dates.year(Dates.now()))
     @assert length(lat) == length(long)
-    typela   = typeof(float(one(LA)))
+    typela   = float(LA)
     geolat   = similar(lat, typela)
     geolong  = similar(lat, typela)
     polelat  = deg2rad(POLELATLONG[year][1])

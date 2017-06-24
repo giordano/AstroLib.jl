@@ -62,7 +62,7 @@ recpol(xy::Tuple{Real, Real}; degrees::Bool=false) =
 function recpol{X<:Real, Y<:Real}(x::AbstractArray{X}, y::AbstractArray{Y};
                                   degrees::Bool=false)
     @assert length(x) == length(y)
-    typex = typeof(float(one(X)))
+    typex = float(X)
     r = similar(x, typex)
     a = similar(x, typex)
     for i in eachindex(x)
