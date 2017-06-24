@@ -33,7 +33,7 @@ USNO Circular 179, but the canonical reference for the IAU adoption
 is apparently Hilton et al., 2006, Celest.Mech.Dyn.Astron. 94, 351. 2000
 """
 function mean_obliquity(jd::Real)
-    t = (jd - J2000) / (JULIANYEAR * 100)
+    t = (jd - J2000) / JULIANCENTURY
     eps0 = @evalpoly t 84381.406 -46.836769 -0.0001831 0.0020034 -0.576e-6 -4.34e-8
     return sec2rad(eps0)
 end

@@ -31,16 +31,17 @@ const POLELATLONG =
 then restart Julia session in order to fix this problem.""")
     end
 
-const AU = 1.495978707e11 # Astronomical unit in meters
-const J2000 = jdcnv(2000, 01, 01, 12) # 2451545
-const JULIANYEAR = 365.25 # days in Julian year
+const AU = 149_597_870_700 # Astronomical unit in meters
+const J2000 = Int(jdcnv(2000, 01, 01, 12)) # 2451545
+const JULIANYEAR = 365.25 # days in one Julian year
+const JULIANCENTURY = 36_525 # days in one Julian century
 
 # Constant used in ct2lst function, see Meeus, p.84.
 const ct2lst_c  = (280.46061837, 360.98564736629, 0.000387933, 38710000.0)
 
 # Used in "bprecess" and "jprecess".
-const A_precess  = 1e-6*[-1.62557, -0.31919, -0.13843] # In radians
-const A_dot_precess = 0.001*[1.244 , -1.579, -0.660] # In arc seconds per century
+const A_precess  = [-1.62557, -0.31919, -0.13843] ./ 1000000 # In radians
+const A_dot_precess = [1.244 , -1.579, -0.660] ./ 1000 # In arc seconds per century
 
 """
 List of observing sites.  The observatories have `Observatory` type.

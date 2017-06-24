@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 function _xyz{T<:AbstractFloat}(jd::T, equinox::T)
-    t = (jd - 15020) / (JULIANYEAR * 100) # Reduced Julian century from 1900
+    t = (jd - 15020) / JULIANCENTURY # Reduced Julian century from 1900
 
     # NOTE: longitude arguments below are given in *equinox* of date.  Precess
     # these to equinox 1950 to give everything an even footing.  Compute

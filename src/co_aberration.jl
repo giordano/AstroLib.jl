@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
 function _co_aberration{T<:AbstractFloat}(jd::T, ra::T, dec::T, eps::T)
-    t = (jd - J2000) / (JULIANYEAR * 100)
+    t = (jd - J2000) / JULIANCENTURY
     if isnan(eps)
         eps = true_obliquity(jd)
     end

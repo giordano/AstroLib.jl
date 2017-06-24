@@ -41,7 +41,7 @@ const cdelt = [8.9, -3.1, -0.5, 0.5, -0.1, 0.0, -0.6, 0.0, -0.1, 0.3, 0.0, 0.0,
 
 function nutate(jd::AbstractFloat)
     # Number of Julian centuries since 2000-01-01T12:00:00
-    t = (jd - J2000) / (JULIANYEAR * 100)
+    t = (jd - J2000) / JULIANCENTURY
     # Mean elongation of the Moon
     d = deg2rad(cirrange(@evalpoly(t, 297.85036, 445267.111480, -0.0019142, inv(189474))))
     # Sun's mean anomaly
