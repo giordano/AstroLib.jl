@@ -125,7 +125,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "Coordinates and positions",
     "category": "section",
-    "text": "adstring(), aitoff(), altaz2hadec(), bprecess(), co_aberration(), co_nutate(), eci2geo(), eqpole(), euler(), gcirc(), geo2eci(), geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), jprecess(), mag2geo(), mean_obliquity(), polrec(), posang(), precess(), precess_cd(), precess_xyz(), premat(), radec(), recpol(), true_obliquity(), zenpos()"
+    "text": "adstring(), aitoff(), altaz2hadec(), bprecess(), co_aberration(), co_nutate(), eci2geo(), eqpole(), euler(), gcirc(), geo2eci(), geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), helio(), jprecess(), mag2geo(), mean_obliquity(), polrec(), posang(), precess(), precess_cd(), precess_xyz(), premat(), radec(), recpol(), true_obliquity(), zenpos()"
 },
 
 {
@@ -173,7 +173,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "AstroLib.Planet",
     "category": "Type",
-    "text": "Type holding information about a planet.  Its fields are:\n\nDesignation:\n\nname: the name\n\nPhysical characteristics:\n\nradius: mean radius in meters\neqradius: equatorial radius in meters\npolradius: polar radius in meters\nmass: mass in kilogram\n\nOrbital characteristics (epoch J2000):\n\necc: eccentricity of the orbit\naxis: semi-major axis of the orbit in meters\nperiod: sidereal orbital period in seconds\n\n\n\n"
+    "text": "Type holding information about a planet.  Its fields are:\n\nDesignation:\n\nname: the name\n\nPhysical characteristics:\n\nradius: mean radius in meters\neqradius: equatorial radius in meters\npolradius: polar radius in meters\nmass: mass in kilogram\n\nOrbital characteristics (epoch J2000):\n\necc: eccentricity of the orbit\naxis: semi-major axis of the orbit in meters\nperiod: sidereal orbital period in seconds\n\nPosition characteristics (epoch J2000):\n\ninc: inclination in degrees\nasc_long: longitude of the ascending node in degrees\nper_long: longitude of perihelion in degrees\nmean_long: mean longitude in degrees\n\n\n\n"
 },
 
 {
@@ -293,7 +293,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "AstroLib.euler",
     "category": "Method",
-    "text": "euler(ai, bi, select[, FK4=true, radian=true])\n\nPurpose\n\nTransform between Galactic, celestial, and ecliptic coordinates.\n\nExplanation\n\nThe function is used by the astro procedure.\n\nArguments\n\nai: input longitude, scalar or vector.\nbi: input latitude, scalar or vector.\nselect : integer input specifying type of coordinate transformation. SELECT   From          To     | SELECT   From       To    1   RA-Dec (2000) Galactic |   4    Ecliptic   RA-Dec    2   Galactic      RA-DEC   |   5    Ecliptic   Galactic    3   RA-Dec        Ecliptic |   6    Galactic   Ecliptic\nFK4 (optional boolean keyword) : if this keyword is set to true, then input and output celestial and ecliptic coordinates should be given in equinox B1950. When false, by default, they should be given in equinox J2000.\nradian (optional boolean keyword) : if this keyword is set to true, all input and output angles are in radian rather than degrees.\n\nOutput\n\na 2-tuple (ao, bo):\n\nao: output longitude in degrees.\nbo: output latitude in degrees.\n\nExample\n\nFind the Galactic coordinates of Cyg X-1 (ra=299.590315, dec=35.201604)\n\njulia> euler(299.590315, 35.201604, 1)\n(71.33498957116959, 3.0668335310640984)\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
+    "text": "euler(ai, bi, select[, FK4=true, radians=true])\n\nPurpose\n\nTransform between Galactic, celestial, and ecliptic coordinates.\n\nExplanation\n\nThe function is used by the astro procedure.\n\nArguments\n\nai: input longitude, scalar or vector.\nbi: input latitude, scalar or vector.\nselect : integer input specifying type of coordinate transformation. SELECT   From          To     | SELECT   From       To    1   RA-Dec (2000) Galactic |   4    Ecliptic   RA-Dec    2   Galactic      RA-DEC   |   5    Ecliptic   Galactic    3   RA-Dec        Ecliptic |   6    Galactic   Ecliptic\nFK4 (optional boolean keyword) : if this keyword is set to true, then input and output celestial and ecliptic coordinates should be given in equinox B1950. When false, by default, they should be given in equinox J2000.\nradians (optional boolean keyword) : if this keyword is set to true, all input and output angles are in radians rather than degrees.\n\nOutput\n\na 2-tuple (ao, bo):\n\nao: output longitude in degrees.\nbo: output latitude in degrees.\n\nExample\n\nFind the Galactic coordinates of Cyg X-1 (ra=299.590315, dec=35.201604)\n\njulia> euler(299.590315, 35.201604, 1)\n(71.33498957116959, 3.0668335310640984)\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
 },
 
 {
@@ -374,6 +374,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.hadec2altaz",
     "category": "Method",
     "text": "hadec2altaz(ha, dec, lat[, ws=true]) -> alt, az\n\nPurpose\n\nConvert Hour Angle and Declination to Horizon (Alt-Az) coordinates.\n\nExplanation\n\nCan deal with the NCP singularity.  Intended mainly to be used by program eq2hor.\n\nArguments\n\nInput coordinates may be either a scalar or an array, of the same dimension.\n\nha: the local apparent hour angle, in degrees.  The hour angle is the time that right ascension of 0 hours crosses the local meridian.  It is unambiguously defined.\ndec: the local apparent declination, in degrees.\nlat: the local geodetic latitude, in degrees, scalar or array.\nws (optional boolean keyword): if true, the output azimuth is measured West from South.  The default is to measure azimuth East from North.\n\nha and dec can be given as a 2-tuple (ha, dec).\n\nOutput\n\n2-tuple (alt, az)\n\nalt: local apparent altitude, in degrees.\naz: the local apparent azimuth, in degrees.\n\nThe output coordinates are always floating points and have the same type (scalar or array) as the input coordinates.\n\nExample\n\nArcturus is observed at an apparent hour angle of 336.6829 and a declination of 19.1825 while at the latitude of +43° 4' 42''.  What are the local altitude and azimuth of this object?\n\nalt, az = hadec2altaz(336.6829, 19.1825, ten(43, 4, 42))\n# => (59.08617155005683,133.3080693440254)\n\nNotes\n\naltaz2hadec converts Horizon (Alt-Az) coordinates to Hour Angle and Declination.\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.helio",
+    "page": "Reference",
+    "title": "AstroLib.helio",
+    "category": "Function",
+    "text": "helio(jd, list[, radians=true]) -> hrad, hlong, hlat\n\nPurpose\n\nCompute heliocentric coordinates for the planets.\n\nExplanation\n\nThe mean orbital elements for epoch J2000 are used. These are derived from a 250 yr least squares fit of the DE 200 planetary ephemeris to a Keplerian orbit where each element is allowed to vary linearly with time. Useful mainly for dates between 1800 and 2050, this solution fits the terrestrial planet orbits to ~25'' or better, but achieves only ~600'' for Saturn.\n\nArguments\n\njd: julian date, scalar or vector\nnum: integer denoting planet number, scalar or vector 1 = Mercury, 2 = Venus, ... 9 = Pluto\nradians(optional boolean keyword): if this keyword is set to true, than the longitude and latitude output are in radians rather than degrees.\n\nOutput\n\nhrad: the heliocentric radii, in astronomical units.\nhlong: the heliocentric (ecliptic) longitudes, in degrees.\nhlat: the heliocentric latitudes in degrees.\n\nExample\n\n(1) Find heliocentric position of Venus on August 23, 2000\n\njulia> helio(jdcnv(2000,08,23,0), 2)\n(0.7277924688617697, 198.3905644590639, 2.8873671025751797)\n\n(2) Find the current heliocentric positions of all the planets\n\njulia> helio.([jdcnv(1900)], [1,2,3,4,5,6,7,8,9])\n9-element Array{Tuple{Float64,Float64,Float64},1}:\n (0.459664, 202.609, 3.05035)\n (0.727816, 344.538, -3.39244)\n (1.01527, 101.55, 0.0126694)\n (0.420018, 287.852, -1.57543)\n (5.43369, 235.913, 0.913177)\n (10.0137, 268.043, 1.08506)\n (20.0194, 250.045, 0.0531082)\n (30.3027, 87.0721, -1.24507)\n (48.4365, 75.9481, -9.5764)\n\nNotes\n\nThis program is based on the two-body model and thus neglects interactions between the planets.\n\nAdditionally, there's a significant difference in the output given for the heliocentric radii of Mars, as the mean orbital quantities of planet Mars (see common) are differnet than what is used in IDL AstroLib.\n\nThe coordinates are given for equinox 2000 and not the equinox of the supplied date.\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
 },
 
 {
@@ -757,7 +765,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "AstroLib.planets",
     "category": "Constant",
-    "text": "List of planets of the Solar System, from Mercury to Pluto.  The elements of the list have Planet type.\n\nReference for most quantities is the Planetary Fact Sheet: http://nssdc.gsfc.nasa.gov/planetary/factsheet/index.html\n\n\n\n"
+    "text": "List of planets of the Solar System, from Mercury to Pluto.  The elements of the list have Planet type.\n\nReference for most quantities is the Planetary Fact Sheet: http://nssdc.gsfc.nasa.gov/planetary/factsheet/index.html and the Keplerian Elements for Approximate Positions of the Major Planets: https://ssd.jpl.nasa.gov/txt/p_elem_t1.txt\n\n\n\n"
 },
 
 {
