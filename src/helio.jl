@@ -2,6 +2,7 @@
 
 # dpdt gives the time rate of change of the mean orbital quantities
 # dpdt elements taken from https://ssd.jpl.nasa.gov/txt/p_elem_t1.txt
+"..."
 const dpd = [ 0.00000037  0.00001906 -0.00594749 -0.12534081  0.16047689 149472.67411175;
               0.00000390 -0.00004107 -0.00078890 -0.27769418  0.00268329  58517.81538729;
               0.00000562 -0.00004392 -0.01294668  0.0         0.32327364  35999.37244981;
@@ -12,14 +13,16 @@ const dpd = [ 0.00000037  0.00001906 -0.00594749 -0.12534081  0.16047689 149472.
               0.00026291  0.00005105  0.00035372 -0.00508664 -0.32241464    218.45945325;
              -0.00031596  0.00005170  0.00004818 -0.01183482 -0.04062942    145.20780515]
 
+"..."
+const record = Dict(1=>"mercury", 2=>"venus", 3=>"earth", 4=>"mars", 5=>"jupiter",
+                  6=>"saturn", 7=>"uranus", 8=>"neptune", 9=>"pluto")
+
 function _helio(jd::T, num::Integer, radians::Bool) where {T<:AbstractFloat}
 
     if num<1 || num>9
         error("Input should be an integer in the range 1:9 denoting planet number")
     end
     t = (jd - J2000) / (JULIANYEAR * 100)
-    record = Dict(1=>"mercury", 2=>"venus", 3=>"earth", 4=>"mars", 5=>"jupiter",
-                  6=>"saturn", 7=>"uranus", 8=>"neptune", 9=>"pluto")
     body = record[num]
     dpdt = dpd * t
     a = planets[body].axis/AU + dpdt[num, 1]
@@ -35,8 +38,7 @@ function _helio(jd::T, num::Integer, radians::Bool) where {T<:AbstractFloat}
     hlong = cirrange(nu + plong, 2 * pi)
     hlat = asin(sin(hlong - along) * sin(inc))
     if !radians
-        hlong = rad2deg(hlong)
-        hlat = rad2deg(hlat)
+        return hrad, rad2deg(hlong), rad2deg(hlat)
     end
     return hrad, hlong, hlat
 end
@@ -77,7 +79,7 @@ for Saturn.
 
 ```jldoctest
 julia> helio(jdcnv(2000,08,23,0), 2)
-(0.7213669177850188, 198.38959174187056, 2.8873974174644363)
+(0.7277924688617697, 198.3905644590639, 2.8873671025751797)
 ```
 
 (2) Find the current heliocentric positions of all the planets
@@ -85,15 +87,15 @@ julia> helio(jdcnv(2000,08,23,0), 2)
 ```jldoctest
 julia> helio.([jdcnv(1900)], [1,2,3,4,5,6,7,8,9])
 9-element Array{Tuple{Float64,Float64,Float64},1}:
- (0.421663, 203.273, 2.97717)
- (0.727449, 344.537, -3.39243)
- (0.983246, 101.55, 0.0126693)
- (0.360942, 288.126, -1.58013)
- (5.38753, 235.849, 0.914218)
- (10.0575, 268.058, 1.08448)
- (18.9866, 250.014, 0.0535316)
- (29.8764, 87.07, -1.24511)
- (47.1407, 74.6294, -9.89928)
+ (0.459664, 202.609, 3.05035)
+ (0.727816, 344.538, -3.39244)
+ (1.01527, 101.55, 0.0126694)
+ (0.420018, 287.852, -1.57543)
+ (5.43369, 235.913, 0.913177)
+ (10.0137, 268.043, 1.08506)
+ (20.0194, 250.045, 0.0531082)
+ (30.3027, 87.0721, -1.24507)
+ (48.4365, 75.9481, -9.5764)
 ```
 ### Notes ###
 

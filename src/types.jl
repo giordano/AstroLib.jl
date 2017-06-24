@@ -95,10 +95,10 @@ function show(io::IO, pl::Planet)
     println(io, "eccentricity:              ", pl.ecc)
     println(io, "semi-major axis:           ", pl.axis, " m")
     println(io, "period:                    ", pl.period, " s")
-    println(io, "inclination                ", pl.inc, " θ")
-    println(io, "longitude of ascending node", pl.asc_long, " θ")
-    println(io, "longitude of perihelion    ", pl.per_long, " θ")
-    print(io,   "mean longitude             ", pl.mean_long, " θ")
+    println(io, "inclination                ", pl.inc, " °")
+    println(io, "longitude of ascending node", pl.asc_long, " °")
+    println(io, "longitude of perihelion    ", pl.per_long, " °")
+    print(io,   "mean longitude             ", pl.mean_long, " °")
 end
 
 export Observatory, Planet
