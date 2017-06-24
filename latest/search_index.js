@@ -285,7 +285,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "AstroLib.eqpole",
     "category": "Method",
-    "text": "eqpole(l, b) -> x, y\n\nPurpose\n\nConvert right ascension l and declination b to coordinate (x y) using an equal-area polar projection.\n\nExplanation\n\nThe output x and y coordinates are scaled to be in the range -90 90 and to go from equator to pole to equator.  Output map points can be centered on the north pole or south pole.\n\nArguments\n\nl: longitude, scalar or vector, in degrees\nb: latitude, same number of elements as right ascension, in degrees\nsouthpole (optional boolean keyword): keyword to indicate that the plot is to be centered on the south pole instead of the north pole.  Default is false.\n\nOutput\n\nThe 2-tuple (x y):\n\nx coordinate, same number of elements as right ascension, normalized to be in the range -90 90.\ny coordinate, same number of elements as declination, normalized to be in the range -90 90.\n\nExample\n\neqpole(100, 35, southpole=true)\n# => (-111.18287262822456,-19.604540237028665)\neqpole(80, 19)\n# => (72.78853915267848,12.83458333897169)\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
+    "text": "eqpole(l, b[; southpole = false]) -> x, y\n\nPurpose\n\nConvert right ascension l and declination b to coordinate (x y) using an equal-area polar projection.\n\nExplanation\n\nThe output x and y coordinates are scaled to be in the range -90 90 and to go from equator to pole to equator.  Output map points can be centered on the north pole or south pole.\n\nArguments\n\nl: longitude, scalar or vector, in degrees\nb: latitude, same number of elements as right ascension, in degrees\nsouthpole (optional boolean keyword): keyword to indicate that the plot is to be centered on the south pole instead of the north pole.  Default is false.\n\nOutput\n\nThe 2-tuple (x y):\n\nx coordinate, same number of elements as right ascension, normalized to be in the range -90 90.\ny coordinate, same number of elements as declination, normalized to be in the range -90 90.\n\nExample\n\neqpole(100, 35, southpole=true)\n# => (-111.18287262822456,-19.604540237028665)\neqpole(80, 19)\n# => (72.78853915267848,12.83458333897169)\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
 },
 
 {
@@ -401,7 +401,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "ref.html#AstroLib.imf-Tuple{AbstractArray{#s49,1} where #s49<:Real,AbstractArray{#s48,1} where #s48<:Real,AbstractArray{#s47,1} where #s47<:Real}",
+    "location": "ref.html#AstroLib.imf-Tuple{AbstractArray{#s50,1} where #s50<:Real,AbstractArray{#s49,1} where #s49<:Real,AbstractArray{#s48,1} where #s48<:Real}",
     "page": "Reference",
     "title": "AstroLib.imf",
     "category": "Method",
