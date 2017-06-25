@@ -1,11 +1,35 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
-function _co_nutate(old_alt::T, altitude::T, pressure::T, temperature::T,
-                    epsilon::T, to_observe::Bool)
+function _co_refract(old_alt::T, altitude::T, pressure::T, temperature::T,
+                    epsilon::T, to_observe::Bool) where {T<:AbstractFloat}
+
     if isnan(temperature)
+        if altitude > 11000
+            temperature = 211.5
+        else
+            temperature = 283 - 0.0065 * altitude
+        end
+    end
 
+    if isnan(pressure)
+        pressure = 1010 * (1 - 6.5/288000 * altitude) ^ 5.255
+    end
+
+    if old_alt < 15
+        R = 3.569 * @evalpoly(old_alt, 0.1594, 0.0196, 0.00002) /
+            @evalpoly(old_alt, 1, 0.505, 0.0845)
+    else
+        R = deg2rad(0.0166667 / tan((old_alt + 10.3 / (old_alt + 5.11)))) / 60
+    end
+    R *= pressure * 283 / (1010 * temperature)
+
+    if !to_observe
+        aout = old_alt - R
+    else
+        aout = old_alt + R
+    end
+    return aout
 end
-
 """
     co_refract(old_alt[, altitude=0, pressure=NaN, temperature=NaN,
                epsilon=0.25, to_observe=false]) -> new_alt
@@ -40,7 +64,7 @@ this program uses an iterative approach.
 
 ### Arguments ###
 
-* `old_apt`: observed altitude in degrees. If `to_observe` is set to true,
+* `old_alt`: observed altitude in degrees. If `to_observe` is set to true,
   this should be apparent altitude
 * `altitude` (optional): the height of the observing location, in meters. This is
   only used to determine an approximate temperature and pressure, if these are not
@@ -56,7 +80,7 @@ this program uses an iterative approach.
 
 ### Output ###
 
-* `new_alt`: apparent alititude, in degrees. Observed altitude is returned if `to_observe`
+* `aout`: apparent alititude, in degrees. Observed altitude is returned if `to_observe`
   is set to true
 
 ### Example ###
@@ -88,3 +112,7 @@ Amazingly, they are also accurate for radio frequencies less than ~ 100 GHz.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
+co_refract(old_alt::Real, altitude::Real=0, pressure::Real=NaN, temperature::Real=NaN,
+           epsilon::Real=0.25; to_observe::Bool=false) =
+               _co_refract(promote(float(old_alt), float(altitude), float(pressure),
+                          float(temperature), float(epsilon))..., to_observe)
