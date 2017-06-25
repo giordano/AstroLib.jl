@@ -5,7 +5,7 @@ function _co_refract(old_alt::T, altitude::T, pressure::T, temperature::T,
 
     if isnan(temperature)
         if altitude > 11000
-            temperature = 211.5
+            temperature = T(211.5)
         else
             temperature = 283 - 0.0065 * altitude
         end
@@ -20,13 +20,9 @@ function _co_refract(old_alt::T, altitude::T, pressure::T, temperature::T,
     else
         cur = old_alt + co_refract_forward(old_alt, pressure, temperature)
         last = zero(T)
-        while true
-            if abs(last-cur) * 3600 < epsilon
-                break
-            else
-                last = cur
-                cur = old_alt + co_refract_forward(last, pressure, temperature)
-            end
+        while abs(last - cur) * 3600 > epsilon
+            last = cur
+            cur = old_alt + co_refract_forward(last, pressure, temperature)
         end
         aout = cur
     end
