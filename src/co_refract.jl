@@ -15,24 +15,26 @@ function _co_refract(old_alt::T, altitude::T, pressure::T, temperature::T,
         pressure = 1010 * (1 - 6.5/288000 * altitude) ^ 5.255
     end
 
-    if old_alt < 15
-        R = 3.569 * @evalpoly(old_alt, 0.1594, 0.0196, 0.00002) /
-            @evalpoly(old_alt, 1, 0.505, 0.0845)
-    else
-        R = deg2rad(0.0166667 / tan((old_alt + 10.3 / (old_alt + 5.11)))) / 60
-    end
-    R *= pressure * 283 / (1010 * temperature)
-
     if !to_observe
-        aout = old_alt - R
+        aout = old_alt - co_refract_forward(old_alt, pressure, temperature)
     else
-        aout = old_alt + R
+        cur = old_alt + co_refract_forward(old_alt, pressure, temperature)
+        last = zero(T)
+        while true
+            if abs(last-cur) * 3600 < epsilon
+                break
+            else
+                last = cur
+                cur = old_alt + co_refract_forward(last, pressure, temperature)
+            end
+        end
+        aout = cur
     end
     return aout
 end
 """
     co_refract(old_alt[, altitude=0, pressure=NaN, temperature=NaN,
-               epsilon=0.25, to_observe=false]) -> new_alt
+               epsilon=0.25, to_observe=false]) -> aout
 
 ### Purpose ###
 
@@ -80,18 +82,23 @@ this program uses an iterative approach.
 
 ### Output ###
 
-* `aout`: apparent alititude, in degrees. Observed altitude is returned if `to_observe`
+* `aout`: apparent altitude, in degrees. Observed altitude is returned if `to_observe`
   is set to true
 
 ### Example ###
 
-```jldoctest
+The lower limb of the Sun is observed to have altitude of 0d 30'. Calculate the the true
+(i.e. apparent) altitude of the Sun's lower limb using mean  conditions of air pressure and
+temperature.
 
+```jldoctest
+julia> co_refract(0.5)
+0.02584736873098442
 ```
 
 ### Notes ###
 
-If altitude is set, but temperature or pressure are not, the program will make an
+If altitude is set but the temperature or pressure is not, the program will make an
 intelligent guess for the temperature and pressure.
 
 #### Wavelength Dependence ####
@@ -116,3 +123,38 @@ co_refract(old_alt::Real, altitude::Real=0, pressure::Real=NaN, temperature::Rea
            epsilon::Real=0.25; to_observe::Bool=false) =
                _co_refract(promote(float(old_alt), float(altitude), float(pressure),
                           float(temperature), float(epsilon))..., to_observe)
+
+"""
+    co_refract_forward(alt, pre, temp) -> ref
+
+### Purpose ###
+
+A function used by [co_refract](@ref) to find apparent (or observed) altitude
+
+### Arguments ###
+
+* `alt`: the observed (or apparent) altitude, in degrees
+* `pre`: pressure, in millibars
+* `temp`: temperature, in Kelvins
+
+### Output ###
+
+* `ref`: the atmospheric refraction, in minutes of arc
+
+### Notes ###
+
+The atmospheric refraction is calculated by Saemundsson's formula
+
+Code of this function is based on IDL Astronomy User's Library.
+"""
+function co_refract_forward(alt::Real, pre::Real, temp::Real)
+
+    if alt < 15
+        ref = 3.569 * @evalpoly(alt, 0.1594, 0.0196, 0.00002) /
+            @evalpoly(alt, 1, 0.505, 0.0845)
+    else
+        ref = 0.0166667 / tand((alt + 7.31 / (alt + 4.4)))
+    end
+    ref *= pre * 283 / (1010 * temp)
+    return ref
+end
