@@ -19,10 +19,12 @@ function _co_refract(old_alt::T, altitude::T, pressure::T, temperature::T,
         aout = old_alt - co_refract_forward(old_alt, pressure, temperature)
     else
         cur = old_alt + co_refract_forward(old_alt, pressure, temperature)
-        last = zero(T)
-        while abs(last - cur) * 3600 > epsilon
+        while true
             last = cur
             cur = old_alt + co_refract_forward(last, pressure, temperature)
+            if abs(last - cur) * 3600 < epsilon
+                break
+            end
         end
         aout = cur
     end
