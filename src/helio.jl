@@ -20,7 +20,7 @@ function _helio(jd::T, num::Integer, radians::Bool) where {T<:AbstractFloat}
     if num<1 || num>9
         error("Input should be an integer in the range 1:9 denoting planet number")
     end
-    t = (jd - J2000) / (JULIANYEAR * 100)
+    t = (jd - J2000) / JULIANCENTURY
     body = record[num]
     dpdt = dpd * t
     a = planets[body].axis/AU + dpdt[num, 1]
