@@ -108,6 +108,7 @@ julia> AstroLib.planets["saturn"].mass
 [`jprecess()`](@ref),
 [`mag2geo()`](@ref),
 [`mean_obliquity()`](@ref),
+[`planet_coords()`](@ref),
 [`polrec()`](@ref),
 [`posang()`](@ref),
 [`precess()`](@ref),

@@ -1,25 +1,20 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
 #TODO: Use full JPL ephemeris for high precision
-function _planet_coords(date::T, planet::Integer, jd::Bool) where {T<:AbstractFloat}
+function _planet_coords(date::T, num::Integer) where {T<:AbstractFloat}
 
-    if !jd
-        date = jdcnv(date)
+    if num<1 || num>9
+        error("Input should be an integer in the range 1:9 denoting planet number")
     end
-
-    if planet == 0
-        _planet_coords.(date, [1,2,4,5,6,7,8,9], true)
-    else
-        rad, long, lat = helio(date, planet, true)
-        rade, longe, late = helio(date, 3, true)
-        x =  rad * cos(lat) * cos(long) - rade * cos(late) * cos(longe)
-        y = rad * cos(lat) * sin(long) - rade * cos(late) * sin(longe)
-        z = rad * sin(lat) - rade * sin(late)
-        lamda = rad2deg(atan2(y,x))
-        beta = rad2deg(atan2(z, hypot(x,y)))
-        ra, dec = euler(lamda, beta, 4)
-        return ra, dec
-    end
+    rad, long, lat = helio(date, num, true)
+    rade, longe, late = helio(date, 3, true)
+    x =  rad * cos(lat) * cos(long) - rade * cos(late) * cos(longe)
+    y = rad * cos(lat) * sin(long) - rade * cos(late) * sin(longe)
+    z = rad * sin(lat) - rade * sin(late)
+    lamda = rad2deg(atan2(y,x))
+    beta = rad2deg(atan2(z, hypot(x,y)))
+    ra, dec = euler(lamda, beta, 4)
+    return ra, dec
 end
 
 """
@@ -43,14 +38,10 @@ the accuracy can get much worse.
 ### Arguments ###
 
 * `date`: Can be either a single date or an array of dates. Each element can be
-  either a `DateTime` type or anything that can be converted directly to `DateTime`.
-  In the case of vectorial input, each element is considered as a date, so you
-  cannot provide a date by parts
-* `num`(optional): integer denoting planet number, scalar or vector
-  1 = Mercury, 2 = Venus, ... 9 = Pluto. If not given or is 0, then the
-  coordinates of every planet except earth will be computed
-* `jd`(optional boolean keyword): if set to `true`, then the date parameter should
-  be supplied as as Julian Date. It is `false` by default
+  either a `DateTime` type or Julian Date. It can be a scalar or vector.
+* `num`: integer denoting planet number, scalar or vector
+  1 = Mercury, 2 = Venus, ... 9 = Pluto. If not in that change, then the
+  program will throw an error.
 
 ### Output ###
 
@@ -59,25 +50,29 @@ the accuracy can get much worse.
 
 ### Example ###
 
-```jldoctest
+Find the RA, Dec of Venus on 1992 Dec 20
 
+```jldoctest
+julia> adstring(planet_coords(DateTime(1992,12,20),2))
+" 02 12 22.7  +12 44 45"
 ```
 
 ### Notes ###
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-planet_coords(date::Real, planet::Integer=0; jd::Bool=false) =
-    _planet_coords(float(date), planet, jd)
+planet_coords(date::Real, num::Integer) = _planet_coords(float(date), num)
 
-function planet_coords(date::AbstractVector{R}, planet::AbstractVector{<:Real}=0;
-                       jd::Bool=false) where {R<:Real}
-    @assert length(date) == length(planet) "date and planet arrays should be of the same length"
+function planet_coords(date::AbstractVector{R},
+                       num::AbstractVector{<:Real}) where {R<:Real}
+    @assert length(date) == length(num) "date and num arrays should be of the same length"
     typedate = float(R)
-    ra_out  = similar(date,  typedate)
+    ra_out  = similar(date, typedate)
     dec_out = similar(date, typedate)
     for i in eachindex(date)
-        ra_out[i], dec_out[i] = planet_coords(date[i], planet[i], jd=jd)
+        ra_out[i], dec_out[i] = planet_coords(date[i], num[i])
     end
     return ra_out, dec_out
 end
+
+planet_coords(date::DateTime, num::Integer) = planet_coords(juldate(date), num)
