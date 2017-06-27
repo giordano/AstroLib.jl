@@ -535,11 +535,11 @@ end
 # differences only in the least significant digits
 @testset "planet_coords" begin
     @test_throws ErrorException planet_coords(DateTime(2013, 07, 22, 03, 19, 06),0)
-    radec1, radec2 = planet_coords.([AstroLib.J2000, 2.45e6], [2,8])
-    @test radec1[1] ≈ 240.57786936443762
-    @test radec1[2] ≈ -18.61163248280214
-    @test radec2[1] ≈ 294.5324937544305
-    @test radec2[2] ≈ -20.995804666024817
+    ra_out, dec_out = planet_coords([AstroLib.J2000, 2.45e6], [2,8])
+    @test ra_out[1] ≈ 240.57786936443762
+    @test ra_out[2] ≈ 294.5324937544305
+    @test dec_out[1] ≈ -18.61163248280214
+    @test dec_out[2] ≈ -20.995804666024817
     ra_out, dec_out = planet_coords(2.45e6, 9)
     @test ra_out ≈ 238.80116583323138
     @test dec_out ≈ -6.949903597440905
