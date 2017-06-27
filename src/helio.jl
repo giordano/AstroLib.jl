@@ -62,7 +62,7 @@ for Saturn.
 * `jd`: julian date, scalar or vector
 * `num`: integer denoting planet number, scalar or vector
   1 = Mercury, 2 = Venus, ... 9 = Pluto
-* `radians`(optional boolean keyword): if this keyword is set to
+* `radians`(optional): if this keyword is set to
   `true`, than the longitude and latitude output are in radians rather than degrees.
 
 ### Output ###
