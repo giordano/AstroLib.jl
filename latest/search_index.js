@@ -125,7 +125,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "Coordinates and positions",
     "category": "section",
-    "text": "adstring(), aitoff(), altaz2hadec(), bprecess(), co_aberration(), co_nutate(), eci2geo(), eqpole(), euler(), gcirc(), geo2eci(), geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), helio(), jprecess(), mag2geo(), mean_obliquity(), polrec(), posang(), precess(), precess_cd(), precess_xyz(), premat(), radec(), recpol(), true_obliquity(), zenpos()"
+    "text": "adstring(), aitoff(), altaz2hadec(), bprecess(), co_aberration(), co_nutate(), co_refract(), eci2geo(), eqpole(), euler(), gcirc(), geo2eci(), geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), helio(), jprecess(), mag2geo(), mean_obliquity(), polrec(), posang(), precess(), precess_cd(), precess_xyz(), premat(), radec(), recpol(), true_obliquity(), zenpos()"
 },
 
 {
@@ -246,6 +246,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.co_nutate",
     "category": "Method",
     "text": "co_nutate(jd, ra, dec) -> d_ra, d_dec, eps, d_psi, d_eps\n\nPurpose\n\nCalculate changes in RA and Dec due to nutation of the Earth's rotation\n\nExplanation\n\nCalculates necessary changes to ra and dec due to the nutation of the Earth's rotation axis, as described in Meeus, Chap 23. Uses formulae from Astronomical Almanac, 1984, and does the calculations in equatorial rectangular coordinates to avoid singularities at the celestial poles.\n\nArguments\n\njd: julian date, scalar or vector\nra: right ascension in degrees, scalar or vector\ndec: declination in degrees, scalar or vector\n\nOutput\n\nThe 5-tuple (d_ra, d_dec, eps, d_psi, d_eps):\n\nd_ra: correction to right ascension due to nutation, in degrees\nd_dec: correction to declination due to nutation, in degrees\neps: the true obliquity of the ecliptic\nd_psi: nutation in the longitude of the ecliptic\nd_eps: nutation in the obliquity of the ecliptic\n\nExample\n\nExample 23a in Meeus: On 2028 Nov 13.19 TD the mean position of Theta Persei is 2h 46m 11.331s 49d 20' 54.54''. Determine the shift in position due to the Earth's nutation.\n\njulia> jd = jdcnv(2028,11,13,4,56)\n2.4620887055555554e6\n\njulia> co_nutate(jd,ten(2,46,11.331)*15,ten(49,20,54.54))\n(0.006058053578186673, 0.002650870610381162, 0.40904016038217567,\n 14.8593894278967, 2.7038090372351267)\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\nThe output of d_ra and d_dec in IDL AstroLib is in arcseconds, however it is in degrees here.\n\nThis function calls mean_obliquity and nutate.\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.co_refract",
+    "page": "Reference",
+    "title": "AstroLib.co_refract",
+    "category": "Function",
+    "text": "co_refract(old_alt[, altitude=0, pressure=NaN, temperature=NaN,\n           epsilon=0.25, to_observe=false]) -> aout\n\nPurpose\n\nCalculate correction to altitude due to atmospheric refraction.\n\nExplanation\n\nBecause the index of refraction of air is not precisely 1.0, the atmosphere bends all incoming light, making a star or other celestial object appear at a slightly different altitude (or elevation) than it really is.  It is important to understand the following definitions:\n\nObserved Altitude: The altitude that a star is seen to be, with a telescope. This is where it appears in the sky. This is should be always greater than the apparent altitude.\nApparent Altitude: The altitude that a star would be at, if ~there were no atmosphere~ (sometimes called the \"true\" altitude). This is usually calculated from an object's celestial coordinates. Apparent altitude should always be smaller than the observed altitude.\n\nThus, for example, the Sun's apparent altitude when you see it right on the horizon is actually -34 arcminutes.\n\nThis program uses a couple of simple formulae to estimate the effect for most optical and radio wavelengths. Typically, you know your observed altitude (from an observation), and want the apparent altitude. To go the other way, this program uses an iterative approach.\n\nArguments\n\nold_alt: observed altitude in degrees. If to_observe is set to true, this should be apparent altitude\naltitude (optional): the height of the observing location, in meters. This is only used to determine an approximate temperature and pressure, if these are not specified separately. Default is 0 i.e. sea level\npressure (optional): the pressure at the observing location, in millibars. Default is NaN\ntemperature (optional): the temperature at the observing location, in Kelvins. Default is NaN\nepsilon (optional): the accuracy to obtain, in arcseconds. If to_observe is true, then it will be calculated. Default is 0.25 arcseconds\nto_observe (optional boolean keyword): if set to true, it is assumed that old_alt has apparent altitude as its input and the observed altitude will be found\n\nOutput\n\naout: apparent altitude, in degrees. Observed altitude is returned if to_observe is set to true\n\nExample\n\nThe lower limb of the Sun is observed to have altitude of 0d 30'. Calculate the the true (i.e. apparent) altitude of the Sun's lower limb using mean  conditions of air pressure and temperature.\n\njulia> co_refract(0.5)\n0.02584736873098442\n\nNotes\n\nIf altitude is set but the temperature or pressure is not, the program will make an intelligent guess for the temperature and pressure.\n\nWavelength Dependence\n\nThis correction is 0 at zenith, about 1 arcminute at 45 degrees, and 34 arcminutes at the horizon for optical wavelengths. The correction is non-negligible at all wavelengths, but is not very easily calculable. These formulae assume a wavelength of 550 nm, and will be accurate to about 4 arcseconds for all visible wavelengths, for elevations of 10 degrees and higher. Amazingly, they are also accurate for radio frequencies less than ~ 100 GHz.\n\nReferences\n\nMeeus, Astronomical Algorithms, Chapter 15.\nExplanatory Supplement to the Astronomical Almanac, 1992.\nMethods of Experimental Physics, Vol 12 Part B, Astrophysics, Radio Telescopes, Chapter 2.5, \"Refraction Effects in the Neutral Atmosphere\", by R.K. Crane.\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
 },
 
 {
@@ -766,6 +774,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.planets",
     "category": "Constant",
     "text": "List of planets of the Solar System, from Mercury to Pluto.  The elements of the list have Planet type.\n\nReference for most quantities is the Planetary Fact Sheet: http://nssdc.gsfc.nasa.gov/planetary/factsheet/index.html and the Keplerian Elements for Approximate Positions of the Major Planets: https://ssd.jpl.nasa.gov/txt/p_elem_t1.txt\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.co_refract_forward-Tuple{Real,Real,Real}",
+    "page": "Reference",
+    "title": "AstroLib.co_refract_forward",
+    "category": "Method",
+    "text": "co_refract_forward(alt, pre, temp) -> ref\n\nPurpose\n\nA function used by co_refract to find apparent (or observed) altitude\n\nArguments\n\nalt: the observed (or apparent) altitude, in degrees\npre: pressure, in millibars\ntemp: temperature, in Kelvins\n\nOutput\n\nref: the atmospheric refraction, in minutes of arc\n\nNotes\n\nThe atmospheric refraction is calculated by Saemundsson's formula\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
 },
 
 {
