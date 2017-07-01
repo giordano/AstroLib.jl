@@ -74,18 +74,18 @@ It performs precession, nutation, aberration, and refraction corrections.
 * `alt`: altitude of horizon coords, in degrees
 * `az`: azimuth angle measured East from North (unless ws is `true`), in degrees
 * `jd`: julian date
-* `ws` (optional boolean): set this to `true` to get the azimuth measured
+* `ws` (optional boolean keyword): set this to `true` to get the azimuth measured
   westward from south
-* `B1950` (optional boolean): Set this to `true` if the ra and dec
+* `B1950` (optional boolean keyword): Set this to `true` if the ra and dec
   are specified in B1950 (FK4 coordinates) instead of J2000 (FK5). This is `false` by
   default
-* `precession` (optional boolean): set this to `false` for no precession,
+* `precession` (optional boolean keyword): set this to `false` for no precession,
   `true` by default
-* `nutate` (optional boolean): set this to `false` for no nutation,
+* `nutate` (optional boolean keyword): set this to `false` for no nutation,
   `true` by default
-* `aberration` (optional boolean): set this to `false` for no aberration
+* `aberration` (optional boolean keyword): set this to `false` for no aberration
   correction, `true` by default
-* `refract` (optional boolean): set this to `false` for no refraction
+* `refract` (optional boolean keyword: set this to `false` for no refraction
   correction, `true` by default
 * `lat` (optional keyword): north geodetic latitude of location, in degrees. Default
   is NaN
@@ -128,9 +128,9 @@ julia> adstring(ra_o, dec_o)
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-hor2eq(alt::Real, az::Real, jd::Real, ws::Bool=false, B1950::Bool=false,
+hor2eq(alt::Real, az::Real, jd::Real; ws::Bool=false, B1950::Bool=false,
        precession::Bool=true, nutate::Bool=true, aberration::Bool=true,
-       refract::Bool=true ; lat::Real=NaN, lon::Real=NaN, altitude::Real=0,
+       refract::Bool=true, lat::Real=NaN, lon::Real=NaN, altitude::Real=0,
        pressure::Real=NaN, temperature::Real=NaN, obsname::AbstractString="",) =
            _hor2eq(float(alt), float(az), float(jd), ws, B1950, precession,
                    nutate, aberration, refract, promote(float(lat), float(lon),
