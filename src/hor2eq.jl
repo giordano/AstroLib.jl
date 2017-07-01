@@ -2,7 +2,7 @@
 
 function _hor2eq(alt::T, az::T, jd::T, lat::T, lon::T, altitude::T, pressure::T,
                  temperature::T, obsname::AbstractString, ws::Bool, B1950::Bool,
-                 precess::Bool, nutate::Bool, aberration::Bool,
+                 precession::Bool, nutate::Bool, aberration::Bool,
                  refract::Bool) where {T<:AbstractFloat}
 
     if obsname == ""
@@ -47,12 +47,12 @@ function _hor2eq(alt::T, az::T, jd::T, lat::T, lon::T, altitude::T, pressure::T,
     end
     j_now = (jd - J2000) / JULIANYEAR + 2000
 
-    if precess
+    if precession
 
         if B1950
-            ra_o, dec_o = AstroLib.precess(ra, dec, j_now, 1950, FK4=true)
+            ra_o, dec_o = precess(ra, dec, j_now, 1950, FK4=true)
         else
-            ra_o, dec_o = AstroLib.precess(ra, dec, j_now, 2000)
+            ra_o, dec_o = precess(ra, dec, j_now, 2000)
         end
     else
         ra_o = ra
@@ -95,7 +95,7 @@ It performs precession, nutation, aberration, and refraction corrections.
   westward from south
 * `B1950` (optional boolean keyword): Set this to `true` if the ra and dec
   are specified in B1950 (FK4 coordinates) instead of J2000 (FK5)
-* `precess` (optional boolean keyword): set this to `false` for no precession,
+* `precession` (optional boolean keyword): set this to `false` for no precession,
   `true` by default
 * `nutate` (optional boolean keyword): set this to `false` for no nutation,
   `true` by default
@@ -122,8 +122,8 @@ Code of this function is based on IDL Astronomy User's Library.
 """
 hor2eq(alt::Real, az::Real, jd::Real; lat::Real=NaN, lon::Real=NaN, altitude::Real=0,
        pressure::Real=NaN, temperature::Real=NaN, obsname::AbstractString="",
-       ws::Bool=false, B1950::Bool=false, precess::Bool=true, nutate::Bool=true,
+       ws::Bool=false, B1950::Bool=false, precession::Bool=true, nutate::Bool=true,
        aberration::Bool=true, refract::Bool=true) =
            _hor2eq(promote(float(alt), float(az), float(jd), float(lat), float(lon),
                    float(altitude), float(temperature), float(pressure))..., obsname,
-                   ws, B1950, precess, nutate, aberration, refract)
+                   ws, B1950, precession, nutate, aberration, refract)
