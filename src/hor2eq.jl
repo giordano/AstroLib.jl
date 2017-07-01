@@ -16,21 +16,21 @@ function _hor2eq(alt::T, az::T, jd::T, lat::T, lon::T, altitude::T, pressure::T,
         end
     else
         lat = T(observatories[obsname].latitude)
-        lon = -one(T) * observatories[obsname].longitude
+        lon = one(T) * observatories[obsname].longitude
         altitude = T(observatories[obsname].altitude)
     end
 
     if refract
         alt_b = co_refract(alt, altitude, pressure, temperature)
     else
-        alt_b = az
+        alt_b = alt
     end
 
     if ws
         az -= 180
     end
     dra1, ddec1, eps, d_psi, _ = co_nutate(jd, 45, 45)
-    last = 15 * ct2lst(lon, jd) + d_psi * cos(eps)
+    last = 15 * ct2lst(lon, jd) + d_psi * cos(eps) / 3600
     ha, dec = altaz2hadec(alt_b, az, lat)
     ra = mod(last - ha, 360)
     dra1, ddec1, eps, _, _ = co_nutate(jd, ra, dec)
