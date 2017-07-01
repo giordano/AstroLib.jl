@@ -346,6 +346,28 @@ end
     @test hlat_out[1] ≈ -0.6845757329085267
 end
 
+# Test hor2eq
+# The values used for the testset are from running the code. However they have been
+# correlated with the output from hor2eq routine of IDL AstroLib, with
+# differences only in the least significant digits.
+@testset "hor2eq" begin
+    ra_o, dec_o, ha_o = hor2eq(43.6879, 56.684, AstroLib.J2000)
+    @test ra_o ≈ 259.51843877394714
+    @test dec_o ≈ 49.62331048847169
+    @test ha_o ≈ 19.40545272279752
+    ra_o, dec_o, ha_o = hor2eq(1.345, 359.43, 2e6, true, true, false, false, false, false,
+                               lat = 54.435, lon = -34.78, altitude = 1000.34,
+                               pressure = 500.345, temperature = 293.343)
+    @test ra_o ≈ 142.2933457820434
+    @test dec_o ≈ -34.218006262991786
+    @test ha_o ≈ 23.954057756664426
+    ra_o, dec_o, ha_o = hor2eq(ten(37,54,41), ten(264,55,06), 2466879.7083333,
+                               obsname="kpno", pressure = 711, temperature = 273)
+    @test ra_o ≈ 3.3222851503189124
+    @test dec_o ≈ 15.190605763758745
+    @test ha_o ≈ 3.640795457403172
+end
+
 # Test imf
 # The values used for the testset are from running the code. However they have been
 # correlated with the output from imf routine of IDL AstroLib, with
