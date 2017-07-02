@@ -54,7 +54,7 @@ Find the RA, Dec of Venus on 1992 Dec 20
 
 ```jldoctest
 julia> adstring(planet_coords(DateTime(1992,12,20),2))
-" 02 12 22.7  +12 44 45"
+" 21 00 15.3  -19 09 09"
 ```
 
 ### Notes ###

@@ -544,13 +544,13 @@ end
 @testset "planet_coords" begin
     @test_throws ErrorException planet_coords(DateTime(2013, 07, 22, 03, 19, 06),0)
     ra_out, dec_out = planet_coords([AstroLib.J2000, 2.45e6], [2,8])
-    @test ra_out[1] ≈ 240.57786936443762
-    @test ra_out[2] ≈ 294.5324937544305
-    @test dec_out[1] ≈ -18.61163248280214
-    @test dec_out[2] ≈ -20.995804666024817
+    @test ra_out[1] ≈ 240.57755359868264
+    @test ra_out[2] ≈ 294.5320325141674
+    @test dec_out[1] ≈ -18.61156412115397
+    @test dec_out[2] ≈ -20.995862023847003
     ra_out, dec_out = planet_coords(2.45e6, 9)
-    @test ra_out ≈ 238.80116583323138
-    @test dec_out ≈ -6.949903597440905
+    @test ra_out ≈ 238.8018048041111
+    @test dec_out ≈ -6.950165055292788
     @test planet_coords(juldate(), 3) == (0, 0)
 end
 
