@@ -64,7 +64,7 @@ Code of this function is based on IDL Astronomy User's Library.
 planet_coords(date::Real, num::Integer) = _planet_coords(float(date), num)
 
 function planet_coords(date::AbstractVector{R},
-                       num::AbstractVector{<:Real}) where {R<:Real}
+                       num::AbstractVector{<:Integer}) where {R<:Real}
     @assert length(date) == length(num) "date and num arrays should be of the same length"
     typedate = float(R)
     ra_out  = similar(date, typedate)
@@ -75,4 +75,4 @@ function planet_coords(date::AbstractVector{R},
     return ra_out, dec_out
 end
 
-planet_coords(date::DateTime, num::Integer) = planet_coords(juldate(date), num)
+planet_coords(date::DateTime, num::Integer) = planet_coords(jdcnv(date), num)
