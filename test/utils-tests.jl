@@ -97,6 +97,14 @@ end
     @test d_eps_out ≈ -5.773909654153591
 end
 
+# Test co_refract
+@testset "co_refract" begin
+    @test co_refract(0.8) ≈ 0.3714184384944585
+    @test co_refract.([5.86,20], 50, 568.967, 273, 0.15, to_observe=true) ≈
+        [5.94252628176525 , 20.02627520026167]
+    @test co_refract(14, 15000) ≈ 13.990329255193124
+end
+
 # Test ct2lst
 @test ct2lst.(-76.72, -4, [DateTime(2008, 7, 30, 15, 53)]) ≈ [11.356505172312609]
 @test ct2lst.(9, [jdcnv(2015, 11, 24, 12, 21)]) ≈ [17.159574059885927]
@@ -329,13 +337,13 @@ end
 @testset "helio" begin
     @test_throws ErrorException helio(jdcnv(2005,07,17,2,6,9), 10)
     hrad_out, hlong_out, hlat_out = helio(jdcnv(2000,08,23,0), 2, true)
-    @test hrad_out ≈ 0.7277924688617697
-    @test hlong_out ≈ 3.462568554700708
-    @test hlat_out ≈ 0.05039406265370573
+    @test hrad_out ≈ 0.7278046880206843
+    @test hlong_out ≈ 3.462574978561256
+    @test hlat_out ≈ 0.050393862449261535
     hrad_out, hlong_out, hlat_out = helio([AstroLib.J2000], [7])
-    @test hrad_out[1] ≈ 20.016572737628376
-    @test hlong_out[1] ≈ 316.39544963034945
-    @test hlat_out[1] ≈ -0.6845757329085267
+    @test hrad_out[1] ≈ 20.015953032256224
+    @test hlong_out[1] ≈ 316.4011812518626
+    @test hlat_out[1] ≈ -0.6846115653974465
 end
 
 # Test imf
