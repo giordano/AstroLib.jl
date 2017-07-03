@@ -70,7 +70,6 @@ Missing in AstroLib.jl
 * `get_coords`
 * `hor2eq`
 * `imcontour`
-* `planet_coords`
 * `qdcb_grid`
 * `tdb2tdt`
 * `ticlabels`

@@ -136,6 +136,9 @@ export planck_freq
 include("planck_wave.jl")
 export planck_wave
 
+include("planet_coords.jl")
+export planet_coords
+
 include("polrec.jl")
 export polrec
 

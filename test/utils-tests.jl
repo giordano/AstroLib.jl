@@ -537,6 +537,23 @@ end
 # Test planck_wave
 @test planck_wave.([2000], [5000]) ≈ [8.127064833530511e-24]
 
+# Test planet_coords
+# The values used for the testset are from running the code. However they have been
+# correlated with the output from planet_coord routine of IDL AstroLib, with
+# differences only in the least significant digits
+@testset "planet_coords" begin
+    @test_throws ErrorException planet_coords(DateTime(2013, 07, 22, 03, 19, 06),0)
+    ra_out, dec_out = planet_coords([AstroLib.J2000, 2.45e6], [2,8])
+    @test ra_out[1] ≈ 240.57755359868264
+    @test ra_out[2] ≈ 294.5320325141674
+    @test dec_out[1] ≈ -18.61156412115397
+    @test dec_out[2] ≈ -20.995862023847003
+    ra_out, dec_out = planet_coords(2.45e6, 9)
+    @test ra_out ≈ 238.8018048041111
+    @test dec_out ≈ -6.950165055292788
+    @test planet_coords(juldate(), 3) == (0, 0)
+end
+
 # Test polrec
 let
     local x, y
