@@ -365,7 +365,7 @@ end
     @test ha_o ≈ 23.954057756664426
     ra_o, dec_o, ha_o = hor2eq(ten(37,54,41), ten(264,55,06), 2466879.7083333,
                                obsname="kpno", pressure = 711, temperature = 273)
-    @test ra_o ≈ 3.3222851503189124
+    @test ra_o ≈ 3.32228485671625
     @test dec_o ≈ 15.190605763758745
     @test ha_o ≈ 3.640795457403172
 end
