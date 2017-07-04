@@ -354,7 +354,7 @@ end
     ra_o, dec_o, ha_o = hor2eq(43.6879, 56.684, AstroLib.J2000, B1950=true)
     @test ra_o ≈ 259.20005705918317
     @test dec_o ≈ 49.674706171288655
-    @test ha_o ≈ 19.40545272279752
+    @test ha_o ≈ 291.0817908419628
     ra_o, dec_o, ha_o = hor2eq(1.345, 359.43, 2e6, ws=true, B1950=true,
                                precession = false, nutate=false, aberration=false,
                                refract=false, lat = 54.435, lon = -34.78,
@@ -362,12 +362,18 @@ end
                                temperature = 293.343)
     @test ra_o ≈ 142.2933457820434
     @test dec_o ≈ -34.218006262991786
-    @test ha_o ≈ 23.954057756664426
+    @test ha_o ≈ 359.3108663499664
     ra_o, dec_o, ha_o = hor2eq(ten(37,54,41), ten(264,55,06), 2466879.7083333,
                                obsname="kpno", pressure = 711, temperature = 273)
     @test ra_o ≈ 3.32228485671625
     @test dec_o ≈ 15.190605763758745
-    @test ha_o ≈ 3.640795457403172
+    @test ha_o ≈ 54.61193186104758
+    ra_o, dec_o, ha_o = @inferred(AstroLib._hor2eq(43.6879, 56.684, Float64(AstroLib.J2000),
+                                          NaN, NaN, 0.0, NaN, NaN, false, false, true,
+                                          true, true, true, ""))
+    @test ra_o ≈ 259.5184384071214
+    @test dec_o ≈ 49.623310468816314
+    @test ha_o ≈ 291.0817908419628
 end
 
 # Test imf

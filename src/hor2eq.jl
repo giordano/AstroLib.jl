@@ -15,15 +15,13 @@ function _hor2eq(alt::T, az::T, jd::T, lat::T, lon::T, altitude::T,
             lon = T(-89.865)
         end
     else
-        lat = observatories[obsname].latitude
-        lon = observatories[obsname].longitude
-        altitude = observatories[obsname].altitude
+        lat = T(observatories[obsname].latitude)
+        lon = T(observatories[obsname].longitude)
+        altitude = T(observatories[obsname].altitude)
     end
 
     if refract
-        alt_b = co_refract(alt, altitude, pressure, temperature)
-    else
-        alt_b = alt
+        alt = co_refract(alt, altitude, pressure, temperature)
     end
 
     if ws
@@ -31,9 +29,8 @@ function _hor2eq(alt::T, az::T, jd::T, lat::T, lon::T, altitude::T,
     end
     _, _, eps, d_psi = co_nutate(jd, 45, 45)
     last = 15 * ct2lst(lon, jd) + d_psi * cos(eps) / 3600
-    ha, dec = altaz2hadec(alt_b, az, lat)
+    ha, dec = altaz2hadec(alt, az, lat)
     ra = mod(last - ha, 360)
-    ha /= 15
     dra1, ddec1, eps = co_nutate(jd, ra, dec)
 
     if nutate
@@ -111,7 +108,7 @@ It performs precession, nutation, aberration, and refraction corrections.
 
 * `ra`: right ascension of object, in degrees (FK5)
 * `dec`: declination of the object, in degrees (FK5)
-* `ha`: hour angle, in hours
+* `ha`: hour angle, in degrees
 
 ### Example ###
 
@@ -124,10 +121,10 @@ and the pressure is 781 millibars. The Julian date for this time is 2466879.7083
 ```jldoctest
 julia> ra_o, dec_o = hor2eq(ten(37,54,41), ten(264,55,06), 2466879.7083333,
                             obsname="kpno", pressure = 711, temperature = 273)
-(3.32228485671625, 15.19060567248328, 3.640795457403172)
+(3.32228485671625, 15.19060567248328, 54.61193186104758)
 
 julia> adstring(ra_o, dec_o)
-" 00 13 17.3  +15 11 26
+" 00 13 17.3  +15 11 26"
 ```
 
 ### Notes ###
@@ -141,3 +138,5 @@ hor2eq(alt::Real, az::Real, jd::Real; ws::Bool=false, B1950::Bool=false,
            _hor2eq(promote(float(alt), float(az), float(jd), float(lat), float(lon),
                    float(altitude), float(temperature), float(pressure))..., ws, B1950,
                    precession, nutate, aberration, refract, obsname)
+# TODO: Make hor2eq type-stable, which it isn't currently because of keyword arguments
+# Note that the inner function `_hor2eq` is type stable
