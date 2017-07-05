@@ -46,9 +46,9 @@ string will have `"DD/MM/YYThh:mm:ss"` format.
 
 ### Example ###
 
-``` julia
-get_date(timetag=true)
-# => "2016-03-14T11:26:23"
+```jldoctest
+julia> get_date(DateTime(21937, 05, 30, 09, 59, 00), timetag=true)
+"21937-05-30T09:59:00"
 ```
 
 ### Notes ###

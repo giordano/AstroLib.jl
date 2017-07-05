@@ -45,13 +45,15 @@ Otherwise, magnitude is given by the expression
 
 ### Example ###
 
-``` julia
-flux2mag(5.2e-15)
-# => 14.609991640913002
-flux2mag(5.2e-15, 15)
-# => 20.709991640913003
-flux2mag(5.2e-15, ABwave=15)
-# => 27.423535345634598
+```jldoctest
+julia> flux2mag(5.2e-15)
+14.609991640913002
+
+julia> flux2mag(5.2e-15, 15)
+20.709991640913003
+
+julia> flux2mag(5.2e-15, ABwave=15)
+27.423535345634598
 ```
 
 ### Notes ###

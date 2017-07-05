@@ -39,9 +39,9 @@ These are scalars or arrays of the same length as the input arguments.
 
 ### Example ###
 
-``` julia
-deredd(0.5, 0.2, 1.0, 1.0, 0.1)
-# => (-0.3,1.165,0.905,-0.665)
+```jldoctest
+julia> deredd(0.5, 0.2, 1.0, 1.0, 0.1)
+(-0.3, 1.165, 0.905, -0.665)
 ```
 
 ### Notes ###

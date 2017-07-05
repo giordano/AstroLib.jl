@@ -50,6 +50,11 @@ Uses relation of Ciddor (1996), Applied Optics 62, 958.
 If the air wavelength is `w = 6056.125` (a Krypton line), then `airtovac(w)`
 yields a vacuum wavelength of `6057.8019`.
 
+```jldoctest
+julia> airtovac(6056.125)
+6057.801930991426
+```
+
 ### Notes ###
 
 `vactoair` converts vacuum wavelengths to air wavelengths.

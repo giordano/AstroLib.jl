@@ -57,7 +57,7 @@ The 2-tuple `(d_ra, d_dec)`:
 Compute the change in RA and Dec of Theta Persei (RA = 2h46m,11.331s, Dec = 49d20',54.5'')
 due to aberration on 2028 Nov 13.19 TD
 
-```julia
+```jldoctest
 julia> jd = jdcnv(2028,11,13,4, 56)
 2.4620887055555554e6
 

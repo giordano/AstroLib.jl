@@ -95,25 +95,25 @@ Planetary constants are from Planetary Fact Sheet
 Locate the Earth geographic North pole (latitude: 90°, longitude: 0°, altitude 0
 km), in geodetic coordinates:
 
-``` julia
-geo2geodetic(90, 0, 0)
-# => (90.0,0.0,21.38499999999931)
+```jldoctest
+julia> geo2geodetic(90, 0, 0)
+(90.0, 0.0, 21.38499999999931)
 ```
 
 The same for Jupiter:
 
-``` julia
-geo2geodetic(90, 0, 0, "Jupiter")
-# => (90.0,0.0,4355.443799999994)
+```jldoctest
+julia> geo2geodetic(90, 0, 0, "Jupiter")
+(90.0, 0.0, 4638.0)
 ```
 
 Find geodetic coordinates for point of geographic coordinates (latitude,
 longitude, altitude) = (43.16°, -24.32°, 3.87 km) on a planet with equatorial
 radius 8724.32 km and polar radius 8619.19 km:
 
-``` julia
-geo2geodetic(43.16, -24.32, 3.87, 8724.32, 8619.19)
-# => (43.849399515234516,-24.32,53.53354478670836)
+```jldoctest
+julia> geo2geodetic(43.16, -24.32, 3.87, 8724.32, 8619.19)
+(43.849399515234516, -24.32, 53.53354478670964)
 ```
 
 ### Notes ###

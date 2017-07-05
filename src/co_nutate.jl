@@ -62,7 +62,7 @@ Example 23a in Meeus: On 2028 Nov 13.19 TD the mean position of Theta
 Persei is 2h 46m 11.331s 49d 20' 54.54''. Determine the shift in
 position due to the Earth's nutation.
 
-```julia
+```jldoctest
 julia> jd = jdcnv(2028,11,13,4,56)
 2.4620887055555554e6
 
