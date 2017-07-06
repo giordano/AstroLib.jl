@@ -71,9 +71,9 @@ length is returned.
 
 Find position of North Magnetic Pole in 2016
 
-``` julia
-mag2geo(90, 0, 2016)
-# => (86.395,-166.29000000000002)
+```jldoctest
+julia> mag2geo(90, 0, 2016)
+(86.395, -166.29000000000002)
 ```
 
 ### Notes ###

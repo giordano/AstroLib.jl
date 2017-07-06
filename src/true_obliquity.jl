@@ -9,7 +9,7 @@ Return the true obliquity of the ecliptic for a given Julian date
 
 ### Explanation ###
 
-The function is used by the [co_aberration](@ref) procedure.
+The function is used by the [`co_aberration`](@ref) procedure.
 
 ### Arguments ###
 
@@ -21,14 +21,14 @@ The function is used by the [co_aberration](@ref) procedure.
 
 ### Example ###
 
-```julia
+```jldoctest
 julia> true_obliquity(jdcnv(1978,01,7,11, 01))
 0.4090953896211926
 ```
 
 ### Notes ###
 
-The function calls [mean_obliquity](@ref).
+The function calls [`mean_obliquity`](@ref).
 """
 function true_obliquity(jd::Real)
     eps0 = mean_obliquity(jd)

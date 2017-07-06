@@ -186,20 +186,23 @@ http://adsabs.harvard.edu/abs/1983A%26A...128..263A.
 
 ### Example ###
 
-The SAO catalogue gives the B1950 position and proper motion for the 
-star HD 119288.   Find the J2000 position. 
+The SAO catalogue gives the B1950 position and proper motion for the
+star HD 119288.   Find the J2000 position.
 
 * RA(1950) = 13h 39m 44.526s
 * Dec(1950) = 8d 38' 28.63''
 * Mu(RA) = -.0259 s/yr
 * Mu(Dec) = -.093 ''/yr
 
-``` julia
-muradec = 100*[-15*0.0259, -0.093]; # convert to century proper motion
-ra = ten(13, 39, 44.526)*15;
-decl = ten(8, 38, 28.63);
-adstring(jprecess(ra, decl, muradec), precision=2)
-# => " 13 42 12.740  +08 23 17.69"
+```jldoctest
+julia> muradec = 100 * [-15*0.0259, -0.093]; # convert to century proper motion
+
+julia> ra = ten(13, 39, 44.526)*15;
+
+julia> decl = ten(8, 38, 28.63);
+
+julia> adstring(jprecess(ra, decl, muradec), precision=2)
+" 13 42 12.740  +08 23 17.69"
 ```
 
 ### Notes ###

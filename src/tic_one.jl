@@ -37,9 +37,9 @@ This routine determines the position in pixels of the first tic.
 
 * `zmin`: astronomical coordinate value at axis zero point (degrees
    or hours).
-* `pixx`: distance in pixels between tic marks (usually obtained from [tics](@ref)).
+* `pixx`: distance in pixels between tic marks (usually obtained from [`tics`](@ref)).
 * `incr` - increment in minutes for labels (usually an even number obtained
-   from the procedure [tics](@ref)).
+   from the procedure [`tics`](@ref)).
 * `ra` (optional boolean keyword): if true, incremental value being entered
    is in minutes of time, else it is assumed that value is in else it's in minutes of arc.
    Default is false.
@@ -58,7 +58,7 @@ zero point.  A tic mark is desired every 10 arc minutes, which
 corresponds to 12.74 pixels, with increment for labels being 10 minutes.
 Then
 
-``` julia
+```jldoctest
 julia> tic_one(30.2345, 12.74, 10)
 (30.333333333333332, 7.554820000000081)
 ```

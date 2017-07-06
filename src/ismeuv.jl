@@ -76,10 +76,11 @@ The EUV optical depth is computed from the photoionization of hydrogen and heliu
 
 ### Example ###
 
-```julia
 One has a model EUV spectrum with wavelength, w (in Angstroms).
 Find the EUV optical depth by 1e18 cm-2 of HI, with N(HeI)/N(HI) = N(HeII)/N(HI) = 0.05.
 
+
+```jldoctest
 julia> ismeuv.([670, 910], 1e19, 5e17, 5e17)
 2-element Array{Float64,1}:
  27.3539

@@ -131,12 +131,12 @@ In any case, the function `geodetic2geo`, which converts from geodetic (or
 planetodetic) to geographic coordinates, can be used to estimate the accuracy of
 `geo2geodetic`.
 
-``` julia
-collect(geodetic2geo(geo2geodetic(67.2, 13.4, 1.2))) - [67.2, 13.4, 1.2]
-# => 3-element Array{Float64,1}:
-#     -3.56724e-9
-#      0.0
-#      9.47512e-10
+```jldoctest
+julia> collect(geodetic2geo(geo2geodetic(67.2, 13.4, 1.2))) - [67.2, 13.4, 1.2]
+3-element Array{Float64,1}:
+ -3.56725e-9
+  0.0
+  9.48421e-10
 ```
 
 Code of this function is based on IDL Astronomy User's Library.

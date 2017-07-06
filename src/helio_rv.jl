@@ -42,11 +42,13 @@ of`jd`.
 (1) What was the heliocentric radial velocity of the primary component of HU Tau
 at 1730 UT 25 Oct 1994?
 
-``` julia
-jd = juldate(94, 10, 25, 17, 30); # Obtain Geocentric Julian days
-hjd = helio_jd(jd, ten(04, 38, 16)*15, ten(20, 41, 05)); # Convert to HJD
-helio_rv(hjd, 46487.5303, 2.0563056, -6, 59.3)
-# => -62.965570109145034
+```jldoctest
+julia> jd = juldate(94, 10, 25, 17, 30); # Obtain Geocentric Julian days
+
+julia> hjd = helio_jd(jd, ten(04, 38, 16) * 15, ten(20, 41, 05)); # Convert to HJD
+
+julia> helio_rv(hjd, 46487.5303, 2.0563056, -6, 59.3)
+-62.965570107789475
 ```
 
 NB: the functions `juldate` and `helio_jd` return a reduced HJD (HJD - 2400000)
@@ -54,13 +56,13 @@ and so T and P must be specified in the same fashion.
 
 (2) Plot two cycles of an eccentric orbit, \$e=0.6\$, \$\\omega=45\\degree\$ for
 both components of a binary star.  Use
-[PyPlot.jl](https://github.com/stevengj/PyPlot.jl) for plotting.
+[PyPlot.jl](https://github.com/JuliaPy/PyPlot.jl) for plotting.
 
-``` julia
+```julia
 using PyPlot
 φ = linspace(0, 2, 1000); # Generate 1000 phase points
-plot(φ ,helio_rv(φ, 0, 1, 0, 100, 0.6, 45)) # Plot 1st component
-plot(φ ,helio_rv(φ, 0, 1, 0, 100, 0.6, 45+180)) # Plot 2nd component
+plot(φ ,helio_rv.(φ, 0, 1, 0, 100, 0.6, 45)) # Plot 1st component
+plot(φ ,helio_rv.(φ, 0, 1, 0, 100, 0.6, 45+180)) # Plot 2nd component
 ```
 
 ### Notes ###

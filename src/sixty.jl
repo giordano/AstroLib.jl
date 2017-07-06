@@ -38,12 +38,12 @@ An array of three `AbstractFloat`, that are the sexagesimal counterpart
 
 ### Example ###
 
-``` julia
-sixty(-0.615)
-# => 3-element Array{Float64,1}:
-#     -0.0
-#     36.0
-#     54.0
+```jldoctest
+julia> sixty(-0.615)
+3-element Array{Float64,1}:
+ -0.0
+ 36.0
+ 54.0
 ```
 
 ### Notes ###

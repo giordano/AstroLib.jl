@@ -9,7 +9,7 @@ Return the mean obliquity of the ecliptic for a given Julian date
 
 ### Explanation ###
 
-The function is used by the [co_nutate](@ref) procedure.
+The function is used by the [`co_nutate`](@ref) procedure.
 
 ### Arguments ###
 
@@ -21,7 +21,7 @@ The function is used by the [co_nutate](@ref) procedure.
 
 ### Example ###
 
-```julia
+```jldoctest
 julia> mean_obliquity(jdcnv(1978,01,7,11, 01))
 0.4091425159336512
 ```

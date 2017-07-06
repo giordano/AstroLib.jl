@@ -40,13 +40,13 @@ determine the illuminated fraction.
 ### Example ###
 
 Plot the illuminated fraction of the Moon for every day in January 2018 with a
-hourly sampling.  Use [PyPlot.jl](https://github.com/stevengj/PyPlot.jl) for
+hourly sampling.  Use [PyPlot.jl](https://github.com/JuliaPlots/Plots.jl/) for
 plotting
 
-``` julia
+```julia
 using PyPlot
 points = DateTime(2018,01,01):Dates.Hour(1):DateTime(2018,01,31,23,59,59);
-plot(points, mphase(jdcnv(points)))
+plot(points, mphase.(jdcnv.(points)))
 ```
 
 Note that in this calendar month there are two full moons, this event is called

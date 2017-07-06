@@ -100,11 +100,6 @@ julia> helio.([jdcnv(1900)], [1,2,3,4,5,6,7,8,9])
 This program is based on the two-body model and thus neglects
 interactions between the planets.
 
-Additionally, there's a significant difference in the output given
-for the heliocentric radii of Mars, as the mean orbital quantities
-of planet Mars (see [`common`](@ref)) are differnet than what
-is used in IDL AstroLib.
-
 The coordinates are given for equinox 2000 and *not* the equinox
 of the supplied date.
 

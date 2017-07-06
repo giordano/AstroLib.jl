@@ -35,13 +35,13 @@ The spectral radiance of the black body, in units of W/(sr·m³).
 ### Example ###
 
 Plot the spectrum of a black body in \$[0, 3]\$ µm at \$5000\$ K.  Use
-[PyPlot.jl](https://github.com/stevengj/PyPlot.jl) for plotting.
+[PyPlot.jl](https://github.com/JuliaPlots/Plots.jl/) for plotting.
 
-``` julia
+```julia
 using PyPlot
-wavelength=linspace(0, 3e-6, 1000);
-temperature=ones(wavelength)*5000;
-flux=planck_wave(wavelength, temperature);
+wavelength = linspace(0, 3e-6, 1000);
+temperature = ones(wavelength)*5000;
+flux = planck_wave.(wavelength, temperature);
 plot(wavelength, flux)
 ```
 

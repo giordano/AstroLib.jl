@@ -87,21 +87,22 @@ motion \$0 \\leq e \\leq 1\$.
 (1) Find the eccentric anomaly for an orbit with eccentricity \$e = 0.7\$ and
 for \$M(t) = 8\\pi/3\$.
 
-``` julia
-ecc = 0.7;
-E = kepler_solver(8pi/3, ecc)
-# => 2.5085279492864223
+```jldoctest
+julia> ecc = 0.7;
+
+julia> E = kepler_solver(8pi/3, ecc)
+2.5085279492864223
 ```
 
 (2) Plot the eccentric anomaly as a function of mean anomaly for eccentricity
 \$e = 0\$, \$0.5\$, \$0.9\$.  Recall that `kepler_solver` gives \$E \\in [-\\pi,
 \\pi]\$, use `cirrange` to have it in \$[0, 2\\pi]\$.  Use
-[PyPlot.jl](https://github.com/stevengj/PyPlot.jl) for plotting.
+[PyPlot.jl](https://github.com/JuliaPlots/Plots.jl/) for plotting.
 
-``` julia
+```julia
 using PyPlot
-M=linspace(0, 2pi, 1001)[1:end-1];
-for ecc in (0, 0.5, 0.9); plot(M, cirrange(kepler_solver(M, ecc), 2pi)); end
+M = linspace(0, 2pi, 1001)[1:end-1];
+for ecc in (0, 0.5, 0.9); plot(M, cirrange.(kepler_solver.(M, ecc), 2pi)); end
 ```
 
 ### Notes ###

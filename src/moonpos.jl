@@ -174,21 +174,22 @@ difference in the position calculation.
 
 (1) Find the position of the moon on April 12, 1992
 
-``` julia
-jd = jdcnv(1992, 4, 12);
-adstring(moonpos(jd)[1:2],precision=1)
-# => " 08 58 45.23  +13 46 06.1"
+```jldoctest
+julia> jd = jdcnv(1992, 4, 12);
+
+julia> adstring(moonpos(jd)[1:2],precision=1)
+" 08 58 45.23  +13 46 06.1"
 ```
 
 This is within 1" from the position given in the Astronomical Almanac.
 
 (2) Plot the Earth-moon distance during 2016 with sampling of 6 hours.  Use
-[PyPlot.jl](https://github.com/stevengj/PyPlot.jl) for plotting
+[PyPlot.jl](https://github.com/JuliaPlots/Plots.jl/) for plotting
 
-``` julia
+```julia
 using PyPlot
 points = DateTime(2016):Dates.Hour(6):DateTime(2017);
-plot(points, moonpos(jdcnv(points))[3])
+plot(points, moonpos(jdcnv.(points))[3])
 ```
 
 ### Notes ###

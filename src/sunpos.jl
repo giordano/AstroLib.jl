@@ -98,9 +98,9 @@ by CD Pike, which was adapted from a FORTRAN routine by B. Emerson (RGO).
 
 (1) Find the apparent right ascension and declination of the Sun on May 1, 1982
 
-``` julia
-adstring(sunpos(jdcnv(1982, 5, 1))[1:2], precision=2)
-# => " 02 31 32.614  +14 54 34.92"
+```jldoctest
+julia> adstring(sunpos(jdcnv(1982, 5, 1))[1:2], precision=2)
+" 02 31 32.614  +14 54 34.92"
 ```
 
 The Astronomical Almanac gives `02 31 32.58 +14 54 34.9` so the error for this
@@ -108,12 +108,12 @@ case is < 0.5".
 
 (2) Plot the apparent right ascension, in hours, and declination of the Sun, in
 degrees, for every day in 2016.  Use
-[PyPlot.jl](https://github.com/stevengj/PyPlot.jl) for plotting.
+[PyPlot.jl](https://github.com/JuliaPlots/Plots.jl/) for plotting.
 
-``` julia
+```julia
 using PyPlot
 days = DateTime(2016):DateTime(2016, 12, 31);
-ra, declin = sunpos(jdcnv(days));
+ra, declin = sunpos(jdcnv.(days));
 plot(days, ra/15); plot(days, declin)
 ```
 

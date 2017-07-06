@@ -20,7 +20,7 @@ The first four ordinal strings are "1st", "2nd", "3rd", "4th" ....
 
 ### Example ###
 
-``` julia
+```jldoctest
 julia> ordinal.(1:5)
 5-element Array{String,1}:
  "1st"

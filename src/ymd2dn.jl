@@ -26,11 +26,11 @@ array of days.
 Find the days of the year for March 5 in the years 2015 and 2016 (this is a leap
 year).
 
-``` julia
-ymd2dn([Date(2015, 3, 5), Date(2016, 3, 5)])
-# => 2-element Array{Int64,1}:
-#     64
-#     65
+```jldoctest
+julia> ymd2dn.([Date(2015, 3, 5), Date(2016, 3, 5)])
+2-element Array{Int64,1}:
+ 64
+ 65
 ```
 
 ### Note ###

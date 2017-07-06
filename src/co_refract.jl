@@ -127,7 +127,7 @@ co_refract(old_alt::Real, altitude::Real=0, pressure::Real=NaN, temperature::Rea
 
 ### Purpose ###
 
-A function used by [co_refract](@ref) to find apparent (or observed) altitude
+A function used by [`co_refract`](@ref) to find apparent (or observed) altitude
 
 ### Arguments ###
 

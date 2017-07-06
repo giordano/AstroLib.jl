@@ -19,9 +19,9 @@ the same length is returned.
 
 ### Example ###
 
-``` julia
-sec2rad(3600*30)
-# => 0.5235987755982988
+```jldoctest
+julia> sec2rad(3600 * 30)
+0.5235987755982988
 ```
 
 ### Notes ###

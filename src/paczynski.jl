@@ -69,14 +69,14 @@ array, an array of the same length is returned.
 Calculate the microlensing amplification for \$u = 10^{-10}\$, \$10^{-1}\$,
 \$1\$, \$10\$, \$10^{10}\$:
 
-``` julia
-paczynski([1e-10, 1e-1, 1, 10, 1e10])
-# => 5-element Array{Float64,1}:
-#      1.0e10
-#     10.0375
-#      1.34164
-#      1.00019
-#      1.0
+```jldoctest
+julia> paczynski.([1e-10, 1e-1, 1, 10, 1e10])
+5-element Array{Float64,1}:
+  1.0e10
+ 10.0375
+  1.34164
+  1.00019
+  1.0
 ```
 
 ### Notes ###

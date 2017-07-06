@@ -58,12 +58,12 @@ coordinates.
 
 Return the precession matrix from 1950.0 to 1975.0 in the FK4 system
 
-``` julia
-premat(1950,1975,FK4=true)
-# => 3x3 Array{Float64,2}:
-#     0.999981    -0.00558775  -0.00242909
-#     0.00558775   0.999984    -6.78691e-6
-#     0.00242909  -6.78633e-6   0.999997
+```jldoctest
+julia> premat(1950,1975,FK4=true)
+3×3 Array{Float64,2}:
+ 0.999981    -0.00558775  -0.00242909
+ 0.00558775   0.999984    -6.78691e-6
+ 0.00242909  -6.78633e-6   0.999997
 ```
 
 ### Method ###

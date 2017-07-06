@@ -50,7 +50,7 @@ Transform between Galactic, celestial, and ecliptic coordinates.
 
 ### Explanation ###
 
-The function is used by the [astro](@ref) procedure.
+The function is used by the astro procedure.
 
 ### Arguments ###
 

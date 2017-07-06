@@ -79,7 +79,7 @@ These formula are from Meeus, Chapters 23.  Accuracy is much better than 1
 arcsecond. The maximum deviation due to annual aberration is 20.49'' and occurs when the
 Earth's velocity is perpendicular to the direction of the star.
 
-This function calls [true_obliquity](@ref) and [sunpos](@ref).
+This function calls [`true_obliquity`](@ref) and [`sunpos`](@ref).
 """
 co_aberration(jd::Real, ra::Real, dec::Real, eps::Real=NaN) =
     _co_aberration(promote(float(jd), float(ra), float(dec), float(eps))...)

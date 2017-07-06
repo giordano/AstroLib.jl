@@ -26,10 +26,10 @@ Find right ascension and declination for the planets when provided a date as inp
 
 ### Explanation ###
 
-This function uses the [helio](@ref) to get the heliocentric ecliptic coordinates of the
+This function uses the [`helio`](@ref) to get the heliocentric ecliptic coordinates of the
 planets at the given date which it then converts these to geocentric ecliptic
 coordinates ala "Astronomical Algorithms" by Jean Meeus (1991, p 209).
-These are then converted to right ascension and declination using [euler](@ref).
+These are then converted to right ascension and declination using [`euler`](@ref).
 
 The accuracy between the years 1800 and 2050 is better than 1 arcminute for the
 terrestial planets, but reaches 10 arcminutes for Saturn. Before 1850 or after 2050
