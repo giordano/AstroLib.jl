@@ -68,7 +68,6 @@ Missing in AstroLib.jl
 * `fm_unred`
 * `gal_flat`
 * `get_coords`
-* `hor2eq`
 * `imcontour`
 * `qdcb_grid`
 * `tdb2tdt`

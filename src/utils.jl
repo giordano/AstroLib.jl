@@ -85,6 +85,9 @@ export helio_rv
 include("helio.jl")
 export helio
 
+include("hor2eq.jl")
+export hor2eq
+
 include("imf.jl")
 export imf
 
