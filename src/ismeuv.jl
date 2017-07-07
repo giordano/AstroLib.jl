@@ -81,6 +81,8 @@ Find the EUV optical depth by 1e18 cm-2 of HI, with N(HeI)/N(HI) = N(HeII)/N(HI)
 
 
 ```jldoctest
+julia> using AstroLib
+
 julia> ismeuv.([670, 910], 1e19, 5e17, 5e17)
 2-element Array{Float64,1}:
  27.3539

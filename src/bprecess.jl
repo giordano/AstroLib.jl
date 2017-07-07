@@ -194,6 +194,8 @@ The SAO2000 catalogue gives the J2000 position and proper motion for the star HD
 * Mu(Dec) = -.090 ''/yr
 
 ```jldoctest
+julia> using AstroLib
+
 julia> muradec = 100*[-15*0.0257, -0.090]; # convert to century proper motion
 
 julia> ra = ten(13, 42, 12.74)*15;

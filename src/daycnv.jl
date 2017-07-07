@@ -25,6 +25,8 @@ given Julian days number.
 ### Example ###
 
 ```jldoctest
+julia> using AstroLib
+
 julia> daycnv(2440000)
 1968-05-23T12:00:00
 ```

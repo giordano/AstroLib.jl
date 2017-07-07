@@ -53,6 +53,8 @@ the accuracy can get much worse.
 Find the RA, Dec of Venus on 1992 Dec 20
 
 ```jldoctest
+julia> using AstroLib
+
 julia> adstring(planet_coords(DateTime(1992,12,20),2))
 " 21 00 15.3  -19 09 09"
 ```

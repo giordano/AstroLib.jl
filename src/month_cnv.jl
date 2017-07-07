@@ -43,6 +43,8 @@ format of the month name is influenced by the optional keywords.
 ### Example ###
 
 ```jldoctest
+julia> using AstroLib
+
 julia> month_cnv.(["janua", "SEP", "aUgUsT"])
 3-element Array{Int64,1}:
  1

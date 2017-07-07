@@ -22,6 +22,8 @@ The function is used by the [`co_aberration`](@ref) procedure.
 ### Example ###
 
 ```jldoctest
+julia> using AstroLib
+
 julia> true_obliquity(jdcnv(1978,01,7,11, 01))
 0.4090953896211926
 ```

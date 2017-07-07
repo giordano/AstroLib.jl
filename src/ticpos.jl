@@ -93,6 +93,8 @@ A tic mark is desired in round angular units, approximately every 75 pixels.
 Then
 
 ```jldoctest
+julia> using AstroLib
+
 julia> ticpos(0.2, 512, 75)
 (85.33333333333333, 2.0, "Arc Minutes")
 ```

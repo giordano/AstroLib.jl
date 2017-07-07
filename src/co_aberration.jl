@@ -58,11 +58,13 @@ Compute the change in RA and Dec of Theta Persei (RA = 2h46m,11.331s, Dec = 49d2
 due to aberration on 2028 Nov 13.19 TD
 
 ```jldoctest
+julia> using AstroLib
+
 julia> jd = jdcnv(2028,11,13,4, 56)
 2.4620887055555554e6
 
 julia> co_aberration(jd,ten(2,46,11.331)*15,ten(49,20,54.54))
-(30.04404628365103, 6.699400463118504)
+(30.044046283650776, 6.699400463119428)
 ```
 
 d_ra = 30.04404628365103'' (≈ 2.003s)

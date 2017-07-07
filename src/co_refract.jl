@@ -90,6 +90,8 @@ The lower limb of the Sun is observed to have altitude of 0d 30'. Calculate the 
 temperature.
 
 ```jldoctest
+julia> using AstroLib
+
 julia> co_refract(0.5)
 0.02584736873098442
 ```

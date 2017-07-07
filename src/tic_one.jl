@@ -59,6 +59,8 @@ corresponds to 12.74 pixels, with increment for labels being 10 minutes.
 Then
 
 ```jldoctest
+julia> using AstroLib
+
 julia> tic_one(30.2345, 12.74, 10)
 (30.333333333333332, 7.554820000000081)
 ```

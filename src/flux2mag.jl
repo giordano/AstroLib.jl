@@ -46,6 +46,8 @@ Otherwise, magnitude is given by the expression
 ### Example ###
 
 ```jldoctest
+julia> using AstroLib
+
 julia> flux2mag(5.2e-15)
 14.609991640913002
 

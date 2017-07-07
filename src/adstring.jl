@@ -73,6 +73,8 @@ above.
 ### Example ###
 
 ```jldoctest
+julia> using AstroLib
+
 julia> adstring(30.4, -1.23, truncate=true)
 " 02 01 35.9  -01 13 48"
 

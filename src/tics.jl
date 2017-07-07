@@ -99,6 +99,8 @@ A 2-tuple `(ticsize, incr)`:
 ### Example ###
 
 ```jldoctest
+julia> using AstroLib
+
 julia> tics(55, 60, 100.0, 1/2)
 (0.66, 2.0)
 

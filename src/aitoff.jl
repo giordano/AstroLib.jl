@@ -47,6 +47,8 @@ Get \$(x ,y)\$ Aitoff coordinates of Sirius, whose Galactic coordinates are
 \$(227.23, -8.890)\$.
 
 ```jldoctest
+julia> using AstroLib
+
 julia> x, y = aitoff(227.23, -8.890)
 (-137.92196683723276, -11.772527357473054)
 ```

@@ -158,6 +158,8 @@ What were the rectangular coordinates and velocities of the Sun on
 Almanac (AA) is in TDT, so add 64 seconds to UT to convert.
 
 ```jldoctest
+julia> using AstroLib
+
 julia> jd = juldate(DateTime(1999, 1, 22))
 51200.5
 

@@ -59,6 +59,8 @@ coordinates.
 Return the precession matrix from 1950.0 to 1975.0 in the FK4 system
 
 ```jldoctest
+julia> using AstroLib
+
 julia> premat(1950,1975,FK4=true)
 3×3 Array{Float64,2}:
  0.999981    -0.00558775  -0.00242909

@@ -88,6 +88,8 @@ motion \$0 \\leq e \\leq 1\$.
 for \$M(t) = 8\\pi/3\$.
 
 ```jldoctest
+julia> using AstroLib
+
 julia> ecc = 0.7;
 
 julia> E = kepler_solver(8pi/3, ecc)

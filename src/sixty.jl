@@ -39,6 +39,8 @@ An array of three `AbstractFloat`, that are the sexagesimal counterpart
 ### Example ###
 
 ```jldoctest
+julia> using AstroLib
+
 julia> sixty(-0.615)
 3-element Array{Float64,1}:
  -0.0

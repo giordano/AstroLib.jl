@@ -63,6 +63,8 @@ Show the number of stars per unit mass interval at 3 Msun for a Salpeter
 (expon = -1.35) IMF, with a mass range from 0.1 MSun to 110 Msun.
 
 ```jldoctest
+julia> using AstroLib
+
 julia> imf([3], [-1.35], [0.1, 110]) / 3
 1-element Array{Float64,1}:
  0.0129414

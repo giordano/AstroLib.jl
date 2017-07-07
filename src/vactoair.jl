@@ -48,6 +48,8 @@ If the vacuum wavelength is `w = 2000`, then `vactoair(w)` yields an air
 wavelength of `1999.353`.
 
 ```jldoctest
+julia> using AstroLib
+
 julia> vactoair(2000)
 1999.3526230448367
 ```

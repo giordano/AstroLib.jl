@@ -43,6 +43,8 @@ The 2-tuple \$(x, y)\$:
 ### Example ###
 
 ```jldoctest
+julia> using AstroLib
+
 julia> eqpole(100, 35, southpole=true)
 (-111.18287262822456, -19.604540237028665)
 

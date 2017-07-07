@@ -195,6 +195,8 @@ star HD 119288.   Find the J2000 position.
 * Mu(Dec) = -.093 ''/yr
 
 ```jldoctest
+julia> using AstroLib
+
 julia> muradec = 100 * [-15*0.0259, -0.093]; # convert to century proper motion
 
 julia> ra = ten(13, 39, 44.526)*15;

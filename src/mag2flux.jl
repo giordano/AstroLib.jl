@@ -47,6 +47,8 @@ Otherwise the flux is given by
 ### Example ###
 
 ```jldoctest
+julia> using AstroLib
+
 julia> mag2flux(8.3)
 1.7378008287493692e-12
 

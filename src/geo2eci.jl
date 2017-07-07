@@ -55,6 +55,8 @@ Obtain the ECI coordinates of the intersection of the equator and Greenwich's
 meridian on 2015-06-30T14:03:12.857
 
 ```jldoctest
+julia> using AstroLib
+
 julia> geo2eci(0, 0, 0, jdcnv("2015-06-30T14:03:12.857"))
 (-4024.8671780315185, 4947.835465127513, 0.0)
 ```

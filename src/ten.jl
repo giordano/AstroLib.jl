@@ -61,8 +61,10 @@ The formula used for the conversion is
 ### Example ###
 
 ```jldoctest
+julia> using AstroLib
+
 julia> ten(-0.0, 19, 47)
--0.329722222222222
+-0.3297222222222222
 
 julia> ten("+5:14:58")
 5.249444444444444

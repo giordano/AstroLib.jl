@@ -175,6 +175,8 @@ difference in the position calculation.
 (1) Find the position of the moon on April 12, 1992
 
 ```jldoctest
+julia> using AstroLib
+
 julia> jd = jdcnv(1992, 4, 12);
 
 julia> adstring(moonpos(jd)[1:2],precision=1)

@@ -46,6 +46,8 @@ Calculate polar coordinates \$(r, \\varphi)\$ of point with rectangular
 coordinates \$(x, y) = (2.24, -1.87)\$.
 
 ```jldoctest
+julia> using AstroLib
+
 julia> r, phi = recpol(2.24, -1.87)
 (2.917961617293826, -0.6956158538564537)
 ```

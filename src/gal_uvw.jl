@@ -103,6 +103,8 @@ Compute the U,V,W coordinates for the halo star HD 6755.  Use values from
 Hipparcos catalog, and correct to the LSR.
 
 ```jldoctest
+julia> using AstroLib
+
 julia> ra=ten(1,9,42.3)*15.; dec = ten(61,32,49.5);
 
 julia> pmra = 627.89;  pmdec = 77.84; # mas/yr

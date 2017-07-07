@@ -91,6 +91,8 @@ all terms larger than 0.0003".
 example 22.a from Meeus
 
 ```jldoctest
+julia> using AstroLib
+
 julia> jd = jdcnv(1987, 4, 10);
 
 julia> nutate(jd)

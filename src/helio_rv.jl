@@ -43,6 +43,8 @@ of`jd`.
 at 1730 UT 25 Oct 1994?
 
 ```jldoctest
+julia> using AstroLib
+
 julia> jd = juldate(94, 10, 25, 17, 30); # Obtain Geocentric Julian days
 
 julia> hjd = helio_jd(jd, ten(04, 38, 16) * 15, ten(20, 41, 05)); # Convert to HJD

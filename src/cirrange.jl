@@ -24,6 +24,8 @@ Restrict an array of numbers in the range \$[0, 2\\pi)\$ as if they are angles
 expressed in radians:
 
 ```jldoctest
+julia> using AstroLib
+
 julia> cirrange.([4pi, 10, -5.23], 2.0*pi)
 3-element Array{Float64,1}:
  0.0

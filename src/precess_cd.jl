@@ -60,6 +60,8 @@ The coordinate matrix is precessed from epoch1 to epoch2.
 ### Example ###
 
 ```jldoctest
+julia> using AstroLib
+
 julia> precess_cd([20 60; 45 45], 1950, 2000, [34, 58], [12, 83])
 2×2 Array{Float64,2}:
   48.8944  147.075

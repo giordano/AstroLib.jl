@@ -20,6 +20,8 @@ the same length is returned.
 ### Example ###
 
 ```jldoctest
+julia> using AstroLib
+
 julia> sec2rad(3600 * 30)
 0.5235987755982988
 ```

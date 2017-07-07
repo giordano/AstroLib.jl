@@ -43,6 +43,8 @@ Get rectangular coordinates \$(x, y)\$ of the point with polar coordinates \$(r,
 \\varphi) = (1.7, 227)\$, with angle \$\\varphi\$ expressed in degrees.
 
 ```jldoctest
+julia> using AstroLib
+
 julia> x, y = polrec(1.7, 227, degrees=true)
 (-1.1593972121062475, -1.2433012927525897)
 ```

@@ -62,6 +62,8 @@ The 2-tuple \$(\\rho, \\theta)\$, where
 Find the position of Eta Coronae Borealis at the epoch 2016
 
 ```jldoctest
+julia> using AstroLib
+
 julia> ρ, θ = rhotheta(41.623, 1934.008, 0.2763, 0.907, 59.025, 23.717, 219.907, 2016)
 (0.6351167848659552, 214.42513387396494)
 ```

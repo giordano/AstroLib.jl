@@ -68,6 +68,8 @@ What is the heliocentric Julian date of an observation of V402 Cygni (J2000: RA
 = 20 9 7.8, Dec = 37 09 07) taken on June 15, 2016 at 11:40 UT?
 
 ```jldoctest
+julia> using AstroLib
+
 julia> jd = juldate(2016, 6, 15, 11, 40);
 
 julia> helio_jd(jd, ten(20, 9, 7.8) * 15, ten(37, 9, 7))

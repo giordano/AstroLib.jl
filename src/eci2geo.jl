@@ -59,6 +59,8 @@ in geographic coordinates, at altitude 600 km.  Note: equatorial radii of Solar
 System planets in meters are stored into `AstroLib.planets` dictionary.
 
 ```jldoctest
+julia> using AstroLib
+
 julia> x = AstroLib.planets["earth"].eqradius*1e-3 + 600;
 
 julia> lat, long, alt = eci2geo(x, 0, 0, jdcnv("2015-06-30T14:03:12.857"))
