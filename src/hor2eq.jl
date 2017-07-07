@@ -99,7 +99,7 @@ It performs precession, nutation, aberration, and refraction corrections.
 * `temperature` (optional keyword): the temperature at the observing location, in Kelvins.
   Default value is `NaN`
 * `obsname` (optional keyword): set this to a valid observatory name to
-  be used by the observatory type in [types](@ref), which will return the latitude and
+  be used by the [Observatory](@ref) type, which will return the latitude and
   longitude to be used by this program. This is `""` (empty string) by default,
   in which case `lat` and `lon` default to the coordinates of the `Pine Bluff Observatory`
   provided they are equivalent to `NaN` individually
