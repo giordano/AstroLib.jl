@@ -106,6 +106,7 @@ julia> AstroLib.planets["saturn"].mass
 [`hadec2altaz()`](@ref),
 [`helio_rv()`](@ref),
 [`helio()`](@ref),
+[`hor2eq()`](@ref),
 [`jprecess()`](@ref),
 [`mag2geo()`](@ref),
 [`mean_obliquity()`](@ref),
