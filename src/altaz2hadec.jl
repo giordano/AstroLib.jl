@@ -36,8 +36,8 @@ Input coordinates may be either a scalar or an array, of the same dimension.
 
 * `alt`: local apparent altitude, in degrees, scalar or array.
 * `az`: the local apparent azimuth, in degrees, scalar or vector, measured
- *east* of *north*!!!  If you have measured azimuth west-of-south (like the book
- Meeus does), convert it to east of north via: `az = (az + 180) % 360`.
+  *east* of *north*!!!  If you have measured azimuth west-of-south (like the book
+  Meeus does), convert it to east of north via: `az = (az + 180) % 360`.
 * `lat`: the local geodetic latitude, in degrees, scalar or array.
 
 `alt` and `az` can be given as a 2-tuple `(alt, az)`.
@@ -60,9 +60,11 @@ Arcturus is observed at an apparent altitude of 59d,05m,10s and an azimuth
 (measured east of north) of 133d,18m,29s while at the latitude of +43.07833
 degrees.  What are the local hour angle and declination of this object?
 
-``` julia
-ha, dec = altaz2hadec(ten(59,05,10), ten(133,18,29), 43.07833)
-# => (336.6828582472844,19.182450965120402)
+```jldoctest
+julia> using AstroLib
+
+julia> ha, dec = altaz2hadec(ten(59,05,10), ten(133,18,29), 43.07833)
+(336.6828582472844, 19.182450965120402)
 ```
 The widely available XEPHEM code gets:
 

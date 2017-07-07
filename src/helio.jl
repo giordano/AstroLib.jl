@@ -76,6 +76,8 @@ for Saturn.
 (1) Find heliocentric position of Venus on August 23, 2000
 
 ```jldoctest
+julia> using AstroLib
+
 julia> helio(jdcnv(2000,08,23,0), 2)
 (0.7278046880206843, 198.39093251916148, 2.887355631705488)
 ```
@@ -83,6 +85,8 @@ julia> helio(jdcnv(2000,08,23,0), 2)
 (2) Find the current heliocentric positions of all the planets
 
 ```jldoctest
+julia> using AstroLib
+
 julia> helio.([jdcnv(1900)], [1,2,3,4,5,6,7,8,9])
 9-element Array{Tuple{Float64,Float64,Float64},1}:
 (0.459668, 202.61, 3.0503)
@@ -99,11 +103,6 @@ julia> helio.([jdcnv(1900)], [1,2,3,4,5,6,7,8,9])
 
 This program is based on the two-body model and thus neglects
 interactions between the planets.
-
-Additionally, there's a significant difference in the output given
-for the heliocentric radii of Mars, as the mean orbital quantities
-of planet Mars (see [`common`](@ref)) are differnet than what
-is used in IDL AstroLib.
 
 The coordinates are given for equinox 2000 and *not* the equinox
 of the supplied date.

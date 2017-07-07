@@ -41,10 +41,10 @@ array of the same length as `E` is returned.
 ### Example ###
 
 Plot the true anomaly as a function of mean anomaly for eccentricity \$e = 0\$,
-\$0.5\$, \$0.9\$.  Use [PyPlot.jl](https://github.com/stevengj/PyPlot.jl) for
+\$0.5\$, \$0.9\$.  Use [PyPlot.jl](https://github.com/JuliaPlots/Plots.jl/) for
 plotting.
 
-``` julia
+```julia
 using PyPlot
 M = linspace(0, 2pi, 1001)[1:end-1];
 for ecc in (0, 0.5, 0.9)

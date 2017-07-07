@@ -99,7 +99,7 @@ It performs precession, nutation, aberration, and refraction corrections.
 * `temperature` (optional keyword): the temperature at the observing location, in Kelvins.
   Default value is `NaN`
 * `obsname` (optional keyword): set this to a valid observatory name to
-  be used by the observatory type in [types](@ref), which will return the latitude and
+  be used by the [Observatory](@ref) type, which will return the latitude and
   longitude to be used by this program. This is `""` (empty string) by default,
   in which case `lat` and `lon` default to the coordinates of the `Pine Bluff Observatory`
   provided they are equivalent to `NaN` individually
@@ -119,6 +119,8 @@ and the local time is 10 PM precisely. What is the right ascension and declinati
 and the pressure is 781 millibars. The Julian date for this time is 2466879.7083333
 
 ```jldoctest
+julia> using AstroLib
+
 julia> ra_o, dec_o = hor2eq(ten(37,54,41), ten(264,55,06), 2466879.7083333,
                             obsname="kpno", pressure = 711, temperature = 273)
 (3.32228485671625, 15.19060567248328, 54.61193186104758)

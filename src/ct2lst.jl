@@ -58,14 +58,17 @@ constants used.
 Find the Greenwich mean sidereal time (GMST) on 2008-07-30 at 15:53 in
 Baltimore, Maryland (longitude=-76.72 degrees).  The timezone is EDT or tz=-4
 
-``` julia
-lst = ct2lst(-76.72, -4, DateTime(2008, 7, 30, 15, 53))
-# => 11.356505172312609
-sixty(lst)
-# => 3-element Array{Float64,1}:
-#     11.0    # Hours
-#     21.0    # Minutes
-#     23.4186 # Seconds
+```jldoctest
+julia> using AstroLib
+
+julia> lst = ct2lst(-76.72, -4, DateTime(2008, 7, 30, 15, 53))
+11.356505172312609
+
+julia> sixty(lst)
+3-element Array{Float64,1}:
+ 11.0
+ 21.0
+ 23.4186
 ```
 
 Find the Greenwich mean sidereal time (GMST) on 2015-11-24 at 13:21 in
@@ -73,20 +76,23 @@ Heidelberg, Germany (longitude=08° 43' E).  The timezone is CET or tz=1.
 Provide `ct2lst` only with the longitude of the place and the number of
 Julian days.
 
-``` julia
-# Convert longitude to decimals.
-longitude=ten(8, 43);
-# Get number of Julian days.  Remember to subtract the time zone in
+```jldoctest
+julia> using AstroLib
+
+julia> longitude=ten(8, 43); # Convert longitude to decimals.
+
+julia> jd = jdcnv(DateTime(2015, 11, 24, 13, 21) - Dates.Hour(1));
+# Get number of Julian days. Remember to subtract the time zone in
 # order to convert local time to UTC.
-jd = jdcnv(DateTime(2015, 11, 24, 13, 21) - Dates.Hour(1));
-# Calculate Greenwich Mean Sidereal Time.
-lst = ct2lst(longitude, jd)
-# => 17.140685171005316
-sixty(lst)
-# => 3-element Array{Float64,1}:
-#     17.0    # Hours
-#     8.0    # Minutes
-#     26.4666 # Seconds
+
+julia> lst = ct2lst(longitude, jd) # Calculate Greenwich Mean Sidereal Time.
+17.140685171005316
+
+julia> sixty(lst)
+3-element Array{Float64,1}:
+ 17.0
+  8.0
+ 26.4666
 ```
 
 ### Notes ###

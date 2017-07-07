@@ -50,7 +50,7 @@ Transform between Galactic, celestial, and ecliptic coordinates.
 
 ### Explanation ###
 
-The function is used by the [astro](@ref) procedure.
+The function is used by the astro procedure.
 
 ### Arguments ###
 
@@ -82,6 +82,8 @@ a 2-tuple `(ao, bo)`:
 Find the Galactic coordinates of Cyg X-1 (ra=299.590315, dec=35.201604)
 
 ```jldoctest
+julia> using AstroLib
+
 julia> euler(299.590315, 35.201604, 1)
 (71.33498957116959, 3.0668335310640984)
 ```

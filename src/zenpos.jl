@@ -11,7 +11,7 @@ or a local civil time and timezone.
 
 ### Explanation ###
 
-The local sidereal time is computed with the help of [ct2lst](@ref), which is the right
+The local sidereal time is computed with the help of [`ct2lst`](@ref), which is the right
 ascension of the zenith. This and the observatories latitude (corresponding to the declination)
 are converted to radians and returned as the zenith direction.
 
@@ -43,7 +43,9 @@ A 2-tuple `(ra, dec)`:
 
 ### Example ###
 
-``` julia
+```jldoctest
+julia> using AstroLib
+
 julia> zenpos(DateTime(2017, 04, 25, 18, 59), 43.16, -24.32, 4)
 (0.946790432684706, 0.7532841051607526)
 

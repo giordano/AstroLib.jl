@@ -90,6 +90,8 @@ The lower limb of the Sun is observed to have altitude of 0d 30'. Calculate the 
 temperature.
 
 ```jldoctest
+julia> using AstroLib
+
 julia> co_refract(0.5)
 0.02584736873098442
 ```
@@ -127,7 +129,7 @@ co_refract(old_alt::Real, altitude::Real=0, pressure::Real=NaN, temperature::Rea
 
 ### Purpose ###
 
-A function used by [co_refract](@ref) to find apparent (or observed) altitude
+A function used by [`co_refract`](@ref) to find apparent (or observed) altitude
 
 ### Arguments ###
 

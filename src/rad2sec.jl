@@ -19,9 +19,11 @@ the same length is returned.
 
 ### Example ###
 
-``` julia
-rad2sec(1)
-# => 206264.80624709636
+```jldoctest
+julia> using AstroLib
+
+julia> rad2sec(1)
+206264.80624709636
 ```
 
 ### Notes ###

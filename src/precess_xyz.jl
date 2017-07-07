@@ -37,9 +37,11 @@ The 3-tuple `(x, y, z)` of coordinates modified by precession.
 
 Precess 2000 equinox coordinates `(1, 1, 1)` to 2050.
 
-``` julia
-precess_xyz(1, 1, 1, 2000, 2050)
-# => (0.9838854500981734,1.0110925876508692,1.0048189888146941)
+```jldoctest
+julia> using AstroLib
+
+julia> precess_xyz(1, 1, 1, 2000, 2050)
+(0.9838854500981734, 1.0110925876508692, 1.0048189888146941)
 ```
 
 ### Method ###

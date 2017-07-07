@@ -59,7 +59,9 @@ The coordinate matrix is precessed from epoch1 to epoch2.
 
 ### Example ###
 
-```julia
+```jldoctest
+julia> using AstroLib
+
 julia> precess_cd([20 60; 45 45], 1950, 2000, [34, 58], [12, 83])
 2×2 Array{Float64,2}:
   48.8944  147.075
@@ -70,7 +72,7 @@ julia> precess_cd([20 60; 45 45], 1950, 2000, [34, 58], [12, 83])
 
 Code of this function is based on IDL Astronomy User's Library.
 This function should not be used for values more than 2.5 centuries from the year 1900.
-This function calls [sec2rad](@ref), [precess](@ref) and [bprecess](@ref).
+This function calls [`sec2rad`](@ref), [`precess`](@ref) and [`bprecess`](@ref).
 """
 precess_cd(cd::AbstractMatrix{<:Real}, epoch1::Real, epoch2::Real, crval_old::AbstractVector{<:Real},
            crval_new::AbstractVector{<:Real}, FK4::Bool=false) =

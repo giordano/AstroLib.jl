@@ -92,9 +92,11 @@ Suppose a 512 x 512 image array corresponds to 0.2 x 0.2 degrees on the sky.
 A tic mark is desired in round angular units, approximately every 75 pixels.
 Then
 
-``` julia
+```jldoctest
+julia> using AstroLib
+
 julia> ticpos(0.2, 512, 75)
-(85.33333333333333, 2, "Arc Minutes")
+(85.33333333333333, 2.0, "Arc Minutes")
 ```
 
 i.e. a good tic mark spacing is every 2 arc minutes, corresponding

@@ -62,13 +62,14 @@ Example 23a in Meeus: On 2028 Nov 13.19 TD the mean position of Theta
 Persei is 2h 46m 11.331s 49d 20' 54.54''. Determine the shift in
 position due to the Earth's nutation.
 
-```julia
+```jldoctest
+julia> using AstroLib
+
 julia> jd = jdcnv(2028,11,13,4,56)
 2.4620887055555554e6
 
-julia> co_nutate(jd,ten(2,46,11.331)*15,ten(49,20,54.54))
-(0.006058053578186673, 0.002650870610381162, 0.40904016038217567,
- 14.8593894278967, 2.7038090372351267)
+julia> co_nutate(jd,ten(2,46,11.331) * 15,ten(49,20,54.54))
+(0.006058053578186673, 0.0026508706103953728, 0.40904016038217555, 14.85938942789647, 2.703809037235058)
 ```
 
 ### Notes ###
@@ -78,7 +79,7 @@ Code of this function is based on IDL Astronomy User's Library.
 The output of `d_ra` and `d_dec` in IDL AstroLib is in arcseconds,
 however it is in degrees here.
 
-This function calls [mean_obliquity](@ref) and [nutate](@ref).
+This function calls [`mean_obliquity`](@ref) and [`nutate`](@ref).
 """
 co_nutate(jd::Real, ra::Real, dec::Real) =
     _co_nutate(promote(float(jd), float(ra), float(dec))...)

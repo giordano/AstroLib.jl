@@ -45,9 +45,11 @@ If `x` and `y` are arrays, `radius` and `angle` are arrays of the same length as
 Calculate polar coordinates \$(r, \\varphi)\$ of point with rectangular
 coordinates \$(x, y) = (2.24, -1.87)\$.
 
-``` julia
-r, phi = recpol(2.24, -1.87)
-# => (2.9179616172938263,-0.6956158538564537)
+```jldoctest
+julia> using AstroLib
+
+julia> r, phi = recpol(2.24, -1.87)
+(2.917961617293826, -0.6956158538564537)
 ```
 
 Angle \$\\varphi\$ is given in radians.
