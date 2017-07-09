@@ -819,6 +819,11 @@ end
 @test_throws AssertionError trueanom(pi, -0.5)
 @test_throws DomainError trueanom(pi,  1.5)
 
+# Test uvbybeta [WIP]
+@testset "uvbybeta" begin
+    @test_throws ErrorException @inferred uvbybeta(NaN, NaN, NaN, 9, NaN)
+end
+
 # Test vactoair and that airtovac is its inverse (it isn't true only around
 # 2000, just avoid those values)
 @test vactoair.([2000]) ≈ [1999.3526230448367]

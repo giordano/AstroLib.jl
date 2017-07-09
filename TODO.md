@@ -72,7 +72,6 @@ Missing in AstroLib.jl
 * `qdcb_grid`
 * `tdb2tdt`
 * `ticlabels`
-* `uvbybeta`
 * `zang`
 
 ### DAOPHOT-Type Photometry Procedures
