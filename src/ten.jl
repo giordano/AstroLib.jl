@@ -37,7 +37,6 @@ Converts a sexagesimal number or string to decimal.
 ### Explanation ###
 
 `ten` is the inverse of the `sixty` function.
-of `ten`.
 
 ### Arguments ###
 
@@ -49,8 +48,7 @@ If minutes and seconds are not specified they default to zero.
 
 ### Output ###
 
-The decimal conversion of the sexagesimal numbers provided is returned.  The
-output has the same dimension as the input.
+The decimal conversion of the sexagesimal numbers provided is returned.
 
 ### Method ###
 

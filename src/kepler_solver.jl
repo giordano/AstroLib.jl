@@ -63,14 +63,12 @@ given and one wants to find the eccentric anomaly \$E(t)\$ at a specific time
 
 ### Arguments ###
 
-* `M`: mean anomaly.  This can be either a scalar or an array
+* `M`: mean anomaly.
 * `e`: eccentricity, in the elliptic motion regime (\$0 \\leq e \\leq 1\$)
 
 ### Output ###
 
-The eccentric anomaly \$E\$, restricted to the range \$[-\\pi, \\pi]\$.  If an
-array of mean anomalies is provided in input, an array of the same length as `M`
-is returned.
+The eccentric anomaly \$E\$, restricted to the range \$[-\\pi, \\pi]\$.
 
 ### Method ###
 

@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 function calz_unred(wave::T, flux::T, ebv::T, r_v::T) where {T<:AbstractFloat}
-    x  = 10000.0/wave # Wavelength in inverse microns
+    x  = 10000 / wave # Wavelength in inverse microns
     if 6300 <= wave <= 22000
         klam = 2.659*(-1.857 + 1.040*x) + r_v
     elseif 912 <= wave < 6300
@@ -30,22 +30,21 @@ between \$0.12\$ and \$0.0912\$ microns.)
 
 ### Arguments ###
 
-* `wave`: wavelength vector (Angstroms)
-* `flux`: calibrated flux vector, same number of elements as `wave`.
-* `ebv`: color excess E(B-V), scalar.  If a negative `ebv` is supplied, then
+* `wave`: wavelength (Angstroms)
+* `flux`: calibrated flux.
+* `ebv`: color excess E(B-V).  If a negative `ebv` is supplied, then
   fluxes will be reddened rather than deredenned.  Note that the supplied color
   excess should be that derived for the stellar continuum, EBV(stars), which is
   related to the reddening derived from the gas, EBV(gas), via the Balmer
   decrement by EBV(stars) = 0.44*EBV(gas).
-* `r_v` (optional): scalar ratio of total to selective extinction, default is
+* `r_v` (optional): ratio of total to selective extinction, default is
   4.05.  Calzetti et al. (2000) estimate ``r_v = 4.05 \\pm 0.80`` from optical-IR
   observations of 4 starbursts.
 
 ### Output ###
 
-Unreddened flux vector, same units and number of elements as `flux`.  Flux
-values will be left unchanged outside valid domain (\$0.0912\$ - \$2.2\$
-microns).
+Unreddened flux, same units as `flux`.  Flux values will be left unchanged outside valid
+domain (\$0.0912\$ - \$2.2\$ microns).
 
 ### Example ###
 

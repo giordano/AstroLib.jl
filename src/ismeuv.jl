@@ -55,13 +55,13 @@ The EUV optical depth is computed from the photoionization of hydrogen and heliu
 
 ### Arguments ###
 
-* `wave`: scalar of wavelength value (in Angstroms). Useful range is 40 - 912 A;
+* `wave`: wavelength value (in Angstroms). Useful range is 40 - 912 A;
   at shorter wavelength metal opacity should be considered, at longer wavelengths
   there is no photoionization.
-* `hcol`: scalar specifying interstellar hydrogen column density in cm-2.
-* `he1col` (optional): scalar specifying neutral helium column density in cm-2.
+* `hcol`: interstellar hydrogen column density in cm-2.
+* `he1col` (optional): neutral helium column density in cm-2.
   Default is 0.1*hcol (10% of hydrogen column)
-* `he2col` (optional): scalar specifying ionized helium column density in cm-2
+* `he2col` (optional): ionized helium column density in cm-2
   Default is 0.
 * `fano` (optional boolean keyword): If this keyword is true, then the 4 strongest
   auto-ionizing resonances of He I are included. The shape of these resonances
@@ -71,8 +71,7 @@ The EUV optical depth is computed from the photoionization of hydrogen and heliu
 
 ### Output ###
 
-* `tau`: Vector giving resulting optical depth, same number of elements as wave,
-  non-negative values.
+* `tau`: Vector giving resulting optical depth, non-negative values.
 
 ### Example ###
 

@@ -16,10 +16,8 @@ of Julian calendar days since epoch `-4713-11-24T12:00:00`.
 
 ### Argument ###
 
-* `date`: date in proleptic Gregorian Calendar.  Can be either a single date or
-  an array of dates.  Each element can be either a `DateTime` type or anything
-  that can be converted directly to `DateTime`.  In the case of vectorial input,
-  each element is considered as a date, so you cannot provide a date by parts.
+* `date`: date in proleptic Gregorian Calendar.  Each element can be either a `DateTime` or
+  anything that can be converted directly to `DateTime`.
 
 ### Output ###
 

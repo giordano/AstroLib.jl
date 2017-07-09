@@ -22,28 +22,25 @@ Convert from Local Civil Time to Local Mean Sidereal Time.
 The function can be called in two different ways.  The only argument common to
 both methods is `longitude`:
 
-* `longitude`: the longitude in degrees (east of Greenwich) of the place for
-  which the local sidereal time is desired, scalar.  The Greenwich mean sidereal
-  time (GMST) can be found by setting longitude = `0`.
+* `longitude`: the longitude in degrees (east of Greenwich) of the place for which the local
+  sidereal time is desired.  The Greenwich mean sidereal time (GMST) can be found by setting
+  longitude = `0`.
 
 The civil date to be converted to mean sidereal time can be specified either by
 providing the Julian days:
 
-* `jd`: this is number of Julian days for the date to be converted.  It can be a
-  scalar or an array.
+* `jd`: this is number of Julian days for the date to be converted.
 
 or the time zone and the date:
 
 * `tz`: the time zone of the site in hours, positive East of the
   Greenwich meridian (ahead of GMT).  Use this parameter to easily
-  account for Daylight Savings time (e.g. -4=EDT, -5 = EST/CDT), scalar.
-  * `date`: this is the local civil time with type `DateTime`.  It can
-  be a scalar or an array.
+  account for Daylight Savings time (e.g. -4=EDT, -5 = EST/CDT).
+* `date`: this is the local civil time with type `DateTime`.
 
 ### Output ###
 
-The local sidereal time for the date/time specified in hours.  This is a scalar
-or an array of the same length as `jd` or `date`.
+The local sidereal time for the date/time specified in hours.
 
 ### Method ###
 

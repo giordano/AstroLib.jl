@@ -10,12 +10,11 @@ Convert from seconds to radians.
 
 ### Argument ###
 
-* `sec`: number of seconds.  It can be either a scalar or a vector.
+* `sec`: number of seconds.
 
 ### Output ###
 
-The number of radians corresponding to `sec`.  If `sec` is an array, an array of
-the same length is returned.
+The number of radians corresponding to `sec`.
 
 ### Example ###
 

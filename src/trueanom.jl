@@ -30,13 +30,12 @@ of angular coordinate at time \$t = t_{0}\$.
 
 ### Arguments ###
 
-* `E`: eccentric anomaly.  This can be either a scalar or an array
+* `E`: eccentric anomaly.
 * `e`: eccentricity, in the elliptic motion regime (\$0 \\leq e \\leq 1\$)
 
 ### Output ###
 
-The true anomaly.  If an array of eccentric anomalies is provided in input, an
-array of the same length as `E` is returned.
+The true anomaly.
 
 ### Example ###
 

@@ -57,12 +57,9 @@ A(u) =
 * `u`: projected distance between the lens and the source, in units of Einstein
   radii
 
-The distance can be either a scalar or an array.
-
 ### Output ###
 
-The microlensing amplification for the given distance.  If `u` is passed as an
-array, an array of the same length is returned.
+The microlensing amplification for the given distance.
 
 ### Example ###
 

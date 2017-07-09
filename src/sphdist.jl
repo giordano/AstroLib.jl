@@ -55,13 +55,6 @@ julia> sphdist(120, -43, 175, +22)
 
 * `gcirc` function is similar to `sphdist`, but may be more suitable for
   astronomical applications.
-* If `long1`, `lat1` are scalars, and `long2`, `lat2` are vectors, then the
- output is a vector giving the distance of each element of `long2`, `lat2` to
- `long1`, `lat1`.  Similarly, if `long1`,`de1` are vectors, and `long2`,` lat2`
- are scalars, then the output is a vector giving the distance of each element of
- `long1`, `lat1` to `long2`, `lat2`.  If both `long1`, `lat1` and `long2`,
- `lat2` are vectors then the output is a vector giving the distance of each
- element of `long1`, `lat1` to the corresponding element of `long2`, `lat2`.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
