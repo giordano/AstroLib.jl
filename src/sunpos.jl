@@ -50,7 +50,7 @@ function _sunpos{T<:AbstractFloat}(jd::T, radians::Bool)
     oblt = 23.452294 - 0.0130125 * t + 9.2 * cosd(omega) / 3600
     # Right Ascension and Declination
     l /= 3600
-    ra = cirrange(atan2(sind(l)*cosd(oblt), cosd(l)), 2pi)
+    ra = mod2pi(atan2(sind(l)*cosd(oblt), cosd(l)))
     dec = asin(sind(l)*sind(oblt))
     oblt = deg2rad(oblt)
     if radians

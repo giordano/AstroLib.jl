@@ -6,7 +6,7 @@ function ct2lst{T<:AbstractFloat}(long::T, jd::T)
     t  = t0 / JULIANCENTURY
     # Compute GST in seconds.
     θ = ct2lst_c[1] + (ct2lst_c[2]*t0) + t*t*(ct2lst_c[3] - t / ct2lst_c[4])
-    return cirrange((θ + long)/15, 24)
+    return mod((θ + long)/15, 24)
 end
 
 """

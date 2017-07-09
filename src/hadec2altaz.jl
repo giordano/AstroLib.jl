@@ -15,11 +15,11 @@ function _hadec2altaz{T<:AbstractFloat}(ha::T, dec::T, lat::T, ws::Bool)
     r = hypot(x, y)
 
     # Now get altitude, azimuth
-    az  = cirrange(rad2deg(atan2(y, x)))
+    az  = mod(rad2deg(atan2(y, x)), 360)
     alt = rad2deg(atan2(z, r))
     # Convert azimuth to West from South, if desired
     if ws
-        az = cirrange(az + 180.0)
+        az = mod(az + 180, 360)
     end
     return alt, az
 end

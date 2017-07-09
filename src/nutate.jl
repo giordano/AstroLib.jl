@@ -43,16 +43,16 @@ function nutate(jd::AbstractFloat)
     # Number of Julian centuries since 2000-01-01T12:00:00
     t = (jd - J2000) / JULIANCENTURY
     # Mean elongation of the Moon
-    d = deg2rad(cirrange(@evalpoly(t, 297.85036, 445267.111480, -0.0019142, inv(189474))))
+    d = deg2rad(mod(@evalpoly(t, 297.85036, 445267.111480, -0.0019142, inv(189474)), 360))
     # Sun's mean anomaly
-    M = deg2rad(cirrange(@evalpoly(t, 357.52772, 35999.050340, -0.0001603, -inv(3e5))))
+    M = deg2rad(mod(@evalpoly(t, 357.52772, 35999.050340, -0.0001603, -inv(3e5)), 360))
     # Moon's mean anomaly
-    Mprime = deg2rad(cirrange(@evalpoly(t, 134.96298, 477198.867398, 0.0086972, inv(5.625e4))))
+    Mprime = deg2rad(mod(@evalpoly(t, 134.96298, 477198.867398, 0.0086972, inv(5.625e4)), 360))
     # Moon's argument of latitude
-    F = deg2rad(cirrange(@evalpoly(t, 93.27191, 483202.017538, -0.0036825, -inv(3.27270e5))))
+    F = deg2rad(mod(@evalpoly(t, 93.27191, 483202.017538, -0.0036825, -inv(3.27270e5)), 360))
     # Longitude of the ascending node of the Moon's mean orbit on the ecliptic,
     # measured from the mean equinox of the date
-    ω = deg2rad(cirrange(@evalpoly(t, 125.04452, -1934.136261, 0.0020708, inv(4.5e5))))
+    ω = deg2rad(mod(@evalpoly(t, 125.04452, -1934.136261, 0.0020708, inv(4.5e5)), 360))
     arg = d_lng .* d .+ M_lng .* M .+ Mprime_lng .* Mprime .+ F_lng .* F .+ ω_lng .* ω
     long  = sum((sdelt .* t .+ sin_lng) .* sin.(arg)) / 10000
     obliq = sum((cdelt .* t .+ cos_lng) .* cos.(arg)) / 10000

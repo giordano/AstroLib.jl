@@ -24,6 +24,8 @@ Already Present in Julia
 ------------------------
 
 * `asinh`
+* `cirrange`.  It is equivalent to `mod(x, 360)`, or to `mod2pi(x)` for the `[0,
+  2pi)` range.
 * `minmax`.  It is called `extrema` in Julia.
 * `permute`.  It is called `randperm` in Julia.
 * `to_hex`.  It is called `hex` in Julia.
