@@ -22,8 +22,7 @@ binary star at a given heliocentric date given its orbit.
 
 ### Arguments ###
 
-* `jd`: time of observation, as number of Julian days.  It can be either a
-  scalar or an array.
+* `jd`: time of observation, as number of Julian days.
 * `T`: time of periastron passage (max. +ve velocity for circular orbits), same
   time system as `jd`
 * `P`: the orbital period in same units as `jd`
@@ -35,8 +34,8 @@ binary star at a given heliocentric date given its orbit.
 ### Output ###
 
 The predicted heliocentric radial velocity in the same units as Gamma for the
-date(s) specified by `jd`.  It is a scalar or an array depending on the type
-of`jd`.
+date(s) specified by `jd`.
+
 ### Example ###
 
 (1) What was the heliocentric radial velocity of the primary component of HU Tau

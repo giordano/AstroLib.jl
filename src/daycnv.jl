@@ -15,7 +15,7 @@ returns the corresponding proleptic Gregorian Calendar date.
 
 ### Argument ###
 
-* `julian_days`: Julian days number, scalar or array.
+* `julian_days`: Julian days number.
 
 ### Output ###
 

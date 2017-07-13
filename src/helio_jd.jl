@@ -43,10 +43,9 @@ IDL code available at http://astroutils.astronomy.ohio-state.edu/time/
 
 ### Arguments ###
 
-* `date`: reduced Julian date (= JD - 2400000), it can be either a scalar or
-  vector.  You can use `juldate()` to calculate the reduced Julian date.
-* `ra` and `dec`: scalars giving right ascension and declination in degrees.
-  Default equinox is J2000.
+* `date`: reduced Julian date (= JD - 2400000).  You can use `juldate()` to calculate the
+  reduced Julian date.
+* `ra` and `dec`: right ascension and declination in degrees.  Default equinox is J2000.
 * `B1950` (optional boolean keyword): if set to `true`, then input coordinates
   are assumed to be in equinox B1950 coordinates.  Default is `false`.
 * `diff` (optional boolean keyword): if set to `true`, the function returns the

@@ -13,7 +13,7 @@ The function is used by the [`co_aberration`](@ref) procedure.
 
 ### Arguments ###
 
-* `jd`: julian date, scalar
+* `jd`: Julian date.
 
 ### Output ###
 

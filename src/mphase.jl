@@ -21,13 +21,12 @@ Return the illuminated fraction of the Moon at given Julian date(s).
 
 ### Arguments ###
 
-* `jd`: the Julian ephemeris date.  It can be either a scalar or an array.
+* `jd`: the Julian ephemeris date.
 
 ### Output ###
 
 The illuminated fraction \$k\$ of Moon's disk, with \$0 \\leq k \\leq 1\$. \$k
-= 0\$ indicates a new moon, while \$k = 1\$ stands for a full moon.  If `jd` is
-given as an array, an array of the same number of elements as `jd` is returned.
+= 0\$ indicates a new moon, while \$k = 1\$ stands for a full moon.
 
 ### Method ###
 

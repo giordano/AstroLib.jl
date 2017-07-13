@@ -27,13 +27,11 @@ across the disk.
 
 ### Arguments ###
 
-* `delta_v`: numeric scalar giving the step increment (in km/s) in the output
-  rotation kernel
+* `delta_v`: the step increment (in km/s) in the output rotation kernel
 * `v_sin_i`: the rotational velocity projected along the line of sight (km/s)
-* `epsilon` (optional numeric argument): numeric scalar giving the
-  limb-darkening coefficient, default = 0.6 which is typical for photospheric
-  lines.  The specific intensity \$I\$ at any angle \$\\theta\$ from the
-  specific intensity \$I_{\\text{cen}}\$ at the center of the disk is given by:
+* `epsilon` (optional numeric argument): the limb-darkening coefficient, default = 0.6 which
+  is typical for photospheric lines.  The specific intensity \$I\$ at any angle \$\\theta\$
+  from the specific intensity \$I_{\\text{cen}}\$ at the center of the disk is given by:
 
   `` I = I_{\\text{cen}}\\cdot(1 - \\varepsilon\\cdot(1 - \\cos(\\theta)))``
 

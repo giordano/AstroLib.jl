@@ -93,13 +93,6 @@ julia> posang(1, ten(13, 25, 13.5), ten(54, 59, 17), ten(13, 23, 55.5), ten(54, 
 
 ### Notes ###
 
-* If `ra1`, `dec1` are scalars, and `ra2`, `dec2` are vectors, then the output
- is a vector giving the distance of each element of `ra2`, `dec2` to `ra1`,
- `dec1`.  Similarly, if `ra1`,`de1` are vectors, and `ra2`,` dec2` are scalars,
- then the output is a vector giving the distance of each element of `ra1`,
- `dec1` to `ra2`, `dec2`.  If both `ra1`, `dec1` and `ra2`, `dec2` are vectors
- then the output is a vector giving the distance of each element of `ra1`,
- `dec1` to the corresponding element of `ra2`, `dec2`.
 * The function `sphdist` provides an alternate method of computing a spherical
  distance.
 * Note that `posang` is not commutative: the position angle between A and B is

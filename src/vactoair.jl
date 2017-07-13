@@ -28,14 +28,13 @@ Wavelength values below \$2000 Å\$ will not be altered.  Uses relation of Ciddo
 
 ### Arguments ###
 
-* `wave_vacuum`: vacuum wavelength in angstroms.  Can be either a scalar or an
-  array of numbers.  Wavelengths are corrected for the index of refraction of air
-  under standard conditions.  Wavelength values below \$2000 Å\$ will *not* be
-  altered, take care within \$[1 Å, 2000 Å]\$.
+* `wave_vacuum`: vacuum wavelength in angstroms.  Wavelengths are corrected for the index of
+  refraction of air under standard conditions.  Wavelength values below \$2000 Å\$ will
+  *not* be altered, take care within \$[1 Å, 2000 Å]\$.
 
 ### Output ###
 
-Air wavelength in angstroms, same number of elements as `wave_vacuum`.
+Air wavelength in angstroms.
 
 ### Method ###
 

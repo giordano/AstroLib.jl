@@ -31,8 +31,7 @@ The zenith direction can be computed either by providing the Julian date:
 or the time zone and the date:
 
 * `tz`: the time zone (in hours) of the desired location (e.g. 4 = EDT, 5 = EST)
-* `date`: the local civil time with type `DateTime`. It can
-  be a scalar or an array.
+* `date`: the local civil time with type `DateTime`.
 
 ### Output ###
 

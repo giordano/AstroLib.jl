@@ -32,9 +32,6 @@ String input argument:
 
 * `name`: month name to be converted to month number.
 
-All mandatory arguments can be provided either as a single element or as an
-array.
-
 ### Output ###
 
 The month name or month number, depending on the input.  For numeric input, the

@@ -15,11 +15,10 @@ header.
 
 ### Argument ###
 
-* `date` (optional): the date in UTC standard.  If omitted, defaults to the
-  current UTC time.  It can be either a single date or an array of dates.  Each
-  element can be either a `DateTime` type or anything that can be converted to
-  that type.  In the case of vectorial input, each element is considered as a
-  date, so you cannot provide a date by parts.
+* `date` (optional): the date in UTC standard.  If omitted, defaults to the current UTC
+  time.  Each element can be either a `DateTime` type or anything that can be converted to
+  that type.  In the case of vectorial input, each element is considered as a date, so you
+  cannot provide a date by parts.
 * `old` (optional boolean keyword): see below.
 * `timetag` (optional boolean keyword): see below.
 
