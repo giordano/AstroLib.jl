@@ -822,6 +822,30 @@ end
 # Test uvbybeta [WIP]
 @testset "uvbybeta" begin
     @test_throws ErrorException @inferred uvbybeta(NaN, NaN, NaN, 9, NaN)
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(-0.009, 0.11, 0.68, 1)
+    @test te_o ≈ 12719.770257555097
+    @test mv_o ≈ -0.08913388245565224
+    @test eby_o ≈ 0.038295081967213124
+    @test delm_o ≈ -0.007787863429965028
+    @test radius_o ≈ 2.549253655861009
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.415, -0.069, 0.308, 2)
+    @test te_o ≈ 12280.215047866226
+    @test mv_o ≈ -7.112880191374548
+    @test eby_o ≈ 0.4040160642570281
+    @test isnan(delm_o)
+    @test radius_o ≈ 90.29892932880738
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.273, -0.051, 0.051, 3)
+    @test te_o ≈ 18733.204098765906
+    @test mv_o ≈ -5.453550292618578
+    @test eby_o ≈ 0.33158225857187795
+    @test isnan(delm_o)
+    @test radius_o ≈ 27.825306168356892
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.29343, 0.09, 0.001, 4)
+    @test te_o ≈ 25713.1878000067
+    @test mv_o ≈ -4.816603735163776
+    @test eby_o ≈ 0.6430112570356474
+    @test isnan(delm_o)
+    @test radius_o ≈ 0.16611917129253512
 end
 
 # Test vactoair and that airtovac is its inverse (it isn't true only around

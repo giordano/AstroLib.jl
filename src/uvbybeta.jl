@@ -14,13 +14,13 @@ function _uvbybeta(by::T, m1::T, c1::T, hbeta::T, eby_in::T,
         # For dereddening, linear relation used between the intrinsic (b-y)
         # and (u-b) (Crawford 1978, AJ 83, 48)
         if isnan(eby_in)
-           eby_in = (13.608 * by - ub + 1.467) / (12.078)
+           eby_in::T = (13.608 * by - ub + 1.467) / (12.078)
         end
         by0, m0, c0, ub0 = deredd(eby_in, by, m1, c1, ub)
         # When beta is not given, it is estimated using a cubic fit to the c0-beta
         # relation for luminosity class V given in Crawford (1978).
         if isnan(hbeta)
-            hbeta = @evalpoly c0 2.61033 0.132557 0.161463 -0.027352
+            hbeta::T = @evalpoly c0 2.61033 0.132557 0.161463 -0.027352
         end
         # Calculation of the absolute magnitude by applying the calibration of
         # Balona & Shobbrock (1974, MNRAS 211, 375)
@@ -59,7 +59,7 @@ function _uvbybeta(by::T, m1::T, c1::T, hbeta::T, eby_in::T,
         # For dereddening the linear relations between c0 and (u-b) determined from
         # Zhang (1983, AJ 88, 825) is used.
         if isnan(eby_in)
-            eby_in = ((1.32 * c1 - ub + 0.056) / (1.32/(1.53/0.19) - 1)) / 1.53
+            eby_in = ((1.32 * c1 - ub - 0.056) / (1.32/(1.53/0.19) - 1)) / 1.53
         end
         by0, m0, c0, ub0 = deredd(eby_in, by, m1, c1, ub)
         # When beta is not given, it is derived from a fit of the c0-beta
@@ -213,7 +213,7 @@ function _uvbybeta(by::T, m1::T, c1::T, hbeta::T, eby_in::T,
             f = 10 - 80 * (by0 - 0.38)
             te = exp10(3.924 - 0.416 * by0)
         else
-            f = 0
+            f = zero(T)
             te = exp10(3.869 -0.341 * by0)
         end
         mv = mvzams - f * (c0 - c1zams) + 32 * delm0 - 0.07
@@ -266,7 +266,7 @@ Derive dereddened colors, metallicity, and Teff from Stromgren colors.
   (5) A0 - A3, classes III - V, 2.87 < Hbeta < 2.93,-0.01 < (b-y)o < 0.06
   (6) A3 - F0, classes III - V, 2.72 < Hbeta < 2.88, 0.05 < (b-y)o < 0.22
   (7) F1 - G2, classes III - V, 2.60 < Hbeta < 2.72, 0.22 < (b-y)o < 0.39
-  (8) G2 - M2, classes  IV _ V, 0.20 < m0    < 0.76, 0.39 < (b-y)o < 1.00
+  (8) G2 - M2, classes  IV - V, 0.20 < m0    < 0.76, 0.39 < (b-y)o < 1.00
 * `hbeta` (optional): H-beta line strength index. If it is not supplied, then by
   default its value will be `NaN` and the code will estimate a value based on by,
   m1,and c1. It is not used for stars in group 8.
