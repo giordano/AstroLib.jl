@@ -100,6 +100,7 @@ function _uvbybeta(by::T, m1::T, c1::T, hbeta::T, eby_in::T,
         if isnan(hbeta)
             hbeta = 3.06 - 1.221 * by - 0.104 * c1
         end
+        m1zams = @evalpoly(hbeta, -17.209, 12.26, -2.158)
 
         if hbeta <= 2.74
             c1zams = 3 * hbeta - 7.56
@@ -109,14 +110,14 @@ function _uvbybeta(by::T, m1::T, c1::T, hbeta::T, eby_in::T,
             mvzams = 11.16 - 3 * hbeta
         else
             c1zams = 2 * hbeta - 4.83
-            mvzams = 497.2 * hbeta - 696.41
+            mvzams = @evalpoly hbeta -696.41 497.2 -88.4
         end
 
         if isnan(eby_in)
             delm1 = m1zams - m1
             delc1 = c1 - c1zams
 
-            if delm < 0
+            if delm1 < 0
                 by0 = 2.946 - hbeta - 0.1 * delc1 - 0.25 * delm1
             else
                 by0 = 2.946 - hbeta - 0.1 * delc1
@@ -124,7 +125,7 @@ function _uvbybeta(by::T, m1::T, c1::T, hbeta::T, eby_in::T,
             eby_in = by - by0
         end
         by0, m0, c0, ub0 = deredd(eby_in, by, m1, c1, ub)
-        delm0 = @evalpoly(hbeta, -17.209, 12.26, -2.158) - m0
+        delm0 =  m1zams - m0
         mv = mvzams - 9 * (c0 - c1zams)
         te = 5040 / (0.771453 * by0 + 0.546544)
     elseif n == 7
