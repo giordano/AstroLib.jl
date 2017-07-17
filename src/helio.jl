@@ -33,7 +33,7 @@ function _helio(jd::T, num::Integer, radians::Bool) where {T<:AbstractFloat}
     m = mlong - plong
     nu = trueanom(kepler_solver(m, eccen), eccen)
     hrad = a * (1 - eccen * cos(e))
-    hlong = cirrange(nu + plong, 2 * pi)
+    hlong = mod2pi(nu + plong)
     hlat = asin(sin(hlong - along) * sin(inc))
     if !radians
         return hrad, rad2deg(hlong), rad2deg(hlat)

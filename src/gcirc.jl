@@ -85,13 +85,6 @@ julia> gcirc(0, 120, -43, 175, +22)
 
 ### Notes ###
 
-* If `ra1`, `dec1` are scalars, and `ra2`, `dec2` are vectors, then the output
- is a vector giving the distance of each element of `ra2`, `dec2` to `ra1`,
- `dec1`.  Similarly, if `ra1`,`de1` are vectors, and `ra2`,` dec2` are scalars,
- then the output is a vector giving the distance of each element of `ra1`,
- `dec1` to `ra2`, `dec2`.  If both `ra1`, `dec1` and `ra2`, `dec2` are vectors
- then the output is a vector giving the distance of each element of `ra1`,
- `dec1` to the corresponding element of `ra2`, `dec2`.
 * The function `sphdist` provides an alternate method of computing a spherical
  distance.
 * The Haversine formula can give rounding errors for antipodal points.

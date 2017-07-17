@@ -65,7 +65,7 @@ function _jprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
     #     parallax = parallax / rmag
     # end
     if ra2000 < 0
-        ra2000 += 2pi
+        ra2000 += 2 * T(pi)
     end
     ra2000  = rad2deg(ra2000)
     dec2000 = rad2deg(dec2000)

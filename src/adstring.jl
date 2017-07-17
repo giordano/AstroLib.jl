@@ -44,12 +44,8 @@ Arguments of this function are:
 The function can be called in different ways:
 
 * Two numeric arguments: first is `ra`, the second is `dec`.
-* A 2-tuple `(ra, dec)`.
-* One 2-element numeric array: `[ra, dec]`.  A single string is returned.
+* An iterable (array, tuple) of two elements: `(ra, dec)`.
 * One numeric argument: it is assumed only `dec` is provided.
-* Two numeric arrays of the same length: `ra` and `dec` arrays.  An array of
-  strings is returned.
-* An array of 2-tuples `(ra, dec)`.
 
 Optional keywords affecting the output format are always available:
 
@@ -64,11 +60,8 @@ Optional keywords affecting the output format are always available:
 
 ### Output ###
 
-The function returns one string if the function was called with scalar `ra` and
-`dec` (or only `dec`) or a 2-element array `[ra, dec]`.  If instead it was
-feeded with arrays of `ra` and `dec`, an array of strings will be returned.  The
-format of strings can be specified with `precision` and `truncate` keywords, see
-above.
+The function returns one string.  The format of strings can be specified with `precision`
+and `truncate` keywords, see above.
 
 ### Example ###
 
@@ -78,8 +71,8 @@ julia> using AstroLib
 julia> adstring(30.4, -1.23, truncate=true)
 " 02 01 35.9  -01 13 48"
 
-julia> adstring([30.4, -15.63], [-1.23, 48.41], precision=1)
-2-element Array{AbstractString,1}:
+julia> adstring.([30.4, -15.63], [-1.23, 48.41], precision=1)
+2-element Array{String,1}:
  " 02 01 36.00  -01 13 48.0"
  " 22 57 28.80  +48 24 36.0"
 ```
@@ -111,39 +104,10 @@ adstring(ra::Real, dec::Real;
              adstring(promote(float(ra), float(dec))...,
                       precision=precision, truncate=truncate)
 
-adstring(radec::Tuple{Real, Real};
-         precision::Int=0, truncate::Bool=false) =
-             adstring(radec..., precision=precision, truncate=truncate)
+adstring(radec; precision::Int=0, truncate::Bool=false) =
+    adstring(radec..., precision=precision, truncate=truncate)
 
 # When printing only declination, IDL implementation defaults "precision" to 1
 # instead of 0.
 adstring(dec::Real; precision::Int=1, truncate::Bool=false) =
     adstring(NaN, dec, precision=precision, truncate=truncate)
-
-function adstring{T<:Real}(radec::AbstractArray{T};
-                             precision::Int=0, truncate::Bool=false)
-    @assert length(radec) == 2 "provide a 2-element [ra, dec] array"
-    return adstring(radec[1], radec[2], precision=precision, truncate=truncate)
-end
-
-function adstring{R<:Real, D<:Real}(ra::AbstractArray{R},
-                                        dec::AbstractArray{D};
-                                        precision::Int=0, truncate::Bool=false)
-    @assert length(ra) == length(dec) "ra and dec arrays should be of the same length"
-    result = similar(ra, AbstractString)
-    for i in eachindex(ra)
-        result[i] = adstring(ra[i], dec[i],
-                             precision=precision, truncate=truncate)
-    end
-    return result
-end
-
-function adstring{N<:Real}(radec::AbstractArray{Tuple{N, N}};
-                             precision::Int=0, truncate::Bool=false)
-    result = similar(radec, AbstractString)
-    for i in eachindex(radec)
-        result[i] = adstring(radec[i]...,
-                             precision=precision, truncate=truncate)
-    end
-    return result
-end

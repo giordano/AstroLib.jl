@@ -20,15 +20,12 @@ days since epoch `1858-11-16T12:00:00` (Reduced Julian Days = Julian Days -
 
 ### Argument ###
 
-* `date`: date in Julian Calendar, UTC standard.  It can be either e single date
-  or an array of dates.  Each element can be given in `DateTime` type or
-  anything that can be converted to that type.  In the case of vectorial input,
-  each element is considered as a date, so you cannot provide a date by parts.
+* `date`: date in Julian Calendar, UTC standard.  Each element can be given in `DateTime`
+  type or anything that can be converted to that type.
 
 ### Output ###
 
-The number of Reduced Julian Days is returned.  If `date` is an array, an array
-of the same length as `date` is returned.
+The number of Reduced Julian Days is returned.
 
 ### Example ###
 

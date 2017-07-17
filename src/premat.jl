@@ -43,7 +43,7 @@ coordinates.
 
 ### Arguments ###
 
-* `equinox1`: original equinox of coordinates, numeric scalar.
+* `equinox1`: original equinox of coordinates.
 * `equinox2`: equinox of precessed coordinates.
 * `FK4` (optional boolean keyword): if this keyword is set to `true`, the FK4
   (B1950.0) system precession angles are used to compute the precession matrix.

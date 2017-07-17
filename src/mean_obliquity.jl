@@ -13,7 +13,7 @@ The function is used by the [`co_nutate`](@ref) procedure.
 
 ### Arguments ###
 
-* `jd`: julian date, scalar
+* `jd`: julian date
 
 ### Output ###
 

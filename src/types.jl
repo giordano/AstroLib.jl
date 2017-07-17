@@ -78,11 +78,6 @@ struct Planet
     asc_long::Float64
     per_long::Float64
     mean_long::Float64
-    Planet(name, radius, eqradius, polradius, mass, ecc, axis, period, inc,
-           asc_long, per_long, mean_long) =
-        new(String(name), Float64(radius), Float64(eqradius), Float64(polradius),
-            Float64(mass), Float64(ecc), Float64(axis), Float64(period), Float64(inc),
-            Float64(asc_long), Float64(per_long), Float64(mean_long))
 end
 
 # New type representation

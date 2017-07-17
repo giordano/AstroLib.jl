@@ -26,8 +26,6 @@ law](https://en.wikipedia.org/wiki/Planck%27s_law)
 * `frequency`: frequency at which the flux is to be calculated, in Hertz.
 * `temperature`: the equilibrium temperature of the black body, in Kelvin.
 
-Both arguments can be either scalar or arrays of the same length.
-
 ### Output ###
 
 The spectral radiance of the black body, in units of W/(sr·m²·Hz).

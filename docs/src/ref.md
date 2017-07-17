@@ -147,7 +147,6 @@ julia> AstroLib.planets["saturn"].mass
 
 [`airtovac()`](@ref),
 [`calz_unred()`](@ref),
-[`cirrange()`](@ref),
 [`deredd()`](@ref),
 [`flux2mag()`](@ref),
 [`gal_uvw()`](@ref),

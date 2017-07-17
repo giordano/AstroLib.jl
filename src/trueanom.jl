@@ -30,13 +30,12 @@ of angular coordinate at time \$t = t_{0}\$.
 
 ### Arguments ###
 
-* `E`: eccentric anomaly.  This can be either a scalar or an array
+* `E`: eccentric anomaly.
 * `e`: eccentricity, in the elliptic motion regime (\$0 \\leq e \\leq 1\$)
 
 ### Output ###
 
-The true anomaly.  If an array of eccentric anomalies is provided in input, an
-array of the same length as `E` is returned.
+The true anomaly.
 
 ### Example ###
 
@@ -48,7 +47,7 @@ plotting.
 using PyPlot
 M = linspace(0, 2pi, 1001)[1:end-1];
 for ecc in (0, 0.5, 0.9)
-    plot(M, cirrange.(trueanom.(kepler_solver.(M, ecc), ecc), 2pi))
+    plot(M, mod2pi.(trueanom.(kepler_solver.(M, ecc), ecc)))
 end
 ```
 

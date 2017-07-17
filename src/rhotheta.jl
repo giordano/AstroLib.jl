@@ -18,7 +18,7 @@ function _rhotheta{T<:AbstractFloat}(period::T, periastron::T, eccentricity::T,
     theta = omega + atan2(sin(nu + omega2)*cos(inclination), cos(nu + omega2))
     rho   = r*cos(nu + omega2)/cos(theta - omega)
     # Convert theta to degrees and for it to be in [0, 360) range.
-    theta = cirrange(rad2deg(theta))
+    theta = mod(rad2deg(theta), 360)
     return rho, theta
 end
 

@@ -22,19 +22,16 @@ This is the reverse of `flux2mag`.
 
 ### Arguments ###
 
-* `mag`: the magnitude to be converted in flux.  It can be either a scalar or an
-  array.
-* `zero_point`: scalar giving the zero point level of the magnitude.  If not
- supplied then defaults to 21.1 (Code et al 1976).  Ignored if the `ABwave`
- keyword is supplied
-* `ABwave` (optional numeric keyword): wavelength, scalar or array, in
- Angstroms.  If supplied, then the input `mag` is assumed to contain Oke AB
- magnitudes (Oke & Gunn 1983, ApJ, 266, 713;
+* `mag`: the magnitude to be converted in flux.
+* `zero_point`: the zero point level of the magnitude.  If not supplied then defaults to
+ 21.1 (Code et al 1976).  Ignored if the `ABwave` keyword is supplied
+* `ABwave` (optional numeric keyword): wavelength, in Angstroms.  If supplied, then the
+ input `mag` is assumed to contain Oke AB magnitudes (Oke & Gunn 1983, ApJ, 266, 713;
  http://adsabs.harvard.edu/abs/1983ApJ...266..713O).
 
 ### Output ###
 
-The flux.  It is of the same type, scalar or array, as `mag`.
+The flux.
 
 If the `ABwave` keyword is set, then the flux is given by the expression
 

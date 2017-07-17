@@ -14,9 +14,8 @@ Returns the date corresponding to the `day` of `year`.
 
 ### Arguments ###
 
-* `year`: the year, as a scalar integer.
-* `day`: the day of `year`, as an integer.  It is can be either a scalar or
-  array of integers.
+* `year`: the year, as an integer.
+* `day`: the day of `year`, as an integer.
 
 ### Output ###
 

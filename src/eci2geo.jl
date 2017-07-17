@@ -6,7 +6,7 @@ function _eci2geo{T<:AbstractFloat}(x::T, y::T, z::T, jd::T)
     theta = atan2(y, x) # Azimuth.
     gst   = ct2lst(zero(T), jd)
     sid_angle = gst*pi/12 # Sidereal angle.
-    long  = cirrange(rad2deg(theta - sid_angle)) # Longitude.
+    long  = mod(rad2deg(theta - sid_angle), 360) # Longitude.
     r     = hypot(x, y)
     lat   = atan2(z, r) # Latitude.
     alt   = r/cos(lat) - Re # Altitude.
