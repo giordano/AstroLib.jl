@@ -191,9 +191,11 @@ function _uvbybeta(by::T, m1::T, c1::T, hbeta::T, eby_in::T,
             end
             by0 = by - eby_in
 
-            if by0 < 0.65
-                eby_in = (5.8651 * by - ub - 0.8975) / 4.3351
-            end
+            # This will never happen (unless both by and c1 are <0, but is
+            # placed here for completeness's sake
+            # if by0 < 0.65
+            #     eby_in = (5.8651 * by - ub - 0.8975) / 4.3351
+            # end
         end
         by0, m0, c0, ub0 = deredd(eby_in, by, m1, c1, ub)
         # m1(ZAMS), c1(ZAMS), and MV(ZAMS) are calculated according to Olson (1984)

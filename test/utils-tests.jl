@@ -819,7 +819,10 @@ end
 @test_throws AssertionError trueanom(pi, -0.5)
 @test_throws DomainError trueanom(pi,  1.5)
 
-# Test uvbybeta [WIP]
+# Test uvbybeta
+# The values used for the testset are from running the code. However they have been
+# correlated with the output from uvbybeta routine of IDL AstroLib, with
+# differences only in the least significant digits.
 @testset "uvbybeta" begin
     @test_throws ErrorException @inferred uvbybeta(NaN, NaN, NaN, 9, NaN)
     te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(-0.009, 0.11, 0.68, 1)
@@ -916,6 +919,12 @@ end
     @test eby_o ≈ -0.022297953964194334
     @test delm_o ≈ 0.5456850156962505
     @test radius_o ≈ 0.26255047396110764
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.7901, 0.037, 0.184, 8)
+    @test te_o ≈ 3977.185981725903
+    @test mv_o ≈ 10.363469966897801
+    @test eby_o ≈ -0.44480700557966524
+    @test delm_o ≈ 0.6926850156962504
+    @test radius_o ≈ 0.2114135440537949
 end
 
 # Test vactoair and that airtovac is its inverse (it isn't true only around
