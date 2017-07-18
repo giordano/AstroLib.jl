@@ -919,12 +919,12 @@ end
     @test eby_o ≈ -0.022297953964194334
     @test delm_o ≈ 0.5456850156962505
     @test radius_o ≈ 0.26255047396110764
-    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.7901, 0.037, 0.184, 8)
-    @test te_o ≈ 3977.185981725903
-    @test mv_o ≈ 10.363469966897801
-    @test eby_o ≈ -0.44480700557966524
-    @test delm_o ≈ 0.6926850156962504
-    @test radius_o ≈ 0.2114135440537949
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.7901, 0.037, 0.039, 8)
+    @test te_o ≈ 3985.833020767027
+    @test mv_o ≈ 10.356215131980953
+    @test eby_o ≈ 0.0027659846547315762
+    @test delm_o ≈ 0.6944746189113468
+    @test radius_o ≈ 0.2106831009861503
 end
 
 # Test vactoair and that airtovac is its inverse (it isn't true only around
