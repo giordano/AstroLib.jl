@@ -879,6 +879,43 @@ end
     @test eby_o ≈ 0.0043099999999998695
     @test delm_o ≈ 0.24506736642000115
     @test radius_o ≈ 0.16018990575428574
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.1923, 0.2186, 0.2783, 6)
+    @test te_o ≈ 7252.900460401587
+    @test mv_o ≈ 7.219177499999998
+    @test eby_o ≈ -0.011614630064603726
+    @test delm_o ≈ -0.019005720258414266
+    @test radius_o ≈ 0.2024586440816956
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.216, 0.167, 0.785, 7)
+    @test te_o ≈ 7108.688707930596
+    @test mv_o ≈ 1.538642957897997
+    @test eby_o ≈ 0.005426551873147473
+    @test delm_o ≈ 0.010495724945951107
+    @test radius_o ≈ 2.8675336941552185
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.206, 0.162, 0.786, 7,
+                                                             2.601)
+    @test te_o ≈ 7144.241056060125
+    @test mv_o ≈ -0.8920873665838025
+    @test eby_o ≈ -0.12713573819611615
+    @test delm_o ≈ 0.05272866901000031
+    @test radius_o ≈ 8.706345749177931
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.394, 0.184, 0.382, 8)
+    @test te_o ≈ 5755.671513413262
+    @test mv_o ≈ 3.7737408311021916
+    @test eby_o ≈ -0.028753800373693867
+    @test delm_o ≈ 0.034414237187698926
+    @test radius_o ≈ 1.6597544196694192
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.6501, 0.184, 0.382, 8)
+    @test te_o ≈ 5452.352129194577
+    @test mv_o ≈ 5.192225306337874
+    @test eby_o ≈ 0.19958051948051947
+    @test delm_o ≈ 0.032731030075137835
+    @test radius_o ≈ 0.9924525316819005
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.7901, 0.184, 0.0145, 8)
+    @test te_o ≈ 3977.185981725903
+    @test mv_o ≈ 9.893069966897801
+    @test eby_o ≈ -0.022297953964194334
+    @test delm_o ≈ 0.5456850156962505
+    @test radius_o ≈ 0.26255047396110764
 end
 
 # Test vactoair and that airtovac is its inverse (it isn't true only around

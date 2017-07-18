@@ -147,7 +147,7 @@ function _uvbybeta(by::T, m1::T, c1::T, hbeta::T, eby_in::T,
                 byinit = bycorr
                 m1init = m1by
             end
-            hbeta = @evalpoly bycorr 2.96618 -1.32861 1.01425
+            hbeta = @evalpoly byinit 2.96618 -1.32861 1.01425
         end
         # m1(ZAMS) and mv(ZAMS) are calculated according to Crawford (1975) with
         # corrections suggested by Hilditch, Hill & Barnes (1983, MNRAS 204, 241)
@@ -217,7 +217,7 @@ function _uvbybeta(by::T, m1::T, c1::T, hbeta::T, eby_in::T,
             f = zero(T)
             te = exp10(3.869 -0.341 * by0)
         end
-        mv = mvzams - f * (c0 - c1zams) + 32 * delm0 - 0.07
+        mv = mvzams + f * (c1zams - c0) + 3.2 * delm0 - 0.07
     end
 
     if 1 < n < 5
