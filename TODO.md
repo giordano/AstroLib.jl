@@ -65,7 +65,6 @@ Missing in AstroLib.jl
 * `ccm_unred` (should go to [DustExtinction.jl](DustExtinction.jl))
 * `date`
 * `date_conv`
-* `eq2hor`
 * `eqpole_grid`
 * `fm_unred`
 * `gal_flat`
