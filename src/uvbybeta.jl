@@ -190,16 +190,11 @@ function _uvbybeta(by::T, m1::T, c1::T, hbeta::T, eby_in::T,
                 eby_in = (-0.7875 * by - c1 + 0.6585) / -0.9775
             end
             by0 = by - eby_in
-
-            # This will never happen (unless both by and c1 are <0, but is
-            # placed here for completeness's sake
-            # if by0 < 0.65
-            #     eby_in = (5.8651 * by - ub - 0.8975) / 4.3351
-            # end
         end
         by0, m0, c0, ub0 = deredd(eby_in, by, m1, c1, ub)
         # m1(ZAMS), c1(ZAMS), and MV(ZAMS) are calculated according to Olson (1984)
         m1zams = @evalpoly by0 7.18436 -49.43695 122.1875 -122.466 42.93678
+
         if by0 < 0.65
             c1zams = @evalpoly by0 3.78514 -21.278 42.7486 -28.7056
             mvzams = @evalpoly by0 -59.2095 432.156 -1101.257 1272.503 -552.48
