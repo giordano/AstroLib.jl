@@ -23,9 +23,9 @@ function _eq2hor(ra::T, dec::T, jd::T, lat::T, lon::T, altitude::T,
 
     if precession
         if B1950
-            ra, dec = precess(ra, dec, j_now, 1950, FK4=true)
+            ra, dec = precess(ra, dec, 1950, j_now, FK4=true)
         else
-            ra, dec = precess(ra, dec, j_now, 2000)
+            ra, dec = precess(ra, dec, 2000, j_now,)
         end
     end
     dra1, ddec1, eps, d_psi = co_nutate(jd, ra, dec)

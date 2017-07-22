@@ -151,9 +151,9 @@ end
 @testset "eq2hor" begin
     alt_o, az_o, ha_o = eq2hor(259.20005705918317, 49.674706171288655, AstroLib.J2000,
                                B1950=true)
-    @test alt_o ≈ 44.07661421421705
-    @test az_o ≈ 56.73679950657327
-    @test ha_o ≈ 291.7183005916426
+    @test alt_o ≈ 43.65317854138399
+    @test az_o ≈ 56.68399982431934
+    @test ha_o ≈ 291.0817912803288
     alt_o, az_o, ha_o = eq2hor(142.2933457820434,-34.218006262991786, 2e6, ws=true,
                                B1950=true, precession = false, nutate=false,
                                aberration=false, refract=false, lat = 54.435,
@@ -164,16 +164,19 @@ end
     @test ha_o ≈ 359.3108663499664
     alt_o, az_o, ha_o = eq2hor(3.32228485671625, 15.190605763758745, 2466879.7083333,
                                obsname="kpno", pressure = 711, temperature = 273)
-    @test alt_o ≈ 36.76575213128887
-    @test az_o ≈ 265.0391331736532
-    @test ha_o ≈ 55.69534356650993
-    alt_o, az_o, ha_o = @inferred(AstroLib._eq2hor(259.5184384071214, 49.623310468816314,
+    @test alt_o ≈ 37.90681214212795
+    @test az_o ≈ 264.91833348446283
+    @test ha_o ≈ 54.61193216548776
+    alt_o, az_o, ha_o = @inferred(_eq2hor(259.5184384071214, 49.623310468816314,
                                                    Float64(AstroLib.J2000), NaN, NaN, 0.0,
                                                    NaN, NaN, false, false, true, true,
                                                    true, true, ""))
     @test alt_o ≈ 43.65317874635683
     @test az_o ≈ 56.68399995567487
     @test ha_o ≈ 291.08179162740964
+    ra_o, dec_o = hor2eq(eq2hor(45, 60, 2e6)[1:2]..., 2e6)
+    @test ra_o ≈ 44.94115008739391
+    @test dec_o ≈ 59.997744863183605
 end
 
 # Test eqpole
