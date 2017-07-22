@@ -167,7 +167,7 @@ end
     @test alt_o ≈ 37.90681214212795
     @test az_o ≈ 264.91833348446283
     @test ha_o ≈ 54.61193216548776
-    alt_o, az_o, ha_o = @inferred(_eq2hor(259.5184384071214, 49.623310468816314,
+    alt_o, az_o, ha_o = @inferred(AstroLib._eq2hor(259.5184384071214, 49.623310468816314,
                                                    Float64(AstroLib.J2000), NaN, NaN, 0.0,
                                                    NaN, NaN, false, false, true, true,
                                                    true, true, ""))
