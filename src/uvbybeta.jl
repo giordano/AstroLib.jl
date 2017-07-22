@@ -248,8 +248,6 @@ end
 
 Derive dereddened colors, metallicity, and Teff from Stromgren colors.
 
-### Explanation ###
-
 ### Arguments ###
 
 * `by`: Stromgren b-y color
