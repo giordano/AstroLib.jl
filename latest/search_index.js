@@ -149,7 +149,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "Utilities",
     "category": "section",
-    "text": "airtovac(), calz_unred(), deredd(), flux2mag(), gal_uvw(), imf(), ismeuv(), kepler_solver(), lsf_rotate(), mag2flux(), paczynski(), planck_freq(), planck_wave(), rad2sec(), rhotheta(), sec2rad(), sixty(), sphdist(), ten(), tic_one(), ticpos(), tics(), trueanom(), vactoair()"
+    "text": "airtovac(), calz_unred(), deredd(), flux2mag(), gal_uvw(), imf(), ismeuv(), kepler_solver(), lsf_rotate(), mag2flux(), paczynski(), planck_freq(), planck_wave(), rad2sec(), rhotheta(), sec2rad(), sixty(), sphdist(), ten(), tic_one(), ticpos(), tics(), trueanom(), uvbybeta(), vactoair()"
 },
 
 {
@@ -718,6 +718,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.trueanom",
     "category": "Method",
     "text": "trueanom(E, e) -> true anomaly\n\nPurpose\n\nCalculate true anomaly for a particle in elliptic orbit with eccentric anomaly E and eccentricity e.\n\nExplanation\n\nIn the two-body problem, once that the Kepler's equation is solved and E(t) is determined, the polar coordinates (r(t) theta(t)) of the body at time t in the elliptic orbit are given by\n\ntheta(t) = 2arctan left(sqrtfrac1 + e1 - e tanfracE(t)2 right)\n\nr(t) = fraca(1 - e^2)1 + ecos(theta(t) - theta_0)\n\nin which a is the semi-major axis of the orbit, and theta_0 the value of angular coordinate at time t = t_0.\n\nArguments\n\nE: eccentric anomaly.\ne: eccentricity, in the elliptic motion regime (0 leq e leq 1)\n\nOutput\n\nThe true anomaly.\n\nExample\n\nPlot the true anomaly as a function of mean anomaly for eccentricity e = 0, 05, 09.  Use PyPlot.jl for plotting.\n\nusing PyPlot\nM = linspace(0, 2pi, 1001)[1:end-1];\nfor ecc in (0, 0.5, 0.9)\n    plot(M, mod2pi.(trueanom.(kepler_solver.(M, ecc), ecc)))\nend\n\nNotes\n\nThe eccentric anomaly can be calculated with kepler_solver function.\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.uvbybeta",
+    "page": "Reference",
+    "title": "AstroLib.uvbybeta",
+    "category": "Function",
+    "text": "uvbybeta(by, m1, c1, n[, hbeta=NaN, eby_in=NaN]) -> te, mv, eby, delm0, radius\n\nPurpose\n\nDerive dereddened colors, metallicity, and Teff from Stromgren colors.\n\nArguments\n\nby: Stromgren b-y color\nm1: Stromgren line-blanketing parameter\nc1: Stromgren Balmer discontinuity parameter\nn: Integer which can be any value between 1 to 8, giving approximate stellar classification. (1) B0 - A0, classes III - V, 2.59 < Hbeta < 2.88,-0.20 <   c0   < 1.00 (2) B0 - A0, class   Ia     , 2.52 < Hbeta < 2.59,-0.15 <   c0   < 0.40 (3) B0 - A0, class   Ib     , 2.56 < Hbeta < 2.61,-0.10 <   c0   < 0.50 (4) B0 - A0, class   II     , 2.58 < Hbeta < 2.63,-0.10 <   c0   < 0.10 (5) A0 - A3, classes III - V, 2.87 < Hbeta < 2.93,-0.01 < (b-y)o < 0.06 (6) A3 - F0, classes III - V, 2.72 < Hbeta < 2.88, 0.05 < (b-y)o < 0.22 (7) F1 - G2, classes III - V, 2.60 < Hbeta < 2.72, 0.22 < (b-y)o < 0.39 (8) G2 - M2, classes  IV - V, 0.20 < m0    < 0.76, 0.39 < (b-y)o < 1.00\nhbeta (optional): H-beta line strength index. If it is not supplied, then by default its value will be NaN and the code will estimate a value based on by, m1,and c1. It is not used for stars in group 8.\neby_in (optional): specifies the E(b-y) color to use. If not supplied, then by default its value will be NaN and E(b-y) will be estimated from the Stromgren colors.\n\nOutput\n\nte: approximate effective temperature\nmv: absolute visible magnitude\neby: color excess E(b-y)\ndelm0: metallicity index, delta m0, may not be calculable for early B stars and so returns NaN.\nradius: stellar radius (R/R(solar))\n\nExample\n\nSuppose 5 stars have the following Stromgren parameters\n\nby = [-0.001 ,0.403, 0.244, 0.216, 0.394] m1 = [0.105, -0.074, -0.053, 0.167, 0.186] c1 = [0.647, 0.215, 0.051, 0.785, 0.362] hbeta = [2.75, 2.552, 2.568, 2.743, 0] nn = [1,2,3,7,8]\n\nDetermine the stellar parameters\n\njulia> using AstroLib\n\njulia> by = [-0.001 ,0.403, 0.244, 0.216, 0.394];\n\njulia> m1 = [0.105, -0.074, -0.053, 0.167, 0.186];\n\njulia> c1 = [0.647, 0.215, 0.051, 0.785, 0.362];\n\njulia> hbeta = [2.75, 2.552, 2.568, 2.743, 0];\n\njulia> nn = [1,2,3,7,8];\n\njulia> uvbybeta.(by, m1, c1, nn, hbeta)\n5-element Array{NTuple{5,Float64},1}:\n (13057.5, -0.273755, 0.049544, -0.00829289, 2.71365)\n (14025.1, -6.90705, 0.414056, NaN, 73.5077)\n (18423.8, -5.93582, 0.282825, NaN, 39.8411)\n (7210.51, 2.21804, 0.0184041, 0.0187509, 2.0459)\n (5755.67, 3.94494, -0.025063, 0.0324142, 1.53392)\n\nNotes\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
 },
 
 {
