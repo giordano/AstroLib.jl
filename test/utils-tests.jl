@@ -819,6 +819,114 @@ end
 @test_throws AssertionError trueanom(pi, -0.5)
 @test_throws DomainError trueanom(pi,  1.5)
 
+# Test uvbybeta
+# The values used for the testset are from running the code. However they have been
+# correlated with the output from uvbybeta routine of IDL AstroLib, with
+# differences only in the least significant digits.
+@testset "uvbybeta" begin
+    @test_throws ErrorException @inferred uvbybeta(NaN, NaN, NaN, 9, NaN)
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(-0.009, 0.11, 0.68, 1)
+    @test te_o ≈ 12719.770257555097
+    @test mv_o ≈ -0.08913388245565224
+    @test eby_o ≈ 0.038295081967213124
+    @test delm_o ≈ -0.007787863429965028
+    @test radius_o ≈ 2.549253655861009
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.415, -0.069, 0.308, 2)
+    @test te_o ≈ 12280.215047866226
+    @test mv_o ≈ -7.112880191374548
+    @test eby_o ≈ 0.4040160642570281
+    @test isnan(delm_o)
+    @test radius_o ≈ 90.29892932880738
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.273, -0.051, 0.051, 3)
+    @test te_o ≈ 18733.204098765906
+    @test mv_o ≈ -5.453550292618578
+    @test eby_o ≈ 0.33158225857187795
+    @test isnan(delm_o)
+    @test radius_o ≈ 27.825306168356892
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.29343, 0.09, 0.001, 4)
+    @test te_o ≈ 25713.1878000067
+    @test mv_o ≈ -4.816603735163776
+    @test eby_o ≈ 0.6430112570356474
+    @test isnan(delm_o)
+    @test radius_o ≈ 0.16611917129253512
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.03, 0.21345, 0.3976, 5)
+    @test te_o ≈ 10363.815662133818
+    @test mv_o ≈ 4.411076600000009
+    @test eby_o ≈ -0.038394585955939545
+    @test delm_o ≈ -0.03113954500000002
+    @test radius_o ≈ 0.4863555386334208
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.18547, -0.04356, 0.2576, 6)
+    @test te_o ≈ 7308.315628104092
+    @test mv_o ≈ 7.562860949999999
+    @test eby_o ≈ -0.00736941600000007
+    @test delm_o ≈ 0.2449243827527609
+    @test radius_o ≈ 0.17062904371865295
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.18547, -0.04356, 0.2576, 6,
+                                                             2.72001)
+    @test te_o ≈ 7308.315628104092
+    @test mv_o ≈ 6.1817999999999955
+    @test eby_o ≈ -0.07476300000000027
+    @test delm_o ≈ 0.21601800458420034
+    @test radius_o ≈ 0.3223035928541916
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.18547, -0.04356, 0.2576, 6,
+                                                             2.82)
+    @test te_o ≈ 7334.8182052629045
+    @test mv_o ≈ 7.767123299999994
+    @test eby_o ≈ 0.003229999999999733
+    @test delm_o ≈ 0.2454149000000012
+    @test radius_o ≈ 0.154376398171302
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.18547, -0.04356, 0.2576, 6,
+                                                             2.8201)
+    @test te_o ≈ 7343.722680158638
+    @test mv_o ≈ 7.682471615999958
+    @test eby_o ≈ 0.0043099999999998695
+    @test delm_o ≈ 0.24506736642000115
+    @test radius_o ≈ 0.16018990575428574
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.1923, 0.2186, 0.2783, 6)
+    @test te_o ≈ 7252.900460401587
+    @test mv_o ≈ 7.219177499999998
+    @test eby_o ≈ -0.011614630064603726
+    @test delm_o ≈ -0.019005720258414266
+    @test radius_o ≈ 0.2024586440816956
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.216, 0.167, 0.785, 7)
+    @test te_o ≈ 7108.688707930596
+    @test mv_o ≈ 1.538642957897997
+    @test eby_o ≈ 0.005426551873147473
+    @test delm_o ≈ 0.010495724945951107
+    @test radius_o ≈ 2.8675336941552185
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.206, 0.162, 0.786, 7,
+                                                             2.601)
+    @test te_o ≈ 7144.241056060125
+    @test mv_o ≈ -0.8920873665838025
+    @test eby_o ≈ -0.12713573819611615
+    @test delm_o ≈ 0.05272866901000031
+    @test radius_o ≈ 8.706345749177931
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.394, 0.184, 0.382, 8)
+    @test te_o ≈ 5755.671513413262
+    @test mv_o ≈ 3.7737408311021916
+    @test eby_o ≈ -0.028753800373693867
+    @test delm_o ≈ 0.034414237187698926
+    @test radius_o ≈ 1.6597544196694192
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.6501, 0.184, 0.382, 8)
+    @test te_o ≈ 5452.352129194577
+    @test mv_o ≈ 5.192225306337874
+    @test eby_o ≈ 0.19958051948051947
+    @test delm_o ≈ 0.032731030075137835
+    @test radius_o ≈ 0.9924525316819005
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.7901, 0.184, 0.0145, 8)
+    @test te_o ≈ 3977.185981725903
+    @test mv_o ≈ 9.893069966897801
+    @test eby_o ≈ -0.022297953964194334
+    @test delm_o ≈ 0.5456850156962505
+    @test radius_o ≈ 0.26255047396110764
+    te_o, mv_o, eby_o, delm_o, radius_o = @inferred uvbybeta(0.7901, 0.037, 0.039, 8)
+    @test te_o ≈ 3985.833020767027
+    @test mv_o ≈ 10.356215131980953
+    @test eby_o ≈ 0.0027659846547315762
+    @test delm_o ≈ 0.6944746189113468
+    @test radius_o ≈ 0.2106831009861503
+end
+
 # Test vactoair and that airtovac is its inverse (it isn't true only around
 # 2000, just avoid those values)
 @test vactoair.([2000]) ≈ [1999.3526230448367]

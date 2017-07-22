@@ -168,6 +168,7 @@ julia> AstroLib.planets["saturn"].mass
 [`ticpos()`](@ref),
 [`tics()`](@ref),
 [`trueanom()`](@ref),
+[`uvbybeta()`](@ref),
 [`vactoair()`](@ref)
 
 ### Miscellaneous (non-astronomy) functions

@@ -196,6 +196,9 @@ export true_obliquity
 include("trueanom.jl")
 export trueanom
 
+include("uvbybeta.jl")
+export uvbybeta
+
 include("vactoair.jl")
 export vactoair
 
