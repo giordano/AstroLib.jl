@@ -84,11 +84,11 @@ end
 # the function here uses an updated method to find mean obliquity
 @testset "co_nutate" begin
     an,bn,cn,dn,en = co_nutate([jdcnv(2028,11,13,4,56), jdcnv(2013, 4, 16)],[10, 160],[80,30])
-    @test an ≈ [0.00332316985077874, 0.0028100303682379035  ]
-    @test bn ≈ [0.0037962761358869557, -0.002223911512604815]
-    @test cn ≈ [0.40904016038217567, 0.4090340058477726     ]
-    @test dn ≈ [14.8593894278967, 12.102640377483143        ]
-    @test en ≈ [2.7038090372351267, -5.86229256359996       ]
+    @test an ≈ [0.001209279097382776, 0.002465026741191423   ]
+    @test bn ≈ [0.0017471459185713911, -0.0018134211486149354]
+    @test cn ≈ [0.40904016038217567, 0.4090340058477726      ]
+    @test dn ≈ [14.8593894278967, 12.102640377483143         ]
+    @test en ≈ [2.7038090372351267, -5.86229256359996        ]
     ra_out, dec_out, eps_out, d_psi_out, d_eps_out = co_nutate(2.451545e6,325, 0)
     @test ra_out ≈ -0.0035484441576727477
     @test dec_out ≈ -0.00034017946720967174
@@ -149,11 +149,11 @@ end
 # correlated with the output from eq2hor routine of IDL AstroLib, with
 # differences only in the least significant digits.
 @testset "eq2hor" begin
-    alt_o, az_o, ha_o = eq2hor(259.20005705918317, 49.674706171288655, AstroLib.J2000,
+    alt_o, az_o, ha_o = eq2hor(259.20238631600944, 49.674907472176095, AstroLib.J2000,
                                B1950=true)
-    @test alt_o ≈ 43.65317854138399
-    @test az_o ≈ 56.68399982431934
-    @test ha_o ≈ 291.0817912803288
+    @test alt_o ≈ 43.68790027650299
+    @test az_o ≈ 56.68399935391907
+    @test ha_o ≈ 291.0817910119524
     alt_o, az_o, ha_o = eq2hor(142.2933457820434,-34.218006262991786, 2e6, ws=true,
                                B1950=true, precession = false, nutate=false,
                                aberration=false, refract=false, lat = 54.435,
@@ -162,21 +162,21 @@ end
     @test alt_o ≈ 1.3449999999999924
     @test az_o ≈ 359.43
     @test ha_o ≈ 359.3108663499664
-    alt_o, az_o, ha_o = eq2hor(3.32228485671625, 15.190605763758745, 2466879.7083333,
+    alt_o, az_o, ha_o = eq2hor(3.3222617779538037, 15.190516725395284, 2466879.7083333,
                                obsname="kpno", pressure = 711, temperature = 273)
-    @test alt_o ≈ 37.90681214212795
-    @test az_o ≈ 264.91833348446283
-    @test ha_o ≈ 54.61193216548776
-    alt_o, az_o, ha_o = @inferred(AstroLib._eq2hor(259.5184384071214, 49.623310468816314,
+    @test alt_o ≈ 37.91138916818937
+    @test az_o ≈ 264.918333213257
+    @test ha_o ≈ 54.61193155973385
+    alt_o, az_o, ha_o = @inferred(AstroLib._eq2hor(259.52076321839485, 49.62352289872951,
                                                    Float64(AstroLib.J2000), NaN, NaN, 0.0,
                                                    NaN, NaN, false, false, true, true,
                                                    true, true, ""))
-    @test alt_o ≈ 43.65317874635683
-    @test az_o ≈ 56.68399995567487
-    @test ha_o ≈ 291.08179162740964
+    @test alt_o ≈ 43.687900264047116
+    @test az_o ≈ 56.68399934960606
+    @test ha_o ≈ 291.0817909922114
     ra_o, dec_o = hor2eq(eq2hor(45, 60, 2e6)[1:2]..., 2e6)
-    @test ra_o ≈ 44.94115008739391
-    @test dec_o ≈ 59.997744863183605
+    @test ra_o ≈ 45.0001735428487
+    @test dec_o ≈ 59.999995143349956
 end
 
 # Test eqpole
@@ -387,8 +387,8 @@ end
 # differences only in the least significant digits.
 @testset "hor2eq" begin
     ra_o, dec_o, ha_o = hor2eq(43.6879, 56.684, AstroLib.J2000, B1950=true)
-    @test ra_o ≈ 259.20005705918317
-    @test dec_o ≈ 49.674706171288655
+    @test ra_o ≈ 259.20238631600944
+    @test dec_o ≈ 49.674907472176095
     @test ha_o ≈ 291.0817908419628
     ra_o, dec_o, ha_o = hor2eq(1.345, 359.43, 2e6, ws=true, B1950=true,
                                precession = false, nutate=false, aberration=false,
@@ -400,14 +400,14 @@ end
     @test ha_o ≈ 359.3108663499664
     ra_o, dec_o, ha_o = hor2eq(ten(37,54,41), ten(264,55,06), 2466879.7083333,
                                obsname="kpno", pressure = 711, temperature = 273)
-    @test ra_o ≈ 3.32228485671625
-    @test dec_o ≈ 15.190605763758745
+    @test ra_o ≈ 3.3222617779538037
+    @test dec_o ≈ 15.190516725395284
     @test ha_o ≈ 54.61193186104758
     ra_o, dec_o, ha_o = @inferred(AstroLib._hor2eq(43.6879, 56.684, Float64(AstroLib.J2000),
                                           NaN, NaN, 0.0, NaN, NaN, false, false, true,
                                           true, true, true, ""))
-    @test ra_o ≈ 259.5184384071214
-    @test dec_o ≈ 49.623310468816314
+    @test ra_o ≈ 259.52076321839485
+    @test dec_o ≈ 49.62352289872951
     @test ha_o ≈ 291.0817908419628
 end
 

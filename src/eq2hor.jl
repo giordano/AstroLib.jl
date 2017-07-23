@@ -25,27 +25,27 @@ function _eq2hor(ra::T, dec::T, jd::T, lat::T, lon::T, altitude::T,
         if B1950
             ra, dec = precess(ra, dec, 1950, j_now, FK4=true)
         else
-            ra, dec = precess(ra, dec, 2000, j_now,)
+            ra, dec = precess(ra, dec, 2000, j_now)
         end
     end
     dra1, ddec1, eps, d_psi = co_nutate(jd, ra, dec)
-
-    if nutate
-       ra += dra1
-       dec += ddec1
-    end
 
     if aberration
         dra2, ddec2 = co_aberration(jd, ra, dec, eps)
         ra += dra2 / 3600
         dec += ddec2 / 3600
     end
+
+    if nutate
+       ra += dra1
+       dec += ddec1
+    end
     last = 15 * ct2lst(lon, jd) + d_psi * cos(eps) / 3600
     ha = mod(last - ra, 360)
     alt, az = hadec2altaz(ha, dec, lat, ws=ws)
 
     if refract
-        alt = co_refract(alt, altitude, pressure, temperature)
+        alt = co_refract(alt, altitude, pressure, temperature, to_observe = true)
     end
     return alt, az, ha
 end
@@ -110,10 +110,10 @@ julia> using AstroLib
 
 julia> alt_o, az_o = eq2hor(ten(6,40,58.2)*15, ten(9,53,44), 2460107.25, lat=ten(50,31,36),
                                    lon=ten(6,51,18), altitude=369, pressure = 980, temperature=283)
-(16.040966354652365, 266.1447829865725, 76.7608239877382)
+(16.423991509721567, 265.60656932130564, 76.11502253130612)
 
 julia> adstring(az_o, alt_o)
-" 17 44 34.7  +16 02 27"
+" 17 42 25.6  +16 25 26"
 ```
 
 ### Notes ###

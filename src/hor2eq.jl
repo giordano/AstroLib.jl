@@ -33,15 +33,15 @@ function _hor2eq(alt::T, az::T, jd::T, lat::T, lon::T, altitude::T,
     ra = mod(last - ha, 360)
     dra1, ddec1, eps = co_nutate(jd, ra, dec)
 
-    if nutate
-       ra -= dra1
-       dec -= ddec1
-    end
-
     if aberration
         dra2, ddec2 = co_aberration(jd, ra, dec, eps)
         ra -= dra2 / 3600
         dec -= ddec2 / 3600
+    end
+
+    if nutate
+       ra -= dra1
+       dec -= ddec1
     end
     j_now = (jd - J2000) / JULIANYEAR + 2000
 
@@ -122,8 +122,8 @@ and the pressure is 781 millibars. The Julian date for this time is 2466879.7083
 julia> using AstroLib
 
 julia> ra_o, dec_o = hor2eq(ten(37,54,41), ten(264,55,06), 2466879.7083333,
-                            obsname="kpno", pressure = 711, temperature = 273)
-(3.32228485671625, 15.19060567248328, 54.61193186104758)
+                            obsname="kpno", pressure = 781, temperature = 273)
+(3.3222617779538037, 15.190516725395284, 54.61193186104758)
 
 julia> adstring(ra_o, dec_o)
 " 00 13 17.3  +15 11 26"
