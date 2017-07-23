@@ -174,9 +174,9 @@ end
     @test alt_o ≈ 43.687900264047116
     @test az_o ≈ 56.68399934960606
     @test ha_o ≈ 291.0817909922114
-    ra_o, dec_o = hor2eq(eq2hor(45, 60, 2e6)[1:2]..., 2e6)
-    @test ra_o ≈ 45.0001735428487
-    @test dec_o ≈ 59.999995143349956
+    alt_o, az_o = eq2hor(hor2eq(25, 55, 2.05e6)[1:2]..., 2.05e6)
+    @test alt_o ≈ 24.99993224731665
+    @test az_o ≈ 54.99993893556545
 end
 
 # Test eqpole
@@ -409,6 +409,9 @@ end
     @test ra_o ≈ 259.52076321839485
     @test dec_o ≈ 49.62352289872951
     @test ha_o ≈ 291.0817908419628
+    ra_o, dec_o = hor2eq(eq2hor(45, 60, 2e6)[1:2]..., 2e6)
+    @test ra_o ≈ 45.0001735428487
+    @test dec_o ≈ 59.999995143349956
 end
 
 # Test imf
