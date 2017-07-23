@@ -8,7 +8,7 @@ function _co_nutate(jd::T, ra::T, dec::T) where {T<:AbstractFloat}
     x = cosd(ra) * cosd(dec)
     y = sind(ra) * cosd(dec)
     z = sind(dec)
-    x2 = x - sec2rad(y * ce + z * ce) * d_psi
+    x2 = x - sec2rad(y * ce + z * se) * d_psi
     y2 = y + sec2rad(x * ce * d_psi - z * d_eps)
     z2 = z + sec2rad(x * se * d_psi + y * d_eps)
     xyproj = hypot(x2, y2)
@@ -69,7 +69,7 @@ julia> jd = jdcnv(2028,11,13,4,56)
 2.4620887055555554e6
 
 julia> co_nutate(jd,ten(2,46,11.331) * 15,ten(49,20,54.54))
-(0.006058053578186673, 0.0026508706103953728, 0.40904016038217555, 14.859389427896472, 2.703809037235058)
+(0.004400660977140092, 0.0017266864650764546, 0.40904016038217555, 14.85938942789647, 2.703809037235058)
 ```
 
 ### Notes ###

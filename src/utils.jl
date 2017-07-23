@@ -40,6 +40,9 @@ export deredd
 include("eci2geo.jl")
 export eci2geo
 
+include("eq2hor.jl")
+export eq2hor
+
 include("eqpole.jl")
 export eqpole
 
