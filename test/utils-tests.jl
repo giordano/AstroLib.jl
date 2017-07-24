@@ -629,12 +629,12 @@ end
 
 # Test planck_freq
 @testset "planck_freq" begin
-    @test planck_freq.([2000], [5000]) ≈ [6.1447146126144004e-30]
+    @test @inferred(planck_freq(2000, 5000)) ≈ 6.1447146126144004e-30
 end
 
 # Test planck_wave
 @testset "planck_wave" begin
-    @test planck_wave.([2000], [5000]) ≈ [8.127064833530511e-24]
+    @test @inferred(planck_wave(2000, 5000)) ≈ 8.127064833530511e-24
 end
 
 # Test planet_coords
@@ -1019,7 +1019,7 @@ end
 # Test vactoair and that airtovac is its inverse (it isn't true only around
 # 2000, just avoid those values)
 @testset "vactoair" begin
-    @test vactoair.([2000]) ≈ [1999.3526230448367]
+    @test @inferred(vactoair(2000)) ≈ 1999.3526230448367
     @test airtovac.(vactoair.(collect(1000:300:4000))) ≈ collect(1000:300:4000)
 end
 

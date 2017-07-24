@@ -8,14 +8,14 @@ end
 
 # Test rad2sec
 @testset "rad2sec" begin
-    @test rad2sec.([1]) ≈ [206264.80624709636]
+    @test @inferred(rad2sec(1)) ≈ 206264.80624709636
     @test @inferred(rad2sec(pi)) ≈ 648000.0
     @test @inferred(sec2rad(rad2sec(12.34))) ≈ 12.34
 end
 
 # Test sec2rad
 @testset "sec2rad" begin
-    @test sec2rad.([3600*30]) ≈ [pi/6]
+    @test @inferred(sec2rad(3600*30)) ≈ pi/6
     @test @inferred(1/sec2rad(1)) ≈ 206264.80624709636
     @test @inferred(rad2sec(sec2rad(56.78))) ≈ 56.78
 end
