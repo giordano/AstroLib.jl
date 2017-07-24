@@ -545,8 +545,7 @@ end
 # Test mag2flux
 @testset "mag2flux" begin
     @test @inferred(mag2flux(4.83, 21.12))               ≈ 4.1686938347033296e-11
-    @test mag2flux.([4.83], 21.12)                       ≈ [4.1686938347033296e-11]
-    @test flux2mag(mag2flux(15, ABwave=12.), ABwave=12) ≈ 15.0 # Inferred Type Error
+    @test flux2mag(mag2flux(15, ABwave=12.), ABwave=12)  ≈ 15.0 # Inferred Type Error
     @test @inferred(mag2flux(8.3))                       ≈ 1.7378008287493692e-12
     @test @inferred(mag2flux(8.3, 12))                   ≈ 7.58577575029182e-9
     @test mag2flux(8.3, ABwave=12)                       ≈ 3.6244115683017193e-7 # Inferred Type Error
@@ -811,9 +810,9 @@ end
     @test @inferred(ten(0, -23, 34)) == @inferred(ten((0, -23, 34))) ==
         @inferred(ten([0, -23, 34])) == ten(" : 0 -23 :: 34") == -0.37388888888888894
     @test @inferred(ten(-0.0, 60)) == @inferred(ten((-0.0, 60))) ==
-        @inferred(ten([-0.0, 60])) == ten("-0.0 60") == -1.0 # Inferred Type Error
+        @inferred(ten([-0.0, 60])) == @inferred(ten("-0.0 60")) == -1.0
     @test @inferred(ten(-5, -60, -3600)) == @inferred(ten((-5, -60, -3600))) ==
-        @inferred(ten([-5, -60, -3600])) == ten("  -5: :-60: -3600") == -3.0 # Inferred Type Error
+        @inferred(ten([-5, -60, -3600])) == @inferred(ten("  -5: :-60: -3600")) == -3.0
     @test ten("") == 0.0
     @test ten.([0, -0.0, -5], [-23, 60, -60], [34, 0, -3600]) ==
         ten.([(0, -23,34), ":-0.0:60", (-5, -60, -3600)]) ==
