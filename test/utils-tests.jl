@@ -42,6 +42,17 @@ end
          [44.38225395397647, 48.542947077386664, 67.33061196497327])
 end
 
+# Test baryvel
+@testset "baryvel" begin
+    dvelh_o, dvelb_o = @inferred(baryvel(AstroLib.J2000, 1950))
+    @test dvelh_o ≈ [-29.858889109661163, -4.685067254882613, -2.0307823051175067]
+    @test dvelb_o ≈ [-29.849745416500905, -4.696936219990682, -2.0360998173521256]
+    dvelh_o, dvelb_o = @inferred(baryvel(jdcnv(1987, 4, 10, 0), 0))
+    @test dvelh_o ≈ [9.5146711129053, -25.83924443844302, -11.202557861638113]
+    @test dvelb_o ≈ [9.51325837793194, -25.850471597071984, -11.2072991681374]
+end
+
+
 # Test bprecess
 @testset "bprecess" begin
     ra, dec = @inferred(bprecess([ten(13, 42, 12.74)*15], [ten(8, 23, 17.69)],

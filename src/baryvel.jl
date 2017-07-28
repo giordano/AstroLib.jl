@@ -172,13 +172,13 @@ function _baryvel(dje::T, deq::T) where {T<:AbstractFloat}
     dzabd = dsinep * dybd + dcosep * dzbd
 
     if deq == 0
-        dvelh = AU * ([dxhd, dyahd, dzahd])
-        dvelb = AU * ([dxbd, dyabd, dzabd])
+        dvelh = AU/1000 * ([dxhd, dyahd, dzahd])
+        dvelb = AU/1000 * ([dxbd, dyabd, dzabd])
     else
         deqdat = ((dje - 2415020.313) / 365.24219572) + 1900
         prema = premat(deqdat, deq, FK4 = true)
-        dvelh = AU/1000 * ([dxhd dyahd dzahd] * prema)
-        dvelb = AU/1000 * ([dxbd dyabd dzabd] * prema)
+        dvelh = AU/1000 * (prema * [dxhd, dyahd, dzahd])
+        dvelb = AU/1000 * (prema * [dxbd, dyabd, dzabd])
     end
     return dvelh, dvelb
 end
@@ -208,8 +208,15 @@ work to an accuracy of ~1 m/s.
 
 ### Example ###
 
-```jldoctest
+Compute the radial velocity of the Earth toward Altair on 15-Feb-1994 using 
+both the original Stumpf algorithm.
 
+```jldoctest
+julia> jd = jdcnv(1994, 2, 15, 0)
+2.4493985e6
+
+julia> baryvel(jd, 2000)
+([-17.0725, -22.8111, -9.88926], [-17.0809, -22.8046, -9.88621])
 ```
 
 ### Notes ###

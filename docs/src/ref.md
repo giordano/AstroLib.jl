@@ -91,6 +91,7 @@ julia> AstroLib.planets["saturn"].mass
 [`adstring()`](@ref),
 [`aitoff()`](@ref),
 [`altaz2hadec()`](@ref),
+[`baryvel()`](@ref),
 [`bprecess()`](@ref),
 [`co_aberration()`](@ref),
 [`co_nutate()`](@ref),
