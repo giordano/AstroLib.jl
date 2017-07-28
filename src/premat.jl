@@ -1,8 +1,8 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _premat{T<:AbstractFloat}(equinox1::T, equinox2::T, FK4::Bool)
-    t = 0.001*(equinox2 - equinox1)
+function premat(equinox1::T, equinox2::T, FK4::Bool) where {T<:AbstractFloat}
+    t = (equinox2 - equinox1) / 1000
     if FK4
         st = (equinox1 - 1900) / 1000
         #  Compute 3 rotation angles
@@ -20,13 +20,12 @@ function _premat{T<:AbstractFloat}(equinox1::T, equinox2::T, FK4::Bool)
         c = sec2rad(t*(20043.109 - st*(85.33 + 0.217*st)
                        + t*(-42.665 - 0.217*st - 41.833*t)))
     end
-    sina = sin(a); sinb = sin(b); sinc = sin(c)
-    cosa = cos(a); cosb = cos(b); cosc = cos(c)
-    r = Array{T}(3, 3)
-    r[:,1] = [ cosa*cosb*cosc - sina*sinb,  sina*cosb + cosa*sinb*cosc,  cosa*sinc]
-    r[:,2] = [-cosa*sinb - sina*cosb*cosc,  cosa*cosb - sina*sinb*cosc, -sina*sinc]
-    r[:,3] = [                 -cosb*sinc,                  -sinb*sinc,       cosc]
-    return r
+    sa, ca = sincos(a)
+    sb, cb = sincos(b)
+    sc, cc = sincos(c)
+    return [ca * cb * cc - sa * sb   -ca * sb - sa * cb * cc   -cb*sc;
+            sa * cb + ca * sb * cc    ca * cb - sa * sb * cc   -sb*sc;
+                           ca * sc                  -sa * sc       cc]
 end
 
 """
@@ -80,4 +79,4 @@ Almanac" 1992, page 104 Table 3.211.1
 Code of this function is based on IDL Astronomy User's Library.
 """
 premat(eq1::Real, eq2::Real; FK4::Bool=false) =
-    _premat(promote(float(eq1), float(eq2))..., FK4)
+    premat(promote(float(eq1), float(eq2))..., FK4)
