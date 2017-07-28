@@ -170,3 +170,7 @@ const planets =
          "pluto"=>Planet("pluto", 1187e3, 1187e3, 1187e3, 0.01303e24,
                          0.24882730, 39.48211675 * AU, 90560.0*86400,
                          17.14001206, 110.30393684, 224.06891629, 238.92903833))
+
+if !isdefined(Base, :sincos)
+    sincos(x::Real) = (sin(x), cos(x))
+end
