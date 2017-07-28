@@ -417,7 +417,7 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
-    "location": "ref.html#AstroLib.imf-Tuple{AbstractArray{#s50,1} where #s50<:Real,AbstractArray{#s49,1} where #s49<:Real,AbstractArray{#s48,1} where #s48<:Real}",
+    "location": "ref.html#AstroLib.imf-Tuple{AbstractArray{#s51,1} where #s51<:Real,AbstractArray{#s50,1} where #s50<:Real,AbstractArray{#s49,1} where #s49<:Real}",
     "page": "Reference",
     "title": "AstroLib.imf",
     "category": "Method",
