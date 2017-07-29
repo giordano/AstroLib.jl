@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function premat(equinox1::T, equinox2::T, FK4::Bool) where {T<:AbstractFloat}
+function _premat(equinox1::T, equinox2::T, FK4::Bool) where {T<:AbstractFloat}
     t = (equinox2 - equinox1) / 1000
     if FK4
         st = (equinox1 - 1900) / 1000
@@ -79,4 +79,4 @@ Almanac" 1992, page 104 Table 3.211.1
 Code of this function is based on IDL Astronomy User's Library.
 """
 premat(eq1::Real, eq2::Real; FK4::Bool=false) =
-    premat(promote(float(eq1), float(eq2))..., FK4)
+    _premat(promote(float(eq1), float(eq2))..., FK4)
