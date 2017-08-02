@@ -64,9 +64,9 @@ const ccsec = [ 1.289600e-6 5.550147e-1  2.076942    ;
                 9.124190e-6 9.990265e-1  2.622706    ;
                 9.793240e-7 5.508259     1.559103e01 ]
 
-const dcargm = [5.167983  8.3286911095275e3 ;
-                5.491315 -7.2140632838100e3 ;
-                5.959853  1.5542754389685e4 ]
+const dcargm = [5.1679830  8.3286911095275e3 ;
+                5.4913150 -7.2140632838100e3 ;
+                5.9598530  1.5542754389685e4 ]
 
 const ccampm = [ 1.097594e-1 2.896773e-7 5.450474e-2  1.438491E-7 ;
                 -2.223581e-2 5.083103e-8 1.002548e-2 -2.291823E-8 ;
@@ -91,25 +91,23 @@ function _baryvel(dje::T, deq::T) where {T<:AbstractFloat}
 
     # Periodic perturbations of the emb (earth-moon barycenter).
     pertl = dot(ccsec[:,1], sn) + dt * sn[3] * -7.757020e-8
-    a = rem.(dcargs[:,1] + dt * dcargs[:,2], 2 * T(pi))
-    cosa = cos.(a)
-    sina = sin.(a)
     pertr = zero(T)
     pertld = zero(T)
     pertrd = zero(T)
-    for i = 1:14
-        pertl += ccamps[i, 1] * cosa[i] + ccamps[i, 2] * sina[i]
-        pertr += ccamps[i, 3] * cosa[i] + ccamps[i, 4] * sina[i]
+    for i = 1:15
+        a = rem(dcargs[i,1] + dt * dcargs[i,2], 2 * T(pi))
+        sina, cosa = sincos(a)
+        pertl += ccamps[i, 1] * cosa + ccamps[i, 2] * sina
+        pertr += ccamps[i, 3] * cosa + ccamps[i, 4] * sina
         if i < 12
-            pertld += (ccamps[i, 2] * cosa[i] - ccamps[i, 1] * sina[i]) * ccamps[i, 5]
-            pertrd += (ccamps[i, 4] * cosa[i] - ccamps[i, 3] * sina[i]) * ccamps[i, 5]
+            pertld += (ccamps[i, 2] * cosa - ccamps[i, 1] * sina) * ccamps[i, 5]
+            pertrd += (ccamps[i, 4] * cosa - ccamps[i, 3] * sina) * ccamps[i, 5]
         end
     end
 
     # Elliptic part of the motion of the emb
     f = ((e^2)/4) * (((8/e) - e) * sin(g) + 5 * sin(2 * g) + (13/3) * e * sin(3 * g)) + g
-    sinf = sin(f)
-    cosf = cos(f)
+    sinf, cosf = sincos(f)
     dpsi = (1 - e^2) / (1 + e * cosf)
     phid = 2 * e * 1.990969e-7 * ((1 + 1.5 * e^2) * cosf + e * (1.25 - 0.5 * sinf^2))
     psid = (1.990969e-7 * e * sinf) / sqrt(1 - e^2)
@@ -118,36 +116,33 @@ function _baryvel(dje::T, deq::T) where {T<:AbstractFloat}
     drd = (1 + pertr) * (psid + dpsi * pertrd)
     drld = (1 + pertr) * dpsi * (1.990987e-7  + phid + pertld)
     dtl = rem(dml + f - g + pertl, 2 * T(pi))
-    dsinls = sin(dtl)
-    dcosls = cos(dtl)
+    dsinls, dcosls = sincos(dtl)
     dxhd = drd * dcosls - drld * dsinls
     dyhd = drd * dsinls + drld * dcosls
 
     # Influence of eccentricity, evection and variation on the geocentric
-    a = rem.(dcargm[:, 1] + dt * dcargm[:, 2], 2 * T(pi))
-    sina = sin.(a)
-    cosa = cos.(a)
     pertl_m = zero(T)
     pertld_m = zero(T)
     pertp_m = zero(T)
     pertpd_m = zero(T)
     for i = 1:3
-        pertl_m += ccampm[i, 1] * sina[i]
-        pertld_m += ccampm[i, 2] * cosa[i]
-        pertp_m += ccampm[i, 3] * cosa[i]
-        pertpd_m += - ccampm[i, 4] * sina[i]
+        a = rem(dcargm[i, 1] + dt * dcargm[i, 2], 2 * T(pi))
+        sina, cosa = sincos(a)
+        pertl_m += ccampm[i, 1] * sina
+        pertld_m += ccampm[i, 2] * cosa
+        pertp_m += ccampm[i, 3] * cosa
+        pertpd_m -= ccampm[i, 4] * sina
     end
 
     # Heliocentric motion of the earth.
     tl = forbel[2] + pertl_m
-    sinlm = sin(tl)
-    coslm = cos(tl)
+    sinlm, coslm = sincos(tl)
     sigma = 3.122140e-5 / (1 + pertp_m)
     a = sigma * (2.661699e-6 + pertld_m)
     b = sigma * pertpd_m
     dxhd += a * sinlm + b * coslm
     dyhd -= a * coslm + b * sinlm
-    dzhd= -sigma * cos(forbel[3]) * 2.399485e-7
+    dzhd = -sigma * cos(forbel[3]) * 2.399485e-7
 
     # Barycentric motion of the earth.
     dxbd = dxhd * 0.99999696
@@ -164,8 +159,7 @@ function _baryvel(dje::T, deq::T) where {T<:AbstractFloat}
     end
 
     # Transition to mean equator of date.
-    dcosep = cos(deps)
-    dsinep = sin(deps)
+    dsinep, dcosep = sincos(deps)
     dyahd = dcosep * dyhd - dsinep * dzhd
     dzahd = dsinep * dyhd + dcosep * dzhd
     dyabd = dcosep * dybd - dsinep * dzbd
@@ -199,7 +193,7 @@ work to an accuracy of ~1 m/s.
 
 * `dje`: julian ephemeris date
 * `deq`: epoch of mean equinox of `dvelh` and `dvelb`. If deq=0, then deq is
-  assumed to be equal to `dje``
+  assumed to be equal to `dje`
 
 ### Output ###
 
@@ -208,7 +202,7 @@ work to an accuracy of ~1 m/s.
 
 ### Example ###
 
-Compute the radial velocity of the Earth toward Altair on 15-Feb-1994 using 
+Compute the radial velocity of the Earth toward Altair on 15-Feb-1994 using
 both the original Stumpf algorithm.
 
 ```jldoctest
@@ -216,7 +210,7 @@ julia> jd = jdcnv(1994, 2, 15, 0)
 2.4493985e6
 
 julia> baryvel(jd, 2000)
-([-17.0725, -22.8111, -9.88926], [-17.0809, -22.8046, -9.88621])
+([-17.0724, -22.8111, -9.88927], [-17.0808, -22.8046, -9.88622])
 ```
 
 ### Notes ###
