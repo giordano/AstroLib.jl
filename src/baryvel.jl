@@ -74,7 +74,7 @@ const ccampm = [ 1.097594e-1 2.896773e-7 5.450474e-2  1.438491E-7 ;
 
 const ccpamv = [8.326827e-11, 1.843484e-11, 1.988712e-12, 1.881276e-12]
 
-function _baryvel(dje::T, deq::T) where {T<:AbstractFloat}
+function _baryvel(dje::T) where {T<:AbstractFloat}
     # Time arguments.
     dt = (dje - 2415020) / JULIANCENTURY
     tvec = [1; dt; dt*dt]
@@ -141,7 +141,7 @@ function _baryvel(dje::T, deq::T) where {T<:AbstractFloat}
     a = sigma * (2.661699e-6 + pertld_m)
     b = sigma * pertpd_m
     dxhd += a * sinlm + b * coslm
-    dyhd -= a * coslm + b * sinlm
+    dyhd += - a * coslm + b * sinlm
     dzhd = -sigma * cos(forbel[3]) * 2.399485e-7
 
     # Barycentric motion of the earth.
@@ -165,16 +165,7 @@ function _baryvel(dje::T, deq::T) where {T<:AbstractFloat}
     dyabd = dcosep * dybd - dsinep * dzbd
     dzabd = dsinep * dybd + dcosep * dzbd
 
-    if deq == 0
-        dvelh = AU/1000 * ([dxhd, dyahd, dzahd])
-        dvelb = AU/1000 * ([dxbd, dyabd, dzabd])
-    else
-        deqdat = ((dje - 2415020.313) / 365.24219572) + 1900
-        prema = premat(deqdat, deq, FK4 = true)
-        dvelh = AU/1000 * (prema * [dxhd, dyahd, dzahd])
-        dvelb = AU/1000 * (prema * [dxbd, dyabd, dzabd])
-    end
-    return dvelh, dvelb
+    return [dxhd, dyahd, dzahd], [dxbd, dyabd, dzabd]
 end
 
 """
@@ -192,8 +183,8 @@ work to an accuracy of ~1 m/s.
 ### Arguments ###
 
 * `dje`: julian ephemeris date
-* `deq`: epoch of mean equinox of `dvelh` and `dvelb`. If deq=0, then deq is
-  assumed to be equal to `dje`
+* `deq` (optional): epoch of mean equinox of `dvelh` and `dvelb`.
+  If `deq` is not provided, then it is assumed to be equal to `dje`.
 
 ### Output ###
 
@@ -210,7 +201,7 @@ julia> jd = jdcnv(1994, 2, 15, 0)
 2.4493985e6
 
 julia> baryvel(jd, 2000)
-([-17.0724, -22.8111, -9.88927], [-17.0808, -22.8046, -9.88622])
+([-17.0724, -22.8112, -9.88932], [-17.0808, -22.8047, -9.88626])
 ```
 
 ### Notes ###
@@ -220,4 +211,22 @@ system with the +X axis toward the Vernal Equinox, and +Z axis toward the celest
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-baryvel(dje::Real, deq::Real) = _baryvel(promote(float(dje), float(deq))...)
+baryvel(dje::Real) = _baryvel(float(dje))
+
+function baryvel(dje::AbstractFloat)
+    v1, v2 = _baryvel(dje)
+    dvelh = AU / 1000 * v1
+    dvelb = AU / 1000 * v2
+    return dvelh, dvelb
+end
+
+function baryvel(dje::T, deq::T) where {T<:AbstractFloat}
+    v1, v2 = _baryvel(dje)
+    deqdat = ((dje - 2415020.313) / 365.24219572) + 1900
+    prema = premat(deqdat, deq, FK4 = true)
+    dvelh = (prema * v1) * AU / 1000
+    dvelb = (prema * v2) * AU / 1000
+    return dvelh, dvelb
+end
+
+baryvel(dje::Real, deq::Real) = baryvel(promote(float(dje), float(deq))...)
