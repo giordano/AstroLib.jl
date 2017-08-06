@@ -125,7 +125,7 @@ var documenterSearchIndex = {"docs": [
     "page": "Reference",
     "title": "Coordinates and positions",
     "category": "section",
-    "text": "adstring(), aitoff(), altaz2hadec(), bprecess(), co_aberration(), co_nutate(), co_refract(), eci2geo(), eq2hor(), eqpole(), euler(), gcirc(), geo2eci(), geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), helio(), hor2eq(), jprecess(), mag2geo(), mean_obliquity(), planet_coords(), polrec(), posang(), precess(), precess_cd(), precess_xyz(), premat(), radec(), recpol(), true_obliquity(), zenpos()"
+    "text": "adstring(), aitoff(), altaz2hadec(), baryvel(), bprecess(), co_aberration(), co_nutate(), co_refract(), eci2geo(), eq2hor(), eqpole(), euler(), gcirc(), geo2eci(), geo2geodetic(), geo2mag(), geodetic2geo(), hadec2altaz(), helio_rv(), helio(), hor2eq(), jprecess(), mag2geo(), mean_obliquity(), planet_coords(), polrec(), posang(), precess(), precess_cd(), precess_xyz(), premat(), radec(), recpol(), true_obliquity(), zenpos()"
 },
 
 {
@@ -206,6 +206,14 @@ var documenterSearchIndex = {"docs": [
     "title": "AstroLib.altaz2hadec",
     "category": "Method",
     "text": "altaz2hadec(alt, az, lat) -> ha, dec\n\nPurpose\n\nConvert Horizon (Alt-Az) coordinates to Hour Angle and Declination.\n\nExplanation\n\nCan deal with the NCP singularity.  Intended mainly to be used by program hor2eq.\n\nArguments\n\nInput coordinates may be either a scalar or an array, of the same dimension.\n\nalt: local apparent altitude, in degrees, scalar or array.\naz: the local apparent azimuth, in degrees, scalar or vector, measured east of north!!!  If you have measured azimuth west-of-south (like the book Meeus does), convert it to east of north via: az = (az + 180) % 360.\nlat: the local geodetic latitude, in degrees, scalar or array.\n\nalt and az can be given as a 2-tuple (alt, az).\n\nOutput\n\n2-tuple (ha, dec)\n\nha: the local apparent hour angle, in degrees.  The hour angle is the time that right ascension of 0 hours crosses the local meridian.  It is unambiguously defined.\ndec: the local apparent declination, in degrees.\n\nThe output coordinates are always floating points and have the same type (scalar or array) as the input coordinates.\n\nExample\n\nArcturus is observed at an apparent altitude of 59d,05m,10s and an azimuth (measured east of north) of 133d,18m,29s while at the latitude of +43.07833 degrees.  What are the local hour angle and declination of this object?\n\njulia> using AstroLib\n\njulia> ha, dec = altaz2hadec(ten(59,05,10), ten(133,18,29), 43.07833)\n(336.6828582472844, 19.182450965120402)\n\nThe widely available XEPHEM code gets:\n\nHour Angle = 336.683\nDeclination = 19.1824\n\nNotes\n\nhadec2altaz converts Hour Angle and Declination to Horizon (Alt-Az) coordinates.\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
+},
+
+{
+    "location": "ref.html#AstroLib.baryvel-Tuple{Real}",
+    "page": "Reference",
+    "title": "AstroLib.baryvel",
+    "category": "Method",
+    "text": "baryvel(dje, deq) -> dvelh, dvelb\n\nPurpose\n\nCalculates heliocentric and barycentric velocity components of Earth.\n\nExplanation\n\nBaryvel takes into account the Earth-Moon motion, and is useful for radial velocity work to an accuracy of ~1 m/s.\n\nArguments\n\ndje: julian ephemeris date\ndeq (optional): epoch of mean equinox of dvelh and dvelb. If deq is not provided, then it is assumed to be equal to dje.\n\nOutput\n\ndvelh: heliocentric velocity component. in km/s\ndvelb: barycentric velocity component. in km/s\n\nExample\n\nCompute the radial velocity of the Earth toward Altair on 15-Feb-1994 using both the original Stumpf algorithm.\n\njulia> jd = jdcnv(1994, 2, 15, 0)\n2.4493985e6\n\njulia> baryvel(jd, 2000)\n([-17.0724, -22.8112, -9.88932], [-17.0808, -22.8047, -9.88626])\n\nNotes\n\nThe 3-vectors outputs dvelh and dvelb are given in a right-handed coordinate system with the +X axis toward the Vernal Equinox, and +Z axis toward the celestial pole.\n\nCode of this function is based on IDL Astronomy User's Library.\n\n\n\n"
 },
 
 {
