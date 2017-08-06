@@ -61,7 +61,6 @@ Missing in AstroLib.jl
 * `arrows`
 * `astdisp`
 * `astro`
-* `baryvel`
 * `ccm_unred` (should go to [DustExtinction.jl](DustExtinction.jl))
 * `date`
 * `date_conv`

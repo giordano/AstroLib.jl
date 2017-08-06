@@ -13,6 +13,9 @@ export aitoff
 include("altaz2hadec.jl")
 export altaz2hadec
 
+include("baryvel.jl")
+export baryvel
+
 include("bprecess.jl")
 export bprecess
 
