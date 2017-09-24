@@ -55,7 +55,7 @@ const moon_sin_lat = [5128122, 280602, 277693, 173237, 55413, 46271, 32573,
                       -229, 223, 223, -220, -220, -185, 181, -177, 176, 166,
                       -164, 132, -119, 115, 107]*1.0
 
-function _moonpos{T<:AbstractFloat}(jd::T, radians::Bool)
+function _moonpos(jd::AbstractFloat, radians::Bool)
     # Number of Julian centuries since 2000-01-01T12:00:00
     t = (jd - J2000) / JULIANCENTURY
     # Mean longitude of the moon referred to mean equinox of the date
@@ -200,7 +200,7 @@ Code of this function is based on IDL Astronomy User's Library.
 """
 moonpos(jd::Real; radians::Bool=false) = _moonpos(float(jd), radians)
 
-function moonpos{J<:Real}(jd::AbstractArray{J}; radians::Bool=false)
+function moonpos(jd::AbstractArray{J}; radians::Bool=false) where {J<:Real}
     typej = float(J)
     ra = similar(jd, typej)
     dec = similar(jd, typej)

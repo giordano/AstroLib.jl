@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _gcirc{T<:AbstractFloat}(units::Integer, ra1::T, dec1::T, ra2::T, dec2::T)
+function gcirc(units::Integer, ra1::T, dec1::T, ra2::T, dec2::T) where {T<:AbstractFloat}
     # Convert all quantities to radians.
     if units == 0
         # All radians
@@ -92,7 +92,7 @@ julia> gcirc(0, 120, -43, 175, +22)
 Code of this function is based on IDL Astronomy User's Library.
 """
 gcirc(units::Integer, ra1::Real, dec1::Real, ra2::Real, dec2::Real) =
-    _gcirc(units, promote(float(ra1), float(dec1), float(ra2), float(dec2))...)
+    gcirc(units, promote(float(ra1), float(dec1), float(ra2), float(dec2))...)
 
 ### Tuples input
 gcirc(units::Integer, radec1::Tuple{Real, Real}, ra2::Real, dec2::Real) =

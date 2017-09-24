@@ -1,8 +1,8 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _precess{T<:AbstractFloat}(ra::T, dec::T, equinox1::T, equinox2::T,
-                                    FK4::Bool, radians::Bool)
+function _precess(ra::T, dec::T, equinox1::T, equinox2::T,
+                  FK4::Bool, radians::Bool) where {T<:AbstractFloat}
     if radians
         ra_rad  = ra
         dec_rad = dec
@@ -15,12 +15,12 @@ function _precess{T<:AbstractFloat}(ra::T, dec::T, equinox1::T, equinox2::T,
     x = [a*cos(ra_rad), a*sin(ra_rad), sin(dec_rad)]
     r = premat(equinox1, equinox2, FK4=FK4)
     x2 = r*x
-    ra_rad  = atan2(x2[2], x2[1])
+    ra_rad  = mod2pi(atan2(x2[2], x2[1]))
     dec_rad = asin(x2[3])
     if radians
-        return mod2pi(ra_rad), dec_rad
+        return ra_rad, dec_rad
     else
-        return mod(rad2deg(ra_rad), 360), rad2deg(dec_rad)
+        return rad2deg(ra_rad), rad2deg(dec_rad)
     end
 end
 
@@ -111,10 +111,9 @@ precess(radec::Tuple{Real, Real}, equinox1::Real, equinox2::Real;
             precess(radec[1], radec[2], equinox1, equinox2,
                     FK4=FK4, radians=radians)
 
-function precess{R<:Real, D<:Real}(ra::AbstractArray{R},
-                                   dec::AbstractArray{D}, equinox1::Real,
-                                   equinox2::Real; FK4::Bool=false,
-                                   radians::Bool=false)
+function precess(ra::AbstractArray{R}, dec::AbstractArray{D}, equinox1::Real,
+                 equinox2::Real; FK4::Bool=false,
+                 radians::Bool=false) where {R<:Real, D<:Real}
     @assert length(ra) == length(dec) "ra and dec arrays should be of the same length"
     typera = float(R)
     ra_out  = similar(ra,  typera)

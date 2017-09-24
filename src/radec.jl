@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _radec{T<:AbstractFloat}(ra::T, dec::T, hours::Bool)
+function _radec(ra::T, dec::T, hours::Bool) where {T<:AbstractFloat}
     # Compute right ascension.
     if hours
         ra_hr, ra_min, ra_sec = sixty(mod(ra, 24))
@@ -58,8 +58,8 @@ julia> radec(6.7525, -16.7161, hours=true)
 radec(ra::Real, dec::Real; hours::Bool=false) =
     _radec(promote(float(ra), float(dec))..., hours)
 
-function radec{R<:Real, D<:Real}(ra::AbstractArray{R}, dec::AbstractArray{D};
-                                 hours::Bool=false)
+function radec(ra::AbstractArray{R}, dec::AbstractArray{D};
+               hours::Bool=false) where {R<:Real, D<:Real}
     @assert length(ra) == length(dec)
     typera = float(R)
     ra_hr   = similar(ra, typera)

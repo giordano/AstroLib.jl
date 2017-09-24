@@ -1,6 +1,6 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
-function _tic_one{T<:AbstractFloat}(zmin::T, pixx::T, incr::T, ra::Bool)
+function tic_one(zmin::T, pixx::T, incr::T, ra::Bool) where {T<:AbstractFloat}
     if ra
         mul = 4
     else
@@ -74,4 +74,4 @@ mark should be labeled 30 deg 20 minutes and be placed at pixel value
 Code of this function is based on IDL Astronomy User's Library.
 """
 tic_one(zmin::Real, pixx::Real, incr::Real, ra::Bool=false) =
-        _tic_one(promote(float(zmin), float(pixx), float(incr))..., ra)
+    tic_one(promote(float(zmin), float(pixx), float(incr))..., ra)

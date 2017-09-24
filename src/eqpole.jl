@@ -1,11 +1,11 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _eqpole{T<:AbstractFloat}(l::T, b::T, southpole::Bool)
+function _eqpole(l::T, b::T, southpole::Bool) where {T<:AbstractFloat}
     sgn = southpole ? -1 : 1
     l = deg2rad(sgn*l)
     b = deg2rad(sgn*b)
-    r = 18 * 3.53553391 * sqrt(2 * (1 - sin(b)))
+    r = 18 * sqrt(2 * (1 - sin(b))) * 3.53553391
     return r*sin(l), r*cos(l)
 end
 
@@ -59,9 +59,8 @@ Code of this function is based on IDL Astronomy User's Library.
 eqpole(l::Real, b::Real; southpole::Bool=false) =
     _eqpole(promote(float(l), float(b))..., southpole)
 
-function eqpole{L<:Real, B<:Real}(l::AbstractArray{L},
-                                  b::AbstractArray{B};
-                                  southpole::Bool=false)
+function eqpole(l::AbstractArray{L}, b::AbstractArray{<:Real};
+                southpole::Bool=false) where {L<:Real}
     @assert length(l) == length(b)
     typel = float(L)
     x = similar(l, typel)

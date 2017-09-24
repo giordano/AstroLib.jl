@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _recpol{T<:AbstractFloat}(x::T, y::T, degrees::Bool)
+function _recpol(x::T, y::T, degrees::Bool) where {T<:AbstractFloat}
     if degrees
         return hypot(x, y), rad2deg(atan2(y, x))
     else
@@ -61,8 +61,8 @@ recpol(x::Real, y::Real; degrees::Bool=false) =
 recpol(xy::Tuple{Real, Real}; degrees::Bool=false) =
     recpol(xy..., degrees=degrees)
 
-function recpol{X<:Real, Y<:Real}(x::AbstractArray{X}, y::AbstractArray{Y};
-                                  degrees::Bool=false)
+function recpol(x::AbstractArray{X}, y::AbstractArray{Y};
+                degrees::Bool=false) where {X<:Real, Y<:Real}
     @assert length(x) == length(y)
     typex = float(X)
     r = similar(x, typex)

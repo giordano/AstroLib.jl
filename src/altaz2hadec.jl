@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _altaz2hadec{T<:AbstractFloat}(alt::T, az::T, lat::T)
+function altaz2hadec(alt::T, az::T, lat::T) where {T<:AbstractFloat}
     # Convert to radians.
     alt_r = deg2rad(alt)
     az_r = deg2rad(az)
@@ -79,15 +79,14 @@ coordinates.
 Code of this function is based on IDL Astronomy User's Library.
 """
 altaz2hadec(alt::Real, az::Real, lat::Real) =
-    _altaz2hadec(promote(float(alt), float(az), float(lat))...)
+    altaz2hadec(promote(float(alt), float(az), float(lat))...)
 
 altaz2hadec(altaz::Tuple{Real, Real}, lat::Real) = altaz2hadec(altaz..., lat)
 
-function altaz2hadec{R1<:Real, R2<:Real, R3<:Real}(alt::AbstractArray{R1},
-                                                   az::AbstractArray{R2},
-                                                   lat::AbstractArray{R3})
+function altaz2hadec(alt::AbstractArray{R}, az::AbstractArray{<:Real},
+                     lat::AbstractArray{<:Real}) where {R<:Real}
     @assert length(alt) == length(az) == length(lat)
-    typealt = float(R1)
+    typealt = float(R)
     ha  = similar(alt, typealt)
     dec = similar(alt, typealt)
     for i in eachindex(alt)

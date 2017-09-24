@@ -18,8 +18,8 @@ const Mjprec =
 # Note: IDL version of `jprecess' changes in-place "muradec", "parallax" and
 # "radvel".  We don't do anything like this, but calculations are below,
 # commented, in case someone is interested.
-function _jprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
-                                     radvel::T, epoch::T, muradec::Vector{T})
+function _jprecess(ra::T, dec::T, parallax::T, radvel::T, epoch::T,
+                   muradec::Vector{T}) where {T<:AbstractFloat}
     @assert length(muradec) == 2
     cosra  = cosd(ra)
     sinra  = sind(ra)
@@ -28,7 +28,7 @@ function _jprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
     ra2000 = dec2000 = zero(T)
     A  = copy(A_precess)
     if isfinite(epoch) && epoch != 1950
-        A  += deg2rad.(A_dot_precess .* (epoch .- 1950) ./ 360000)
+        A  .+= deg2rad.(A_dot_precess .* (epoch .- 1950) ./ 360000)
     end
     r0 = [cosra*cosdec,  sinra*cosdec,  sindec]
     r0_dot = [-muradec[1]*sinra*cosdec - muradec[2]*cosra*sindec,
@@ -73,32 +73,29 @@ function _jprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
 end
 
 # Main interface.
-jprecess{R<:Real}(ra::Real, dec::Real, muradec::Vector{R};
-                  parallax::Real=0.0, radvel::Real=0.0) =
-                      _jprecess(promote(float(ra), float(dec), float(parallax),
-                                        float(radvel), NaN)...,
-                                float(muradec))
+jprecess(ra::Real, dec::Real, muradec::Vector{R};
+         parallax::Real=0.0, radvel::Real=0.0) where {R<:Real} =
+             _jprecess(promote(float(ra), float(dec), float(parallax),
+                               float(radvel), NaN)...,
+                       float(muradec))
 
 jprecess(ra::Real, dec::Real, epoch::Real=1950.0) =
     _jprecess(promote(float(ra), float(dec), 0.0, 0.0, float(epoch))...,
               zeros(typeof(float(ra)), 2))
 
 # Tuple arguments.
-jprecess{R1<:Real,R2<:Real,R3<:Real}(radec::Tuple{R1,R2}, muradec::Vector{R3};
-                                     parallax::Real=0.0, radvel::Real=0.0) =
-                                         jprecess(radec..., muradec,
-                                                  parallax=parallax,
-                                                  radvel=radvel)
+jprecess(radec::Tuple{Real,Real}, muradec::Vector{<:Real};
+         parallax::Real=0.0, radvel::Real=0.0) =
+             jprecess(radec..., muradec, parallax=parallax, radvel=radvel)
 
-jprecess{R1<:Real,R2<:Real}(radec::Tuple{R1,R2}, epoch::Real=1950.0) =
+jprecess(radec::Tuple{Real,Real}, epoch::Real=1950.0) =
     jprecess(radec..., epoch)
 
 # Vectorial arguments.
-function jprecess{R<:Real,D<:Real,M<:Real,P<:Real,V<:Real}(ra::AbstractArray{R},
-                                                           dec::AbstractArray{D},
-                                                           muradec::AbstractArray{M};
-                                                           parallax::AbstractArray{P}=zeros(R, length(ra)),
-                                                           radvel::AbstractArray{V}=zeros(R, length(ra)))
+function jprecess(ra::AbstractArray{R}, dec::AbstractArray{<:Real},
+                  muradec::AbstractArray{<:Real};
+                  parallax::AbstractArray{<:Real}=zeros(R, length(ra)),
+                  radvel::AbstractArray{<:Real}=zeros(R, length(ra))) where {R<:Real}
     @assert length(ra) == length(dec) == size(muradec)[2] == length(parallax) == length(radvel)
     typer = float(R)
     ra2000  = similar(ra, typer)
@@ -110,9 +107,8 @@ function jprecess{R<:Real,D<:Real,M<:Real,P<:Real,V<:Real}(ra::AbstractArray{R},
     return ra2000, dec2000
 end
 
-function jprecess{R<:Real,D<:Real}(ra::AbstractArray{R},
-                                   dec::AbstractArray{D},
-                                   epoch::Real=1950.0)
+function jprecess(ra::AbstractArray{R}, dec::AbstractArray{<:Real},
+                  epoch::Real=1950.0) where {R<:Real}
     @assert length(ra) == length(dec)
     typer = float(R)
     ra2000  = similar(ra, typer)

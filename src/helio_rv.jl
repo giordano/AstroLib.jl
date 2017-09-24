@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function helio_rv{T<:AbstractFloat}(jd::T, t::T, P::T, V0::T, K::T, ecc::T, ω::T)
+function helio_rv(jd::T, t::T, P::T, V0::T, K::T, ecc::T, ω::T) where {T<:AbstractFloat}
     E = kepler_solver(2 * T(pi) * (jd - t) / P, ecc)
     ν = trueanom(E, ecc)
     ω = deg2rad(ω)

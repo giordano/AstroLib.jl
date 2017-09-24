@@ -1,6 +1,6 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
-function _euler{T<:AbstractFloat}(ai::T, bi::T, select::Integer, FK4::Bool, radians::Bool)
+function _euler(ai::T, bi::T, select::Integer, FK4::Bool, radians::Bool) where {T<:AbstractFloat}
 
     if select>6 || select<1
         error("Input for coordinate transformation should be an integer in the range 1:6")

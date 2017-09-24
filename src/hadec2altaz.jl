@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _hadec2altaz{T<:AbstractFloat}(ha::T, dec::T, lat::T, ws::Bool)
+function _hadec2altaz(ha::T, dec::T, lat::T, ws::Bool) where {T<:AbstractFloat}
     sh = sind(ha)
     ch = cosd(ha)
     sd = sind(dec)
@@ -15,7 +15,7 @@ function _hadec2altaz{T<:AbstractFloat}(ha::T, dec::T, lat::T, ws::Bool)
     r = hypot(x, y)
 
     # Now get altitude, azimuth
-    az  = mod(rad2deg(atan2(y, x)), 360)
+    az  = rad2deg(mod2pi(atan2(y, x)))
     alt = rad2deg(atan2(z, r))
     # Convert azimuth to West from South, if desired
     if ws
@@ -86,12 +86,10 @@ hadec2altaz(ha::Real, dec::Real, lat::Real; ws::Bool=false) =
 hadec2altaz(hadec::Tuple{Real, Real}, lat::Real; ws::Bool=false) =
     hadec2altaz(hadec..., lat, ws=ws)
 
-function hadec2altaz{R1<:Real, R2<:Real, R3<:Real}(ha::AbstractArray{R1},
-                                                   dec::AbstractArray{R2},
-                                                   lat::AbstractArray{R3};
-                                                   ws::Bool=false)
+function hadec2altaz(ha::AbstractArray{R}, dec::AbstractArray{<:Real},
+                     lat::AbstractArray{<:Real}; ws::Bool=false) where {R<:Real}
     @assert length(ha) == length(dec) == length(lat)
-    typeha = float(R1)
+    typeha = float(R)
     alt = similar(ha, typeha)
     az  = similar(ha, typeha)
     for i in eachindex(ha)

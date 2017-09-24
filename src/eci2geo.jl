@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _eci2geo{T<:AbstractFloat}(x::T, y::T, z::T, jd::T)
+function eci2geo(x::T, y::T, z::T, jd::T) where {T<:AbstractFloat}
     Re    = planets["earth"].eqradius*1e-3
     theta = atan2(y, x) # Azimuth.
     gst   = ct2lst(zero(T), jd)
@@ -78,15 +78,13 @@ coordinates.
 Code of this function is based on IDL Astronomy User's Library.
 """
 eci2geo(x::Real, y::Real, z::Real, jd::Real) =
-    _eci2geo(promote(float(x), float(y), float(z), float(jd))...)
+    eci2geo(promote(float(x), float(y), float(z), float(jd))...)
 
 eci2geo(xyz::Tuple{Real, Real, Real}, jd::Real) =
     eci2geo(xyz..., jd)
 
-function eci2geo{X<:Real, Y<:Real, Z<:Real, JD<:Real}(x::AbstractArray{X},
-                                                      y::AbstractArray{Y},
-                                                      z::AbstractArray{Z},
-                                                      jd::AbstractArray{JD})
+function eci2geo(x::AbstractArray{X}, y::AbstractArray{<:Real}, z::AbstractArray{<:Real},
+                 jd::AbstractArray{<:Real}) where {X<:Real}
     @assert length(x) == length(y) == length(z) == length(jd)
     typex = float(X)
     lat  = similar(x, typex)

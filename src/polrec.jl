@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _polrec{T<:AbstractFloat}(radius::T, angle::T, degrees::Bool)
+function _polrec(radius::T, angle::T, degrees::Bool) where {T<:AbstractFloat}
     if degrees
         return radius*cos(deg2rad(angle)), radius*sin(deg2rad(angle))
     else
@@ -56,8 +56,8 @@ polrec(radius::Real, angle::Real; degrees::Bool=false) =
 polrec(r_a::Tuple{Real, Real}; degrees::Bool=false) = polrec(r_a...,
                                                              degrees=degrees)
 
-function polrec{R<:Real, A<:Real}(r::AbstractArray{R}, a::AbstractArray{A};
-                                  degrees::Bool=false)
+function polrec(r::AbstractArray{R}, a::AbstractArray{A};
+                degrees::Bool=false) where {R<:Real, A<:Real}
     @assert length(r) == length(a)
     typer = float(R)
     x = similar(r, typer)

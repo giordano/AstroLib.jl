@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _xyz{T<:AbstractFloat}(jd::T, equinox::T)
+function _xyz(jd::T, equinox::T) where {T<:AbstractFloat}
     t = (jd - 15020) / JULIANCENTURY # Reduced Julian century from 1900
 
     # NOTE: longitude arguments below are given in *equinox* of date.  Precess
@@ -194,7 +194,7 @@ Code of this function is based on IDL Astronomy User's Library.
 xyz(jd::Real, equinox::Real=NaN) = _xyz(promote(float(jd), float(equinox))...)
 
 # Can't use @vectorize_1arg because of the optional keyword.
-function xyz{J<:Real}(jd::AbstractArray{J}, equinox::Real=NaN)
+function xyz(jd::AbstractArray{J}, equinox::Real=NaN) where {J<:Real}
     typej = float(J)
     x     = similar(jd, typej)
     y     = similar(jd, typej)

@@ -18,8 +18,8 @@ const Mbprec =
 # Note: IDL version of `bprecess' changes in-place "muradec", "parallax" and
 # "radvel".  We don't do anything like this, but calculations are below,
 # commented, in case someone is interested.
-function _bprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
-                                     radvel::T, epoch::T, muradec::Vector{T})
+function _bprecess(ra::T, dec::T, parallax::T, radvel::T,
+                   epoch::T, muradec::Vector{T}) where {T<:AbstractFloat}
     @assert length(muradec) == 2
     cosra  = cosd(ra)
     sinra  = sind(ra)
@@ -72,32 +72,27 @@ function _bprecess{T<:AbstractFloat}(ra::T, dec::T, parallax::T,
 end
 
 # Main interface.
-bprecess{R<:Real}(ra::Real, dec::Real, muradec::Vector{R};
-                  parallax::Real=0.0, radvel::Real=0.0) =
-                      _bprecess(promote(float(ra), float(dec), float(parallax),
-                                        float(radvel), NaN)...,
-                                float(muradec))
+bprecess(ra::Real, dec::Real, muradec::Vector{<:Real}; parallax::Real=0.0, radvel::Real=0.0) =
+    _bprecess(promote(float(ra), float(dec), float(parallax), float(radvel), NaN)...,
+              float(muradec))
 
 bprecess(ra::Real, dec::Real, epoch::Real=2000.0) =
     _bprecess(promote(float(ra), float(dec), 0.0, 0.0, float(epoch))...,
               zeros(typeof(float(ra)), 2))
 
 # Tuple arguments.
-bprecess{R1<:Real,R2<:Real,R3<:Real}(radec::Tuple{R1,R2}, muradec::Vector{R3};
-                                     parallax::Real=0.0, radvel::Real=0.0) =
-                                         bprecess(radec..., muradec,
-                                                  parallax=parallax,
-                                                  radvel=radvel)
+bprecess(radec::Tuple{Real,Real}, muradec::Vector{<:Real};
+         parallax::Real=0.0, radvel::Real=0.0) =
+             bprecess(radec..., muradec, parallax=parallax, radvel=radvel)
 
-bprecess{R1<:Real,R2<:Real}(radec::Tuple{R1,R2}, epoch::Real=2000.0) =
+bprecess(radec::Tuple{Real,Real}, epoch::Real=2000.0) =
     bprecess(radec..., epoch)
 
 # Vectorial arguments.
-function bprecess{R<:Real,D<:Real,M<:Real,P<:Real,V<:Real}(ra::AbstractArray{R},
-                                                           dec::AbstractArray{D},
-                                                           muradec::AbstractArray{M};
-                                                           parallax::AbstractArray{P}=zeros(R, length(ra)),
-                                                           radvel::AbstractArray{V}=zeros(R, length(ra)))
+function bprecess(ra::AbstractArray{R}, dec::AbstractArray{<:Real},
+                  muradec::AbstractArray{<:Real};
+                  parallax::AbstractArray{<:Real}=zeros(R, length(ra)),
+                  radvel::AbstractArray{<:Real}=zeros(R, length(ra))) where {R<:Real}
     @assert length(ra) == length(dec) == size(muradec)[2] == length(parallax) == length(radvel)
     typer = float(R)
     ra1950  = similar(ra, typer)
@@ -109,9 +104,8 @@ function bprecess{R<:Real,D<:Real,M<:Real,P<:Real,V<:Real}(ra::AbstractArray{R},
     return ra1950, dec1950
 end
 
-function bprecess{R<:Real,D<:Real}(ra::AbstractArray{R},
-                                   dec::AbstractArray{D},
-                                   epoch::Real=2000.0)
+function bprecess(ra::AbstractArray{R}, dec::AbstractArray{D},
+                  epoch::Real=2000.0) where {R<:Real,D<:Real}
     @assert length(ra) == length(dec)
     typer = float(R)
     ra1950  = similar(ra, typer)

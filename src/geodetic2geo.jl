@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function geodetic2geo{T<:AbstractFloat}(lat::T, long::T, alt::T, eqrad::T, polrad::T)
+function geodetic2geo(lat::T, long::T, alt::T, eqrad::T, polrad::T) where {T<:AbstractFloat}
     e = sqrt(eqrad^2 - polrad^2)/eqrad
     lat = deg2rad(lat)
     beta = sqrt(1 - (e*sin(lat))^2)
@@ -123,10 +123,9 @@ geodetic2geo(lat::Real, long::Real, alt::Real, eq::Real, pol::Real) =
 geodetic2geo(lla::Tuple{Real, Real, Real}, eq::Real, pol::Real) =
     geodetic2geo(lla..., eq, pol)
 
-function geodetic2geo{LA<:Real, LO<:Real, AL<:Real}(lat::AbstractArray{LA},
-                                                    long::AbstractArray{LO},
-                                                    alt::AbstractArray{AL},
-                                                    eq::Real, pol::Real)
+function geodetic2geo(lat::AbstractArray{LA}, long::AbstractArray{<:Real},
+                      alt::AbstractArray{<:Real}, eq::Real,
+                      pol::Real) where {LA<:Real}
     @assert length(lat) == length(long) == length(alt)
     typela  = float(LA)
     outlat  = similar(lat, typela)
@@ -148,10 +147,10 @@ geodetic2geo(lat::Real, long::Real, alt::Real, planet::AbstractString="earth") =
 geodetic2geo(lla::Tuple{Real, Real, Real}, planet::AbstractString="earth") =
     geodetic2geo(lla..., planet)
 
-function geodetic2geo{LA<:Real, LO<:Real, AL<:Real}(lat::AbstractArray{LA},
-                                                    long::AbstractArray{LO},
-                                                    alt::AbstractArray{AL},
-                                                    planet::AbstractString="earth")
+function geodetic2geo(lat::AbstractArray{LA},
+                      long::AbstractArray{<:Real},
+                      alt::AbstractArray{<:Real},
+                      planet::AbstractString="earth") where {LA<:Real}
     @assert length(lat) == length(long) == length(alt)
     typela  = float(LA)
     outlat  = similar(lat, typela)

@@ -1,4 +1,4 @@
-function _tics{T<:AbstractFloat}(radec_min::T, radec_max::T, numx::T, ticsize::T, ra::Bool)
+function tics(radec_min::T, radec_max::T, numx::T, ticsize::T, ra::Bool) where {T<:AbstractFloat}
 
     numtics = numx/ticsize
     if ra
@@ -114,5 +114,5 @@ Code of this function is based on IDL Astronomy User's Library.
 """
 tics(radec_min::Real, radec_max::Real, numx::Real,
      ticsize::Real, ra::Bool=false) =
-         _tics(promote(float(radec_min), float(radec_max), float(numx),
-                       float(ticsize))..., ra)
+         tics(promote(float(radec_min), float(radec_max), float(numx),
+                      float(ticsize))..., ra)
