@@ -408,11 +408,11 @@ end
 @testset "helio" begin
     @test_throws ErrorException @inferred(helio(jdcnv(2005,07,17,2,6,9), 10))
     hrad_out, hlong_out, hlat_out = @inferred(helio(jdcnv(2000,08,23,0), 2, true))
-    @test hrad_out ≈ 0.7278046880206843
+    @test hrad_out ≈ 0.7213758288364316
     @test hlong_out ≈ 3.462574978561256
     @test hlat_out ≈ 0.050393862449261535
     hrad_out, hlong_out, hlat_out = @inferred(helio([AstroLib.J2000], [7]))
-    @test hrad_out[1] ≈ 20.015953032256224
+    @test hrad_out[1] ≈ 19.921687573575788
     @test hlong_out[1] ≈ 316.4011812518626
     @test hlat_out[1] ≈ -0.6846115653974465
 end
@@ -657,13 +657,13 @@ end
     @test_throws ErrorException @inferred(planet_coords(DateTime(2013, 07, 22,
                                                                  03, 19, 06),0))
     ra_out, dec_out = @inferred(planet_coords([AstroLib.J2000, 2.45e6], [2,8]))
-    @test ra_out[1] ≈ 240.57755359868264
-    @test ra_out[2] ≈ 294.5320325141674
-    @test dec_out[1] ≈ -18.61156412115397
-    @test dec_out[2] ≈ -20.995862023847003
+    @test ra_out[1] ≈ 239.8965221579066
+    @test ra_out[2] ≈ 294.55483837772476
+    @test dec_out[1] ≈ -18.450868549676304
+    @test dec_out[2] ≈ -20.992319312642262
     ra_out, dec_out = @inferred(planet_coords(2.45e6, 9))
-    @test ra_out ≈ 238.8018048041111
-    @test dec_out ≈ -6.950165055292788
+    @test ra_out ≈ 238.3131013864547
+    @test dec_out ≈ -6.964788781133789
     @test @inferred(planet_coords(juldate(), 3) == (0, 0))
 end
 

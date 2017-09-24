@@ -2,10 +2,6 @@
 
 #TODO: Use full JPL ephemeris for high precision
 function _planet_coords(date::T, num::Integer) where {T<:AbstractFloat}
-
-    if num<1 || num>9
-        error("Input should be an integer in the range 1:9 denoting planet number")
-    end
     rad, long, lat = helio(date, num, true)
     rade, longe, late = helio(date, 3, true)
     x =  rad * cos(lat) * cos(long) - rade * cos(late) * cos(longe)
@@ -18,7 +14,7 @@ function _planet_coords(date::T, num::Integer) where {T<:AbstractFloat}
 end
 
 """
-    planet_coords()
+    planet_coords(date, num)
 
 ### Purpose ###
 
@@ -56,7 +52,7 @@ Find the RA, Dec of Venus on 1992 Dec 20
 julia> using AstroLib
 
 julia> adstring(planet_coords(DateTime(1992,12,20),2))
-" 21 00 15.3  -19 09 09"
+" 21 05 02.8  -18 51 41"
 ```
 
 ### Notes ###
