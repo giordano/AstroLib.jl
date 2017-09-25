@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function mphase{T<:AbstractFloat}(jd::T)
+function mphase(jd::AbstractFloat)
     ram, decm, dism = moonpos(jd, radians=true)
     ras, decs = sunpos(jd, radians=true)
     # phi: geocentric elongation of the Moon from the Sun

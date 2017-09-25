@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
-function _precess_cd{T<:AbstractFloat}(cd::AbstractMatrix{T}, epoch1::T, epoch2::T, crval_old::AbstractVector{T},
-                                       crval_new::AbstractVector{T}, FK4::Bool)
+function precess_cd(cd::AbstractMatrix{T}, epoch1::T, epoch2::T, crval_old::AbstractVector{T},
+                    crval_new::AbstractVector{T}, FK4::Bool) where {T<:AbstractFloat}
     t = (epoch2 - epoch1) / 1000
 
     if FK4
@@ -76,5 +76,5 @@ This function calls [`sec2rad`](@ref), [`precess`](@ref) and [`bprecess`](@ref).
 """
 precess_cd(cd::AbstractMatrix{<:Real}, epoch1::Real, epoch2::Real, crval_old::AbstractVector{<:Real},
            crval_new::AbstractVector{<:Real}, FK4::Bool=false) =
-               _precess_cd(float(cd), promote(float(epoch1), float(epoch2))...,
-                           float(crval_old), float(crval_new), FK4)
+               precess_cd(float(cd), promote(float(epoch1), float(epoch2))...,
+                          float(crval_old), float(crval_new), FK4)

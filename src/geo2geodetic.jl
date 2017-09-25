@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function geo2geodetic{T<:AbstractFloat}(lat::T, long::T, alt::T, eqrad::T, polrad::T)
+function geo2geodetic(lat::T, long::T, alt::T, eqrad::T, polrad::T) where {T<:AbstractFloat}
     e = sqrt(eqrad^2 - polrad^2)/eqrad
     lat = deg2rad(lat)
     long_rad = deg2rad(long)
@@ -156,10 +156,9 @@ geo2geodetic(lat::Real, long::Real, alt::Real, eq::Real, pol::Real) =
 geo2geodetic(lla::Tuple{Real, Real, Real}, eq::Real, pol::Real) =
     geo2geodetic(lla..., eq, pol)
 
-function geo2geodetic{LA<:Real, LO<:Real, AL<:Real}(lat::AbstractArray{LA},
-                                                    long::AbstractArray{LO},
-                                                    alt::AbstractArray{AL},
-                                                    eq::Real, pol::Real)
+function geo2geodetic(lat::AbstractArray{LA}, long::AbstractArray{<:Real},
+                      alt::AbstractArray{<:Real},
+                      eq::Real, pol::Real) where {LA<:Real}
     @assert length(lat) == length(long) == length(alt)
     typela  = float(LA)
     outlat  = similar(lat, typela)
@@ -181,10 +180,9 @@ geo2geodetic(lat::Real, long::Real, alt::Real, planet::AbstractString="earth") =
 geo2geodetic(lla::Tuple{Real, Real, Real}, planet::AbstractString="earth") =
     geo2geodetic(lla..., planet)
 
-function geo2geodetic{LA<:Real, LO<:Real, AL<:Real}(lat::AbstractArray{LA},
-                                                    long::AbstractArray{LO},
-                                                    alt::AbstractArray{AL},
-                                                    planet::AbstractString="earth")
+function geo2geodetic(lat::AbstractArray{LA}, long::AbstractArray{<:Real},
+                      alt::AbstractArray{<:Real},
+                      planet::AbstractString="earth") where {LA<:Real}
     @assert length(lat) == length(long) == length(alt)
     typela  = float(LA)
     outlat  = similar(lat, typela)

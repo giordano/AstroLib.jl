@@ -1,8 +1,8 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _gal_uvw{T<:AbstractFloat}(ra::T, dec::T, pmra::T, pmdec::T,
-                                    vrad::T, plx::T, lsr::Bool)
+function _gal_uvw(ra::T, dec::T, pmra::T, pmdec::T, vrad::T,
+                  plx::T, lsr::Bool) where {T<:AbstractFloat}
     cosdec = cosd(dec)
     sindec = sind(dec)
     cosra  = cosd(ra)
@@ -127,15 +127,10 @@ gal_uvw(ra::Real, dec::Real, pmra::Real, pmdec::Real,
             _gal_uvw(promote(float(ra), float(dec), float(pmra), float(pmdec),
                              float(vrad), float(plx))..., lsr)
 
-function gal_uvw{R<:Real,
-                 D<:Real,
-                 PR<:Real,
-                 PD<:Real,
-                 VR<:Real,
-                 PL<:Real}(ra::AbstractArray{R}, dec::AbstractArray{D},
-                           pmra::AbstractArray{PR}, pmdec::AbstractArray{PD},
-                           vrad::AbstractArray{VR}, plx::AbstractArray{PL};
-                           lsr::Bool=false)
+function gal_uvw(ra::AbstractArray{R}, dec::AbstractArray{<:Real},
+                 pmra::AbstractArray{<:Real}, pmdec::AbstractArray{<:Real},
+                 vrad::AbstractArray{<:Real}, plx::AbstractArray{<:Real};
+                 lsr::Bool=false) where {R<:Real}
     @assert length(ra) == length(dec) == length(pmra) ==
         length(pmdec) == length(vrad) == length(plx)
     typer = float(R)

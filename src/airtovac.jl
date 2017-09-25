@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _airtovac{T<:AbstractFloat}(wave_air::T)
+function airtovac(wave_air::AbstractFloat)
     if wave_air >= 2000
         wave_vac = wave_air
         for iter= 1:2
@@ -60,4 +60,4 @@ julia> airtovac(6056.125)
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-airtovac(wave_air::Real) = _airtovac(float(wave_air))
+airtovac(wave_air::Real) = airtovac(float(wave_air))

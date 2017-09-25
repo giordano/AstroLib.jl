@@ -84,8 +84,8 @@ This function calls [`mean_obliquity`](@ref) and [`nutate`](@ref).
 co_nutate(jd::Real, ra::Real, dec::Real) =
     _co_nutate(promote(float(jd), float(ra), float(dec))...)
 
-function co_nutate(jd::AbstractVector{P}, ra::AbstractVector{Q},
-                   dec::AbstractVector{R}) where {P<:Real, Q<:Real, R<:Real}
+function co_nutate(jd::AbstractVector{P}, ra::AbstractVector{<:Real},
+                   dec::AbstractVector{<:Real}) where {P<:Real}
     @assert length(jd) == length(ra) == length(dec) "jd, ra and dec vectors
                                                      should be of the same length"
     typejd = float(P)

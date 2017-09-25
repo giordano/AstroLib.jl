@@ -1,14 +1,13 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function lsf_rotate{T<:AbstractFloat}(Δ::T, vsini::T, ɛ::T)
+function lsf_rotate(Δ::T, vsini::T, ɛ::T) where {T<:AbstractFloat}
     n_2 = floor(ceil(2*vsini/Δ)/2)
     vel = collect(-n_2:n_2)*Δ
     e1 = 2*(1 - ɛ)
     e2 = pi*ɛ/2
     e3 = pi*(1 - ɛ/3)
-    x = vel ./ vsini
-    x1 = abs.(1 .- x .^ 2)
+    x1 = abs.(1 .- (vel ./ vsini) .^ 2)
     return vel, (e1 .* sqrt.(x1) .+ e2 .* x1) ./ e3
 end
 

@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _sunpos{T<:AbstractFloat}(jd::T, radians::Bool)
+function _sunpos(jd::AbstractFloat, radians::Bool)
     # Number of Julian centuries since 1899-12-31T12:00:00
     t = (jd - 2415020) / JULIANCENTURY
     # Sun's mean longitude
@@ -132,7 +132,7 @@ Code of this function is based on IDL Astronomy User's Library.
 """
 sunpos(jd::Real; radians::Bool=false) = _sunpos(float(jd), radians)
 
-function sunpos{J<:Real}(jd::AbstractArray{J}; radians::Bool=false)
+function sunpos(jd::AbstractArray{J}; radians::Bool=false) where {J<:Real}
     typej = float(J)
     ra = similar(jd, typej)
     dec = similar(jd, typej)

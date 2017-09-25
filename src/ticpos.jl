@@ -1,6 +1,6 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
-function _ticpos{T<:AbstractFloat}(deglen::T, pixlen::T, ticsize::T)
+function ticpos(deglen::T, pixlen::T, ticsize::T) where {T<:AbstractFloat}
     minpix = deglen*60/pixlen
     incr = minpix*ticsize
 
@@ -109,4 +109,4 @@ All the arguments taken as input are assumed to be positive in nature.
 Code of this function is based on IDL Astronomy User's Library.
 """
 ticpos(deglen::Real, pixlen::Real, ticsize::Real) =
-    _ticpos(promote(float(deglen), float(pixlen), float(ticsize))...)
+    ticpos(promote(float(deglen), float(pixlen), float(ticsize))...)

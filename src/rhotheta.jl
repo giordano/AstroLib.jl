@@ -1,12 +1,12 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _rhotheta{T<:AbstractFloat}(period::T, periastron::T, eccentricity::T,
-                                     semimajor_axis::T, inclination::T,
-                                     omega::T, omega2::T, epoch::T)
+function _rhotheta(period::T, periastron::T, eccentricity::T,
+                   semimajor_axis::T, inclination::T,
+                   omega::T, omega2::T, epoch::T) where {T<:AbstractFloat}
     rho = theta = -one(period)
     # See chapter 55.
-    n = 360.0/period
+    n = 360 / period
     M = deg2rad(n*(epoch - periastron))
     E = kepler_solver(M, eccentricity)
     r  = semimajor_axis*(1 - eccentricity*cos(E))
@@ -18,7 +18,7 @@ function _rhotheta{T<:AbstractFloat}(period::T, periastron::T, eccentricity::T,
     theta = omega + atan2(sin(nu + omega2)*cos(inclination), cos(nu + omega2))
     rho   = r*cos(nu + omega2)/cos(theta - omega)
     # Convert theta to degrees and for it to be in [0, 360) range.
-    theta = mod(rad2deg(theta), 360)
+    theta = rad2deg(mod2pi(theta))
     return rho, theta
 end
 

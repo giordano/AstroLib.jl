@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function posang{T<:AbstractFloat}(units::Integer, ra1::T, dec1::T, ra2::T, dec2::T)
+function posang(units::Integer, ra1::T, dec1::T, ra2::T, dec2::T) where {T<:AbstractFloat}
     # Convert all quantities to radians.
     if units == 0
         # All radians

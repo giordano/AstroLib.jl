@@ -77,8 +77,8 @@ julia> adstring.([30.4, -15.63], [-1.23, 48.41], precision=1)
  " 22 57 28.80  +48 24 36.0"
 ```
 """
-function adstring{T<:AbstractFloat}(ra::T, dec::T;
-                  precision::Int=0, truncate::Bool=false)
+function adstring(ra::T, dec::T; precision::Int=0,
+                  truncate::Bool=false) where {T<:AbstractFloat}
     # XXX: IDL implementation takes also real values for "precision" and
     # truncates it.  I think it's better to enforce an integer type and cure
     # only negative values.

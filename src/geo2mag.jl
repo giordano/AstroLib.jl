@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _geo2mag{T<:AbstractFloat}(lat::T, long::T, pole_lat::T, pole_long::T)
+function _geo2mag(lat::T, long::T, pole_lat::T, pole_long::T) where {T<:AbstractFloat}
     r    = 1 # Distance from planet center.  Value unimportant -- just need a length for
              # conversion to rectangular coordinates
     lat  = deg2rad(lat)
@@ -88,9 +88,8 @@ geo2mag(lat::Real, long::Real, year::Real=Dates.year(Dates.now())) =
                      deg2rad(POLELATLONG[year][1]::AbstractFloat),
                      deg2rad(POLELATLONG[year][2]::AbstractFloat))...)
 
-function geo2mag{LA<:Real, LO<:Real}(lat::AbstractArray{LA},
-                                     long::AbstractArray{LO},
-                                     year::Real=Dates.year(Dates.now()))
+function geo2mag(lat::AbstractArray{LA}, long::AbstractArray{<:Real},
+                 year::Real=Dates.year(Dates.now())) where {LA<:Real}
     @assert length(lat) == length(long)
     typela   = float(LA)
     maglat   = similar(lat, typela)

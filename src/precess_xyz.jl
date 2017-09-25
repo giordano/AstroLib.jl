@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _precess_xyz{T<:AbstractFloat}(x::T, y::T, z::T, equinox1::T, equinox2::T)
+function precess_xyz(x::T, y::T, z::T, equinox1::T, equinox2::T) where {T<:AbstractFloat}
     ra  = atan2(y, x)
     del = vecnorm((x, y, z)) #  Magnitude of distance to Sun
     dec = asin(z/del)
@@ -56,17 +56,15 @@ Code of this function is based on IDL Astronomy User's Library.
 """
 precess_xyz(x::Real, y::Real, z::Real,
             equinox1::Real, equinox2::Real) =
-                _precess_xyz(promote(float(x), float(y), float(z),
-                                     float(equinox1), float(equinox2))...)
+                precess_xyz(promote(float(x), float(y), float(z),
+                                    float(equinox1), float(equinox2))...)
 
 precess_xyz(xyz::Tuple{Real, Real, Real}, equinox1::Real, equinox2::Real) =
     precess_xyz(xyz..., equinox1, equinox2)
 
-function precess_xyz{X<:Real, Y<:Real, Z<:Real}(x::AbstractArray{X},
-                                                y::AbstractArray{Y},
-                                                z::AbstractArray{Z},
-                                                equinox1::Real,
-                                                equinox2::Real)
+function precess_xyz(x::AbstractArray{X}, y::AbstractArray{<:Real},
+                     z::AbstractArray{<:Real}, equinox1::Real,
+                     equinox2::Real) where {X<:Real}
     @assert length(x) == length(y) == length(z) "x, y, z arrays should be of the same length"
     typex = float(X)
     x_out = similar(x, typex)

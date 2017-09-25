@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
-function _imf{T<:AbstractFloat}(mass::AbstractVector{T}, expon::AbstractVector{T},
-                                mass_range::AbstractVector{T})
+function imf(mass::AbstractVector{T}, expon::AbstractVector{T},
+             mass_range::AbstractVector{T}) where {T<:AbstractFloat}
     ne_comp = length(expon)
     if length(mass_range) != ne_comp + 1
         error("Length of array mass_range is not one more than that of expon")
@@ -75,4 +75,4 @@ julia> imf([3], [-1.35], [0.1, 110]) / 3
 Code of this function is based on IDL Astronomy User's Library.
 """
 imf(mass::AbstractVector{<:Real}, expon::AbstractVector{<:Real}, mass_range::AbstractVector{<:Real}) =
-    _imf(float(mass), float(expon), float(mass_range))
+    imf(float(mass), float(expon), float(mass_range))

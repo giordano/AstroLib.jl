@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function _helio_jd{T<:AbstractFloat}(date::T, ra::T, dec::T, B1950::Bool, diff::Bool)
+function _helio_jd(date::T, ra::T, dec::T, B1950::Bool, diff::Bool) where {T<:AbstractFloat}
     # Because `xyz' uses default B1950 coordinates, we'll convert everything to
     # B1950.
     if ! B1950

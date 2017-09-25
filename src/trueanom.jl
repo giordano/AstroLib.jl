@@ -1,7 +1,7 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function trueanom{T<:AbstractFloat}(E::T, e::T)
+function trueanom(E::T, e::T) where {T<:AbstractFloat}
     @assert e >= 0 "eccentricity must be in the range [0, 1]"
     return 2 * atan(sqrt((1 + e) / (1 - e)) * tan(E / 2))
 end

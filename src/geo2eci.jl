@@ -1,8 +1,8 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function geo2eci{T<:AbstractFloat}(lat::T, long::T, alt::T, jd::T)
-    Re    = planets["earth"].eqradius*1e-3
+function geo2eci(lat::T, long::T, alt::T, jd::T) where {T<:AbstractFloat}
+    Re    = planets["earth"].eqradius / 1000
     lat   = deg2rad(lat)
     long  = deg2rad(long)
     gst   = ct2lst(zero(T), jd)
@@ -74,10 +74,9 @@ geo2eci(lat::Real, long::Real, alt::Real, jd::Real) =
 geo2eci(lla::Tuple{Real, Real, Real}, jd::Real) =
     geo2eci(lla..., jd)
 
-function geo2eci{LA<:Real, LO<:Real, AL<:Real, JD<:Real}(lat::AbstractArray{LA},
-                                                         long::AbstractArray{LO},
-                                                         alt::AbstractArray{AL},
-                                                         jd::AbstractArray{JD})
+function geo2eci(lat::AbstractArray{LA}, long::AbstractArray{<:Real},
+                 alt::AbstractArray{<:Real},
+                 jd::AbstractArray{<:Real}) where {LA<:Real}
     @assert length(lat) == length(long) == length(alt) == length(jd)
     typela = float(LA)
     x = similar(lat, typela)

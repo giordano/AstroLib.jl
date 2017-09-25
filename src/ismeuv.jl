@@ -1,6 +1,6 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 
-function _ismeuv{T<:AbstractFloat}(wave::T, hcol::T, he1col::T, he2col::T, fano::Bool)
+function ismeuv(wave::T, hcol::T, he1col::T, he2col::T, fano::Bool) where {T<:AbstractFloat}
     r = wave/911.75
     if r > 1
         return zero(T)
@@ -94,5 +94,5 @@ Code of this function is based on IDL Astronomy User's Library.
 """
 ismeuv(wave::Real, hcol::Real, he1col::Real=hcol/10, he2col::Real=0,
        fano::Bool=false) =
-           _ismeuv(promote(float(wave), float(hcol), float(he1col),
-                   float(he2col))..., fano)
+           ismeuv(promote(float(wave), float(hcol), float(he1col),
+                          float(he2col))..., fano)

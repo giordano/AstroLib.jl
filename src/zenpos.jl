@@ -58,7 +58,7 @@ Code of this function is based on IDL Astronomy User's Library.
 """
 zenpos
 
-_zenpos{T<:AbstractFloat}(latitude::T, longitude::T, rest...) =
+_zenpos(latitude::T, longitude::T, rest...) where {T<:AbstractFloat} =
     (ct2lst(longitude, rest...) / 12 * pi, deg2rad(latitude))
 
 zenpos(jd::Real, latitude::Real, longitude::Real) =
