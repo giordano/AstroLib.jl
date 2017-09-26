@@ -1,7 +1,6 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-# Test adstring
 @testset "adstring" begin
     @test @inferred(adstring((30.4, -1.23), truncate=true)) ==
         @inferred(adstring([30.4, -1.23], truncate=true)) ==
@@ -14,13 +13,11 @@
     @test adstring.([(-58, 724)]) == [" 20 08 00.0  +724 00 00"]
 end
 
-# Test airtovac
 @testset "airtovac" begin
     @test airtovac.([1234 6056.125]) ≈ [1234.0 6057.801930991426]
     @test @inferred(airtovac(2100)) ≈ 2100.666421596007
 end
 
-# Test aitoff
 @testset "aitoff" begin
     @test @inferred(aitoff([227.23, 130], [-8.890, -35])) ==
         ([-137.92196683723276, 115.17541338020645],
@@ -31,7 +28,6 @@ end
         (-137.92196683723276,-11.772527357473054)
 end
 
-# Test altaz2hadec
 @testset "altaz2hadec" begin
     @test @inferred(altaz2hadec(59.086111, 133.30806, 43.07833)) ==
         @inferred(altaz2hadec((59.086111, 133.30806), 43.07833)) ==
@@ -42,7 +38,6 @@ end
          [44.38225395397647, 48.542947077386664, 67.33061196497327])
 end
 
-# Test baryvel
 @testset "baryvel" begin
     dvelh_o, dvelb_o = @inferred(baryvel(2000))
     @test dvelh_o ≈ [1.582939967296732e-7, -1.0743272343303577e-7, -4.852410351888098e-8]
@@ -55,7 +50,6 @@ end
     @test dvelb_o ≈ [9.51331763088569,  -25.84985540772467, -11.207031996297271]
 end
 
-# Test bprecess
 @testset "bprecess" begin
     ra, dec = @inferred(bprecess([ten(13, 42, 12.74)*15], [ten(8, 23, 17.69)],
                                  reshape(100*[-15*0.0257, -0.090], 2, 1)))
@@ -79,7 +73,6 @@ end
     @test dec ≈ -23.16208183899836
 end
 
-# Test calz_unred
 @testset "calz_unred" begin
     @test calz_unred.(collect(900:1000:9900), ones(Float64, 10), -0.1) ≈
         [1.0, 0.43189326452379095, 0.5203675483533704, 0.594996469192435,
@@ -87,7 +80,6 @@ end
          0.8151258710444882,0.8390325371659836]
 end
 
-# Test co_aberration
 # The values used for the testset are from running the code. They are slightly
 # different from the output of the co_aberration routine of IDL AstroLib, as
 # the function here uses an updated method to find mean obliquity
@@ -104,7 +96,6 @@ end
     @test bo[2] ≈ 2.9205843718089457
 end
 
-# Test co_nutate
 # The values used for the testset are from running the code. They are slightly
 # different from the output of the co_aberration routine of IDL AstroLib, as
 # the function here uses an updated method to find mean obliquity
@@ -125,7 +116,6 @@ end
     @test d_eps_out ≈ -5.773909654153591
 end
 
-# Test co_refract
 @testset "co_refract" begin
     @test @inferred(co_refract(0.8)) ≈ 0.3714184384944585
     @test co_refract.([5.86,20], 50, 568.967, 273, 0.15, to_observe=true) ≈
@@ -133,7 +123,6 @@ end
     @test @inferred(co_refract(14, 15000)) ≈ 13.990329255193124
 end
 
-# Test ct2lst
 @testset "ct2lst" begin
     @test ct2lst.(-76.72, -4, [DateTime(2008, 7, 30, 15, 53)]) ≈ [11.356505172312609]
     @test ct2lst.(9, [jdcnv(2015, 11, 24, 12, 21)]) ≈ [17.159574059885927]
@@ -148,7 +137,6 @@ end
     @test @inferred(daycnv(0.0)) == DateTime(-4713, 11, 24, 12)
 end
 
-# Test deredd
 @testset "deredd" begin
     by0, m0, c0, ub0 = @inferred(deredd([0.5, -0.5], [0.2, 0.5], [1, 1], [1, 1],
                                         [0.1, 0.3]))
@@ -158,7 +146,6 @@ end
     @test ub0 ≈ [-0.665,0.3]
 end
 
-# Test eci2geo
 @testset "eci2geo" begin
     lat, long, alt = @inferred(eci2geo([0], [0], [0], [2452343]))
     @test lat  ≈ [0]
@@ -176,7 +163,6 @@ end
     @test alt  ≈ 10
 end
 
-# Test eq2hor
 # The values used for the testset are from running the code. However they have been
 # correlated with the output from eq2hor routine of IDL AstroLib, with
 # differences only in the least significant digits.
@@ -211,7 +197,6 @@ end
     @test az_o ≈ 54.99993893556545
 end
 
-# Test eqpole
 @testset "eqpole" begin
     x, y = @inferred(eqpole([100], [35], southpole=true))
     @test x ≈ [-111.18287262822456]
@@ -221,7 +206,6 @@ end
     @test y ≈ [12.83458333897169]
 end
 
-# Test euler
 # The values used for the testset are from running the code. However they have been
 # correlated with the output from euler routine of IDL AstroLib, with
 # differences only in the least significant digits.
@@ -253,7 +237,6 @@ end
     @test_throws ErrorException @inferred(euler((45,45), 7))
 end
 
-# Test flux2mag
 @testset "flux2mag" begin
     @test flux2mag.([1.5e-12, 8.7e-15, 4.4e-10]) ≈
         [8.459771852360795, 14.051201868453454, 2.291368308784527]
@@ -263,7 +246,6 @@ end
     @test flux2mag(5.2e-15, ABwave=15) ≈ 27.423535345634598 # Inferred Type Error
 end
 
-# Test gal_uvw
 @testset "gal_uvw" begin
     u, v, w = @inferred(gal_uvw([ten(1,9,42.3)*15], [ten(61,32,49.5)], [627.89], [77.84],
                                 [-321.4], [1e3/129], lsr=true))
@@ -276,7 +258,6 @@ end
     @test w ≈ -3.1700191400725464
 end
 
-# Test geo2eci
 @testset "geo2eci" begin
     x, y, z = @inferred(geo2eci([0], [0], [0], [2452343]))
     @test x ≈ [6214.846433007192]
@@ -288,7 +269,6 @@ end
     @test z ≈ 0.0
 end
 
-# Test geo2geodetic
 @testset "geo2geodetic" begin
     lat, long, alt = @inferred(geo2geodetic([90], [0], [0], "Jupiter"))
     @test lat  ≈   [90]
@@ -308,7 +288,6 @@ end
     @test alt  ≈ [ 53.53354478670836]
 end
 
-# Test geo2mag
 @testset "geo2mag" begin
     lat, long = @inferred(geo2mag(ten(35,0,42), ten(135,46,6), 2016))
     @test lat  ≈  36.86579228937769
@@ -318,7 +297,6 @@ end
     @test long ≈ [-169.86030510727102]
 end
 
-# Test geodetic2geo
 @testset "geodetic2geo" begin
     lat, long, alt = @inferred(geodetic2geo([90], [0], [0], "Jupiter"))
     @test lat  ≈ [90]
@@ -359,7 +337,6 @@ end
         get_date.(["2024-01", DateTime(2016, 3, 14)]) == ["2024-01-01", "2016-03-14"]
 end
 
-# Test gcirc.
 @testset "gcirc" begin
     @test gcirc.(0, [0,1,2], [1,2,3], [2,3,4], [3,4,5]) ≈
         [1.222450611061632, 2.500353926443337, 1.5892569925227757]
@@ -372,7 +349,6 @@ end
     @test_throws ErrorException @inferred(gcirc(3, 0, 0, 0, 0))
 end
 
-# Test hadec2altaz
 @testset "hadec2altaz" begin
     alt1, az1 = @inferred(hadec2altaz([0], [11.978165], [ten(43,4,42)]))
     @test alt1 ≈ [58.89983166666667]
@@ -384,7 +360,6 @@ end
     @test az1  ≈ az2
 end
 
-# Test helio_jd
 @testset "helio_jd" begin
     @test helio_jd.([juldate(2016, 6, 15, 11, 40)], ten(20, 9, 7.8)*15, ten(37, 9, 7)) ≈
         [57554.98808289718]
@@ -392,7 +367,6 @@ end
     @test @inferred(helio_jd(2000, 12, 88, diff=true))  ≈ -167.24845957792076
 end
 
-# Test helio_rv
 @testset "helio_rv" begin
     @test @inferred(helio_rv(helio_jd(juldate(94, 10, 25, 17, 30), ten(04, 38, 16)*15,
                                       ten(20, 41, 05)), 46487.5303, 2.0563056, -6, 59.3)) ≈
@@ -401,23 +375,21 @@ end
         [-45.64994926111004, 89.7820347358485]
 end
 
-# Test helio
 # The values used for the testset are from running the code. However they have been
 # correlated with the output from helio routine of IDL AstroLib, with
 # differences only in the least significant digits (except for `hrad`` output of Mars)
 @testset "helio" begin
     @test_throws ErrorException @inferred(helio(jdcnv(2005,07,17,2,6,9), 10))
     hrad_out, hlong_out, hlat_out = @inferred(helio(jdcnv(2000,08,23,0), 2, true))
-    @test hrad_out ≈ 0.7278046880206843
+    @test hrad_out ≈ 0.7213758288364316
     @test hlong_out ≈ 3.462574978561256
     @test hlat_out ≈ 0.050393862449261535
     hrad_out, hlong_out, hlat_out = @inferred(helio([AstroLib.J2000], [7]))
-    @test hrad_out[1] ≈ 20.015953032256224
+    @test hrad_out[1] ≈ 19.921687573575788
     @test hlong_out[1] ≈ 316.4011812518626
     @test hlat_out[1] ≈ -0.6846115653974465
 end
 
-# Test hor2eq
 # The values used for the testset are from running the code. However they have been
 # correlated with the output from hor2eq routine of IDL AstroLib, with
 # differences only in the least significant digits.
@@ -450,7 +422,6 @@ end
     @test dec_o ≈ 59.999995143349956
 end
 
-# Test imf
 # The values used for the testset are from running the code. However they have been
 # correlated with the output from imf routine of IDL AstroLib, with
 # differences only in the least significant digits.
@@ -462,7 +433,6 @@ end
         [0.038948937298846235, 0.027349915327755464]
 end
 
-# Test ismeuv
 # The values used for the testset are from running the code. However they have been
 # correlated with the output from ismeuv routine of IDL AstroLib, with
 # differences only in the least significant digits.
@@ -479,7 +449,6 @@ end
     @test @inferred(ismeuv(4500, 1e18)) ≈ 0
 end
 
-# Test jdcnv.
 @testset "jdcnv" begin
     @test @inferred(jdcnv(-4713, 11, 24, 12)) ≈ 0.0
     @test @inferred(jdcnv(763, 09, 18, 12)) == @inferred(jdcnv("763-09-18T12")) == 2000000
@@ -489,7 +458,6 @@ end
         jdcnv.(["2016-07-31", Date(1969, 07, 20)])
 end
 
-# Test jprecess
 @testset "jprecess" begin
     ra, dec = @inferred(jprecess([ten(13, 39, 44.526)*15], [ten(8, 38, 28.63)],
                                  reshape(100*[-15*0.0259, -0.093], 2, 1)))
@@ -546,7 +514,6 @@ end
     @test_throws AssertionError @inferred(kepler_solver(pi,  1.5))
 end
 
-# Test lsf_rotate
 @testset "lsf_rotate" begin
     vel, lsf = @inferred(lsf_rotate(3, 90))
     @test @inferred(length(vel)) == @inferred(length(lsf)) == 61
@@ -555,7 +522,6 @@ end
     @test lsf ≈ [0.0, 0.556914447710896, 0.6933098861837907, 0.556914447710896, 0.0]
 end
 
-# Test mag2flux
 @testset "mag2flux" begin
     @test @inferred(mag2flux(4.83, 21.12))               ≈ 4.1686938347033296e-11
     @test flux2mag(mag2flux(15, ABwave=12.), ABwave=12)  ≈ 15.0 # Inferred Type Error
@@ -564,7 +530,6 @@ end
     @test mag2flux(8.3, ABwave=12)                       ≈ 3.6244115683017193e-7 # Inferred Type Error
 end
 
-# Test mag2geo
 @testset "mag2geo" begin
     lat, long = @inferred(mag2geo(90, 0, 2016))
     @test lat  ≈ 86.395
@@ -578,7 +543,6 @@ end
     @test long ≈ 56.78
 end
 
-# Test mean_obliquity
 @testset "mean_obliquity" begin
     @test @inferred(mean_obliquity(AstroLib.J2000)) ≈ 0.4090926006005829
     @test mean_obliquity.(jdcnv.([DateTime(1916, 09, 22, 03, 39),
@@ -586,7 +550,6 @@ end
         [0.4092816887615259, 0.40894777540460037]
 end
 
-# Test month_cnv
 @testset "month_cnv" begin
     @test month_cnv.([" januavv  ", "SEPPES ", " aUgUsT", "la"]) == [1, 9, 8, -1]
     @test month_cnv.([2, 12, 6], short=true, low=true) == ["feb", "dec", "jun"]
@@ -595,7 +558,6 @@ end
     @test (list=["July", "March", "November"]; month_cnv.(month_cnv.(list)) == list)
 end
 
-# Test moonpos
 @testset "moonpos" begin
     ra, dec, dis, lng, lat = @inferred(moonpos(jdcnv(1992, 4, 12)))
     @test ra  ≈ 134.68846854844108
@@ -611,13 +573,11 @@ end
     @test lat ≈ [-0.059294466326164315]
 end
 
-# Test mphase
 @testset "mphase" begin
     @test mphase.([2457520, 2457530, 2457650]) ≈
         [0.2781695910737857, 0.9969808583803166, 0.9580708477591693]
 end
 
-# Test nutate
 @testset "nutate" begin
     long, obl = @inferred(nutate(jdcnv(1987, 4, 10)))
     @test long ≈ -3.787931077110755
@@ -630,7 +590,6 @@ end
     @test obl  ≈ [-9.507794266102866, -6.970768250588256]
 end
 
-# Test paczynski
 @testset "paczynski" begin
     @test @inferred(paczynski(-1e-10)) ≈  -1e10
     @test @inferred(paczynski(1e-1))   ≈  10.037461005722337
@@ -639,17 +598,14 @@ end
     @test @inferred(paczynski(-1e10))  ≈  -1
 end
 
-# Test planck_freq
 @testset "planck_freq" begin
     @test @inferred(planck_freq(2000, 5000)) ≈ 6.1447146126144004e-30
 end
 
-# Test planck_wave
 @testset "planck_wave" begin
     @test @inferred(planck_wave(2000, 5000)) ≈ 8.127064833530511e-24
 end
 
-# Test planet_coords
 # The values used for the testset are from running the code. However they have been
 # correlated with the output from planet_coord routine of IDL AstroLib, with
 # differences only in the least significant digits
@@ -657,17 +613,16 @@ end
     @test_throws ErrorException @inferred(planet_coords(DateTime(2013, 07, 22,
                                                                  03, 19, 06),0))
     ra_out, dec_out = @inferred(planet_coords([AstroLib.J2000, 2.45e6], [2,8]))
-    @test ra_out[1] ≈ 240.57755359868264
-    @test ra_out[2] ≈ 294.5320325141674
-    @test dec_out[1] ≈ -18.61156412115397
-    @test dec_out[2] ≈ -20.995862023847003
+    @test ra_out[1] ≈ 239.8965221579066
+    @test ra_out[2] ≈ 294.55483837772476
+    @test dec_out[1] ≈ -18.450868549676304
+    @test dec_out[2] ≈ -20.992319312642262
     ra_out, dec_out = @inferred(planet_coords(2.45e6, 9))
-    @test ra_out ≈ 238.8018048041111
-    @test dec_out ≈ -6.950165055292788
+    @test ra_out ≈ 238.3131013864547
+    @test dec_out ≈ -6.964788781133789
     @test @inferred(planet_coords(juldate(), 3) == (0, 0))
 end
 
-# Test polrec
 @testset "polrec" begin
     x, y = @inferred(polrec([1, 2, 3], [pi, pi/2.0, pi/4.0]))
     @test x ≈ [-1.0, 0.0, 1.5*sqrt(2.0)]
@@ -677,7 +632,6 @@ end
     @test y ≈  sqrt(2)
 end
 
-# Test posang.
 @testset "posang" begin
     @test @inferred(posang(1, ten(13, 25, 13.5), ten(54, 59, 17),
                            ten(13, 23, 55.5), ten(54, 55, 31))) ≈ -108.46011246802047
@@ -692,7 +646,6 @@ end
     @test_throws ErrorException @inferred(posang(3, 0, 0, 0, 0))
 end
 
-# Test precess
 @testset "precess" begin
     ra1, dec1 = @inferred(precess((ten(2,31,46.3)*15, ten(89,15,50.6)), 2000, 1985))
     @test ra1  ≈ 34.09470328718033
@@ -703,7 +656,6 @@ end
     @test dec2 ≈ [-56.87186126487889]
 end
 
-# Test precess_cd
 # The values used for the testset are from running the code. However they have been
 # correlated with the output from precess_cd routine of IDL AstroLib, with
 # differences only in the least significant digits.
@@ -724,7 +676,6 @@ end
          130.49379143419722 195.9699513801844 ]
 end
 
-# Test precess_xyz
 @testset "precess_xyz" begin
     x1, y1, z1 = @inferred(precess_xyz((1.2, 2.3, 1.7), 2000, 2050))
     @test x1 ≈ 1.165933061423247
@@ -736,7 +687,6 @@ end
     @test z2 ≈ [0.001079105285993004, 3.9962455511755794]
 end
 
-# Test premat
 @testset "premat" begin
     @test @inferred(premat(1967, 1982, FK4=true)) ≈
         [0.9999933170034135    -0.0033529069683496567 -0.0014573823699636742;
@@ -748,7 +698,6 @@ end
           0.0007773766929678732 -6.953257000046125e-7   0.9999996978424512   ]
 end
 
-# Test radec
 @testset "radec" begin
     @test @inferred(radec(15.90, -0.85)) == (1.0, 3.0, 36.0, -0.0, 51.0, 0.0)
     @test @inferred(radec(-0.85,15.9)) == (23.0,56.0,36.0,15.0,54.0,0.0)
@@ -758,7 +707,6 @@ end
          [-0.0, 15.0], [51.0, 54.0], [0.0, 0.0])
 end
 
-# Test recpol
 @testset "recpol" begin
     r = a = zeros(Float64, 3)
     r, a = @inferred(recpol([0, sqrt(2.0), 2.0*sqrt(3.0)], [0, sqrt(2.0), 2.0]))
@@ -774,7 +722,6 @@ end
     @test y ≈ yi
 end
 
-# Test rhotheta
 @testset "rhotheta" begin
     ρ, θ = @inferred(rhotheta(41.623, 1934.008, 0.2763, 0.907, 59.025, 23.717, 219.907,
                               1980))
@@ -782,14 +729,13 @@ end
     @test θ ≈ 318.4242564860495
 end
 
-# Test "sixty".  Test also it's the reverse of ten.
+# Test also it's the inverse of ten.
 @testset "sixty" begin
     @test @inferred(sixty(-51.36))                    ≈ [-51.0, 21.0, 36.0]
     @test @inferred(ten(sixty(-0.10934835545824395))) ≈ -0.10934835545824395
     @test @inferred(sixty(1))                         ≈ [1.0, 0.0, 0.0]
 end
 
-# Test sphdist.
 @testset "sphdist" begin
     @test sphdist.([0,1,2], [1,2,3], [2,3,4], [3,4,5]) ≈
         [1.222450611061632, 2.500353926443337, 1.5892569925227762]
@@ -798,7 +744,6 @@ end
     @test sphdist.(120, -43, [175], [+22]) ≈ [1.5904422616007134]
 end
 
-# Test sunpos
 @testset "sunpos" begin
     ra, dec, lon, obl = @inferred(sunpos(jdcnv(1982, 5, 1)))
     @test ra  ≈ 37.88589057369026
@@ -817,8 +762,7 @@ end
     @test obl ≈ [23.434648653514724]
 end
 
-# Test "ten" and "tenv".  Always make sure string and numerical inputs are
-# consistent (IDL implementation of "ten" is not).
+# Make sure string and numerical inputs are consistent (IDL implementation of "ten" is not).
 @testset "ten" begin
     @test @inferred(ten(0, -23, 34)) == @inferred(ten((0, -23, 34))) ==
         @inferred(ten([0, -23, 34])) == ten(" : 0 -23 :: 34") == -0.37388888888888894
@@ -834,7 +778,6 @@ end
     @test ten.([12.0, -0.0], [24, 30]) == ten.([" 12::24", " -0:30: "]) == [12.4, -0.5]
 end
 
-# Test tic_one
 @testset "tic_one" begin
     min2, tic1 = @inferred(tic_one(30.2345, 12.74, 10))
     @test min2 ≈ 30.333333333333332
@@ -847,7 +790,6 @@ end
     @test tic1 ≈ 1.0318357862412286
 end
 
-# Test ticpos
 @testset "ticpos" begin
     @test ticpos.([16,8,4],[1024,512,256], [150,75,37.5]) ==
                   [(256.0, 4, "Degrees"), (128.0, 2, "Degrees"), (64.0, 1, "Degrees")]
@@ -865,7 +807,6 @@ end
     @test @inferred(ticpos(0.016, 1024, 20)) == (17.77777777777778, 1, "Arc Seconds")
 end
 
-# Test tics
 @testset "tics" begin
     @test @inferred(tics(30, 90, 30, 1)) == (3.8666666666666667, 480)
     @test @inferred(tics(30, 90, 3, 3, true)) == (4.0, 240)
@@ -902,7 +843,6 @@ end
     @test incr ≈ 0.5
 end
 
-# Test true_obliquity
 @testset "true_obliquity" begin
     @test @inferred(true_obliquity(AstroLib.J2000)) ≈ 0.4090646078966446
     @test true_obliquity.(jdcnv.([DateTime(2016, 08, 23, 03, 39, 06),
@@ -910,7 +850,6 @@ end
         [0.4090133706884892, 0.41188965892279295]
 end
 
-# Test kepler_solver
 @testset "kepler_solver" begin
     @test @inferred(trueanom(8pi/3, 0.7))              ≈ 2.6657104039293764
     @test trueanom.([pi/4, pi/6, 8pi/3], 0)            ≈ [pi/4, pi/6, 2pi/3]
@@ -920,7 +859,6 @@ end
     @test_throws DomainError @inferred(trueanom(pi,  1.5))
 end
 
-# Test uvbybeta
 # The values used for the testset are from running the code. However they have been
 # correlated with the output from uvbybeta routine of IDL AstroLib, with
 # differences only in the least significant digits.
@@ -1028,14 +966,12 @@ end
     @test radius_o ≈ 0.2106831009861503
 end
 
-# Test vactoair and that airtovac is its inverse (it isn't true only around
-# 2000, just avoid those values)
+# Test airtovac is its inverse (it isn't true only around 2000, just avoid those values)
 @testset "vactoair" begin
     @test @inferred(vactoair(2000)) ≈ 1999.3526230448367
     @test airtovac.(vactoair.(collect(1000:300:4000))) ≈ collect(1000:300:4000)
 end
 
-# Test xyz
 @testset "xyz" begin
     x, y, z, vx, vy, vz = @inferred(xyz([51200.5 + 64 / 86400], 2000))
     @test x  ≈ [0.5145687092402946]
@@ -1046,19 +982,16 @@ end
     @test vz ≈ [0.003606857607574784]
 end
 
-# Test ydn2md.
 @testset "ydn2md" begin
     @test ydn2md.(2016, [60, 234]) == [Date(2016, 02, 29), Date(2016, 08, 21)]
     @test @inferred(ymd2dn(ydn2md(2016, 60))) == 60
 end
 
-# Test ymd2dn
 @testset "ymd2dn" begin
     @test ymd2dn.([Date(2015,3,5), Date(2016,3,5)]) == [64, 65]
     @test @inferred(ydn2md(2016, ymd2dn(Date(2016, 09, 16)))) == Date(2016, 09, 16)
 end
 
-# Test zenpos
 @testset "zenpos" begin
     ra, dec = @inferred(zenpos(2.457514070138889e6, 45, 45))
     @test ra ≈ 1.9915758420649625
