@@ -8,8 +8,7 @@ function precess_xyz(x::T, y::T, z::T, equinox1::T, equinox2::T) where {T<:Abstr
     # precess the ra and dec
     ra, dec = precess(ra, dec, equinox1, equinox2, radians=true)
     # convert back to x, y, z
-    xunit = cos(ra)*cos(dec)
-    yunit = sin(ra)*cos(dec)
+    yunit, xunit = cos(dec) .* sincos(ra)
     zunit = sin(dec)
     return xunit*del, yunit*del, zunit*del
 end
