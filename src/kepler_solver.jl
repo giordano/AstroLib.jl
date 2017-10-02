@@ -21,11 +21,11 @@ function kepler_solver(M::T, e::T) where {T<:AbstractFloat}
         w = cbrt(abs2(abs(r) + sqrt(q * q * q + r * r)))
         # equation (15)
         E1 = (2 * r * w / @evalpoly(w, q * q, q, 1) + M)/d
-        # equation (26).  TODO: here we can use sincos, when will be available.
+        # equation (26) & equation (27)
         f2, f3 = e .* sincos(E1)
-        # equation (21) & equation (25)
+        # equation (21)
         f0 = E1 - f2 - M
-        # equation (27)
+        # equation (25)
         f1 = 1 - f3
         # equation (22)
         δ3 = -f0 / (f1 - f0 * f2 / (2 * f1))

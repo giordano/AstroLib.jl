@@ -8,15 +8,12 @@ function _co_aberration(jd::T, ra::T, dec::T, eps::T) where {T<:AbstractFloat}
     sunlong = sunpos(jd, radians=true)[3]
     e = @evalpoly t 0.016708634 -0.000042037 -0.0000001267
     pe = @evalpoly t 102.93735 1.71946 0.00046
-    cd = cosd(dec)
-    sd = sind(dec)
+    sd, cd = sincos(deg2rad(dec))
     ce = cos(eps)
     te = tan(eps)
-    cp = cosd(pe)
-    sp = sind(pe)
+    sp, cp = sincos(deg2rad(pe))
     ss, cs = sincos(sunlong)
-    ca = cosd(ra)
-    sa = sind(ra)
+    sa, ca = sincos(deg2rad(ra))
     t1 = (cs*ce*(te*cd - sa*sd) + ca*sd*ss)
     t2 = (cp*ce*(te*cd - sa*sd) + ca*sd*sp)
     d_ra = 20.49552*(e*(ca*cp*ce + sa*sp) - ca*cs*ce - sa*ss)/cd
