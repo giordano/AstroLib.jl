@@ -6,7 +6,7 @@ function _eqpole(l::T, b::T, southpole::Bool) where {T<:AbstractFloat}
     l = deg2rad(sgn*l)
     b = deg2rad(sgn*b)
     r = 18 * sqrt(2 * (1 - sin(b))) * 3.53553391
-    return r*sin(l), r*cos(l)
+    return r .* sincos(l)
 end
 
 """
