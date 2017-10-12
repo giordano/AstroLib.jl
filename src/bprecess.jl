@@ -21,22 +21,20 @@ const Mbprec =
 function _bprecess(ra::T, dec::T, parallax::T, radvel::T,
                    epoch::T, muradec::Vector{T}) where {T<:AbstractFloat}
     @assert length(muradec) == 2
-    cosra  = cosd(ra)
-    sinra  = sind(ra)
-    cosdec = cosd(dec)
-    sindec = sind(dec)
-    ra1950 = dec1950 = zero(T)
-    A  = copy(A_precess)
+    sinra,  cosra  = sincos(deg2rad(ra))
+    sindec, cosdec = sincos(deg2rad(dec))
     r0 = [cosra*cosdec,  sinra*cosdec,  sindec]
     r0_dot = [-muradec[1]*sinra*cosdec - muradec[2]*cosra*sindec,
                muradec[1]*cosra*cosdec - muradec[2]*sinra*sindec,
-               muradec[2]*cosdec] + 21.095*radvel*parallax*r0
+               muradec[2]*cosdec] .+ 21.095 .* radvel * parallax * r0
     R_1 = Mbprec * vcat(r0, r0_dot)
     r1 = R_1[1:3]
     r1_dot = R_1[4:6]
     if isfinite(epoch)
         r1 .+= deg2rad.(r1_dot .* (epoch .- 1950) ./ 360000)
-        A  .+= deg2rad.(A_dot_precess .* (epoch .- 1950) ./ 360000)
+        A = A_precess .+ deg2rad.(A_dot_precess .* (epoch .- 1950) ./ 360000)
+    else
+        A = A_precess
     end
     rmag = vecnorm(r1)
     s1 = r1 ./ rmag

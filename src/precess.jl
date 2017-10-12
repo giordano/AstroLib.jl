@@ -11,8 +11,9 @@ function _precess(ra::T, dec::T, equinox1::T, equinox2::T,
         ra_rad  = deg2rad(ra)
         dec_rad = deg2rad(dec)
     end
-    a = cos(dec_rad)
-    x = [a*cos(ra_rad), a*sin(ra_rad), sin(dec_rad)]
+    sin_dec, cos_dec = sincos(dec_rad)
+    sin_ra, cos_ra = sincos(ra_rad)
+    x = [cos_dec * cos_ra, cos_dec * sin_ra, sin_dec]
     r = premat(equinox1, equinox2, FK4=FK4)
     x2 = r*x
     ra_rad  = mod2pi(atan2(x2[2], x2[1]))

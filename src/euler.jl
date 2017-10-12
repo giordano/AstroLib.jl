@@ -22,15 +22,13 @@ function _euler(ai::T, bi::T, select::Integer, FK4::Bool, radians::Bool) where {
         phi = (4.9368292465, 0.574770433, 0.0, 0.0, 4.71279419371, 0.11142137093)
     end
 
-    if radians
-        ao = ai - phi[select]
-        cb = cos(bi)
-        x = (cb*sin(ao), cb*cos(ao), sin(bi))
-    else
-        ao = deg2rad(ai) - phi[select]
-        cb = cosd(bi)
-        x = (cb*sin(ao), cb*cos(ao), sind(bi))
+    if !radians
+        ai = deg2rad(ai)
+        bi = deg2rad(bi)
     end
+    sa, ca = sincos(ai - phi[select])
+    sb, cb = sincos(bi)
+    x = (cb * sa, cb * ca, sb)
     bo = ctheta[select]*x[3] - stheta[select]*x[1]
     ao = mod2pi(atan2(ctheta[select]*x[1] + stheta[select]*x[3], x[2]) + psi[select])
     bo = asin(bo)

@@ -4,27 +4,27 @@
 function _geo2mag(lat::T, long::T, pole_lat::T, pole_long::T) where {T<:AbstractFloat}
     r    = 1 # Distance from planet center.  Value unimportant -- just need a length for
              # conversion to rectangular coordinates
-    lat  = deg2rad(lat)
-    long = deg2rad(long)
-    x    = r * cos(lat) * cos(long)
-    y    = r * cos(lat) * sin(long)
-    z    = r * sin(lat)
+    sin_lat, cos_lat = sincos(deg2rad(lat))
+    sin_long, cos_long = sincos(deg2rad(long))
+    x    = r * cos_lat * cos_long
+    y    = r * cos_lat * sin_long
+    z    = r * sin_lat
 
     # Compute first rotation matrix: rotation around plane of the equator, from
     # the Greenwich meridian to the meridian containing the magnetic dipole
     # pole.
-    geolong2maglong = Array{T}(3, 3)
-    geolong2maglong[:,1] = [cos(pole_long), -sin(pole_long), 0.0]
-    geolong2maglong[:,2] = [sin(pole_long),  cos(pole_long), 0.0]
-    geolong2maglong[:,3] = [           0.0,             0.0, 1.0]
+    sin_pole_long, cos_pole_long = sincos(pole_long)
+    geolong2maglong = [ cos_pole_long sin_pole_long zero(T);
+                       -sin_pole_long cos_pole_long zero(T);
+                        zero(T)       zero(T)       one(T)]
     out = geolong2maglong * [x, y, z]
 
     # Second rotation: in the plane of the current meridian from geographic pole
     # to magnetic dipole pole.
-    tomaglat = Array{T}(3, 3)
-    tomaglat[:,1] = [ cos(pi/2 - pole_lat), 0.0, sin(pi/2 - pole_lat)]
-    tomaglat[:,2] = [                  0.0, 1.0,                  0.0]
-    tomaglat[:,3] = [-sin(pi/2 - pole_lat), 0.0, cos(pi/2 - pole_lat)]
+    s, c = sincos(T(pi) / 2 - pole_lat)
+    tomaglat = [c       zero(T) -s;
+                zero(T) one(T)  zero(T);
+                s       zero(T) c]
     out = tomaglat * out
 
     maglat  = rad2deg(atan2(out[3], hypot(out[1], out[2])))

@@ -3,10 +3,8 @@
 
 function _gal_uvw(ra::T, dec::T, pmra::T, pmdec::T, vrad::T,
                   plx::T, lsr::Bool) where {T<:AbstractFloat}
-    cosdec = cosd(dec)
-    sindec = sind(dec)
-    cosra  = cosd(ra)
-    sinra  = sind(ra)
+    sindec, cosdec = sincos(deg2rad(dec))
+    sinra, cosra = sincos(deg2rad(ra))
     k = 4.740470463533348 # = 149597870.7/(86400*365.25) = 1 AU/year in km/s
     A_G = [[ 0.0548755604, +0.4941094279, -0.8676661490];
            [ 0.8734370902, -0.4448296300, -0.1980763734];

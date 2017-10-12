@@ -361,8 +361,8 @@ end
 end
 
 @testset "helio_jd" begin
-    @test helio_jd.([juldate(2016, 6, 15, 11, 40)], ten(20, 9, 7.8)*15, ten(37, 9, 7)) ≈
-        [57554.98808289718]
+    @test helio_jd(juldate(2016, 6, 15, 11, 40), ten(20, 9, 7.8)*15, ten(37, 9, 7)) ≈
+        57554.98808289718
     @test @inferred(helio_jd(1000, 23, 67, B1950=true)) ≈ 999.9997659545342
     @test @inferred(helio_jd(2000, 12, 88, diff=true))  ≈ -167.24845957792076
 end

@@ -15,8 +15,9 @@ function _rhotheta(period::T, periastron::T, eccentricity::T,
     omega2      = deg2rad(omega2)
     inclination = deg2rad(inclination)
     omega       = deg2rad(omega)
-    theta = omega + atan2(sin(nu + omega2)*cos(inclination), cos(nu + omega2))
-    rho   = r*cos(nu + omega2)/cos(theta - omega)
+    s, c = sincos(nu + omega2)
+    theta = omega + atan2(s * cos(inclination), c)
+    rho   = r * c / cos(theta - omega)
     # Convert theta to degrees and for it to be in [0, 360) range.
     theta = rad2deg(mod2pi(theta))
     return rho, theta

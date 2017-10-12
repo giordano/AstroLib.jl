@@ -2,12 +2,9 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 function _hadec2altaz(ha::T, dec::T, lat::T, ws::Bool) where {T<:AbstractFloat}
-    sh = sind(ha)
-    ch = cosd(ha)
-    sd = sind(dec)
-    cd = cosd(dec)
-    sl = sind(lat)
-    cl = cosd(lat)
+    sh, ch = sincos(deg2rad(ha))
+    sd, cd = sincos(deg2rad(dec))
+    sl, cl = sincos(deg2rad(lat))
 
     x = -ch*cd*sl + sd*cl
     y = -sh*cd

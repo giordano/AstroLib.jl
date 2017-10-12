@@ -3,11 +3,11 @@
 
 function geo2geodetic(lat::T, long::T, alt::T, eqrad::T, polrad::T) where {T<:AbstractFloat}
     e = sqrt(eqrad^2 - polrad^2)/eqrad
-    lat = deg2rad(lat)
-    long_rad = deg2rad(long)
-    x = (eqrad + alt)*cos(lat)*cos(long_rad)
-    y = (eqrad + alt)*cos(lat)*sin(long_rad)
-    z = (eqrad + alt)*sin(lat)
+    sin_lat, cos_lat = sincos(deg2rad(lat))
+    sin_long_rad, cos_long_rad = sincos(deg2rad(long))
+    x = (eqrad + alt) * cos_lat * cos_long_rad
+    y = (eqrad + alt) * cos_lat * sin_long_rad
+    z = (eqrad + alt) * sin_lat
     r = hypot(x, y)
     s    = hypot(r, z)*(1 - eqrad*sqrt((1 - e^2)/((1 - e^2)*r^2 + z^2)))
     t0   = 1 + s*sqrt(1 - (e*z)^2/(r^2 + z^2))/eqrad

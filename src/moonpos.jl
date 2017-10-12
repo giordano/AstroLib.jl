@@ -117,8 +117,11 @@ function _moonpos(jd::AbstractFloat, radians::Bool)
     ɛ = ten(23, 26) + @evalpoly(t/100, 21.448, -4680.93, -1.55, 1999.25, -51.38,
                                 -249.67, -39.05, 7.12, 27.87, 5.79, 2.45)/3600
     ɛ = deg2rad(ɛ + elong/3600)
-    ra = mod2pi(atan2(sin(λ)*cos(ɛ) - tan(β)*sin(ɛ), cos(λ)))
-    dec = asin(sin(β)*cos(ɛ) + cos(β)*sin(ɛ)*sin(λ))
+    sin_β, cos_β = sincos(β)
+    sin_ɛ, cos_ɛ = sincos(ɛ)
+    sin_λ, cos_λ = sincos(λ)
+    ra = mod2pi(atan2(sin_λ * cos_ɛ - tan(β) * sin_ɛ, cos_λ))
+    dec = asin(sin_β * cos_ɛ + cos_β * sin_ɛ * sin_λ)
     if radians
         return ra, dec, dis, λ, β
     else

@@ -8,7 +8,7 @@ function precess_cd(cd::AbstractMatrix{T}, epoch1::T, epoch2::T, crval_old::Abst
         st = (epoch1 - 1900) / 1000
         c = sec2rad(t*(20046.85 - st*(85.33 + st*0.37) + t*(-42.67 - st*0.37 - t*41.8)))
     else
-        st = (epoch1 - 2000)*0.001
+        st = (epoch1 - 2000) / 1000
         c = sec2rad(t*(20043.109 - st*(85.33 + st*0.217) + t*(-42.665 - st*0.217 - t*41.8)))
     end
     pole_ra = zero(T)
@@ -19,13 +19,12 @@ function precess_cd(cd::AbstractMatrix{T}, epoch1::T, epoch2::T, crval_old::Abst
     else
         pole_ra, pole_dec = precess(pole_ra, pole_dec, epoch1, epoch2, FK4=FK4)
     end
-    sind1 = sind(crval_old[2])
-    sind2 = sind(crval_new[2])
-    cosd1 = cosd(crval_old[2])
-    cosd2 = cosd(crval_new[2])
+    sind1, cosd1 = sincos(deg2rad(crval_old[2]))
+    sind2, cosd2 = sincos(deg2rad(crval_new[2]))
     sinra = sind(crval_new[1] - pole_ra)
-    cosfi = (cos(c) - sind1*sind2)/(cosd1*cosd2)
-    sinfi = (abs(sin(c))* sinra)/cosd1
+    sin_c, cos_c = sincos(c)
+    cosfi = (cos_c - sind1 * sind2) / (cosd1 * cosd2)
+    sinfi = (abs(sin_c) * sinra) / cosd1
     r = [cosfi sinfi; -sinfi cosfi]
     return cd * r
 end

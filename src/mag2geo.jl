@@ -4,32 +4,32 @@
 function _mag2geo(lat::T, long::T, pole_lat::T, pole_long::T) where {T<:AbstractFloat}
     r    = 1 # Distance from planet center.  Value unimportant -- just need
              # a length for conversion to rectangular coordinates
-    lat  = deg2rad(lat)
-    long = deg2rad(long)
+    sin_lat, cos_lat = sincos(deg2rad(lat))
+    sin_long, cos_long = sincos(deg2rad(long))
 
     # convert to rectangular coordinates
     #   x-axis: defined by the vector going from Earth's center towards
     #        the intersection of the equator and Greenwich's meridian.
     #   z-axis: axis of the geographic poles
     #   y-axis: defined by y=z^x
-    x = r * cos(lat) * cos(long)
-    y = r * cos(lat) * sin(long)
-    z = r * sin(lat)
+    x = r * cos_lat * cos_long
+    y = r * cos_lat * sin_long
+    z = r * sin_lat
 
     # First rotation: in the plane of the current meridian from magnetic pole to
     # geographic pole.
-    togeolat = Array{T}(3, 3)
-    togeolat[:,1] = [cos(pi/2 - pole_lat), 0.0, -sin(pi/2 - pole_lat)]
-    togeolat[:,2] = [                 0.0, 1.0,                   0.0]
-    togeolat[:,3] = [sin(pi/2 - pole_lat), 0.0,  cos(pi/2 - pole_lat)]
+    s, c = sincos(T(pi) / 2 - pole_lat)
+    togeolat = [c       zero(T) s;
+                zero(T) one(T)  zero(T);
+                -s      zero(T) c]
     out = togeolat * [x, y, z]
 
     # Second rotation matrix: rotation around plane of the equator, from the
     # meridian containing the magnetic poles to the Greenwich meridian.
-    maglong2geolong = Array{T}(3, 3)
-    maglong2geolong[:,1] = [ cos(pole_long), sin(pole_long), 0.0]
-    maglong2geolong[:,2] = [-sin(pole_long), cos(pole_long), 0.0]
-    maglong2geolong[:,3] = [            0.0,            0.0, 1.0]
+    sin_pole_long, cos_pole_long = sincos(pole_long)
+    maglong2geolong = [cos_pole_long -sin_pole_long zero(T);
+                       sin_pole_long  cos_pole_long zero(T);
+                       zero(T)        zero(T)       one(T)]
     out = maglong2geolong * out
 
     geolat  = rad2deg(atan2(out[3], hypot(out[1], out[2])))

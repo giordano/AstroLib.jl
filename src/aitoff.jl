@@ -7,9 +7,11 @@ function aitoff(l::T, b::T) where {T<:AbstractFloat}
     delta = deg2rad(b)
     r2 = sqrt(T(2))
     f = 2*r2/pi
-    cdec = cos(delta)
-    denom = sqrt(1 + cdec*cos(alpha2))
-    return rad2deg(cdec*sin(alpha2)*2*r2/denom/f), rad2deg(sin(delta)*r2/denom/f)
+    sin_alpha2, cos_alpha2 = sincos(alpha2)
+    sin_delta, cos_delta = sincos(delta)
+    denom = sqrt(1 + cos_delta * cos_alpha2)
+    return rad2deg(cos_delta * sin_alpha2 * 2 * r2 / denom / f),
+           rad2deg(sin_delta * r2 / denom / f)
 end
 
 """

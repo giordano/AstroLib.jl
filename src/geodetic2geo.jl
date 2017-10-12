@@ -3,10 +3,10 @@
 
 function geodetic2geo(lat::T, long::T, alt::T, eqrad::T, polrad::T) where {T<:AbstractFloat}
     e = sqrt(eqrad^2 - polrad^2)/eqrad
-    lat = deg2rad(lat)
-    beta = sqrt(1 - (e*sin(lat))^2)
-    r = (eqrad/beta + alt)*cos(lat)
-    z = (eqrad*(1 - e^2)/beta + alt)*sin(lat)
+    sin_lat, cos_lat = sincos(deg2rad(lat))
+    beta = sqrt(1 - (e * sin_lat) ^ 2)
+    r = (eqrad / beta + alt) * cos_lat
+    z = (eqrad*(1 - e ^ 2) / beta + alt) * sin_lat
     return rad2deg(atan2(z,r)), long, hypot(r, z) - eqrad
 end
 

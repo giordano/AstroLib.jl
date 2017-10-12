@@ -21,14 +21,12 @@ const Mjprec =
 function _jprecess(ra::T, dec::T, parallax::T, radvel::T, epoch::T,
                    muradec::Vector{T}) where {T<:AbstractFloat}
     @assert length(muradec) == 2
-    cosra  = cosd(ra)
-    sinra  = sind(ra)
-    cosdec = cosd(dec)
-    sindec = sind(dec)
-    ra2000 = dec2000 = zero(T)
-    A  = copy(A_precess)
+    sinra, cosra  = sincos(deg2rad(ra))
+    sindec, cosdec = sincos(deg2rad(dec))
     if isfinite(epoch) && epoch != 1950
-        A  .+= deg2rad.(A_dot_precess .* (epoch .- 1950) ./ 360000)
+        A = A_precess .+ deg2rad.(A_dot_precess .* (epoch .- 1950) ./ 360000)
+    else
+        A = A_precess
     end
     r0 = [cosra*cosdec,  sinra*cosdec,  sindec]
     r0_dot = [-muradec[1]*sinra*cosdec - muradec[2]*cosra*sindec,

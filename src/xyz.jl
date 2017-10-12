@@ -9,25 +9,25 @@ function _xyz(jd::T, equinox::T) where {T<:AbstractFloat}
     # argument of precession from equinox of date back to 1950
     pp = (1.396041 + 0.000308*(t + 0.5))*(t-0.499998)
     # Compute mean solar longitude, precessed back to 1950
-    el = 279.696678 + 36000.76892*t + 0.000303*t*t - pp
+    el = @evalpoly t (279.696678 - pp) 36000.76892 0.000303
 
     # Compute Mean longitude of the Moon
-    c = 270.434164 + 480960.0*t + 307.883142*t - 0.001133*t*t - pp
+    c = @evalpoly t (270.434164 - pp) (480960.0 + 307.883142) -0.001133
 
     # Compute longitude of Moon's ascending node
-    n = 259.183275 - 1800.0*t - 134.142008*t + 0.002078*t*t - pp
+    n = @evalpoly t (259.183275 - pp) -(1800.0 + 134.142008) 0.002078
 
     # Compute mean solar anomaly
-    g = 358.475833 + 35999.04975*t - 0.00015*t*t
+    g = @evalpoly t 358.475833 35999.04975 -0.00015
 
     # Compute the mean jupiter anomaly
-    j = 225.444651 + 2880.0*t + 154.906654*t*t
+    j = @evalpoly t 225.444651 2880.0 154.906654
 
     # Compute mean anomaly of Venus
-    v = 212.603219 + 58320.0*t + 197.803875*t + 0.001286*t*t
+    v = @evalpoly t 212.603219 (58320.0 + 197.803875) 0.001286
 
     # Compute mean anomaly of Mars
-    m = 319.529425 + 19080.0*t + 59.8585*t + 0.000181*t*t
+    m = @evalpoly t 319.529425 (19080.0 + 59.8585) 0.000181
 
     # Convert degrees to radians for trig functions
     el = deg2rad(el)
@@ -39,47 +39,61 @@ function _xyz(jd::T, equinox::T) where {T<:AbstractFloat}
     m  = deg2rad(m)
 
     # Calculate x, y, z using trigonometric series
-    x = 0.999860*cos(el) -
-        0.025127*cos(g - el) +
-        0.008374*cos(g + el) +
-        0.000105*cos(g + g + el) +
-        0.000063*t*cos(g - el) +
-        0.000035*cos(g + g - el) -
-        0.000026*sin(g - el - j) -
-        0.000021*t*cos(g + el) +
-        0.000018*sin(2.0*g + el - 2.0*v) +
-        0.000017*cos(c) -
-        0.000014*cos(c - 2.0*el) +
-        0.000012*cos(4.0*g + el - 8.0*m + 3.0*j) -
-        0.000012*cos(4.0*g - el - 8.0*m + 3.0*j) -
-        0.000012*cos(g + el - v) +
-        0.000011*cos(2.0*g + el - 2.0*v) +
-        0.000011*cos(2.0*g - el - 2.0*j)
+    sin1,  cos1  = sincos(el)
+    sin2,  cos2  = sincos(g - el)
+    sin3,  cos3  = sincos(g + el)
+    sin4,  cos4  = sincos(g + g + el)
+    sin5,  cos5  = sincos(g + g - el)
+    sin6,  cos6  = sincos(g - el - j)
+    sin7,  cos7  = sincos(2 * g + el - 2 * v)
+    sin8,  cos8  = sincos(c)
+    sin9,  cos9  = sincos(c - 2 * el)
+    sin10, cos10 = sincos(4 * g + el - 8 * m + 3 * j)
+    sin11, cos11 = sincos(4 * g - el - 8 * m + 3 * j)
+    sin12, cos12 = sincos(g + el - v)
+    sin13, cos13 = sincos(2 * g - el - 2 * j)
 
-    y = 0.917308*sin(el) +
-        0.023053*sin(g - el) +
-        0.007683*sin(g + el) +
-        0.000097*sin(g + g + el) -
-        0.000057*t*sin(g - el) -
-        0.000032*sin(g + g - el) -
-        0.000024*cos(g - el - j) -
-        0.000019*t*sin(g + el) -
-        0.000017*cos(2.0*g + el - 2.0*v) +
-        0.000016*sin(c) +
-        0.000013*sin(c - 2.0*el ) +
-        0.000011*sin(4.0*g + el - 8.0*m + 3.0*j) +
-        0.000011*sin(4.0*g - el - 8.0*m + 3.0*j) -
-        0.000011*sin(g + el - v) +
-        0.000010*sin(2.0*g + el - 2.0*v ) -
-        0.000010*sin(2.0*g - el - 2.0*j )
+    x = 0.999860 * cos1     -
+        0.025127 * cos2     +
+        0.008374 * cos3     +
+        0.000105 * cos4     +
+        0.000063 * t * cos2 +
+        0.000035 * cos5     -
+        0.000026 * sin6     -
+        0.000021 * t * cos3 +
+        0.000018 * sin7     +
+        0.000017 * cos8     -
+        0.000014 * cos9     +
+        0.000012 * cos10    -
+        0.000012 * cos11    -
+        0.000012 * cos12    +
+        0.000011 * cos7     +
+        0.000011 * cos13
 
-    z = 0.397825*sin(el)     +
-        0.009998*sin(g-el)   +
-        0.003332*sin(g+el)   +
-        0.000042*sin(g+g+el) -
-        0.000025*t*sin(g-el) -
-        0.000014*sin(g+g-el) -
-        0.000010*cos(g-el-j)
+    y = 0.917308 * sin1     +
+        0.023053 * sin2     +
+        0.007683 * sin3     +
+        0.000097 * sin4     -
+        0.000057 * t * sin2 -
+        0.000032 * sin5     -
+        0.000024 * cos6     -
+        0.000019 * t * sin3 -
+        0.000017 * cos7     +
+        0.000016 * sin8     +
+        0.000013 * sin9     +
+        0.000011 * sin10    +
+        0.000011 * sin11    -
+        0.000011 * sin12    +
+        0.000010 * sin7     -
+        0.000010 * sin13
+
+    z = 0.397825 * sin1     +
+        0.009998 * sin2     +
+        0.003332 * sin3     +
+        0.000042 * sin4     -
+        0.000025 * t * sin2 -
+        0.000014 * sin5     -
+        0.000010 * cos6
 
     # Precess to new equator?  Avoid useless calculations.
     if isfinite(equinox) && equinox != 1950

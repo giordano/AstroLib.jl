@@ -3,14 +3,15 @@
 
 function geo2eci(lat::T, long::T, alt::T, jd::T) where {T<:AbstractFloat}
     Re    = planets["earth"].eqradius / 1000
-    lat   = deg2rad(lat)
+    sin_lat, cos_lat = sincos(deg2rad(lat))
     long  = deg2rad(long)
     gst   = ct2lst(zero(T), jd)
     sid_angle = gst*pi/12 # Sidereal angle.
     theta = long + sid_angle # Azimuth
     altRe = alt + Re
-    r     = altRe*cos(lat)
-    return r*cos(theta), r*sin(theta), altRe*sin(lat)
+    r     = altRe * cos_lat
+    sin_theta, cos_theta = sincos(theta)
+    return r * cos_theta, r * sin_theta, altRe * sin_lat
 end
 
 """

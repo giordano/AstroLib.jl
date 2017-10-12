@@ -4,9 +4,11 @@ function _co_nutate(jd::T, ra::T, dec::T) where {T<:AbstractFloat}
     d_psi, d_eps = nutate(jd)
     eps = mean_obliquity(jd) + sec2rad(d_eps)
     se, ce = sincos(eps)
-    x = cosd(ra) * cosd(dec)
-    y = sind(ra) * cosd(dec)
-    z = sind(dec)
+    sin_ra, cos_ra = sincos(deg2rad(ra))
+    sin_dec, cos_dec = sincos(deg2rad(dec))
+    x = cos_ra * cos_dec
+    y = sin_ra * cos_dec
+    z = sin_dec
     x2 = x - sec2rad(y * ce + z * se) * d_psi
     y2 = y + sec2rad(x * ce * d_psi - z * d_eps)
     z2 = z + sec2rad(x * se * d_psi + y * d_eps)

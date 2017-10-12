@@ -151,10 +151,11 @@ function _baryvel(dje::T) where {T<:AbstractFloat}
     for i = 1:4
         plon = forbel[i+3]
         pomg = sorbel[i+1]
+        sin_pomg, cos_pomg = sincos(pomg)
         pecc = sorbel[i+9]
-        tl = rem(plon + 2 * pecc * sin(plon-pomg), 2 * T(pi))
-        dxbd += ccpamv[i] * (sin(tl) + pecc * sin(pomg))
-        dybd -= ccpamv[i] * (cos(tl) + pecc * cos(pomg))
+        sin_tl, cos_tl = sincos(rem(plon + 2 * pecc * sin(plon-pomg), 2 * T(pi)))
+        dxbd += ccpamv[i] * (sin_tl + pecc * sin_pomg)
+        dybd -= ccpamv[i] * (cos_tl + pecc * cos_pomg)
         dzbd -= ccpamv[i] * sorbel[i+13] * cos(plon - sorbel[i+5])
     end
 

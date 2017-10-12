@@ -44,15 +44,17 @@ function _sunpos(jd::AbstractFloat, radians::Bool)
     # Allow for Aberration
     l -= 20.5
     # Allow for Nutation using the longitude of the Moons mean node OMEGA
-    omega = 259.183275 - mod(1934.142008 * t, 360)
-    l -= 17.2 * sind(omega)
+    sin_omega, cos_omega = sincos(deg2rad(259.183275 - mod(1934.142008 * t, 360)))
+    l -= 17.2 * sin_omega
     # True Obliquity
-    oblt = 23.452294 - 0.0130125 * t + 9.2 * cosd(omega) / 3600
+    oblt = 23.452294 - 0.0130125 * t + 9.2 * cos_omega / 3600
     # Right Ascension and Declination
     l /= 3600
-    ra = mod2pi(atan2(sind(l)*cosd(oblt), cosd(l)))
-    dec = asin(sind(l)*sind(oblt))
     oblt = deg2rad(oblt)
+    sin_oblt, cos_oblt = sincos(oblt)
+    sin_l, cos_l = sincos(deg2rad(l))
+    ra = mod2pi(atan2(sin_l * cos_oblt, cos_l))
+    dec = asin(sin_l * sin_oblt)
     if radians
         return ra, dec, longmed, oblt
     else

@@ -4,9 +4,13 @@
 function _planet_coords(date::T, num::Integer) where {T<:AbstractFloat}
     rad, long, lat = helio(date, num, true)
     rade, longe, late = helio(date, 3, true)
-    x =  rad * cos(lat) * cos(long) - rade * cos(late) * cos(longe)
-    y = rad * cos(lat) * sin(long) - rade * cos(late) * sin(longe)
-    z = rad * sin(lat) - rade * sin(late)
+    sin_lat, cos_lat = sincos(lat)
+    sin_long, cos_long = sincos(long)
+    sin_late, cos_late = sincos(late)
+    sin_longe, cos_longe = sincos(longe)
+    x = rad * cos_lat * cos_long - rade * cos_late * cos_longe
+    y = rad * cos_lat * sin_long - rade * cos_late * sin_longe
+    z = rad * sin_lat - rade * sin_late
     lamda = rad2deg(atan2(y,x))
     beta = rad2deg(atan2(z, hypot(x,y)))
     ra, dec = euler(lamda, beta, 4)

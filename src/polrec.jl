@@ -3,10 +3,10 @@
 
 function _polrec(radius::T, angle::T, degrees::Bool) where {T<:AbstractFloat}
     if degrees
-        return radius*cos(deg2rad(angle)), radius*sin(deg2rad(angle))
-    else
-        return radius*cos(angle), radius*sin(angle)
+        angle = deg2rad(angle)
     end
+    s, c = sincos(angle)
+    return radius * c, radius * s
 end
 
 """
