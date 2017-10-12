@@ -14,7 +14,8 @@ function ten(strng::AbstractString)
     # Convert strings into numbers, empty strings into 0s.
     # Replace in the string multiple spaces or colons with a single space, strip leading
     # whitespaces, and split the resulting string using the space as separator.
-    tmp = map(x-> x=="" ? 0.0 : float(x), split(lstrip(replace(strng, r"(\:| )+", s" ")), " "))
+    tmp = map(x-> x=="" ? 0.0 : parse(Float64, x),
+              split(lstrip(replace(strng, r"(\:| )+", s" ")), " "))
     # Concatenate "tmp" with 3 zeros, so that "angle" has at least 3 elements
     # also with an empty string in input.
     angle = vcat(tmp, zeros(Float64, 3))::Vector{Float64}

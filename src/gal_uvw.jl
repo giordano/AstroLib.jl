@@ -1,14 +1,16 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+const A_G = SVector(0.0548755604, +0.4941094279, -0.8676661490,
+                    0.8734370902, -0.4448296300, -0.1980763734,
+                    0.4838350155,  0.7469822445, +0.4559837762)
+
+
 function _gal_uvw(ra::T, dec::T, pmra::T, pmdec::T, vrad::T,
                   plx::T, lsr::Bool) where {T<:AbstractFloat}
     sindec, cosdec = sincos(deg2rad(dec))
     sinra, cosra = sincos(deg2rad(ra))
     k = 4.740470463533348 # = 149597870.7/(86400*365.25) = 1 AU/year in km/s
-    A_G = [[ 0.0548755604, +0.4941094279, -0.8676661490];
-           [ 0.8734370902, -0.4448296300, -0.1980763734];
-           [ 0.4838350155,  0.7469822445, +0.4559837762]]
     vec2 = k*pmra/plx
     vec3 = k*pmdec/plx
     u = ( A_G[1]*cosra*cosdec + A_G[4]*sinra*cosdec + A_G[7]*sindec)*vrad +

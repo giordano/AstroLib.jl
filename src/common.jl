@@ -43,8 +43,8 @@ const JULIANCENTURY = 36_525 # days in one Julian century
 const ct2lst_c  = (280.46061837, 360.98564736629, 0.000387933, 38710000.0)
 
 # Used in "bprecess" and "jprecess".
-const A_precess  = [-1.62557, -0.31919, -0.13843] ./ 1000000 # In radians
-const A_dot_precess = [1.244 , -1.579, -0.660] ./ 1000 # In arc seconds per century
+const A_precess  = SVector(-1.62557, -0.31919, -0.13843) ./ 1000000 # In radians
+const A_dot_precess = SVector(1.244 , -1.579, -0.660) ./ 1000 # In arc seconds per century
 
 """
 List of observing sites.  The observatories have `Observatory` type.

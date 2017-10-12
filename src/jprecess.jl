@@ -2,18 +2,18 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 const Mjprec =
-    reshape([+0.9999256782,     +0.0111820610,     +0.0048579479,
-             -0.000551,         +0.238514,         -0.435623,
-             -0.0111820611,     +0.9999374784,     -0.0000271474,
-             -0.238565,         -0.002667,         +0.012254,
-             -0.0048579477,     -0.0000271765,     +0.9999881997,
-             +0.435739,         -0.008541,         +0.002117,
-             +0.00000242395018, +0.00000002710663, +0.00000001177656,
-             +0.99994704,       +0.01118251,       +0.00485767,
-             -0.00000002710663, +0.00000242397878, -0.00000000006582,
-             -0.01118251,       +0.99995883,       -0.00002714,
-             -0.00000001177656, -0.00000000006587, 0.00000242410173,
-             -0.00485767,       -0.00002718,       1.00000956], 6, 6)
+    SMatrix{6,6}(+0.9999256782,     +0.0111820610,     +0.0048579479,
+                 -0.000551,         +0.238514,         -0.435623,
+                 -0.0111820611,     +0.9999374784,     -0.0000271474,
+                 -0.238565,         -0.002667,         +0.012254,
+                 -0.0048579477,     -0.0000271765,     +0.9999881997,
+                 +0.435739,         -0.008541,         +0.002117,
+                 +0.00000242395018, +0.00000002710663, +0.00000001177656,
+                 +0.99994704,       +0.01118251,       +0.00485767,
+                 -0.00000002710663, +0.00000242397878, -0.00000000006582,
+                 -0.01118251,       +0.99995883,       -0.00002714,
+                 -0.00000001177656, -0.00000000006587, 0.00000242410173,
+                 -0.00485767,       -0.00002718,       1.00000956)
 
 # Note: IDL version of `jprecess' changes in-place "muradec", "parallax" and
 # "radvel".  We don't do anything like this, but calculations are below,
@@ -28,17 +28,17 @@ function _jprecess(ra::T, dec::T, parallax::T, radvel::T, epoch::T,
     else
         A = A_precess
     end
-    r0 = [cosra*cosdec,  sinra*cosdec,  sindec]
-    r0_dot = [-muradec[1]*sinra*cosdec - muradec[2]*cosra*sindec,
-               muradec[1]*cosra*cosdec - muradec[2]*sinra*sindec,
-               muradec[2]*cosdec] + 21.095*radvel*parallax*r0
+    r0 = SVector(cosra*cosdec,  sinra*cosdec,  sindec)
+    r0_dot = SVector(-muradec[1]*sinra*cosdec - muradec[2]*cosra*sindec,
+                     muradec[1]*cosra*cosdec - muradec[2]*sinra*sindec,
+                     muradec[2]*cosdec) .+ 21.095 .* radvel .* parallax .* r0
     r1 = r0 .- A .+ dot(r0, A) .* r0
     r1_dot = r0_dot .- A_dot_precess .+ dot(r0, A_dot_precess) .* r0
     R_1 = vcat(r1, r1_dot)
     R  = Mjprec*R_1
     if isfinite(epoch)
         t  = ((epoch - 1950) - 50.00021) / 100
-        rr1 = R[1:3] .+ deg2rad.(R[4:6] .* t ./ 3600)
+        rr1 = @view(R[1:3]) .+ deg2rad.(@view(R[4:6]) .* t ./ 3600)
         x = rr1[1]
         y = rr1[2]
         z = rr1[3]

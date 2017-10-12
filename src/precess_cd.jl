@@ -25,8 +25,7 @@ function precess_cd(cd::AbstractMatrix{T}, epoch1::T, epoch2::T, crval_old::Abst
     sin_c, cos_c = sincos(c)
     cosfi = (cos_c - sind1 * sind2) / (cosd1 * cosd2)
     sinfi = (abs(sin_c) * sinra) / cosd1
-    r = [cosfi sinfi; -sinfi cosfi]
-    return cd * r
+    return cd * SMatrix{2,2}(cosfi, -sinfi, sinfi, cosfi)
 end
 
 """

@@ -3,25 +3,22 @@
 
 function _precess(ra::T, dec::T, equinox1::T, equinox2::T,
                   FK4::Bool, radians::Bool) where {T<:AbstractFloat}
-    if radians
-        ra_rad  = ra
-        dec_rad = dec
-    else
+    if !radians
         # Convert to radians.
-        ra_rad  = deg2rad(ra)
-        dec_rad = deg2rad(dec)
+        ra  = deg2rad(ra)
+        dec = deg2rad(dec)
     end
-    sin_dec, cos_dec = sincos(dec_rad)
-    sin_ra, cos_ra = sincos(ra_rad)
-    x = [cos_dec * cos_ra, cos_dec * sin_ra, sin_dec]
+    sin_dec, cos_dec = sincos(dec)
+    sin_ra, cos_ra = sincos(ra)
+    x = SVector(cos_dec * cos_ra, cos_dec * sin_ra, sin_dec)
     r = premat(equinox1, equinox2, FK4=FK4)
     x2 = r*x
-    ra_rad  = mod2pi(atan2(x2[2], x2[1]))
-    dec_rad = asin(x2[3])
+    ra_out  = mod2pi(atan2(x2[2], x2[1]))
+    dec_out = asin(x2[3])
     if radians
-        return ra_rad, dec_rad
+        return ra_out, dec_out
     else
-        return rad2deg(ra_rad), rad2deg(dec_rad)
+        return rad2deg(ra_out), rad2deg(dec_out)
     end
 end
 

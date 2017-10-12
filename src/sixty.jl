@@ -7,13 +7,9 @@
 # non-zero element (use findfirst for that) by the sign of number.
 function sixty(number::T) where {T<:AbstractFloat}
     dd = trunc(abs(number))
-    mm = abs(60 * number)
+    mm = trunc(abs(60 * number) - 60 * dd)
     ss = abs(3600 * number)
-    result = Array{T}(3)
-    result[1] = trunc(number)
-    result[2] = trunc(mm - 60 * dd)
-    result[3] = ss - 3600 * dd - 60 * result[2]
-    return result
+    return SVector{3,T}(trunc(number), mm, ss - 3600 * dd - 60 * mm)
 end
 
 """
