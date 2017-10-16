@@ -2,7 +2,12 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 using AstroLib
-using Base.Test
+
+if isdefined(Base, :Test) && !Base.isdeprecated(Base, :Test)
+    using Base.Test
+else
+    using Test
+end
 
 include("utils-tests.jl")
 include("misc-tests.jl")
