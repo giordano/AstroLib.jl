@@ -10,7 +10,7 @@ This is provided by World Magnetic Model
 const POLELATLONG =
     try
         let
-            if !isdefined(Base, :DelimitedFiles)
+            if !isdefined(Base, :DataFmt)
                 using DelimitedFiles
             end
             local polelatlong, rows, floattype, temp
