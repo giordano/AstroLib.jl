@@ -10,6 +10,9 @@ This is provided by World Magnetic Model
 const POLELATLONG =
     try
         let
+            if !isdefined(Base, :DelimitedFiles)
+                using DelimitedFiles
+            end
             local polelatlong, rows, floattype, temp
             polelatlong = readdlm(joinpath(@__DIR__,
                                            "..", "deps", "NP.xy"))
