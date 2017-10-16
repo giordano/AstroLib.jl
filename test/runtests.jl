@@ -2,7 +2,7 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 using AstroLib
-using Base.Test
+using Test
 
 include("utils-tests.jl")
 include("misc-tests.jl")
