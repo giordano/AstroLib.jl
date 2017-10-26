@@ -2,18 +2,18 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 const Mbprec =
-    reshape([+0.9999256795,      -0.0111814828,      -0.0048590040,
-             -0.000551,          -0.238560,          +0.435730,
-             +0.0111814828,      +0.9999374849,      -0.0000271557,
-             +0.238509,          -0.002667,          -0.008541,
-             +0.0048590039,      -0.0000271771,      +0.9999881946,
-             -0.435614,          +0.012254,          +0.002117,
-             -0.00000242389840,  +0.00000002710544,  +0.00000001177742,
-             +0.99990432,        -0.01118145,        -0.00485852,
-             -0.00000002710544,  -0.00000242392702,  +0.00000000006585,
-             +0.01118145,        +0.99991613,        -0.00002716,
-             -0.00000001177742,  +0.00000000006585,  -0.00000242404995,
-             +0.00485852,        -0.00002717,        +0.99996684], 6, 6)
+    SMatrix{6,6}(+0.9999256795,      -0.0111814828,      -0.0048590040,
+                 -0.000551,          -0.238560,          +0.435730,
+                 +0.0111814828,      +0.9999374849,      -0.0000271557,
+                 +0.238509,          -0.002667,          -0.008541,
+                 +0.0048590039,      -0.0000271771,      +0.9999881946,
+                 -0.435614,          +0.012254,          +0.002117,
+                 -0.00000242389840,  +0.00000002710544,  +0.00000001177742,
+                 +0.99990432,        -0.01118145,        -0.00485852,
+                 -0.00000002710544,  -0.00000242392702,  +0.00000000006585,
+                 +0.01118145,        +0.99991613,        -0.00002716,
+                 -0.00000001177742,  +0.00000000006585,  -0.00000242404995,
+                 +0.00485852,        -0.00002717,        +0.99996684)
 
 # Note: IDL version of `bprecess' changes in-place "muradec", "parallax" and
 # "radvel".  We don't do anything like this, but calculations are below,
@@ -23,14 +23,14 @@ function _bprecess(ra::T, dec::T, parallax::T, radvel::T,
     @assert length(muradec) == 2
     sinra,  cosra  = sincos(deg2rad(ra))
     sindec, cosdec = sincos(deg2rad(dec))
-    r0 = [cosra*cosdec,  sinra*cosdec,  sindec]
-    r0_dot = [-muradec[1]*sinra*cosdec - muradec[2]*cosra*sindec,
-               muradec[1]*cosra*cosdec - muradec[2]*sinra*sindec,
-               muradec[2]*cosdec] .+ 21.095 .* radvel * parallax * r0
+    r0 = SVector(cosra*cosdec,  sinra*cosdec,  sindec)
+    r0_dot = SVector(-muradec[1]*sinra*cosdec - muradec[2]*cosra*sindec,
+                     muradec[1]*cosra*cosdec - muradec[2]*sinra*sindec,
+                     muradec[2]*cosdec) .+ 21.095 .* radvel * parallax * r0
     R_1 = Mbprec * vcat(r0, r0_dot)
     r1 = R_1[1:3]
-    r1_dot = R_1[4:6]
     if isfinite(epoch)
+        r1_dot = @view R_1[4:6]
         r1 .+= deg2rad.(r1_dot .* (epoch .- 1950) ./ 360000)
         A = A_precess .+ deg2rad.(A_dot_precess .* (epoch .- 1950) ./ 360000)
     else

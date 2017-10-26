@@ -23,9 +23,9 @@ function _premat(equinox1::T, equinox2::T, FK4::Bool) where {T<:AbstractFloat}
     sa, ca = sincos(a)
     sb, cb = sincos(b)
     sc, cc = sincos(c)
-    return [ca * cb * cc - sa * sb   -ca * sb - sa * cb * cc   -cb*sc;
-            sa * cb + ca * sb * cc    ca * cb - sa * sb * cc   -sb*sc;
-                           ca * sc                  -sa * sc       cc]
+    return @SMatrix [ca * cb * cc - sa * sb   -ca * sb - sa * cb * cc   -cb*sc;
+                     sa * cb + ca * sb * cc    ca * cb - sa * sb * cc   -sb*sc;
+                     ca * sc                  -sa * sc                   cc]
 end
 
 """
@@ -50,8 +50,7 @@ coordinates.
 
 ### Output ###
 
-A 3×3 `AbstractFloat` matrix, used to precess equatorial rectangular
-coordinates.
+A 3×3 matrix, used to precess equatorial rectangular coordinates.
 
 ### Example ###
 
@@ -61,7 +60,7 @@ Return the precession matrix from 1950.0 to 1975.0 in the FK4 system
 julia> using AstroLib
 
 julia> premat(1950,1975,FK4=true)
-3×3 Array{Float64,2}:
+3×3 StaticArrays.SArray{Tuple{3,3},Float64,2,9}:
  0.999981    -0.00558775  -0.00242909
  0.00558775   0.999984    -6.78691e-6
  0.00242909  -6.78633e-6   0.999997

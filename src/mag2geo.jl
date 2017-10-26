@@ -19,18 +19,17 @@ function _mag2geo(lat::T, long::T, pole_lat::T, pole_long::T) where {T<:Abstract
     # First rotation: in the plane of the current meridian from magnetic pole to
     # geographic pole.
     s, c = sincos(T(pi) / 2 - pole_lat)
-    togeolat = [c       zero(T) s;
-                zero(T) one(T)  zero(T);
-                -s      zero(T) c]
-    out = togeolat * [x, y, z]
+    togeolat = SMatrix{3,3}(c,       zero(T),      -s,
+                            zero(T),  one(T), zero(T),
+                            s,       zero(T),       c)
 
     # Second rotation matrix: rotation around plane of the equator, from the
     # meridian containing the magnetic poles to the Greenwich meridian.
     sin_pole_long, cos_pole_long = sincos(pole_long)
-    maglong2geolong = [cos_pole_long -sin_pole_long zero(T);
-                       sin_pole_long  cos_pole_long zero(T);
-                       zero(T)        zero(T)       one(T)]
-    out = maglong2geolong * out
+    maglong2geolong = SMatrix{3,3}( cos_pole_long, sin_pole_long, zero(T),
+                                   -sin_pole_long, cos_pole_long, zero(T),
+                                    zero(T),             zero(T),  one(T))
+    out = maglong2geolong * togeolat * SVector(x, y, z)
 
     geolat  = rad2deg(atan2(out[3], hypot(out[1], out[2])))
     geolong = rad2deg(atan2(out[2], out[1]))

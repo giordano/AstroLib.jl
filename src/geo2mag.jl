@@ -14,18 +14,17 @@ function _geo2mag(lat::T, long::T, pole_lat::T, pole_long::T) where {T<:Abstract
     # the Greenwich meridian to the meridian containing the magnetic dipole
     # pole.
     sin_pole_long, cos_pole_long = sincos(pole_long)
-    geolong2maglong = [ cos_pole_long sin_pole_long zero(T);
-                       -sin_pole_long cos_pole_long zero(T);
-                        zero(T)       zero(T)       one(T)]
-    out = geolong2maglong * [x, y, z]
+    geolong2maglong = SMatrix{3,3}(cos_pole_long, -sin_pole_long, zero(T),
+                                   sin_pole_long,  cos_pole_long, zero(T),
+                                   zero(T),              zero(T),  one(T))
 
     # Second rotation: in the plane of the current meridian from geographic pole
     # to magnetic dipole pole.
     s, c = sincos(T(pi) / 2 - pole_lat)
-    tomaglat = [c       zero(T) -s;
-                zero(T) one(T)  zero(T);
-                s       zero(T) c]
-    out = tomaglat * out
+    tomaglat = SMatrix{3,3}( c,       zero(T),       s,
+                             zero(T),  one(T), zero(T),
+                            -s,       zero(T),       c)
+    out = tomaglat * geolong2maglong * SVector(x, y, z)
 
     maglat  = rad2deg(atan2(out[3], hypot(out[1], out[2])))
     maglong = rad2deg(atan2(out[2], out[1]))
