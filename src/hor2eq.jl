@@ -3,22 +3,7 @@
 function _hor2eq(alt::T, az::T, jd::T, lat::T, lon::T, altitude::T,
                  pressure::T, temperature::T, ws::Bool, B1950::Bool,
                  precession::Bool, nutate::Bool, aberration::Bool,
-                 refract::Bool,obsname::AbstractString) where {T<:AbstractFloat}
-
-    if obsname == ""
-        # Using Pine Bluff Observatory values
-        if isnan(lat)
-            lat = T(43.0783)
-        end
-
-        if isnan(lon)
-            lon = T(-89.865)
-        end
-    else
-        lat = T(observatories[obsname].latitude)
-        lon = T(observatories[obsname].longitude)
-        altitude = T(observatories[obsname].altitude)
-    end
+                 refract::Bool) where {T<:AbstractFloat}
 
     if refract
         alt = co_refract(alt, altitude, pressure, temperature)
@@ -55,26 +40,64 @@ function _hor2eq(alt::T, az::T, jd::T, lat::T, lon::T, altitude::T,
     return ra, dec, ha
 end
 
-"""
-    hor2eq(alt, az, jd[, ws=false, B1950=false, precession=true, nutate=true,
-           aberration=true, refract=true, lat=NaN, lon=NaN, altitude=0, pressure=NaN,
-           temperature=NaN, obsname="") -> ra, dec, ha
+hor2eq(alt::Real, az::Real, jd::Real, lat::Real, lon::Real, altitude::Real=0;
+       ws::Bool=false, B1950::Bool=false, precession::Bool=true, nutate::Bool=true,
+       aberration::Bool=true, refract::Bool=true, pressure::Real=NaN,
+       temperature::Real=NaN) =
+           _hor2eq(promote(float(alt), float(az), float(jd), float(lat), float(lon),
+                   float(altitude), float(temperature), float(pressure))..., ws, B1950,
+                   precession, nutate, aberration, refract)
 
-### Purpose ###
+hor2eq(alt::Real, az::Real, jd::Real, obsname::AbstractString; kwargs...) =
+    hor2eq(alt, az, jd, observatories[obsname].latitude, observatories[obsname].longitude,
+           observatories[obsname].altitude; kwargs...)
+
+
+"""
+    hor2eq(alt, az, jd[, obsname; ws=false, B1950=false, precession=true, nutate=true,
+           aberration=true, refract=true, lat=NaN, lon=NaN, altitude=0, pressure=NaN,
+           temperature=NaN]) -> ra, dec, ha
+
+    hor2eq(alt, az, jd, lat, lon[, altitude=0; ws=false, B1950=false,
+           precession=true, nutate=true, aberration=true, refract=true, pressure=NaN,
+           temperature=NaN]) -> ra, dec, ha
+
+
+### Purpose
 
 Converts local horizon coordinates (alt-az) to equatorial (ra-dec) coordinates.
 
-### Explanation ###
+### Explanation
 
 This is a function to calculate equatorial (ra,dec) coordinates from
 horizon (alt,az) coords. It is accurate to about 1 arcsecond or better.
 It performs precession, nutation, aberration, and refraction corrections.
 
-### Arguments ###
+### Arguments
+
+This function has two base methods.  With one you can specify the name of the observatory,
+if present in `AstroLib.observatories`, with the other one you can provide the coordinates
+of the observing site and, optionally, the altitude.
+
+Common mandatory arguments:
 
 * `alt`: altitude of horizon coords, in degrees
 * `az`: azimuth angle measured East from North (unless ws is `true`), in degrees
 * `jd`: julian date
+
+Other positional arguments:
+
+* `obsname`: set this to a valid observatory name in `AstroLib.observatories`.
+
+or
+
+* `lat`: north geodetic latitude of location, in degrees.
+* `lon`: AST longitude of location, in degrees. You can specify west longitude with a
+  negative sign.
+* `altitude`: the altitude of the observing location, in meters.  It is `0` by default
+
+Optional keyword arguments:
+
 * `ws` (optional boolean keyword): set this to `true` to get the azimuth measured
   westward from south. This is `false` by default
 * `B1950` (optional boolean keyword): set this to `true` if the ra and dec
@@ -88,29 +111,18 @@ It performs precession, nutation, aberration, and refraction corrections.
   correction, `true` by default
 * `refract` (optional boolean keyword): set this to `false` for no refraction
   correction, `true` by default
-* `lat` (optional keyword): north geodetic latitude of location, in degrees. Default
-  is `NaN`
-* `lon` (optional keyword): AST longitude of location, in degrees. You can specify west
-  longitude with a negative sign. Default value is `NaN`
-* `altitude` (optional keyword): the altitude of the observing location, in meters.
-  It is `0` by default
 * `pressure` (optional keyword): the pressure at the observing location, in millibars.
   Default value is `NaN`
 * `temperature` (optional keyword): the temperature at the observing location, in Kelvins.
   Default value is `NaN`
-* `obsname` (optional keyword): set this to a valid observatory name to
-  be used by the [Observatory](@ref) type, which will return the latitude and
-  longitude to be used by this program. This is `""` (empty string) by default,
-  in which case `lat` and `lon` default to the coordinates of the `Pine Bluff Observatory`
-  provided they are equivalent to `NaN` individually
 
-### Output ###
+### Output
 
 * `ra`: right ascension of object, in degrees (FK5)
 * `dec`: declination of the object, in degrees (FK5)
 * `ha`: hour angle, in degrees
 
-### Example ###
+### Example
 
 You are at Kitt Peak National Observatory, looking at a star at azimuth
 angle 264d 55m 06s and elevation 37d 54m 41s (in the visible). Today is Dec 25, 2041
@@ -122,23 +134,18 @@ and the pressure is 781 millibars. The Julian date for this time is 2466879.7083
 julia> using AstroLib
 
 julia> ra_o, dec_o = hor2eq(ten(37,54,41), ten(264,55,06), 2466879.7083333,
-                            obsname="kpno", pressure = 781, temperature = 273)
-(3.3222617779538037, 15.190516725395284, 54.61193186104758)
+                            "kpno", pressure = 781, temperature = 273)
+(3.3224480269254717, 15.19061543702944, 54.61174536229464)
 
 julia> adstring(ra_o, dec_o)
-" 00 13 17.3  +15 11 26"
+" 00 13 17.4  +15 11 26"
 ```
 
-### Notes ###
+### Notes
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-hor2eq(alt::Real, az::Real, jd::Real; ws::Bool=false, B1950::Bool=false,
-       precession::Bool=true, nutate::Bool=true, aberration::Bool=true,
-       refract::Bool=true, lat::Real=NaN, lon::Real=NaN, altitude::Real=0,
-       pressure::Real=NaN, temperature::Real=NaN, obsname::AbstractString="") =
-           _hor2eq(promote(float(alt), float(az), float(jd), float(lat), float(lon),
-                   float(altitude), float(temperature), float(pressure))..., ws, B1950,
-                   precession, nutate, aberration, refract, obsname)
+hor2eq
+
 # TODO: Make hor2eq type-stable, which it isn't currently because of keyword arguments
 # Note that the inner function `_hor2eq` is type stable
