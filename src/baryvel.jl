@@ -198,6 +198,8 @@ Compute the radial velocity of the Earth toward Altair on 15-Feb-1994 using
 both the original Stumpf algorithm.
 
 ```jldoctest
+julia> using AstroLib
+
 julia> jd = jdcnv(1994, 2, 15, 0)
 2.4493985e6
 

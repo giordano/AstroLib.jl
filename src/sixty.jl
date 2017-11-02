@@ -38,7 +38,7 @@ An array of three `AbstractFloat`, that are the sexagesimal counterpart
 julia> using AstroLib
 
 julia> sixty(-0.615)
-3-element Array{Float64,1}:
+3-element SVector{3,Float64}:
  -0.0
  36.0
  54.0

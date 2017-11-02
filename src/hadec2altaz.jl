@@ -67,7 +67,7 @@ azimuth of this object?
 julia> using AstroLib
 
 julia> alt, az = hadec2altaz(336.6829, 19.1825, ten(43, 4, 42))
-(59.08617155005683, 133.3080693440254)
+(59.08617155005685, 133.3080693440254)
 ```
 
 ### Notes ###
