@@ -50,7 +50,7 @@ declination, or degrees.
 ### Arguments ###
 
 * `units`: integer, can be either 0, or 1, or 2.  Describes units of inputs and
- output:
+  output:
     * 0: everything (input right ascensions and declinations, and output
       distance) is radians
     * 1: right ascensions are in decimal hours, declinations in decimal degrees,
