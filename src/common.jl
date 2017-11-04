@@ -134,7 +134,10 @@ const observatories =
          "ctio"=>Observatory("Cerro Tololo Interamerican Observatory",
                              -30.16527778, -70.815, 2215., -4),
          "kpno"=>Observatory("Kitt Peak National Observatory",
-                             (31,57.8), (-111,36.0), 2120., -7))
+                             (31,57.8), (-111,36.0), 2120., -7),
+         # https://en.wikipedia.org/wiki/Pine_Bluff_Observatory
+         "pbo"=>Observatory("Pine Bluff Observatory",
+                            43.0777, -89.6717, 362, -6))
 
 """
 List of planets of the Solar System, from Mercury to Pluto.  The elements of the

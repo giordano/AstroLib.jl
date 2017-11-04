@@ -167,32 +167,31 @@ end
 # correlated with the output from eq2hor routine of IDL AstroLib, with
 # differences only in the least significant digits.
 @testset "eq2hor" begin
-    alt_o, az_o, ha_o = eq2hor(259.20238631600944, 49.674907472176095, AstroLib.J2000,
-                               B1950=true)
-    @test alt_o ≈ 43.68790027650299
-    @test az_o ≈ 56.68399935391907
-    @test ha_o ≈ 291.0817910119524
-    alt_o, az_o, ha_o = eq2hor(142.2933457820434,-34.218006262991786, 2e6, ws=true,
-                               B1950=true, precession = false, nutate=false,
-                               aberration=false, refract=false, lat = 54.435,
-                               lon = -34.78, altitude = 1000.34, pressure = 500.345,
-                               temperature = 293.343)
+    alt_o, az_o, ha_o = eq2hor(259.20238631600944, 49.674907472176095,
+                               AstroLib.J2000, "pbo", B1950=true)
+    @test alt_o ≈ 43.804935603297004
+    @test az_o ≈ 56.74141416977815
+    @test ha_o ≈ 291.2750910119525
+    alt_o, az_o, ha_o = eq2hor(142.2933457820434, -34.218006262991786, 2e6, 54.435, -34.78,
+                               1000.34, ws=true, B1950=true, precession = false,
+                               nutate=false, aberration=false,
+                               refract=false, pressure = 500.345, temperature = 293.343)
     @test alt_o ≈ 1.3449999999999924
     @test az_o ≈ 359.43
     @test ha_o ≈ 359.3108663499664
     alt_o, az_o, ha_o = eq2hor(3.3222617779538037, 15.190516725395284, 2466879.7083333,
-                               obsname="kpno", pressure = 711, temperature = 273)
+                               "kpno", pressure = 711, temperature = 273)
     @test alt_o ≈ 37.91138916818937
     @test az_o ≈ 264.918333213257
     @test ha_o ≈ 54.61193155973385
     alt_o, az_o, ha_o = @inferred(AstroLib._eq2hor(259.52076321839485, 49.62352289872951,
-                                                   Float64(AstroLib.J2000), NaN, NaN, 0.0,
-                                                   NaN, NaN, false, false, true, true,
-                                                   true, true, ""))
+                                                   Float64(AstroLib.J2000), 43.0783,
+                                                   -89.865, 0.0, NaN, NaN, false, false,
+                                                   true, true, true, true))
     @test alt_o ≈ 43.687900264047116
     @test az_o ≈ 56.68399934960606
     @test ha_o ≈ 291.0817909922114
-    alt_o, az_o = eq2hor(hor2eq(25, 55, 2.05e6)[1:2]..., 2.05e6)
+    alt_o, az_o = eq2hor(hor2eq(25, 55, 2.05e6, "pbo")[1:2]..., 2.05e6, "pbo")
     @test alt_o ≈ 24.99993224731665
     @test az_o ≈ 54.99993893556545
 end
@@ -394,30 +393,29 @@ end
 # correlated with the output from hor2eq routine of IDL AstroLib, with
 # differences only in the least significant digits.
 @testset "hor2eq" begin
-    ra_o, dec_o, ha_o = hor2eq(43.6879, 56.684, AstroLib.J2000, B1950=true)
-    @test ra_o ≈ 259.20238631600944
-    @test dec_o ≈ 49.674907472176095
-    @test ha_o ≈ 291.0817908419628
-    ra_o, dec_o, ha_o = hor2eq(1.345, 359.43, 2e6, ws=true, B1950=true,
-                               precession = false, nutate=false, aberration=false,
-                               refract=false, lat = 54.435, lon = -34.78,
-                               altitude = 1000.34, pressure = 500.345,
+    ra_o, dec_o, ha_o = hor2eq(43.6879, 56.684, AstroLib.J2000, "pbo", B1950=true)
+    @test ra_o ≈ 259.3943636338339
+    @test dec_o ≈ 49.67396411401468
+    @test ha_o ≈ 291.0833116221485
+    ra_o, dec_o, ha_o = hor2eq(1.345, 359.43, 2e6, 54.435, -34.78, 1000.34, ws=true,
+                               B1950=true, precession = false, nutate=false,
+                               aberration=false, refract=false, pressure = 500.345,
                                temperature = 293.343)
     @test ra_o ≈ 142.2933457820434
     @test dec_o ≈ -34.218006262991786
     @test ha_o ≈ 359.3108663499664
     ra_o, dec_o, ha_o = hor2eq(ten(37,54,41), ten(264,55,06), 2466879.7083333,
-                               obsname="kpno", pressure = 711, temperature = 273)
+                               "kpno", pressure = 711, temperature = 273)
     @test ra_o ≈ 3.3222617779538037
     @test dec_o ≈ 15.190516725395284
     @test ha_o ≈ 54.61193186104758
     ra_o, dec_o, ha_o = @inferred(AstroLib._hor2eq(43.6879, 56.684, Float64(AstroLib.J2000),
-                                          NaN, NaN, 0.0, NaN, NaN, false, false, true,
-                                          true, true, true, ""))
+                                                   43.0783, -89.865, 0.0, NaN, NaN, false,
+                                                   false, true, true, true, true))
     @test ra_o ≈ 259.52076321839485
     @test dec_o ≈ 49.62352289872951
     @test ha_o ≈ 291.0817908419628
-    ra_o, dec_o = hor2eq(eq2hor(45, 60, 2e6)[1:2]..., 2e6)
+    ra_o, dec_o = hor2eq(eq2hor(45, 60, 2e6, "pbo")[1:2]..., 2e6, "pbo")
     @test ra_o ≈ 45.0001735428487
     @test dec_o ≈ 59.999995143349956
 end
