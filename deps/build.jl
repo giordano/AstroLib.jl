@@ -7,6 +7,6 @@ try
     download("https://bintray.com/giordano/AstroLib.jl-Data/download_file?file_path=NP.xy-2017-03-08",
              "NP.xy")
 catch
-    warn("""Could not download file `NP.xy', you will not be able to use
+    @warn("""Could not download file `NP.xy', you will not be able to use
 "geo2mag" and "mag2geo" functions, but you can use all other routines.""")
 end

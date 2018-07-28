@@ -32,7 +32,7 @@ The number of Reduced Julian Days is returned.
 Get number of Reduced Julian Days at 2016-03-20T15:24:00.
 
 ```jldoctest
-julia> using AstroLib
+julia> using AstroLib, Dates
 
 julia> juldate(DateTime(2016, 03, 20, 15, 24))
 57468.14166666667
@@ -52,11 +52,11 @@ number of Julian days, use `jdcnv`, which is the inverse of `daycnv`.
 
 Code of this function is based on IDL Astronomy User's Library.
 """
-# Before 1582-10-15 Dates.datetime2julian uses proleptic Gregorian Calendar,
-# instead AstroLib's juldate uses Julian Calendar.  In addition, after that day
-# using Dates.datetime2julian(date)-2.4e6 would give results not precise enough.
-# For all these reasons, we use here the same algorithm as AstroLib's juldate.
 function juldate(dt::DateTime)
+    # Before 1582-10-15 Dates.datetime2julian uses proleptic Gregorian Calendar, instead
+    # AstroLib's juldate uses Julian Calendar.  In addition, after that day using
+    # Dates.datetime2julian(date)-2.4e6 would give results not precise enough.  For all
+    # these reasons, we use here the same algorithm as AstroLib's juldate.
     year, month, day = Dates.yearmonthday(dt)
     hours, minutes, seconds, milliseconds =
         Dates.hour(dt), Dates.minute(dt),

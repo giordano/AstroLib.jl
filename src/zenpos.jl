@@ -43,7 +43,7 @@ A 2-tuple `(ra, dec)`:
 ### Example ###
 
 ```jldoctest
-julia> using AstroLib
+julia> using AstroLib, Dates
 
 julia> zenpos(DateTime(2017, 04, 25, 18, 59), 43.16, -24.32, 4)
 (0.946790432684706, 0.7532841051607526)

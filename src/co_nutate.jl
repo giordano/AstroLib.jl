@@ -14,7 +14,7 @@ function _co_nutate(jd::T, ra::T, dec::T) where {T<:AbstractFloat}
     z2 = z + sec2rad(x * se * d_psi + y * d_eps)
     xyproj = hypot(x2, y2)
     r = hypot(xyproj, z2)
-    ra2 = atan2(y2, x2)
+    ra2 = atan(y2, x2)
     dec2 = asin(z2/r)
     ra2 = rad2deg(ra2)
 

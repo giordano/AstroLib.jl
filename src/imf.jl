@@ -6,7 +6,7 @@ function imf(mass::AbstractVector{T}, expon::AbstractVector{T},
     if length(mass_range) != ne_comp + 1
         error("Length of array mass_range is not one more than that of expon")
     end
-    integ = Vector{T}(ne_comp)
+    integ = Vector{T}(undef, ne_comp)
     joint = ones(T, ne_comp)
     for i = 1:ne_comp
         if expon[i] != -1
@@ -20,9 +20,9 @@ function imf(mass::AbstractVector{T}, expon::AbstractVector{T},
         end
     end
     norm = joint./(dot(integ, joint))
-    psi = zeros(mass)
+    psi = fill!(similar(mass), 0)
     for i = 1:ne_comp
-        test = find(mass_range[i].< mass.<mass_range[i+1])
+        test = findall(mass_range[i].< mass.<mass_range[i+1])
         if length(test) !=0
             psi[test] = norm[i].*(mass[test].^expon[i])
         end
@@ -67,7 +67,7 @@ julia> using AstroLib
 
 julia> imf([3], [-1.35], [0.1, 110]) / 3
 1-element Array{Float64,1}:
- 0.0129414
+ 0.01294143518151214
 ```
 
 ### Notes ###

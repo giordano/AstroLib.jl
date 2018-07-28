@@ -14,7 +14,7 @@ function _sphdist(long1::T, lat1::T, long2::T, lat2::T,
     xc = y1*z2 - z1*y2
     yc = z1*x2 - x1*z2
     zc = x1*y2 - y1*x2
-    sn = vecnorm((xc, yc, zc))
+    sn = norm((xc, yc, zc))
     # Convert to polar coordinates.
     radius, angle = recpol(cs, sn)
     return degrees ? rad2deg(angle) : angle

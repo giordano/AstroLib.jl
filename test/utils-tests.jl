@@ -618,7 +618,7 @@ end
     ra_out, dec_out = @inferred(planet_coords(2.45e6, 9))
     @test ra_out ≈ 238.3131013864547
     @test dec_out ≈ -6.964788781133789
-    @test @inferred(planet_coords(juldate(), 3) == (0, 0))
+    @test @inferred(planet_coords(juldate(1), 3) == (0, 0))
 end
 
 @testset "polrec" begin

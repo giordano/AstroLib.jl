@@ -27,7 +27,7 @@ function posang(units::Integer, ra1::T, dec1::T, ra2::T, dec2::T) where {T<:Abst
     end
     sin_radif, cos_radif = sincos(ra2_rad - ra1_rad)
     sin_dec1, cos_dec1 = sincos(dec1_rad)
-    angle = atan2(sin_radif, cos_dec1 * tan(dec2_rad) -
+    angle = atan(sin_radif, cos_dec1 * tan(dec2_rad) -
                   sin_dec1 * cos_radif)
     if units == 0
         return angle

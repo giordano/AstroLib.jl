@@ -2,17 +2,12 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 using AstroLib
-
-if isdefined(Base, :Test) && !Base.isdeprecated(Base, :Test)
-    using Base.Test
-else
-    using Test
-end
+using Test, Dates
 
 include("utils-tests.jl")
 include("misc-tests.jl")
 
 # Dummy calls to "show" for new data types, just to increase code coverage.
-show(DevNull, AstroLib.planets["mercury"])
-show(DevNull, AstroLib.observatories["ca"])
-show(DevNull, AstroLib.observatories["vbo"])
+show(devnull, AstroLib.planets["mercury"])
+show(devnull, AstroLib.observatories["ca"])
+show(devnull, AstroLib.observatories["vbo"])

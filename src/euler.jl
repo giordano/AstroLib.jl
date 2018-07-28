@@ -30,7 +30,7 @@ function _euler(ai::T, bi::T, select::Integer, FK4::Bool, radians::Bool) where {
     sb, cb = sincos(bi)
     x = (cb * sa, cb * ca, sb)
     bo = ctheta[select]*x[3] - stheta[select]*x[1]
-    ao = mod2pi(atan2(ctheta[select]*x[1] + stheta[select]*x[3], x[2]) + psi[select])
+    ao = mod2pi(atan(ctheta[select]*x[1] + stheta[select]*x[3], x[2]) + psi[select])
     bo = asin(bo)
 
     if radians

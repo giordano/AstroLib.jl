@@ -13,7 +13,7 @@ function _precess(ra::T, dec::T, equinox1::T, equinox2::T,
     x = SVector(cos_dec * cos_ra, cos_dec * sin_ra, sin_dec)
     r = premat(equinox1, equinox2, FK4=FK4)
     x2 = r*x
-    ra_out  = mod2pi(atan2(x2[2], x2[1]))
+    ra_out  = mod2pi(atan(x2[2], x2[1]))
     dec_out = asin(x2[3])
     if radians
         return ra_out, dec_out

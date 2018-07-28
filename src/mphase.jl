@@ -11,7 +11,7 @@ function mphase(jd::AbstractFloat)
     phi = acos(sin_decs * sin_decm + cos_decs * cos_decm * cos(ras - ram))
     # "dism" is in kilometers, AU in meters
     sin_phi, cos_phi = sincos(phi)
-    inc = atan2(AU * sin_phi, dism * 1000 - AU * cos_phi)
+    inc = atan(AU * sin_phi, dism * 1000 - AU * cos_phi)
     return (1 + cos(inc))/2
 end
 

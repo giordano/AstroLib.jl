@@ -27,7 +27,7 @@ Find the days of the year for March 5 in the years 2015 and 2016 (this is a leap
 year).
 
 ```jldoctest
-julia> using AstroLib
+julia> using AstroLib, Dates
 
 julia> ymd2dn.([Date(2015, 3, 5), Date(2016, 3, 5)])
 2-element Array{Int64,1}:

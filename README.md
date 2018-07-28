@@ -29,7 +29,7 @@ to see how you can help.  Volunteers are welcome!
 Installation
 ------------
 
-`AstroLib.jl` is available for Julia 0.6 and later versions, and can be
+`AstroLib.jl` is available for Julia 0.7 and later versions, and can be
 installed with
 [Julia built-in package manager](http://docs.julialang.org/en/stable/manual/packages/).
 In a Julia session run the command
@@ -39,7 +39,7 @@ julia> Pkg.update()
 julia> Pkg.add("AstroLib")
 ```
 
-Older versions are also available for Julia 0.4 and 0.5.
+Older versions are also available for Julia 0.4-0.6.
 
 Note that, in order to work, a few functions require external files, which are
 automatically downloaded when building the package.  Should these files be

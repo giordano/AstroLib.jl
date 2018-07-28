@@ -53,7 +53,7 @@ function _sunpos(jd::AbstractFloat, radians::Bool)
     oblt = deg2rad(oblt)
     sin_oblt, cos_oblt = sincos(oblt)
     sin_l, cos_l = sincos(deg2rad(l))
-    ra = mod2pi(atan2(sin_l * cos_oblt, cos_l))
+    ra = mod2pi(atan(sin_l * cos_oblt, cos_l))
     dec = asin(sin_l * sin_oblt)
     if radians
         return ra, dec, longmed, oblt

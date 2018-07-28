@@ -56,16 +56,16 @@ Find the Greenwich mean sidereal time (GMST) on 2008-07-30 at 15:53 in
 Baltimore, Maryland (longitude=-76.72 degrees).  The timezone is EDT or tz=-4
 
 ```jldoctest
-julia> using AstroLib
+julia> using AstroLib, Dates
 
 julia> lst = ct2lst(-76.72, -4, DateTime(2008, 7, 30, 15, 53))
 11.356505172312609
 
 julia> sixty(lst)
-3-element SVector{3,Float64}:
+3-element StaticArrays.SArray{Tuple{3},Float64,1,3}:
  11.0
  21.0
- 23.4186
+ 23.418620325392112
 ```
 
 Find the Greenwich mean sidereal time (GMST) on 2015-11-24 at 13:21 in
@@ -74,7 +74,7 @@ Provide `ct2lst` only with the longitude of the place and the number of
 Julian days.
 
 ```jldoctest
-julia> using AstroLib
+julia> using AstroLib, Dates
 
 julia> longitude=ten(8, 43); # Convert longitude to decimals.
 
@@ -86,10 +86,10 @@ julia> lst = ct2lst(longitude, jd) # Calculate Greenwich Mean Sidereal Time.
 17.140685171005316
 
 julia> sixty(lst)
-3-element SVector{3,Float64}:
+3-element StaticArrays.SArray{Tuple{3},Float64,1,3}:
  17.0
   8.0
- 26.4666
+ 26.466615619137883
 ```
 
 ### Notes ###

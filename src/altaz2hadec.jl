@@ -10,9 +10,9 @@ function altaz2hadec(alt::T, az::T, lat::T) where {T<:AbstractFloat}
     sin_az_r, cos_az_r = sincos(az_r)
     sin_lat_r, cos_lat_r = sincos(lat_r)
     # Find local hour angle (in degrees, from 0. to 360.).
-    ha = rad2deg(atan2(-sin_az_r * cos_alt_r,
-                       -cos_az_r * sin_lat_r * cos_alt_r +
-                       sin_alt_r * cos_lat_r))
+    ha = rad2deg(atan(-sin_az_r * cos_alt_r,
+                      -cos_az_r * sin_lat_r * cos_alt_r +
+                      sin_alt_r * cos_lat_r))
     ha = mod(ha, 360)
     # Find declination (positive if north of Celestial Equator, negative if
     # south)

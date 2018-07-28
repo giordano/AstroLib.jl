@@ -19,7 +19,7 @@ function geo2geodetic(lat::T, long::T, alt::T, eqrad::T, polrad::T) where {T<:Ab
     b1   = eqrad/sqrt(1 - (e*s1)^2)
     u1   = b1*c1
     w1   = b1*s1*(1 - e^2)
-    return rad2deg(atan2(s1, c1)), long, hypot(r - u1, z - w1)
+    return rad2deg(atan(s1, c1)), long, hypot(r - u1, z - w1)
 end
 
 """
@@ -142,9 +142,9 @@ julia> using AstroLib
 
 julia> collect(geodetic2geo(geo2geodetic(67.2, 13.4, 1.2))) - [67.2, 13.4, 1.2]
 3-element Array{Float64,1}:
- -3.56725e-9
+ -3.5672513831741526e-9
   0.0
-  9.48421e-10
+  9.484211194177306e-10
 ```
 
 Code of this function is based on IDL Astronomy User's Library.

@@ -7,7 +7,7 @@ function geodetic2geo(lat::T, long::T, alt::T, eqrad::T, polrad::T) where {T<:Ab
     beta = sqrt(1 - (e * sin_lat) ^ 2)
     r = (eqrad / beta + alt) * cos_lat
     z = (eqrad*(1 - e ^ 2) / beta + alt) * sin_lat
-    return rad2deg(atan2(z,r)), long, hypot(r, z) - eqrad
+    return rad2deg(atan(z,r)), long, hypot(r, z) - eqrad
 end
 
 """

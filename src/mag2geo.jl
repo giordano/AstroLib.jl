@@ -31,10 +31,10 @@ function _mag2geo(lat::T, long::T, pole_lat::T, pole_long::T) where {T<:Abstract
                                     zero(T),             zero(T),  one(T))
     out = maglong2geolong * togeolat * SVector(x, y, z)
 
-    geolat  = rad2deg(atan2(out[3], hypot(out[1], out[2])))
-    geolong = rad2deg(atan2(out[2], out[1]))
+    geolat  = rad2deg(atan(out[3], hypot(out[1], out[2])))
+    geolong = rad2deg(atan(out[2], out[1]))
     # I don't care about that one...just put it there for completeness' sake
-    # magalt  = vecnorm(out) - r
+    # magalt  = norm(out) - r
     return geolat, geolong
 end
 

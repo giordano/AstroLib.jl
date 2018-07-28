@@ -36,15 +36,15 @@ function _bprecess(ra::T, dec::T, parallax::T, radvel::T,
     else
         A = A_precess
     end
-    rmag = vecnorm(r1)
+    rmag = norm(r1)
     s1 = r1 ./ rmag
-    r = Array{T}(3)
+    r = Array{T}(undef, 3)
     s = copy(s1)
     for j = 0:2
         r .= s1 .+ A .- dot(s, A) .* s
         s .= r ./ rmag
     end
-    rmag = vecnorm(r)
+    rmag = norm(r)
     # s1_dot = r1_dot ./ rmag
     # r_dot = s1_dot + A_dot_precess - sum(s.*A_dot_precess)*s
     x = r[1]
@@ -56,7 +56,7 @@ function _bprecess(ra::T, dec::T, parallax::T, radvel::T,
     # muradec[1] = (x*y_dot - y*x_dot)/(x*x + y*y)
     # muradec[2] = (z_dot*(x*x + y*y) - z*(x*x_dot + y*y_dot))/(rmag*rmag*hypot(x, y))
     dec1950 = asin(z / rmag)
-    ra1950  = atan2(y, x)
+    ra1950  = atan(y, x)
     # if parallax > 0
     #     radvel = (x*x_dot + y*y_dot + z*z_dot)/(21.095*parallax*rmag)
     #     parallax = parallax / rmag

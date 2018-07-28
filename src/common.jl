@@ -27,7 +27,7 @@ const POLELATLONG =
             temp
         end
     catch
-        warn("""Could not find file NP.xy, you will not be able to use
+        @warn("""Could not find file NP.xy, you will not be able to use
 "geo2mag" and "mag2geo" functions.  Build again the package with
     Pkg.build("AstroLib")
     Base.compilecache("AstroLib")

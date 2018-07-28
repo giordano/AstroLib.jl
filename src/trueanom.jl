@@ -45,7 +45,7 @@ plotting.
 
 ```julia
 using PyPlot
-M = linspace(0, 2pi, 1001)[1:end-1];
+M = range(0, stop=2pi, length=1001)[1:end-1];
 for ecc in (0, 0.5, 0.9)
     plot(M, mod2pi.(trueanom.(kepler_solver.(M, ecc), ecc)))
 end

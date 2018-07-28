@@ -3,7 +3,7 @@
 
 # Helper function to format seconds part.
 function formatsec(sec::Real, prec::Integer, truncate::Bool)
-    sec = truncate ? trunc(sec, prec) : round(sec, prec)
+    sec = truncate ? trunc(sec, digits=prec) : round(sec, digits=prec)
     # Seconds of right ascension should be always positive (the hours part
     # holds the sign), so we don't need to take the absolute values.
     sec_frac, sec_int = modf(sec)
@@ -12,7 +12,7 @@ function formatsec(sec::Real, prec::Integer, truncate::Bool)
     # Unless precision is 0, format the fractional part with the decimal
     # separator "." followed by seconds rounded to the precision required
     # and right padded with zeros.
-    sec_frac_str = prec == 0 ? "" : rpad(string(round(sec_frac, prec+1)),
+    sec_frac_str = prec == 0 ? "" : rpad(string(round(sec_frac, digits=prec+1)),
                                          prec+2, "0")[2:end]
     return sec_string = string(sec_int_str, sec_frac_str)
 end

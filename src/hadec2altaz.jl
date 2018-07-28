@@ -12,8 +12,8 @@ function _hadec2altaz(ha::T, dec::T, lat::T, ws::Bool) where {T<:AbstractFloat}
     r = hypot(x, y)
 
     # Now get altitude, azimuth
-    az  = rad2deg(mod2pi(atan2(y, x)))
-    alt = rad2deg(atan2(z, r))
+    az  = rad2deg(mod2pi(atan(y, x)))
+    alt = rad2deg(atan(z, r))
     # Convert azimuth to West from South, if desired
     if ws
         az = mod(az + 180, 360)

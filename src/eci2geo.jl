@@ -3,12 +3,12 @@
 
 function eci2geo(x::T, y::T, z::T, jd::T) where {T<:AbstractFloat}
     Re    = planets["earth"].eqradius*1e-3
-    theta = atan2(y, x) # Azimuth.
+    theta = atan(y, x) # Azimuth.
     gst   = ct2lst(zero(T), jd)
     sid_angle = gst*pi/12 # Sidereal angle.
     long  = mod(rad2deg(theta - sid_angle), 360) # Longitude.
     r     = hypot(x, y)
-    lat   = atan2(z, r) # Latitude.
+    lat   = atan(z, r) # Latitude.
     alt   = r/cos(lat) - Re # Altitude.
     lat   = rad2deg(lat)
     return lat, long, alt

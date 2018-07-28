@@ -4,7 +4,7 @@
 __precompile__()
 
 module AstroLib
-using Base.Dates
+using Dates, LinearAlgebra, Printf
 using StaticArrays
 
 # Note on function definitions in this package.  Most functions are defined as

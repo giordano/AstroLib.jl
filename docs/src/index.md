@@ -8,14 +8,14 @@ An extensive error testing suite ensures old fixed bugs will not be brought back
 
 ## Installation
 
-AstroLib is available for Julia 0.6 and later versions, and can be installed with [Julia](https://github.com/julialang/julia.jl)'s built-in package manager. In a Julia session run the command
+AstroLib is available for Julia 0.7 and later versions, and can be installed with [Julia](https://github.com/julialang/julia.jl)'s built-in package manager. In a Julia session run the command
 
 ```julia
 julia> Pkg.update()
 julia> Pkg.add("AstroLib")
 ```
 
-Older versions are also available for Julia 0.4 and 0.5.
+Older versions are also available for Julia 0.4-0.6.
 
 Note that, in order to work, a few functions require external files, which are automatically downloaded when building the package. Should these files be missing for some reason, you will be able to load the package but some functions may not work properly. You can manually build the package with
 

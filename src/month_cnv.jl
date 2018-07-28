@@ -56,7 +56,6 @@ julia> month_cnv.([2, 12, 6], short=true, low=true)
 ```
 
 """
-##### Numeric input
 function month_cnv(number::Integer; short::Bool=false,
                    up::Bool=false, low::Bool=false)
     if short
@@ -72,11 +71,10 @@ function month_cnv(number::Integer; short::Bool=false,
     return name
 end
 
-##### String input
 function month_cnv(name::AbstractString)
     name = strip(name)
     if length(name) >= 3
-        output::Integer = getfield(Dates, Symbol(ucfirst(lowercase(name[1:3]))))
+        output::Integer = getfield(Dates, Symbol(uppercasefirst(lowercase(name[1:3]))))
         return output
     else
         # Do the same as original AstroLib: return -1 for input string shorter

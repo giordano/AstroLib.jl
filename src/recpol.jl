@@ -3,9 +3,9 @@
 
 function _recpol(x::T, y::T, degrees::Bool) where {T<:AbstractFloat}
     if degrees
-        return hypot(x, y), rad2deg(atan2(y, x))
+        return hypot(x, y), rad2deg(atan(y, x))
     else
-        return return hypot(x, y), atan2(y, x)
+        return hypot(x, y), atan(y, x)
     end
 end
 

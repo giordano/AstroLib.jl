@@ -37,7 +37,7 @@ Plot the spectrum of a black body in \$[0, 3]\$ µm at \$5000\$ K.  Use
 
 ```julia
 using PyPlot
-wavelength = linspace(0, 3e-6, 1000);
+wavelength = range(0, stop=3e-6, length=1000);
 temperature = ones(wavelength)*5000;
 flux = planck_wave.(wavelength, temperature);
 plot(wavelength, flux)

@@ -120,7 +120,7 @@ function _moonpos(jd::T, radians::Bool) where {T<:AbstractFloat}
     sin_β, cos_β = sincos(β)
     sin_ɛ, cos_ɛ = sincos(ɛ)
     sin_λ, cos_λ = sincos(λ)
-    ra = mod2pi(atan2(sin_λ * cos_ɛ - tan(β) * sin_ɛ, cos_λ))
+    ra = mod2pi(atan(sin_λ * cos_ɛ - tan(β) * sin_ɛ, cos_λ))
     dec = asin(sin_β * cos_ɛ + cos_β * sin_ɛ * sin_λ)
     if radians
         return ra, dec, dis, λ, β

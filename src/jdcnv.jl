@@ -28,7 +28,7 @@ Number of Julian days, as a floating point.
 Find the Julian days number at 2016 August 23, 03:39:06.
 
 ```jldoctest
-julia> using AstroLib
+julia> using AstroLib, Dates
 
 julia> jdcnv(DateTime(2016, 08, 23, 03, 39, 06))
 2.4576236521527776e6

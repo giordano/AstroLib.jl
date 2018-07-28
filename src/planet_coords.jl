@@ -11,8 +11,8 @@ function _planet_coords(date::T, num::Integer) where {T<:AbstractFloat}
     x = rad * cos_lat * cos_long - rade * cos_late * cos_longe
     y = rad * cos_lat * sin_long - rade * cos_late * sin_longe
     z = rad * sin_lat - rade * sin_late
-    lamda = rad2deg(atan2(y,x))
-    beta = rad2deg(atan2(z, hypot(x,y)))
+    lamda = rad2deg(atan(y,x))
+    beta = rad2deg(atan(z, hypot(x,y)))
     ra, dec = euler(lamda, beta, 4)
     return ra, dec
 end
@@ -53,7 +53,7 @@ the accuracy can get much worse.
 Find the RA, Dec of Venus on 1992 Dec 20
 
 ```jldoctest
-julia> using AstroLib
+julia> using AstroLib, Dates
 
 julia> adstring(planet_coords(DateTime(1992,12,20),2))
 " 21 05 02.8  -18 51 41"

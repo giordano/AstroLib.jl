@@ -82,7 +82,7 @@ end
 
 # New type representation
 function show(io::IO, pl::Planet)
-    println(io, "Planet:                    ", ucfirst(pl.name))
+    println(io, "Planet:                    ", uppercasefirst(pl.name))
     println(io, "mean radius:               ", pl.radius, " m")
     println(io, "equatorial radius:         ", pl.eqradius, " m")
     println(io, "polar radius:              ", pl.polradius, " m")

@@ -84,8 +84,8 @@ julia> using AstroLib
 
 julia> ismeuv.([670, 910], 1e19, 5e17, 5e17)
 2-element Array{Float64,1}:
- 27.3539
- 62.6838
+ 27.35393320556168
+ 62.683796028917286
 ```
 
 ### Notes ###

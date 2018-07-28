@@ -61,7 +61,7 @@ both components of a binary star.  Use
 
 ```julia
 using PyPlot
-φ = linspace(0, 2, 1000); # Generate 1000 phase points
+φ = range(0, stop=2, length=1000); # Generate 1000 phase points
 plot(φ ,helio_rv.(φ, 0, 1, 0, 100, 0.6, 45)) # Plot 1st component
 plot(φ ,helio_rv.(φ, 0, 1, 0, 100, 0.6, 45+180)) # Plot 2nd component
 ```

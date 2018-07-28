@@ -46,7 +46,7 @@ string will have `"DD/MM/YYThh:mm:ss"` format.
 ### Example ###
 
 ```jldoctest
-julia> using AstroLib
+julia> using AstroLib, Dates
 
 julia> get_date(DateTime(21937, 05, 30, 09, 59, 00), timetag=true)
 "21937-05-30T09:59:00"

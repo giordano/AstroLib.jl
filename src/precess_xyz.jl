@@ -2,8 +2,8 @@
 # Copyright (C) 2016 Mosè Giordano.
 
 function precess_xyz(x::T, y::T, z::T, equinox1::T, equinox2::T) where {T<:AbstractFloat}
-    ra  = atan2(y, x)
-    del = vecnorm((x, y, z)) #  Magnitude of distance to Sun
+    ra  = atan(y, x)
+    del = norm((x, y, z)) #  Magnitude of distance to Sun
     dec = asin(z/del)
     # precess the ra and dec
     ra, dec = precess(ra, dec, equinox1, equinox2, radians=true)

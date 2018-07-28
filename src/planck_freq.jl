@@ -37,7 +37,7 @@ Use [PyPlot.jl](https://github.com/JuliaPlots/Plots.jl/) for plotting.
 
 ```julia
 using PyPlot
-frequency = logspace(12, 15.4, 1000);
+frequency = exp10.(range(12, stop=15.4, length=1000));
 temperature = ones(frequency)*8000;
 flux = planck_freq.(frequency, temperature);
 plot(frequency, flux)

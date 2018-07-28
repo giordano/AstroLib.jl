@@ -31,7 +31,7 @@ function _jprecess(ra::T, dec::T, parallax::T, radvel::T, epoch::T,
     r0 = SVector(cosra*cosdec,  sinra*cosdec,  sindec)
     r0_dot = SVector(-muradec[1]*sinra*cosdec - muradec[2]*cosra*sindec,
                      muradec[1]*cosra*cosdec - muradec[2]*sinra*sindec,
-                     muradec[2]*cosdec) .+ 21.095 .* radvel .* parallax .* r0
+                     muradec[2]*cosdec) + 21.095 * radvel * parallax * r0
     r1 = r0 .- A .+ dot(r0, A) .* r0
     r1_dot = r0_dot .- A_dot_precess .+ dot(r0, A_dot_precess) .* r0
     R_1 = vcat(r1, r1_dot)
@@ -50,13 +50,13 @@ function _jprecess(ra::T, dec::T, parallax::T, radvel::T, epoch::T,
         # y_dot= R[4]
         # z_dot = R[5]
     end
-    rmag = vecnorm((x, y, z))
+    rmag = norm((x, y, z))
     r2 = rmag*rmag
     dec2000 = asin(z / rmag)
-    ra2000  = atan2(y, x)
+    ra2000  = atan(y, x)
     # if isnan(epoch)
     #     muradec[1] = (x*y_dot - y*x_dot)/(x*x + y*y)
-    #     muradec[2] = (z_dot*(x*x + y*y) - z*(x*x_dot + y*y_dot))/(r2*vecnorm((x, y)))
+    #     muradec[2] = (z_dot*(x*x + y*y) - z*(x*x_dot + y*y_dot))/(r2*norm((x, y)))
     # end
     # if parallax > 0
     #     radvel   = (x*x_dot + y*y_dot + z*z_dot)/(21.095*parallax*rmag)

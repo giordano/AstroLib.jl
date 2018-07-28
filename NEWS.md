@@ -1,6 +1,14 @@
 History of AstroLib.jl
 ======================
 
+v0.4.0 (2018-??-??)
+-------------------
+
+### Breaking Changes
+
+* Now `AstroLib.jl` requires Julia 0.7.  Support for previous versions has been
+  dropped.
+
 v0.3.0 (2017-11-11)
 -------------------
 
