@@ -116,7 +116,9 @@ degrees, for every day in 2016.  Use
 
 ```julia
 using PyPlot
-days = DateTime(2016):DateTime(2016, 12, 31);
+using Dates
+
+days = DateTime(2016):Day(1):DateTime(2016, 12, 31);
 ra, declin = sunpos(jdcnv.(days));
 plot(days, ra/15); plot(days, declin)
 ```
