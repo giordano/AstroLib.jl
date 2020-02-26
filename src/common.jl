@@ -1,6 +1,8 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
+using DelimitedFiles
+
 """
 List of locations of North Magnetic Pole since 1590.
 
@@ -10,9 +12,6 @@ This is provided by World Magnetic Model
 const POLELATLONG =
     try
         let
-            if !isdefined(Base, :DataFmt)
-                using DelimitedFiles
-            end
             local polelatlong, rows, floattype, temp
             polelatlong = readdlm(joinpath(@__DIR__,
                                            "..", "deps", "NP.xy"))
