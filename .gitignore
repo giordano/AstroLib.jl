@@ -9,3 +9,4 @@ _build
 /docs/build/
 /docs/site/
 /deps/NP.xy
+/Manifest.toml

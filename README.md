@@ -29,17 +29,16 @@ to see how you can help.  Volunteers are welcome!
 Installation
 ------------
 
-`AstroLib.jl` is available for Julia 0.7 and later versions, and can be
-installed with
-[Julia built-in package manager](http://docs.julialang.org/en/stable/manual/packages/).
-In a Julia session run the command
+`AstroLib.jl` is available for Julia 1.0 and later versions, and can be
+installed with [Julia built-in package
+manager](https://julialang.github.io/Pkg.jl/stable/).  In a Julia session, after
+entering the package manager mode with `]`, run the command
 
 ```julia
-julia> Pkg.update()
-julia> Pkg.add("AstroLib")
+pkg> add AstroLib
 ```
 
-Older versions are also available for Julia 0.4-0.6.
+Older versions of this package are also available for Julia 0.4-0.7.
 
 Note that, in order to work, a few functions require external files, which are
 automatically downloaded when building the package.  Should these files be
