@@ -64,8 +64,8 @@ function juldate(dt::DateTime)
 
     if year < 0
         year += 1
-    else
-        year == 0 && error("There is no year zero in Julian Calendar")
+    elseif year == 0
+        error("There is no year zero in Julian Calendar")
     end
     # Do not include leap year in January and February.
     if month < 3
