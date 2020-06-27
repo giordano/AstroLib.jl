@@ -10,7 +10,7 @@ ten(d::Real, m::Real=0, s::Real=0) =
 
 # TODO: improve performance, if possible.  There are a couple of slow tests to
 # make parsing of the string work.
-function ten(strng::AbstractString)
+function ten(coordinate::AbstractString)
     lowercase(coordinate) == "missing" && return missing
     coord_strip = replace(uppercase(coordinate), r"[NSEW]" => "")
     split_coord = parse.(Float32, split(coord_strip, r"\s|:"))
