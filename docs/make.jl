@@ -2,9 +2,8 @@ using Documenter, AstroLib
 
 makedocs(
     modules = [AstroLib],
-    format = :html,
     sitename = "AstroLib",
-    pages    = Any[
+    pages    = [
         "Introduction"   => "index.md",
         "Reference"      => "ref.md",
     ]
@@ -12,7 +11,4 @@ makedocs(
 
 deploydocs(
     repo = "github.com/JuliaAstro/AstroLib.jl.git",
-    target = "build",
-    deps = nothing,
-    make = nothing,
 )

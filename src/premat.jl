@@ -60,7 +60,7 @@ Return the precession matrix from 1950.0 to 1975.0 in the FK4 system
 julia> using AstroLib
 
 julia> premat(1950,1975,FK4=true)
-3×3 StaticArrays.SArray{Tuple{3,3},Float64,2,9}:
+3×3 StaticArrays.SArray{Tuple{3,3},Float64,2,9} with indices SOneTo(3)×SOneTo(3):
  0.999981    -0.00558775  -0.00242909
  0.00558775   0.999984    -6.78691e-6
  0.00242909  -6.78633e-6   0.999997

@@ -62,7 +62,7 @@ julia> lst = ct2lst(-76.72, -4, DateTime(2008, 7, 30, 15, 53))
 11.356505172312609
 
 julia> sixty(lst)
-3-element StaticArrays.SArray{Tuple{3},Float64,1,3}:
+3-element StaticArrays.SArray{Tuple{3},Float64,1,3} with indices SOneTo(3):
  11.0
  21.0
  23.418620325392112
@@ -86,7 +86,7 @@ julia> lst = ct2lst(longitude, jd) # Calculate Greenwich Mean Sidereal Time.
 17.140685171005316
 
 julia> sixty(lst)
-3-element StaticArrays.SArray{Tuple{3},Float64,1,3}:
+3-element StaticArrays.SArray{Tuple{3},Float64,1,3} with indices SOneTo(3):
  17.0
   8.0
  26.466615619137883

@@ -99,7 +99,7 @@ julia> using AstroLib
 julia> jd = jdcnv(1987, 4, 10);
 
 julia> nutate(jd)
-(-3.7879310771104917, 9.442520698644492)
+(-3.787931077110494, 9.44252069864449)
 ```
 
 (2) Plot the daily nutation in longitude and obliquity during the 21st century.
