@@ -6,7 +6,7 @@ function ellipse2c(focus1::Point, focus2::Point, k; stepvalue=pi/100)
     # k is sum of distances to focii of any points on the ellipse)
     a = k/2  # Major axis
     cpoint = midpoint(focus1, focus2)
-    dc = norm(focus1, cpoint) # Distance of the foci to the center
+    dc = distance(focus1, cpoint) # Distance of the foci to the center
     b = sqrt(abs(a^2 - dc^2)) # Minor axis
     phi = slope(O, focus2) # Angle between the major axis and the x-axis
     drawing = false
@@ -21,7 +21,7 @@ function ellipse2c(focus1::Point, focus2::Point, k; stepvalue=pi/100)
         end
     end
     closepath()
-    stroke()
+    strokepath()
 end
 
 """
