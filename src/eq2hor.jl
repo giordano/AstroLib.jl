@@ -92,6 +92,7 @@ or
 Optional keyword arguments:
 
 * `ws` (optional boolean keyword): set this to `true` to get the azimuth measured
+  westward from south (not East of North)
 * `B1950` (optional boolean keyword): set this to `true` if the ra and dec
   are specified in B1950 (FK4 coordinates) instead of J2000 (FK5). This is `false` by
   default
