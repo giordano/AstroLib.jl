@@ -8,7 +8,7 @@ An extensive error testing suite ensures old fixed bugs will not be brought back
 
 ## Installation
 
-AstroLib is available for Julia 0.7 and later versions, and can be installed with [Julia](https://github.com/julialang/julia.jl)'s built-in package manager. In a Julia session run the command
+AstroLib is available for Julia 1.0 and later versions, and can be installed with [Julia](https://github.com/julialang/julia.jl)'s built-in package manager. In a Julia session run the command
 
 ```julia
 julia> Pkg.update()
@@ -42,7 +42,7 @@ julia> mag2flux(12.54 ± 0.03)
 
 ## How Can I Help?
 
-`AstroLib.jl` is developed on [GitHub](https://github.com/giordano/AstroLib.jl). You can contribute to the project in a number of ways: by translating more routines from IDL Astronomy User’s Library, or providing brand-new functions, or even improving existing ones (make them faster and more precise). Also bug reports are encouraged.
+`AstroLib.jl` is developed on [GitHub](https://github.com/juliaastro/AstroLib.jl). You can contribute to the project in a number of ways: by translating more routines from IDL Astronomy User’s Library, or providing brand-new functions, or even improving existing ones (make them faster and more precise). Also bug reports are encouraged.
 
 ## License
 
@@ -72,7 +72,7 @@ This is not the only effort to bundle astronomical functions written in Julia la
 
 Because of this, some of IDL AstroLib’s utilities are not provided in `AstroLib.jl` as they are already present in other Julia packages. Here is a list of such utilities:
 
--   `aper`, see [AperturePhotometry.jl](https://github.com/kbarbary/AperturePhotometry.jl) package
+-   `aper`, see [Photometry.jl](https://github.com/juliaastro/Photometry.jl) package
 -   `asinh`, already present in Julia with the same name
 -   `cirrange`, it is equivalent to `mod(x, 360)`.  To restrict a number to the
     range `[0, 2pi)` use `mod2pi(x)`
