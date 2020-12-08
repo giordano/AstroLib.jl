@@ -1,9 +1,8 @@
 # AstroLib
 
-| **Documentation**                       | [**Package Evaluator**][pkgeval-link] | **Build Status**                          | **Code Coverage**               |
+| **Documentation**                       | **Package Evaluator** | **Build Status**                          | **Code Coverage**               |
 |:---------------------------------------:|:-------------------------------------:|:-----------------------------------------:|:-------------------------------:|
-| [![][docs-stable-img]][docs-stable-url] | [![][pkg-0.5-img]][pkg-0.5-url]       | [![Build Status][travis-img]][travis-url] | [![][coveral-img]][coveral-url] |
-| [![][docs-latest-img]][docs-latest-url] | [![][pkg-0.6-img]][pkg-0.6-url]       | [![Build Status][appvey-img]][appvey-url] | [![][codecov-img]][codecov-url] |
+| [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][pkgeval-img]][pkgeval-url]       | [![Build Status][build-img]][build-url] | [![][coveral-img]][coveral-url] [![][codecov-img]][codecov-url] |
 
 Goal
 ----
@@ -191,7 +190,7 @@ julia> @doc FunctionName
 ```
 
 Full documentation of all functions can be accessed at
-http://juliaastro.github.io/AstroLib.jl/latest/.  There you can find the
+http://juliaastro.github.io/AstroLib.jl/dev/.  There you can find the
 complete list of all functions provided by this library.
 
 How Can I Help?
@@ -220,25 +219,17 @@ The AstroLib.jl package is licensed under the MIT "Expat" License.  The original
 author is Mosè Giordano.
 
 
-[docs-latest-img]: https://img.shields.io/badge/docs-latest-blue.svg
-[docs-latest-url]: http://juliaastro.github.io/AstroLib.jl/latest/
+[docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg
+[docs-dev-url]: http://juliaastro.github.io/AstroLib.jl/dev/
 
 [docs-stable-img]: https://img.shields.io/badge/docs-stable-blue.svg
 [docs-stable-url]: http://juliaastro.github.io/AstroLib.jl/stable/
 
-[pkgeval-link]: http://pkg.julialang.org/?pkg=AstroLib
+[pkgeval-img]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/A/AstroLib.svg
+[pkgeval-url]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/report.html
 
-[pkg-0.5-img]: http://pkg.julialang.org/badges/AstroLib_0.5.svg
-[pkg-0.5-url]: http://pkg.julialang.org/detail/AstroLib.html
-
-[pkg-0.6-img]: http://pkg.julialang.org/badges/AstroLib_0.6.svg
-[pkg-0.6-url]: http://pkg.julialang.org/detail/AstroLib.html
-
-[travis-img]: https://travis-ci.org/JuliaAstro/AstroLib.jl.svg?branch=master
-[travis-url]: https://travis-ci.org/JuliaAstro/AstroLib.jl
-
-[appvey-img]: https://ci.appveyor.com/api/projects/status/jfa9e54lv92rqd3m?svg=true
-[appvey-url]: https://ci.appveyor.com/project/giordano/astrolib-jl
+[build-img]: https://github.com/juliahci/AstroLib.jl/workflows/CI/badge.svg?branch=master
+[build-url]: https://github.com/juliahci/AstroLib.jl/actions
 
 [coveral-img]: https://coveralls.io/repos/github/JuliaAstro/AstroLib.jl/badge.svg?branch=master
 [coveral-url]: https://coveralls.io/github/JuliaAstro/AstroLib.jl?branch=master
