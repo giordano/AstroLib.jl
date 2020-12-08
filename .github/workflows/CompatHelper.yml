@@ -3,7 +3,7 @@ on:
   schedule:
     - cron: 0 23 * * *
 jobs:
-  build:
+  CompatHelper:
     runs-on: ubuntu-latest
     steps:
       - name: Pkg.add("CompatHelper")
