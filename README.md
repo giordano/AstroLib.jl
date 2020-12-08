@@ -228,8 +228,8 @@ author is Mosè Giordano.
 [pkgeval-img]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/A/AstroLib.svg
 [pkgeval-url]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/report.html
 
-[build-img]: https://github.com/juliahci/AstroLib.jl/workflows/CI/badge.svg?branch=master
-[build-url]: https://github.com/juliahci/AstroLib.jl/actions
+[build-img]: https://github.com/juliaastro/AstroLib.jl/workflows/CI/badge.svg?branch=master
+[build-url]: https://github.com/juliaastro/AstroLib.jl/actions
 
 [coveral-img]: https://coveralls.io/repos/github/JuliaAstro/AstroLib.jl/badge.svg?branch=master
 [coveral-url]: https://coveralls.io/github/JuliaAstro/AstroLib.jl?branch=master
