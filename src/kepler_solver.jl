@@ -4,10 +4,12 @@
 function kepler_solver(M::T, e::T) where {T<:AbstractFloat}
     @assert 0 <= e <= 1 "eccentricity must be in the range [0, 1]"
     # M must be in the range [-pi, pi], see Markley (1995), page 2.
-    M = rem2pi(M, RoundNearest)
+    M = M % (2.0*π) == 0.0 ? 0.0 : mod2pi(M)
     if iszero(M) || iszero(e)
         return M
     else
+        high = M > π
+        high && (M = 2.0*π - M)
         pi2 = abs2(T(pi))
         # equation (20)
         α = (3 * pi2 + 1.6 * (pi2 - pi * abs(M))/(1 + e))/(pi2 - 6)
@@ -33,7 +35,9 @@ function kepler_solver(M::T, e::T) where {T<:AbstractFloat}
         δ4 = -f0 / @evalpoly(δ3, f1, f2 / 2, f3 / 6)
         # equations (24) and (28)
         δ5 = -f0 / @evalpoly(δ4, f1, f2 / 2, f3 / 6, - f2 / 24)
-        return E1 + δ5 # equation 29
+        E = E1 + δ5 # equation 29
+        high && (E = 2.0*π - E)
+        return E
     end
 end
 
