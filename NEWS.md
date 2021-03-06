@@ -1,16 +1,19 @@
-History of AstroLib.jl
-======================
+# History of AstroLib.jl
 
-v0.4.0 (2018-08-17)
--------------------
+## v0.4.1 (2021-??-??)
+
+### Bug Fixes
+
+* Fixed `adstring` with new versions of Julia (v1.6+).
+
+## v0.4.0 (2018-08-17)
 
 ### Breaking Changes
 
 * Now `AstroLib.jl` requires Julia 0.7.  Support for previous versions has been
   dropped.
 
-v0.3.0 (2017-11-11)
--------------------
+## v0.3.0 (2017-11-11)
 
 ### Breaking Changes
 
