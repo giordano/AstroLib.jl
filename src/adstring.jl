@@ -90,12 +90,12 @@ function adstring(ra::T, dec::T; precision::Int=0,
     else
         ra_hr, ra_min, ra_sec, dec_deg, dec_min, dec_sec = radec(ra, dec)
         ra_sec_string = formatsec(ra_sec, precision + 1, truncate)
-        ra_string = @sprintf("%03.2d %02d %s  ", ra_hr,
-                             ra_min, ra_sec_string)
+        ra_string = @sprintf("%03.2d %02d %s  ", Int(ra_hr),
+                             Int(ra_min), ra_sec_string)
     end
     dec_sec_string = formatsec(dec_sec, precision, truncate)
-    dec_string = @sprintf("%+03.2d %02d %s", dec_deg,
-                          dec_min, dec_sec_string)
+    dec_string = @sprintf("%+03.2d %02d %s", Int(dec_deg),
+                          Int(dec_min), dec_sec_string)
     return string(ra_string, dec_string)
 end
 
