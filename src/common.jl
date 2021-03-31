@@ -10,27 +10,19 @@ This is provided by World Magnetic Model
 (https://www.ngdc.noaa.gov/geomag/data/poles/NP.xy).
 """
 const POLELATLONG =
-    try
-        let
-            local polelatlong, rows, floattype, temp
-            polelatlong = readdlm(joinpath(@__DIR__,
-                                           "..", "deps", "NP.xy"))
-            rows = size(polelatlong, 1)
-            floattype = typeof(polelatlong[1])
-            temp = Dict{floattype, Tuple{floattype, floattype}}()
-            for i = 1:rows
-                merge!(temp, Dict(polelatlong[2rows + i]=>
-                                  (polelatlong[rows + i],
-                                   polelatlong[i])))
-            end
-            temp
+    let
+        local polelatlong, rows, floattype, temp
+        polelatlong = readdlm(joinpath(@__DIR__,
+                                       "..", "deps", "NP.xy"))
+        rows = size(polelatlong, 1)
+        floattype = typeof(polelatlong[1])
+        temp = Dict{floattype, Tuple{floattype, floattype}}()
+        for i = 1:rows
+            merge!(temp, Dict(polelatlong[2rows + i]=>
+                              (polelatlong[rows + i],
+                               polelatlong[i])))
         end
-    catch
-        @warn("""Could not find file NP.xy, you will not be able to use
-"geo2mag" and "mag2geo" functions.  Build again the package with
-    Pkg.build("AstroLib")
-    Base.compilecache("AstroLib")
-then restart Julia session in order to fix this problem.""")
+        temp
     end
 
 const AU = 149_597_870_700 # Astronomical unit in meters
