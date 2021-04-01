@@ -11,7 +11,7 @@ function kepler_solver(_M::Real, e::Real)
     end
     pi2 = abs2(T(pi))
     # equation (20)
-    α = (3 * pi2 + 1.6 * (pi2 - pi * abs(M))/(1 + e))/(pi2 - 6)
+    α = (3 * pi2 + 8 * (pi2 - pi * abs(M)) / (5 * (1 + e)))/(pi2 - 6)
     # equation (5)
     d = 3 * (1 - e) + α * e
     # equation (9)
