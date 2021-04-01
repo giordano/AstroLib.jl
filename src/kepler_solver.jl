@@ -1,40 +1,40 @@
 # This file is a part of AstroLib.jl. License is MIT "Expat".
 # Copyright (C) 2016 Mosè Giordano.
 
-function kepler_solver(M::T, e::T) where {T<:AbstractFloat}
+function kepler_solver(_M::Real, e::Real)
     @assert 0 <= e <= 1 "eccentricity must be in the range [0, 1]"
     # M must be in the range [-pi, pi], see Markley (1995), page 2.
-    M = rem2pi(M, RoundNearest)
+    M = rem2pi(_M, RoundNearest)
+    T = float(promote_type(typeof(M), typeof(e)))
     if iszero(M) || iszero(e)
-        return M
-    else
-        pi2 = abs2(T(pi))
-        # equation (20)
-        α = (3 * pi2 + 1.6 * (pi2 - pi * abs(M))/(1 + e))/(pi2 - 6)
-        # equation (5)
-        d = 3 * (1 - e) + α * e
-        # equation (9)
-        q = 2 * α * d * (1 - e) - M * M
-        # equation (10)
-        r = 3 * α * d * (d - 1 + e) * M + M * M * M
-        # equation (14)
-        w = cbrt(abs2(abs(r) + sqrt(q * q * q + r * r)))
-        # equation (15)
-        E1 = (2 * r * w / @evalpoly(w, q * q, q, 1) + M)/d
-        # equation (26) & equation (27)
-        f2, f3 = e .* sincos(E1)
-        # equation (21)
-        f0 = E1 - f2 - M
-        # equation (25)
-        f1 = 1 - f3
-        # equation (22)
-        δ3 = -f0 / (f1 - f0 * f2 / (2 * f1))
-        # equation (23)
-        δ4 = -f0 / @evalpoly(δ3, f1, f2 / 2, f3 / 6)
-        # equations (24) and (28)
-        δ5 = -f0 / @evalpoly(δ4, f1, f2 / 2, f3 / 6, - f2 / 24)
-        return E1 + δ5 # equation 29
+        return T(M)
     end
+    pi2 = abs2(T(pi))
+    # equation (20)
+    α = (3 * pi2 + 1.6 * (pi2 - pi * abs(M))/(1 + e))/(pi2 - 6)
+    # equation (5)
+    d = 3 * (1 - e) + α * e
+    # equation (9)
+    q = 2 * α * d * (1 - e) - M * M
+    # equation (10)
+    r = 3 * α * d * (d - 1 + e) * M + M * M * M
+    # equation (14)
+    w = cbrt(abs2(abs(r) + sqrt(q * q * q + r * r)))
+    # equation (15)
+    E1 = (2 * r * w / @evalpoly(w, q * q, q, 1) + M)/d
+    # equation (26) & equation (27)
+    f2, f3 = e .* sincos(E1)
+    # equation (21)
+    f0 = E1 - f2 - M
+    # equation (25)
+    f1 = 1 - f3
+    # equation (22)
+    δ3 = -f0 / (f1 - f0 * f2 / (2 * f1))
+    # equation (23)
+    δ4 = -f0 / @evalpoly(δ3, f1, f2 / 2, f3 / 6)
+    # equations (24) and (28)
+    δ5 = -f0 / @evalpoly(δ4, f1, f2 / 2, f3 / 6, - f2 / 24)
+    return E1 + δ5 # equation 29
 end
 
 """
@@ -107,5 +107,4 @@ for ecc in (0, 0.5, 0.9); plot(M, mod2pi.(kepler_solver.(M, ecc))); end
 
 The true anomaly can be calculated with `trueanom` function.
 """
-kepler_solver(M::Real, e::Real) =
-    kepler_solver(promote(float(M), float(e))...)
+kepler_solver
