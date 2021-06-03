@@ -1,10 +1,13 @@
 # History of AstroLib.jl
 
-## v0.4.1 (2021-??-??)
+## v0.4.1 (2021-06-03)
 
 ### Bug Fixes
 
 * Fixed `adstring` with new versions of Julia (v1.6+).
+* Improved type-stability of `kepler_solver`
+* `NP.xy` is now shipped together with `AstroLib.jl`, to avoid connection issues
+  to download it.
 
 ## v0.4.0 (2018-08-17)
 
